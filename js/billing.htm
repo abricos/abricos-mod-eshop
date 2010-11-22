@@ -1,0 +1,123 @@
+<!--{widget}-->
+<h1>Заказы</h1>
+<div id="{i#id}" class="yui-navset">
+	<ul class="yui-nav">
+		<li class="selected"><a href="#{i#new}"><em>Новые</em></a></li>
+		<li><a href="#{i#exec}"><em>Принятые на исполнение</em></a></li>
+    	<li><a href="#{i#arhive}"><em>Архив</em></a></li>
+    	<li><a href="#{i#recycle}"><em>Корзина</em></a></li>
+	</ul>            
+  <div class="yui-content">
+	  <div id="{i#new}"></div>
+	  <div id="{i#exec}"></div>
+	  <div id="{i#arhive}"></div>
+	  <div id="{i#recycle}"></div>
+  </div>
+</div>
+
+<!--{list}-->
+<div id='{i#pagtop}'></div>
+<div id='{i#table}'></div>
+<div id='{i#pagbot}'></div>
+
+<!--{table}-->
+<table class="bk-table-def">
+	<thead>
+		<tr>
+			<th>№</th>
+			<th>Дата</th>
+			<th>Сумма</th>
+			<th>Пользователь</th>
+			<th>Адрес доставки</th>
+			<th>IP</th>
+			{v#btns}
+		</tr>
+	</thead>
+	<tbody>{v#rows}</tbody>
+</table>
+
+<!--{row}-->
+<tr valign="top">
+	<td style="text-align: center">{v#id}</td>
+	<td>{v#dl}</td>
+	<td style="text-align: right">{v#sm}</td>
+	<td>{v#fnm} {v#lnm}</td>
+	<td>{v#adr}</td>
+	<td>{v#ip}</td>
+	{v#btns}
+</tr>
+
+<!--{usertpname}-->
+<td><a href="#" id="{i#user}-{v#uid}">{v#unm}</a></td>
+
+<!--{usertpip}-->
+<td><a href="#" id="{i#user}-{v#uid}">{v#unm}</a></td>
+
+<!--{rowwait}-->
+<tr valign="top">
+	<td colspan="10">Идет загрузка данных. Пожалуйста, подождите...</td>
+</tr>
+
+<!--{btnhnew}-->
+<th></th><th></th><th></th>
+
+<!--{btnnew}-->
+<td><a href="#" id="{i#view}-{v#id}">Просмотреть</a></td>
+<td><a href="#" id="{i#accept}-{v#id}">Принять</a></td>
+<td><a href="#" id="{i#remove}-{v#id}">Удалить</a></td>
+
+<!--{btnhexec}-->
+<th></th><th></th>
+
+<!--{btnexec}-->
+<td><a href="#" id="{i#view}-{v#id}">Просмотреть</a></td>
+<td><a href="#" id="{i#close}-{v#id}">Исполнить</a></td>
+
+<!--{btnharhive}-->
+<th></th>
+
+<!--{btnarhive}-->
+<td><a href="#" id="{i#view}-{v#id}">Просмотреть</a></td>
+
+<!--{btnhrecycle}-->
+<th></th>
+
+<!--{btnrecycle}-->
+<td><a href="#" id="{i#view}-{v#id}">Просмотреть</a></td>
+
+<!--{orderacceptpanel}-->
+<div class='hd'>Просмотр заказа</div>
+<div class='bd'>
+	<div id="{i#print}" style="height: 300px;">Идет загрузка данных. Пожалуйста, подождите...</div>
+	<div class="right">
+		<input type="button" class="btn" value="Принять заказ" id="{i#baccept}" >
+		<input type="button" class="btn" value="Отмена" id="{i#bcancel}" >
+	</div>
+</div>
+
+<!--{orderremovepanel}-->
+<div class='hd'>Удаление заказа</div>
+<div class='bd'>
+	<div id="{i#print}" style="height: 300px;">Идет загрузка данных. Пожалуйста, подождите...</div>
+	<div class="right">
+		<input type="button" class="btn" value="Удалить заказ" id="{i#bremove}" >
+		<input type="button" class="btn" value="Отмена" id="{i#bcancel}" >
+	</div>
+</div>
+
+<!--{orderclosepanel}-->
+<div class='hd'>Закрытие заказа</div>
+<div class='bd'>
+	<div id="{i#print}" style="height: 300px;">Идет загрузка данных. Пожалуйста, подождите...</div>
+	<div class="right">
+		<input type="button" class="btn" value="Закрыть заказ" id="{i#boclose}" >
+		<input type="button" class="btn" value="Отмена" id="{i#bcancel}" >
+	</div>
+</div>
+
+<!--{orderviewpanel}-->
+<div class='hd'>Просмотр заказа</div>
+<div class='bd'>
+	<div id="{i#print}" style="height: 300px;">Идет загрузка данных. Пожалуйста, подождите...</div>
+</div>
+

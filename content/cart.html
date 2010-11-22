@@ -1,0 +1,60 @@
+<!--[*]
+[tt=main][/tt]
+[script]cart.php[script]
+[bkvar=row]
+	<tr class="cart-item">
+		<td class="desc"><p><a href="{v#link}">{v#title}</a></p></td>
+		<td class="price">{v#price}</td>
+		<td class="qty">
+			<div class="form-item">
+				<input type="text" class="form-text" value="{v#count}" size="4" name="product-{v#productid}" maxlength="128">
+			</div>
+		</td>
+		<td class="total">{v#summ}</td>
+		<td class="ops"><a href="#">Удалить</a></td>
+	</tr>
+[/bkvar]
+[*]-->
+<h1><span>Корзина</span></h1><div class="clear"></div>
+<form id="#" method="#" accept-charset="UTF-8" action="#">
+	<div><div id="cart-view-page">
+	<table class="cart-table">
+			<thead>
+				<tr class="alt">
+					<th class="desc">Товары</th>
+					<th class="price">Цена</th>
+					<th class="qty">Кол-во</th>
+					<th class="total">Сумма</th>
+					<th class="ops"><!--ops--></th>
+					</tr>
+				</thead>
+				<tbody>
+					{v#rows}
+					<tr class="even alt" id="cart-final">
+						<td colspan="3">Итого</td>
+						<td id="cart-total">{v#amount}</td>
+						<td></td>
+					</tr>
+					<tr class="cart-item">
+						<td class="desc"><strong>Разовая/Накопительная скидка, {v#percent}%</strong></td>
+						<td class="qty"></td>
+						<td class="qty"></td>
+						<td class="price"><strong>{v#discount_summ}</strong></td>
+						<td class="qty"></td>
+					</tr>
+					<tr class="cart-item">
+						<td class="desc"><strong>Итого с учетом скидки, руб.</strong></td>
+						<td class="qty"></td>
+						<td class="qty"></td>
+						<td class="price"><strong>{v#final_price}</strong></td>
+						<td class="qty"></td>
+					</tr>
+				</tbody>
+			</table>
+		<div class="tright">
+		<input type="submit" class="form-submit" value="Пересчитать" id="edit-submit" name="op">
+		<input type="submit" class="form-submit" value="Оформить заказ" id="edit-checkout" name="op">
+	</div>
+	<a href="#">Продолжить покупки</a>
+	</div></div>
+</form>

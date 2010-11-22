@@ -1,0 +1,62 @@
+<!--[*]
+[script]product.php[/script]
+[mcss=eshop]eshop.css[/mcss]
+
+[v=options]
+	<dt>Арт.:</dt><dd>{v#fld_art}</dd>
+	<dt>Бренд:</dt><dd>{v#fld_brand}</dd>
+	<dt>Производитель:</dt><dd>{v#fld_country}</dd>
+	<dt>Склад:</dt><dd>{v#fld_sklad}</dd>
+	{v#overoptions}
+	<dt>Доставка:</dt>
+	<dd>бесплатно</dd>
+	<dt>Цена:</dt>
+	<dd><b>{v#fld_price} руб.</b></dd>
+[/v]
+[v=options1][/v]
+[v=options2][/v]
+
+[mod=filemanager]enthumbs|list=200x200/40x40[/mod]
+[p=imgsize]200x200[/p]
+[p=imgsizesm]40x40[/p]
+[p=imglimit]5[/p]
+
+[v=img]
+	<img id="bigPhoto" onclick="Brick.f('eshop', 'ui', 'showMaxPhoto', this); return false;" class="big img-product-{v#productid}" width="{v#w}" height="{v#h}" alt="{v#fld_name}" src="{v#src}">
+[/v]
+[v=imgempty]
+	<div class="rel"><a title="{v#fld_name}" href="#"><img width="200px" height="200px" alt="{v#fld_name}" src="/modules/eshop/images/empty.gif"></a><span class="nophoto">фотография временно недоступна</span></div>
+[/v]
+[v=imgsm]<img class="tmb" src="{v#src}" alt="{v#fld_name}" width="{v#w}" height="{v#h}" onclick="Brick.f('eshop', 'ui', 'showBigPhoto', {fid: '{v#fid}', el: this}); return false;" id="tmb{v#fid}">[/v]
+[v=button]
+	Кол-во:<input type="text" value="1" size="3" class="txt-product-bcount-{v#productid}"> <a class="button btn-product-buy product-{v#productid}" href="#" ><span>Добавить в корзину</span></a>
+[/v]
+[v=sklad0]<div class="center">Товара нет в наличии</div>
+[/v]
+[*]-->
+<div id="view_item">
+	<h1><span>{v#fld_name}</span></h1><div class="clear"></div>
+	<script type="text/javascript">
+		var photosData={"{v#cphoto}":{mw:250,mh:250,bw:200,bh:200}{v#otherphoto}}, pidCurrent="{v#cphoto}";
+	</script>
+	<div class="photos">
+		<div id="bigPhotoDiv">
+			{v#image}
+			<img width="31" height="31" src="/tt/babysmile/images/loader.gif" alt="Loading" id="loading" style="display: none;">
+		</div>
+		{v#imagelist}
+	</div>   
+	<div class="info">
+		<dl>
+			{v#options}
+		</dl>
+		<div class="add2cart">{v#add2cart}</div>
+	</div>
+	<br class="clearfloat">
+	<fieldset class="note">
+		<legend>Подробнее о товаре</legend>
+		{v#fld_desc}
+	</fieldset>
+</div>
+
+<script>Brick.f('eshop', 'ui', 'buyButtonsInit');</script>

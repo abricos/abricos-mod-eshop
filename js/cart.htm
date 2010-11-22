@@ -1,0 +1,128 @@
+<!--{pcimove}-->
+<div id="{i#id}" class="laywidget" style="position:absolute; opacity: 0.7; -moz-opacity:0.70; filter: alpha(opacity=70); z-index: 10000; background-repeat:repeat; width:{v#w}px; height:{v#h}px; top:{v#top}px; left:{v#left}px; overflow: hidden;">
+
+</div>
+
+<!--{panel}-->
+<div class='hd'>Корзина</div>
+<div class='bd'>
+	<h1><span>Моя корзина</span></h1><div class="clear"></div>
+	<div><div id="cart-view-page">
+		{v#widget}
+		<div class="tright" id="{i#buttons}">
+			<input type="button" class="form-submit" value="Пересчитать" id="{i#brecalc}" >
+			<input type="button" class="form-submit" value="Оформить заказ" id="{i#bcheckout}" >
+		</div>
+		<a href="#" id="{i#bclose}">Продолжить покупки</a>
+	</div></div>
+</div>
+
+<!--{widget}-->
+<div style="height: 200px; overflow: auto" id="{i#id}">
+	<div id="{i#table}"></div>
+</div>
+
+<!--{table}-->
+<table class="cart-table">
+	<thead>
+		<tr class="alt">
+			<th class="desc">Товар</th>
+			<th class="price">Цена</th>
+			<th class="qty">Кол-во</th>
+			<th class="total">Сумма</th>
+			<th class="ops"><!--ops--></th>
+		</tr>
+	</thead>
+	<tbody>{v#rows}</tbody>
+</table>
+
+<!--{tablero}-->
+<table class="cart-table">
+	<thead>
+		<tr class="alt">
+			<th class="desc">Товар</th>
+			<th class="price">Цена</th>
+			<th class="qty">Кол-во</th>
+			<th class="total">Сумма</th>
+		</tr>
+	</thead>
+	<tbody>{v#rows}</tbody>
+</table>
+
+<!--{row}-->
+<tr class="cart-item {v#sel}">
+	<td class="desc"><p><a id="{i#view}-{v#id}" href="#">{v#title}</a></p></td>
+	<td class="price">{v#price}</td>
+	<td class="qty">
+		<div class="form-item">
+			<input id="{i#qty}-{v#id}" type="text" class="form-text" value="{v#count}" size="4" maxlength="128">
+		</div>
+	</td>
+	<td class="total">{v#summ}</td>
+	<td class="ops"><a href="#" id="{i#remove}-{v#id}">Удалить</a></td>
+</tr>
+
+<!--{rowro}-->
+<tr class="cart-item {v#sel}">
+	<td class="desc"><p><a id="{i#view}-{v#id}" href="#">{v#title}</a></p></td>
+	<td class="price" style="text-align: right">{v#price}</td>
+	<td class="qty" style="text-align: center">{v#count}</td>
+	<td class="total" style="text-align: right">{v#summ}</td>
+</tr>
+
+<!--{rowwait}-->
+<tr class="cart-item">
+	<td colspan="5">Идет загрузка списка товаров. Пожалуйста, подождите...</td>
+</tr>
+
+<!--{rowwaitro}-->
+<tr class="cart-item">
+	<td colspan="4">Идет загрузка списка товаров. Пожалуйста, подождите...</td>
+</tr>
+
+<!--{rowsum}-->
+<tr class="even alt" id="cart-final">
+	<td colspan="3">Итого</td>
+	<td id="cart-total" class="price">{v#amount}</td>
+	<td></td>
+</tr>
+
+<!--{rowdsc}-->
+<tr class="cart-item">
+	<td class="desc"><strong>{v#tl}</strong></td>
+	<td class="qty"></td>
+	<td class="qty"></td>
+	<td class="price"><strong>{v#discount}</strong></td>
+	<td class="qty"></td>
+</tr>
+
+<!--{rowsumdsc}-->
+<tr class="cart-item">
+	<td class="desc"><strong>Итого с учетом скидки, руб.</strong></td>
+	<td class="qty"></td>
+	<td class="qty"></td>
+	<td class="price" style="text-align: right"><strong>{v#finalprice}</strong></td>
+	<td class="qty"></td>
+</tr>
+
+<!--{rowsumro}-->
+<tr class="even alt" id="cart-final">
+	<td colspan="3">Итого</td>
+	<td id="cart-total" style="text-align: right">{v#amount}</td>
+</tr>
+
+<!--{rowdscro}-->
+<tr class="cart-item">
+	<td class="desc"><strong>{v#tl}</strong></td>
+	<td class="qty"></td>
+	<td class="qty"></td>
+	<td class="price" style="text-align: right"><strong>{v#discount}</strong></td>
+</tr>
+
+<!--{rowsumdscro}-->
+<tr class="cart-item">
+	<td class="desc"><strong>Итого с учетом скидки, руб.</strong></td>
+	<td class="qty"></td>
+	<td class="qty"></td>
+	<td class="price" style="text-align: right"><strong>{v#finalprice}</strong></td>
+</tr>

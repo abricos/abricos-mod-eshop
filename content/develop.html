@@ -1,0 +1,94 @@
+<!--[*]
+[tt=main][/tt]
+[mcss=sys]widget.css[/mcss]
+[*]-->
+<h2>Модуль "Интернет-магазин" - страница разработчика</h2>
+
+<h3>Элементы управления пользователя</h3>
+
+<h4>Оформить заказ</h4>
+<p id="order">
+	<input id="btn-order" value="Оформить заказ" onclick="EShopDevelop.showOrderPanel()" type="button" />
+</p>
+
+<h3>Элементы управления администратора</h3>
+
+<h4>Настройка способов оплаты</h4>
+<p id="payment">
+	<input id="btn-payment-manager" value="Настройка способов оплаты" onclick="EShopDevelop.showPaymentPanel()" type="button" />
+</p>
+
+<h4>Настройка способов доставки</h4>
+<p id="delivery">
+	<input id="btn-delivery-manager" value="Настройка способов доставки" onclick="EShopDevelop.showDeliveryPanel()" type="button" />
+</p>
+
+<h4>Настройка скидок</h4>
+<p id="discount">
+	<input id="btn-discount-manager" value="Настройка скидок" onclick="EShopDevelop.showDiscountPanel()" type="button" />
+</p>
+
+
+<script>
+	var gel = function(id){
+		return document.getElementById(id);
+	};
+	var loadWait = function(callback){
+		if (Brick.objectExists('Brick.widget.LayWait')){
+			callback();
+		}else{
+			Brick.ff('sys','wait', function(){ callback(); });			
+		}
+	};
+
+	Brick.DEFAULT_ZINDEX = 9999;
+
+	EShopDevelop = {
+
+		// Элементы управления пользователя
+		
+		showOrderPanel: function(){
+			loadWait(function(){
+				var lw = new Brick.widget.LayWait('order', true);
+				Brick.ff('eshop', 'order', function(){
+					lw.hide();
+					var panel = Brick.mod.eshop.API.showOrderPanel();
+					panel.showPage('pay');
+				});
+			});
+		},
+
+		// Элементы управления администратора
+
+		showPaymentPanel: function(){
+			loadWait(function(){
+				var lw = new Brick.widget.LayWait('payment', true);
+				Brick.ff('eshop','payment', function(){
+					lw.hide();
+					Brick.mod.eshop.API.showPaymentManagerPanel();
+				});
+			});
+		},
+
+		showDeliveryPanel: function(){
+			loadWait(function(){
+				var lw = new Brick.widget.LayWait('delivery', true);
+				Brick.ff('eshop','delivery', function(){
+					lw.hide();
+					Brick.mod.eshop.API.showDeliveryManagerPanel();
+				});
+			});
+		},
+
+		showDiscountPanel: function(){
+			loadWait(function(){
+				var lw = new Brick.widget.LayWait('discount', true);
+				Brick.ff('eshop','discount', function(){
+					lw.hide();
+					Brick.mod.eshop.API.showDiscountManagerPanel();
+				});
+			});
+		}
+	}
+
+</script>

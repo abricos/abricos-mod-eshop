@@ -1,0 +1,222 @@
+<!--{panel}-->
+<div class='hd'>Оформить заказ</div>
+<div class='bd'>
+	<h1>Ваш счет</h1>
+	<div>
+		<span id="{i#bk-buy}">Покупки</span>
+		<span id="{i#bk-auth}">&nbsp;→ Авторизация</span> 
+		<span id="{i#bk-deli}">&nbsp;→ Доставка</span> 
+		<span id="{i#bk-pay}">&nbsp;→ Оплата</span> 
+		<span id="{i#bk-conf}">&nbsp;→ Подверждение</span> 
+	</div>
+	<div class="total" style="opacity: 1;">
+		<span id="{i#cartsum}" class="price_number">10&nbsp;990</span>
+		<span class="thinsp">&nbsp;руб.</span>
+	</div>
+	<div id="cart-view-page">
+		{v#auth}
+		{v#deli}
+		{v#pay}
+		{v#conf}
+		
+		<div id="{i#accepted}" class="accepted-n"></div>
+		<img id="{i#imgaccepted}" src="/modules/eshop/images/accepted.gif" style="position: absolute; left: -9999px; top: -9999px;"/>
+		
+		<div class="tright">
+			<input type="button" class="form-submit" value="Вернуться" id="{i#blast}" >
+			<input type="button" class="form-submit" value="Продолжить" id="{i#bnext}" >
+		</div>
+	</div>
+</div>
+
+<!--{viewwidget}-->
+<div id="{i#id}">Идет загрузка данных. Пожалуйства, подождите...</div>
+{v#cart}
+
+<!--{auth}-->
+<div id="{i#id}" style="display: none;" class="order_block">
+	<h3>Регистрация на сайте:</h3>
+	<div class="order-in-list">
+		<ul>
+			<li><input type="radio" checked="checked" value="1" id="{i#bnewuser}" name="{i#radioname}" />
+				<label for="{i#bnewuser}">Я&nbsp;новый покупатель</label></li>
+			<li><input type="radio" value="2" id="{i#bauth}" name="{i#radioname}">
+				<label for="{i#bauth}">Я&nbsp;зарегистрирован, готов ввести свой логин и пароль</label></li>
+			<li><input type="radio" value="3" id="{i#bnonauth}" name="{i#radioname}">
+				<label for="{i#bnonauth}">Пропустить этот шаг и перейти сразу к оформлению заказа</label></li>
+		</ul>
+	</div>	
+	<div id="{i#reg}" class="order-in-block">
+		<h3>Регистрация персонального аккаунта</h3>
+		<p>
+			Если вы хотите иметь авторизованый доступ в наш магазин, то заполните 
+			необходимые поля для регистрации вашего персонального аккаунта  
+			(<a href="#">для чего нужна регистрация?</a>).
+		</p>
+		<ul>
+			<li><label for="{i#regemail}">E-mail<span class="red">*</span></label>
+				<input style="width: 200px;" size="25" id="{i#regemail}" type="text" class="node" value="my-email@mail.ru" onfocus="this.value=''; this.onfocus=null; this.className='';" /><span class="node">Введите адрес своей электронной почты. <a href="">А если нет e-mail'a?</a></span></li>
+			<li><label for="{i#reglogin}">Логин<span class="red">*</span></label>
+				<input style="width: 200px;" size="25" id="{i#reglogin}" type="text" class="node" value="MyLogin" onfocus="this.value=''; this.onfocus=null; this.className='';" /><span class="node">Вводите латинские буквы (abc) и цифры</span></li>
+			<li><label for="{i#regpass}">Пароль<span class="red">*</span></label>
+				<input style="width: 200px;" size="25" id="{i#regpass}" type="password" /><span class="node">Придумайте пароль, запомните его и никому его не говорите</span></li>
+			<li><label for="{i#regpassconf}">Повторите пароль<span class="red">*</span></label>
+				<input style="width: 200px;" size="25" id="{i#regpassconf}" type="password" /><span class="node">Введите пароль еще раз</span></li>
+		</ul>
+		<div style="display: none;">
+			<label id="{i#rerrc1}">Ошибка: Не заполнены обязательные поля</label> 
+			<label id="{i#rerrc2}">Ошибка: Пароли должны совпадать</label> 
+			<label id="{i#rerr1}">Ошибка: Пользователь с такой учетной записью уже зарегистрирован</label> 
+			<label id="{i#rerr2}">Ошибка: Пользователь с таким E-mail уже зарегистрирован</label> 
+			<label id="{i#rerr3}">Ошибка в учетной записи</label> 
+			<label id="{i#rerr4}">Ошибка в E-mail</label> 
+			<label id="{i#rerr999}">Ошибка на стороне сервера, попробуйте через минутку</label> 
+		</div>
+	</div>
+	
+	<div id="{i#auth}"  class="order-in-block" style="display: none;">
+		<h3>Аторизация</h3>
+		<ul>
+			<li><label for="{i#authlogin}">Логин<span class="red">*</span></label>
+				<input style="width: 200px;" size="25" id="{i#authlogin}" type="text" /></li>
+			<li><label for="{i#authpass}">Пароль<span class="red">*</span></label>
+				<input style="width: 200px;" size="25" id="{i#authpass}" type="password" /></li>
+		</ul>
+		<div style="display: none;">
+			<label id="{i#autherr1}">Ошибка: Неверное имя пользователя или пароль</label> 
+			<label id="{i#autherr2}">Ошибка: Неверное имя пользователя или пароль</label> 
+			<label id="{i#autherr3}">Ошибка: Не заполнены обязательные поля</label> 
+			<label id="{i#autherr4}">Ошибка: Пользователь заблокирован</label> 
+			<label id="{i#autherr5}">Ошибка: Пользователь не прошел верификацию email</label> 
+			<label id="{i#autherr999}">Ошибка на стороне сервера, попробуйте через минутку</label> 
+		</div>
+	</div>
+	<div id="{i#guest}" class="order-in-block" style="display: none;">
+		<h3>Обратите внимание!</h3>
+		<p>Не зарегистрированные пользователи не могут воспользоваться накопительными скидками, не учавствуют в акциях Интернет-магазина, не получают уведомления о спецпредложениях магазина и поступлении нового товара.
+		<!--(<a href="#">Хотите Узнать больше о преимуществах регистрации?</a>).-->
+		</p>
+	</div>
+
+</div>
+
+<!--{authprint}-->
+<h3>Зарегистрироваться на сайте:</h3>
+<ul>
+	<li>Учетная запись: {v#login}</li>
+	<li>Электронная почта: {v#email}</li>
+</ul>
+
+
+<!--{deli}-->
+<div id="{i#id}" style="display: none;" class="order_block">
+	<div id="{i#deliselect}">
+		<h3>Выберите способ доставки:</h3>
+		<div class="order-in-list" id="{i#table}"></div>
+	</div>
+	<div class="order-in-block">
+		<h3>Заказчик:</h3>
+		<ul>
+			<li>
+				<label id="{i#lblfam}" for="{i#fam}">Фамилия<span class="red">*</span></label>
+				<input id="{i#fam}" type="text" size="25" class="node" value="Сикстинская" style="width: 200px;" onfocus="this.value=''; this.onfocus=null; this.className='';" />
+			</li>
+			<li>
+				<label id="{i#lblim}" for="{i#im}">Имя<span class="red">*</span></label>
+				<input id="{i#im}" type="text" size="25" class="node" value="Мадонна" style="width: 200px;" onfocus="this.value=''; this.onfocus=null; this.className='';" />
+			</li>
+			<li>
+				<label id="{i#lblphone}" for="{i#phone}">Телефон<span class="red">*</span></label>
+				<input id="{i#phone}" type="text" size="25" class="node" value="+7 9876 543210" style="width: 200px;"  onfocus="this.value=''; this.onfocus=null; this.className='';" />
+			</li>
+			<li id="{i#adressrow}" style="display: none;">
+				<label id="{i#lbladress}" for="{i#adress}">Адрес доставки<span class="red">*</span></label>
+				<textarea id="{i#adress}" class="node" style="width: 300px; height: 50px;" onfocus="this.value=''; this.onfocus=null; this.className='';">Казань, ул. Пушкина, д. 3, кв. 12</textarea>
+			</li>
+			<li>
+				<label id="{i#lblextinfo}" for="{i#extinfo}">Дополнительная информация</label>
+				<textarea id="{i#extinfo}" class="node" style="width: 300px; height: 50px;" onfocus="this.value=''; this.onfocus=null; this.className='';">Удобное время звонка, дополнительные номера телефонов, этаж и т. д.</textarea>
+			</li>
+		</ul>
+	</div>
+
+</div>
+
+<!--{deliprint}-->
+<h3>Получатель:</h3>
+<ul>
+	<li>Фамилия: {v#lastname}</li>
+	<li>Имя: {v#firstname}</li>
+	<li>Телефон: {v#phone}</li>
+	<li style="display: {v#hideadr}">Адрес доставки: {v#adress}</li>
+	<li>Дополнительная информация: {v#extinfo}</li>
+</ul>
+<h3>Способ доставки: {v#delitl}</h3>
+
+<!--{delitldef}-->
+Самовывоз
+
+<!--{delitable}-->
+<ul>
+	{v#rows}
+	<li id="{i#node}">
+		<input type="radio" value="0" id="{i#mydeli}" name="delimethod_row-0" />
+		<label for="{i#mydeli}">Самовывоз</label>
+	</li>
+</ul>
+
+<!--{delitablesub}-->
+<ul id="{i#id}-{v#pid}" class="{i#level}-{v#level}" style="margin-left: 20px;">{v#rows}</ul>
+
+<!--{delirow}-->
+<li class="{i#path}-{v#path}" id="{i#node}-{v#id}">
+	<input type="radio" value="{v#id}" id="{i#id}-{v#id}" name="delimethod_row-{v#level}" />
+	<label for="{i#id}-{v#id}">
+		{v#tl}
+		{v#child}
+	</label>
+</li>
+
+<!--{delirowwait}-->
+<li>Идет загрузка данных. Пожалуйста, подождите...</li>
+
+<!--{pay}-->
+<div id="{i#id}" style="display: none;" class="order_block">
+	<!--
+	<div class="info">
+		<dl>
+	      <dt>Сумма заказа</dt><dd><span class="price_number">10&nbsp;990</span><span class="thinsp">&nbsp;руб.</span></dd>
+	      <dt>Скидка</dt><dd><span class="price_number">100</span><span class="thinsp">&nbsp;руб.</span></dd>
+	      <dt>Стоимость доставки</dt><dd><span class="price_number">200</span><span class="thinsp">&nbsp;руб.</span></dd>
+	      <dt>Сумма к оплате</dt><dd><span class="price_number">11&nbsp;090</span><span class="thinsp">&nbsp;руб.</span></dd>
+	    </dl>
+	</div>
+	-->
+	<h3>Выберите способ оплаты:</h3>
+	<div class="order-in-list" id="{i#table}"></div>
+	<div id="{i#dsc}"></div>
+</div>
+
+<!--{payprint}-->
+<h3>Оплата: {v#tl}</h3>
+{v#dsc}
+
+<!--{paytable}-->
+<ul>{v#rows}</ul>
+
+<!--{payrow}-->
+<li>
+	<input type="radio" value="{v#id}" id="{i#id}-{v#id}" name="{i#radio}" {v#checked}/>
+	<label for="{i#id}-{v#id}">{v#tl}</label>
+</li>
+
+<!--{payrowwait}-->
+<li>Идет загрузка данных. Пожалуйста, подождите...</li>
+
+<!--{conf}-->
+<div id="{i#id}" style="display: none;" class="order_block">
+
+	{v#cart}
+	
+	<div class="info" id="{i#print}"></div>
+</div>

@@ -1,0 +1,71 @@
+<!--{manpanel}-->
+<div class='hd'>Настройка способов доставки</div>
+<div class='bd'>
+	<div class="field" id="{i#widget}"></div>
+</div>
+
+<!--{manwidget}-->
+<div class="buttons right">
+	<input type="button" value="Добавить" id="{i#bappend}"/>
+</div>
+<div id='{i#table}'></div>
+<div class="buttons right">
+	<input type="button" value="Сохранить порядок сортировки" id="{i#bsave}"/>
+</div>
+
+<!--{table}-->
+<ul>{v#rows}</ul>
+
+<!--{row}-->
+<li id="{i#id}-{v#id}">
+{v#tl}
+&nbsp;<a href="#" id="{i#add}-{v#id}">Добавить</a>
+&nbsp;<a href="#" id="{i#edit}-{v#id}">Править</a>
+&nbsp;<a href="#" id="{i#remove}-{v#id}">Удалить</a>
+{v#child}
+</li>
+
+<!--{rowwait}-->
+<li>Идет загрузка данных. Пожалуйста, подождите...</li>
+
+<!--{editorpanel}-->
+<div class='hd'>Редактор</div>
+<div class='bd'>
+
+	<div class="field">	
+		<p>
+			Название <input id="{i#tl}" type="text" style="width: 300px;" />
+		</p>
+		
+		<p style="display: none;">
+			Шаблон ввода данных (используется при оформлении заказа) <br />
+			<textarea id="{i#it}" style="width: 400px;" ></textarea>
+		</p>
+
+		<p style="display: none;">
+			Шаблон печати (используется для просмотра информации о заказе)<br />
+			<textarea id="{i#ot}" style="width: 400px;" ></textarea>
+		</p>
+ 	
+		<div class="buttons right">
+			<input type="button" value="Сохранить" id="{i#bsave}" />
+			<input type="button" value="Отмена" id="{i#bcancel}" />
+		</div>
+	</div>
+</div>
+
+<!--{removepanel}-->
+<div class='hd'>Удаление</div>
+<div class='bd'>
+
+	<div class="field">	
+		<p>
+			Вы действительно хотите удалить "<strong>{v#tl}</strong>"?
+		</p>
+	
+		<div class="buttons right">
+			<input type="button" value="Удалить" id="{i#bremove}" />
+			<input type="button" value="Отмена" id="{i#bcancel}" />
+		</div>
+	</div>
+</div>
