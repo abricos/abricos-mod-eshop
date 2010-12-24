@@ -1,0 +1,26 @@
+<!--[*]
+[script]catalog_list.php[/script]
+[mcss=eshop]eshop.css[/mcss]
+
+[bkvar=row]
+	<li>
+		{v#image}
+		<p class="pr_title"><a title="{v#title}" href="{v#link}">{v#title}</a></p>
+    </li>
+[/bkvar]
+
+[bkvar=img]
+	<div>{v#pr_spec1}<a title="{v#title}" href="{v#link}"><img class="img-product-{v#productid}" width="{v#w}" height="{v#h}" alt="{v#title}" src="{v#src}"></a></div>
+[/bkvar]
+
+[bkvar=imgempty]
+	<div class="rel"><a title="{v#title}" href="{v#link}"><img width="200px" height="200px" alt="{v#title}" src="/modules/eshop/images/empty.gif"></a><span class="nophoto"><a title="{v#title}" href="{v#link}">фотография временно недоступна</a></span></div>
+[/bkvar]
+
+[mod=filemanager]enthumbs|list=200x200[/mod]
+[p=imgw]200[/p]
+[p=imgh]200[/p]
+
+[*]--><ul>
+	{v#result}
+</ul>
