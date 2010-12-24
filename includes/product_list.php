@@ -54,8 +54,11 @@ if ($fld){
 	$rows = $catalogManager->ElementList($catids, $listPage, $perPage);
 }
 
+$elTypes = array();
+
 while (($row = $db->fetch_array($rows))){
 	$el = $catalogManager->Element($row['id'], true);
+	
 	if (empty($tempArr[$el['catid']])){
 		$tempArr[$el['catid']] = $smMenu->FindSource('id', $el['catid']);
 	}
@@ -81,15 +84,47 @@ while (($row = $db->fetch_array($rows))){
 			"pr_spec1" => $pr_spec11
 		));
 	}
-
-	$lst .= Brick::ReplaceVarByData($brick->param->var['row'], array(
+	
+	$replace = array(
 		"tpl_btn" => $brick->param->var[$el['fld_sklad']==0 ? 'btnnotorder' : 'btnorder'],
 		"image" => $image, 
 		"title" => addslashes(htmlspecialchars($el['fld_name'])),
 		"price" => $el['fld_price'],
 		"link" => $link."product_".$row['id']."/",
 		"productid" => $row['id']
-	));
+	);
+
+	if (empty($elTypes[$el['eltid']])){
+		$etRows = $catalogManager->ElementOptionListByType($el['eltid']);
+		$etArr = array();
+		while (($etRow = $db->fetch_array($etRows))){
+			array_push($etArr, $etRow);
+			/*
+			/**/
+		}
+		$elTypes[$el['eltid']] = $etArr; 
+	}
+	$etArr = $elTypes[$el['eltid']]; 
+	foreach ($etArr as $etRow){
+		$fld = "fld_".$etRow['nm'];
+		
+		// Если опция пуста - пробел, чтобы не рушить верстку
+		$el[$fld] = !empty($el[$fld]) ? $el[$fld] : '&nbsp;';
+		if ($etRow['nm'] != 'desc'){
+			// $el[$fld] = htmlspecialchars($el[$fld]);
+		}
+		$replace[$fld] = $el[$fld];
+		/*
+		// Если тип опции - таблица (fldtp = 5), то необходимо получить значение опции из таблицы
+		if	($row['fldtp'] == 5){
+			// Получаем значение опции 'tl'. '' - т.к. тип товара - default 
+			$val = $catalogManager->ElementOptionFieldTableValue('', $row['nm'], $el[$fld]);
+			$replace[$fld] = $val['tl'];
+		}/**/
+		
+		$replace["fldnm_".$etRow['nm']] = $etRow['tl'];
+	}
+	$lst .= Brick::ReplaceVarByData($brick->param->var['row'], $replace);
 }
 $brick->content = Brick::ReplaceVarByData($brick->content, array(
 	"display" => $p['display'],
