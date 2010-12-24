@@ -19,8 +19,23 @@ $catalogManager = $mod->GetCatalogManager();
 
 
 $smMenu = CMSRegistry::$instance->modules->GetModule('sitemap')->GetManager()->GetMenu();
-
-$catItemMenu = $smMenu->menuLine[count($smMenu->menuLine)-1];
+$catItemMenu = null;
+$cnt = count($smMenu->menuLine);
+if ($cnt == 1){
+	$rootMenu = $smMenu->menuLine[0];
+	foreach ($rootMenu->child as $child){
+		if ($child->name == 'eshop'){
+			$catItemMenu = $child;
+			break;
+		}
+	}
+}else if ($cnt > 1){
+	$catItemMenu = $smMenu->menuLine[count($smMenu->menuLine)-1];
+}
+if (is_null($catItemMenu)){
+	$brick->content = "";
+	return;
+}
 $catItem = $catItemMenu->source;
 
 $link = $baseUrl = $catItemMenu->link; 
