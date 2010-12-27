@@ -2,6 +2,12 @@
 [script]product_list.php[/script]
 [mcss=eshop]eshop.css[/mcss]
 
+[bkvar=table]
+	<ul id="product-list-page-{v#page}">
+		{v#rows}
+	</ul>
+[/bkvar]
+
 [bkvar=row]
 	<li>
 		{v#image}
@@ -49,6 +55,4 @@
 [p=page][/p]
 [p=display][/p]
 
-[*]--><ul id="product-list-page-{v#page}">
-	{v#result}
-</ul>
+[*]-->{v#result}

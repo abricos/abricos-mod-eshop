@@ -37,10 +37,6 @@ $catids = $listData['catids'];
 $fld = $p['fld'];
 $perPage = bkint($p['count']);
 
-$brick->content = Brick::ReplaceVarByData($brick->content, array(
-	"page" => $listPage
-));
-
 $tempArr = array();
 
 //Проверяем наличие параметра fld у кирпича, вызывающего скрипт (выборка спецпредложений, новинок, акций и т.д.)
@@ -54,7 +50,10 @@ if ($fld){
 	$rows = $catalogManager->ElementList($catids, $listPage, $perPage);
 }
 
-$elTypes = array();
+$elTypeList = $catalogManager->ElementTypeListArray();
+
+$lstResult = "";
+$strList = array();
 
 while (($row = $db->fetch_array($rows))){
 	$el = $catalogManager->Element($row['id'], true);
@@ -93,18 +92,8 @@ while (($row = $db->fetch_array($rows))){
 		"link" => $link."product_".$row['id']."/",
 		"productid" => $row['id']
 	);
-
-	if (empty($elTypes[$el['eltid']])){
-		$etRows = $catalogManager->ElementOptionListByType($el['eltid']);
-		$etArr = array();
-		while (($etRow = $db->fetch_array($etRows))){
-			array_push($etArr, $etRow);
-			/*
-			/**/
-		}
-		$elTypes[$el['eltid']] = $etArr; 
-	}
-	$etArr = $elTypes[$el['eltid']]; 
+	
+	$etArr = $catalogManager->ElementOptionListByType($el['eltid'], true);
 	foreach ($etArr as $etRow){
 		$fld = "fld_".$etRow['nm'];
 		
@@ -124,11 +113,34 @@ while (($row = $db->fetch_array($rows))){
 		
 		$replace["fldnm_".$etRow['nm']] = $etRow['tl'];
 	}
-	$lst .= Brick::ReplaceVarByData($brick->param->var['row'], $replace);
+	$isChangeType = false;
+	$tpRow = $brick->param->var['row'];
+	$elTypeId = $el['eltid'];
+	if (!empty($elTypeList[$elTypeId])){
+		$elTypeName = $elTypeList[$elTypeId]['nm'];
+		if (!empty($brick->param->var['row-'.$elTypeName])){
+			$tpRow = $brick->param->var['row-'.$elTypeName];
+			$isChangeType = true;
+		}
+	}
+	$strList[$isChangeType ? $elTypeId : 0] .= Brick::ReplaceVarByData($tpRow, $replace);
 }
+
+$lstResult = "";
+foreach ($strList as $key => $value){
+	$tpTable = $brick->param->var['table'];
+	$elTypeName = $elTypeList[$key]['nm'];
+	if (!empty($brick->param->var['table-'.$elTypeName])){
+		$tpTable = $brick->param->var['table-'.$elTypeName];
+	}
+	$lstResult .= Brick::ReplaceVarByData($tpTable, array(
+		"page" => $listPage, "rows" => $value
+	));
+}
+
 $brick->content = Brick::ReplaceVarByData($brick->content, array(
 	"display" => $p['display'],
-	"result" => $lst
+	"result" => $lstResult
 ));
 
 
