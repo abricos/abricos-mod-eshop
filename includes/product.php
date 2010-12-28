@@ -125,20 +125,19 @@ foreach ($etArr as $etRow){
 $tpTable = $brick->param->var["table"];
 $tpRow = $brick->param->var["row"];
 $elTypeId = $el['eltid'];
+$elTypeList = $catalogManager->ElementTypeListArray();
 if (!empty($elTypeList[$elTypeId])){
 	$elTypeName = $elTypeList[$elTypeId]['nm'];
 	if (!empty($brick->param->var['table-'.$elTypeName])){
-		$tpRow = $brick->param->var['table-'.$elTypeName];
+		$tpTable = $brick->param->var['table-'.$elTypeName];
 	}
 	if (!empty($brick->param->var['row-'.$elTypeName])){
 		$tpRow = $brick->param->var['row-'.$elTypeName];
 	}
 }
-	
+
 $brick->content = Brick::ReplaceVarByData($brick->content, array(
-	"options" => Brick::ReplaceVarByData($tpTable, array(
-		"rows" => $tpRow
-	)),
+	"optlist" => Brick::ReplaceVarByData($tpTable, array("rows" => $tpRow))
 ));
 $brick->content = Brick::ReplaceVarByData($brick->content, $replace);
 
