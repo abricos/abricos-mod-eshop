@@ -2,7 +2,13 @@
 [script]product.php[/script]
 [mcss=eshop]eshop.css[/mcss]
 
-[v=options]
+[v=table]
+	<dl>
+		{v#rows}
+	</dl>
+[/v]
+
+[v=row]
 	<dt>Арт.:</dt><dd>{v#fld_art}</dd>
 	<dt>Бренд:</dt><dd>{v#fld_brand}</dd>
 	<dt>Производитель:</dt><dd>{v#fld_country}</dd>
@@ -13,8 +19,6 @@
 	<dt>Цена:</dt>
 	<dd><b>{v#fld_price} руб.</b></dd>
 [/v]
-[v=options1][/v]
-[v=options2][/v]
 
 [mod=filemanager]enthumbs|list=200x200/40x40[/mod]
 [p=imgsize]200x200[/p]
@@ -47,9 +51,7 @@
 		{v#imagelist}
 	</div>   
 	<div class="info">
-		<dl>
-			{v#options}
-		</dl>
+		{v#options}
 		<div class="add2cart">{v#add2cart}</div>
 	</div>
 	<br class="clearfloat">

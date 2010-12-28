@@ -80,7 +80,6 @@ $replace = array(
 	"link" => $link."product_".$productId."/"
 );
 
-$rows = $catalogManager->ElementOptionListByType($el['eltid']);
 $el['fld_sklad'] = !empty($el['fld_sklad']) ? $el['fld_sklad'].' шт.' : 'Нет в наличии';
 
 if (!$el['fld_sklad'] OR $el['fld_sklad'] == 0)	{
@@ -99,8 +98,13 @@ if (!$el['fld_sklad'] OR $el['fld_sklad'] == 0)	{
 	);	
 };
 
-while (($row = $db->fetch_array($rows))){
-	$fld = "fld_".$row['nm'];
+$etArr = $catalogManager->ElementOptionListByType(0, true);
+
+if ($el['eltid'] > 0){
+	$etArr = array_merge($etArr, $catalogManager->ElementOptionListByType($el['eltid'], true));
+}
+foreach ($etArr as $etRow){
+	$fld = "fld_".$etRow['nm'];
 	
 	// Если опция пуста - пробел, чтобы не рушить верстку
 	$el[$fld] = !empty($el[$fld]) ? $el[$fld] : '&nbsp;';
@@ -111,13 +115,31 @@ while (($row = $db->fetch_array($rows))){
 	// Если тип опции - таблица (fldtp = 5), то необходимо получить значение опции из таблицы
 	if	($row['fldtp'] == 5){
 		// Получаем значение опции 'tl'. '' - т.к. тип товара - default 
-		$val = $catalogManager->ElementOptionFieldTableValue('', $row['nm'], $el[$fld]);
+		$val = $catalogManager->ElementOptionFieldTableValue('', $etRow['nm'], $el[$fld]);
 		$replace[$fld] = $val['tl'];
 	}
 	
-	$replace["fldnm_".$row['nm']] = $row['tl'];
+	$replace["fldnm_".$etRow['nm']] = $etRow['tl'];
 }
 
+$tpTable = $brick->param->var["table"];
+$tpRow = $brick->param->var["row"];
+$elTypeId = $el['eltid'];
+if (!empty($elTypeList[$elTypeId])){
+	$elTypeName = $elTypeList[$elTypeId]['nm'];
+	if (!empty($brick->param->var['table-'.$elTypeName])){
+		$tpRow = $brick->param->var['table-'.$elTypeName];
+	}
+	if (!empty($brick->param->var['row-'.$elTypeName])){
+		$tpRow = $brick->param->var['row-'.$elTypeName];
+	}
+}
+	
+$brick->content = Brick::ReplaceVarByData($brick->content, array(
+	"options" => Brick::ReplaceVarByData($tpTable, array(
+		"rows" => $tpRow
+	)),
+));
 $brick->content = Brick::ReplaceVarByData($brick->content, $replace);
 
 // Вывод заголовка страницы.
