@@ -55,6 +55,8 @@ $elTypeList = $catalogManager->ElementTypeListArray();
 $lstResult = "";
 $strList = array();
 
+$etArr0 = $catalogManager->ElementOptionListByType($el['eltid'], true);
+
 while (($row = $db->fetch_array($rows))){
 	$el = $catalogManager->Element($row['id'], true);
 	
@@ -93,7 +95,10 @@ while (($row = $db->fetch_array($rows))){
 		"productid" => $row['id']
 	);
 	
+	
 	$etArr = $catalogManager->ElementOptionListByType($el['eltid'], true);
+	$etArr = array_merge($etArr0, $etArr);
+	
 	foreach ($etArr as $etRow){
 		$fld = "fld_".$etRow['nm'];
 		
