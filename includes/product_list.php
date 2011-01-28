@@ -35,6 +35,7 @@ if (intval($p['page'])>0){
 $catids = $listData['catids'];
 
 $fld = $p['fld'];
+$custWhere = $p['custwhere'];
 $perPage = bkint($p['count']);
 
 $tempArr = array();
@@ -42,14 +43,13 @@ $tempArr = array();
 //Проверяем наличие параметра fld у кирпича, вызывающего скрипт (выборка спецпредложений, новинок, акций и т.д.)
 if ($fld){
 	//выборка с сортировкой по полю параметра fld вызываемого кирпича базового типа товара
-	$rows = $catalogManager->ElementList(0, $listPage, $perPage, $fld);
+	$rows = $catalogManager->ElementList($catids, $listPage, $perPage, $custWhere, $fld);
 	// $rows = EShopQuery::ElementFldList($db, $fld, $listPage, $perPage);
 } else {
 	//выборка с сортировкой по полю fld_ord базового типа товара
 	// $rows = EShopQuery::ElementList($db, $catids, $listPage, $perPage);
 	$rows = $catalogManager->ElementList($catids, $listPage, $perPage);
 }
-
 $elTypeList = $catalogManager->ElementTypeListArray();
 
 $lstResult = "";
