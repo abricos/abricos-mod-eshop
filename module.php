@@ -115,7 +115,11 @@ class EShopModule extends CMSModule {
 		// соответственно, если необходимо перегрузить только корень каталога продукции, то
 		// необходимо создать файл products-eshop.html
 		$newarr = $adress->dir;
-		$fname = "products-".implode("-", $newarr);
+		if (!empty($newarr) && count($newarr) > 0){
+			$fname = "products-".implode("-", $newarr);
+		}else{
+			$fname = "products-eshop";
+		}
 		return array($fname, "products");
 	}
 	
