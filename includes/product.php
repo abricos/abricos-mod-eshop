@@ -32,7 +32,7 @@ $size = array("w"=>$arr[0],"h"=>$arr[1]);
 $el = $mod->currentProduct;
 
 $imginfo = $db->fetch_array($catalogManager->FotoListThumb($el['elid'], $size['w'], $size['h'], 1));
- 	
+
 $imgSmList = "";
 if (empty($imginfo)){
 	$image = $brick->param->var["imgempty"];

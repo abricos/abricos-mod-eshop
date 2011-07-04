@@ -179,7 +179,7 @@ Component.entryPoint = function(){
 				ViewImagePanel = function(fileId){
 					this.fileId = fileId;
 					ViewImagePanel.superclass.constructor.call(this, {
-						fixedcenter: true, resize: true, 
+						fixedcenter: true, resize: true,
 						width: '640px', height: '480px'
 					});
 				};
