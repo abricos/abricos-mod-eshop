@@ -10,18 +10,6 @@
  * @author Alexander Kuzmin (roosit@abricos.org)
  */
 
-$modCatalog = CMSRegistry::$instance->modules->GetModule('catalog');
-if (empty($modCatalog)){ return; }
-
-$modSitemap = CMSRegistry::$instance->modules->GetModule('sitemap');
-
-$modEShop = new EShopModule();
-
-$modCatalog->Register($modEShop);
-CMSRegistry::$instance->modules->Register($modEShop);
-// $modEShop->SetPrefix();
-
-
 class EShopModule extends CMSModule {
 	
 	private $menuData = null;
@@ -195,6 +183,15 @@ class EShopAction {
 	const ADMIN = 50;
 }
 
+$modCatalog = CMSRegistry::$instance->modules->GetModule('catalog');
+if (empty($modCatalog)){ return; }
 
+$modSitemap = CMSRegistry::$instance->modules->GetModule('sitemap');
+
+$modEShop = new EShopModule();
+
+$modCatalog->Register($modEShop);
+CMSRegistry::$instance->modules->Register($modEShop);
+// $modEShop->SetPrefix();
 
 ?>
