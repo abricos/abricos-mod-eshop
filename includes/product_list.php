@@ -12,7 +12,7 @@ $brick = Brick::$builder->brick;
 $db = Brick::$db;
 $p = &$brick->param->param;
 
-$mod = Brick::$modules->GetModule('eshop');
+$mod = EShopModule::$instance;
 
 $catalog = $mod->GetCatalog();
 $catalogManager = $mod->GetCatalogManager(); 
@@ -34,22 +34,12 @@ if (intval($p['page'])>0){
 
 $catids = $listData['catids'];
 
-$fld = $p['fld'];
-$custWhere = $p['custwhere'];
-$perPage = bkint($p['count']);
-
 $tempArr = array();
 
-//Проверяем наличие параметра fld у кирпича, вызывающего скрипт (выборка спецпредложений, новинок, акций и т.д.)
-if ($fld){
-	//выборка с сортировкой по полю параметра fld вызываемого кирпича базового типа товара
-	$rows = $catalogManager->ElementList($catids, $listPage, $perPage, $custWhere, $fld);
-	// $rows = EShopQuery::ElementFldList($db, $fld, $listPage, $perPage);
-} else {
-	//выборка с сортировкой по полю fld_ord базового типа товара
-	// $rows = EShopQuery::ElementList($db, $catids, $listPage, $perPage);
-	$rows = $catalogManager->ElementList($catids, $listPage, $perPage);
-}
+$custOrder = empty($p['custorder']) ? "fld_ord DESC" : $p['custorder'];
+
+$rows = $catalogManager->ElementList($catids, $listPage, bkint($p['count']), $p['custwhere'], $p['custorder'], $p['overfields']);
+
 $elTypeList = $catalogManager->ElementTypeListArray();
 
 $lstResult = "";

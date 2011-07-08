@@ -36,11 +36,17 @@ class EShopModule extends CMSModule {
 	private $_manager = null;
 	private $_catalogManager = null;
 	
+	/**
+	 * @var EShopModule
+	 */
+	public static $instance = null;
+	
 	public function EShopModule(){
 		$this->version = "0.1.0.13";
 		$this->name = "eshop";
 		$this->takelink = "eshop";
 		$this->catinfo['dbprefix'] = "eshp";
+		EShopModule::$instance = $this;
 	}
 	
 	/**

@@ -2,6 +2,12 @@
 [script]product_list.php[/script]
 [mcss=eshop]eshop.css[/mcss]
 
+[bkvar=table]
+	<ul id="product-list-page-{v#page}">
+		{v#rows}
+	</ul>
+[/bkvar]
+
 [bkvar=row]
 	<li>
 		{v#image}
@@ -24,17 +30,19 @@
 [/bkvar]
 
 [bkvar=pr_spec0]
-<div style="position: absolute; z-index: 100;"><a title="{v#title}" href="{v#link}">{v#pr_spec}</a></div>
+	<div style="position: absolute; z-index: 100;"><a title="{v#title}" href="{v#link}">{v#pr_spec}</a></div>
 [/bkvar]
 
 [bkvar=pr_new]
-<img src="/modules/eshop/images/pr_new.png" class="abs_img pr_new" alt="Новинка" title="Новинка" />
+	<img src="/modules/eshop/images/pr_new.png" class="abs_img pr_new" alt="Новинка" title="Новинка" />
 [/bkvar]
+
 [bkvar=pr_akc]
-<img src="/modules/eshop/images/pr_akc.png" class="abs_img pr_akc" alt="Акция" title="Акция" />
+	<img src="/modules/eshop/images/pr_akc.png" class="abs_img pr_akc" alt="Акция" title="Акция" />
 [/bkvar]
+
 [bkvar=pr_hit]
-<img src="/modules/eshop/images/pr_hit.png" class="abs_img pr_hit" alt="Хит продаж" title="Хит продаж" />
+	<img src="/modules/eshop/images/pr_hit.png" class="abs_img pr_hit" alt="Хит продаж" title="Хит продаж" />
 [/bkvar]
 
 [bkvar=imgempty]
@@ -46,7 +54,7 @@
 [p=imgh]200[/p]
 
 [p=count]72[/p]
-[p=fld]fld_new[/p]
+[p=custwhere]fld_new>0[/p]
 
 [p=page][/p]
 [p=display][/p]
@@ -55,9 +63,7 @@
 <h1><span>Новинки</span></h1><div class="clear" ></div>
 <div id="pr_block">
 	<div id="product-list-wpage" style="position: relative;">
-		<ul id="product-list-page-{v#page}">
-			{v#result}
-		</ul>
+		{v#result}
 	</div>
 </div>
 <div class="clearfloat"></div>

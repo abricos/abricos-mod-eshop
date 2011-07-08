@@ -47,19 +47,15 @@ Component.entryPoint = function(){
 		}
 	};
 	
+	API.clearCartInfo = function(){
+		cartInfo = null;
+	};
+	
 	// Положить товар в корзину, вернуть кол-во и сумму в корзине 
 	API.productAddToCart = function(productid, count, callback){
 		if (!L.isNull(DATA.get('cart'))){
 			DATA.get('cart').clear();
 		}
-		
-		var __callback = function(response){
-			if (!L.isFunction(callback)){
-				return;
-			}
-			cartInfo = response.data; 
-			callback(cartInfo);
-		};
 		
 		Brick.ajax('eshop',{
 			'data': {
@@ -67,7 +63,11 @@ Component.entryPoint = function(){
 				'productid': productid,
 				'quantity': count
 			},
-			'event': __callback
+			'event': function(r){
+				if (!L.isFunction(callback)){ return; }
+				cartInfo = r.data; 
+				callback(cartInfo);
+			}
 		});
 	};
 })();
@@ -214,6 +214,7 @@ Component.entryPoint = function(){
 			var table = DATA.get('cart'); 
 			table.getRows({'orderid': this.orderid}).getById(productid).remove();
 			table.applyChanges();
+			API.clearCartInfo();			
 			DATA.request();
 		},
 		recalc: function(){
@@ -225,6 +226,7 @@ Component.entryPoint = function(){
 				});
 			});
 			DATA.get('cart').applyChanges();
+			API.clearCartInfo();			
 			DATA.request();
 		}
 	};
