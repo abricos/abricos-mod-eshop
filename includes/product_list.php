@@ -11,6 +11,7 @@
 $brick = Brick::$builder->brick;
 $db = Brick::$db;
 $p = &$brick->param->param;
+$v = &$brick->param->var;
 
 $mod = EShopModule::$instance;
 
@@ -34,11 +35,15 @@ if (intval($p['page'])>0){
 
 $catids = $listData['catids'];
 
+if ($p['notchildlist']){
+	$catids = array($catItem['id']);
+}
+
 $tempArr = array();
 
 $custOrder = empty($p['custorder']) ? "fld_ord DESC" : $p['custorder'];
 
-$rows = $catalogManager->ElementList($catids, $listPage, bkint($p['count']), $p['custwhere'], $p['custorder'], $p['overfields']);
+$rows = $catalogManager->ElementList($catids, $listPage, bkint($p['count']), $p['custwhere'], $custOrder, $p['overfields']);
 
 $elTypeList = $catalogManager->ElementTypeListArray();
 
@@ -49,16 +54,15 @@ $etArr0 = $catalogManager->ElementOptionListByType($el['eltid'], true);
 
 while (($row = $db->fetch_array($rows))){
 	$el = $catalogManager->Element($row['id'], true);
-	
 	if (empty($tempArr[$el['catid']])){
 		$tempArr[$el['catid']] = $smMenu->FindSource('id', $el['catid']);
 	}
 	$link = $tempArr[$el['catid']]->link;
 	// Проверка, является ли товар Новинкой, Акцией или Хитом продаж
-	$pr_spec = $el['fld_akc'] != 0 ? $brick->param->var["pr_akc"] : "";
-	$pr_spec .= $el['fld_new'] != 0 ? $brick->param->var["pr_new"] : "";
-	$pr_spec .= $el['fld_hit'] != 0 ? $brick->param->var["pr_hit"] : "";
-	$pr_spec11 = Brick::ReplaceVar($brick->param->var["pr_spec0"], "pr_spec", $pr_spec);
+	$pr_spec = $el['fld_akc'] != 0 ? $v["pr_akc"] : "";
+	$pr_spec .= $el['fld_new'] != 0 ? $v["pr_new"] : "";
+	$pr_spec .= $el['fld_hit'] != 0 ? $v["pr_hit"] : "";
+	$pr_spec11 = Brick::ReplaceVar($v["pr_spec0"], "pr_spec", $pr_spec);
 
 	$imginfo = $db->fetch_array($catalogManager->FotoListThumb($el['elid'], $imgWidth, $imgHeight, 1));
 
@@ -75,12 +79,12 @@ while (($row = $db->fetch_array($rows))){
 			"pr_spec1" => $pr_spec11
 		));
 	}
-	
 	$replace = array(
 		"tpl_btn" => $brick->param->var[$el['fld_sklad']==0 ? 'btnnotorder' : 'btnorder'],
 		"image" => $image, 
 		"title" => addslashes(htmlspecialchars($el['fld_name'])),
 		"price" => $el['fld_price'],
+		"desc" => $el['fld_desc'],
 		"link" => $link."product_".$row['id']."/",
 		"productid" => $row['id']
 	);

@@ -3,7 +3,7 @@
  * @version $Id$
  * @package Abricos
  * @subpackage EShop
- * @copyright Copyright (C) 2008 Abricos All rights reserved.
+ * @copyright Copyright (C) 2011 Abricos All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * @author Alexander Kuzmin (roosit@abricos.org)
  */
@@ -19,14 +19,20 @@ $catalogManager = $mod->GetCatalogManager();
 
 
 $smMenu = CMSRegistry::$instance->modules->GetModule('sitemap')->GetManager()->GetMenu();
-$catItemMenu = null;
+$rootMenu = $smMenu->menuLine[count($smMenu->menuLine)-1];
 
-$rootMenu = $smMenu->menuLine[0];
-foreach ($rootMenu->child as $child){
-	if ($child->name == 'eshop'){
-		$catItemMenu = $child;
-		break;
+$catItemMenu = null;
+$adress = CMSRegistry::$instance->adress;
+
+if ($adress->level == 0){
+	foreach ($rootMenu->child as $child){
+		if ($child->name == 'eshop'){
+			$catItemMenu = $child;
+			break;
+		}
 	}
+}else {
+	$catItemMenu = $rootMenu;
 }
 
 if (is_null($catItemMenu)){
@@ -44,17 +50,20 @@ foreach ($catItemMenu->child as $child){
 	$imageid = $child->source['img'];
 	
 	if (empty($imageid)){
-		$image = Brick::ReplaceVar($brick->param->var["imgempty"], "pr_spec1", $pr_spec11);
+		$image = $brick->param->var["imgempty"];
 	}else{
 		$thumb = CatalogModule::FotoThumbInfoParse($imginfo['thumb']);
 		
 		$image = Brick::ReplaceVarByData($brick->param->var["img"], array(
-			"src" => CatalogModule::FotoThumbLink($imageid, $imgWidth, $imgHeight, 'image'), 
-			"w" => "",
-			"h" => "",
-			"pr_spec1" => ""
+			"src" => CatalogModule::FotoThumbLink($imageid, $imgWidth, $imgHeight, 'image')
 		));
 	}
+	
+	$image = Brick::ReplaceVarByData($image, array(
+		"w" => $imgWidth,
+		"h" => $imgHeight
+	));
+	
 	$lst .= Brick::ReplaceVarByData($brick->param->var['row'], array(
 		"image" => $image, 
 		"title" => addslashes(htmlspecialchars($child->source['tl'])),
@@ -62,7 +71,9 @@ foreach ($catItemMenu->child as $child){
 	));
 }
 $brick->content = Brick::ReplaceVarByData($brick->content, array(
-	"result" => $lst
+	"result" => Brick::ReplaceVarByData($brick->param->var['table'], array(
+		"rows" => $lst
+	)) 
 ));
 
 ?>

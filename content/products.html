@@ -2,7 +2,10 @@
 [tt=main][/tt]
 [script]products.php[/script]
 
-[mod=eshop]product_list[/mod]
+[desc]Страница разделов каталога и продукции. Параметры:
+count - кол-во товаров на странице (по умолчанию 6).[/desc]
+
+[mod=eshop]product_list,p_catalog_list[/mod]
 
 [mcss=sitemap]sitemap.css[/mcss]
 
@@ -15,8 +18,11 @@
 		{v#descript}
 	</div>
 [/bkvar]
+
 [*]-->
 <h1><span>{v#cattitle}</span></h1><div class="clear" ></div>
+
+[mod]eshop:p_catalog_list[/mod]
 
 <div id="pr_block">
 	{v#cat_desc}
