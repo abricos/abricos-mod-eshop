@@ -100,22 +100,26 @@ if (!$el['fld_sklad'] OR $el['fld_sklad'] == 0)	{
 
 $etArr = $catalogManager->ElementOptionListByType(0, true);
 
+$elTypeArr = $catalogManager->ElementTypeListArray();
+
+
 if ($el['eltid'] > 0){
-	$etArr = array_merge($etArr, $catalogManager->ElementOptionListByType($el['eltid'], true));
+	$etArrEl = $catalogManager->ElementOptionListByType($el['eltid'], true);
+	$etArr = array_merge($etArr, $etArrEl);
 }
 foreach ($etArr as $etRow){
 	$fld = "fld_".$etRow['nm'];
 	
 	// Если опция пуста - пробел, чтобы не рушить верстку
 	$el[$fld] = !empty($el[$fld]) ? $el[$fld] : '&nbsp;';
-	if ($row['nm'] != 'desc'){
+	if ($etRow['nm'] != 'desc'){
 		// $el[$fld] = htmlspecialchars($el[$fld]);
 	}
 	$replace[$fld] = $el[$fld];
 	// Если тип опции - таблица (fldtp = 5), то необходимо получить значение опции из таблицы
-	if	($row['fldtp'] == 5){
+	if	($etRow['fldtp'] == 5){
 		// Получаем значение опции 'tl'. '' - т.к. тип товара - default 
-		$val = $catalogManager->ElementOptionFieldTableValue('', $etRow['nm'], $el[$fld]);
+		$val = $catalogManager->ElementOptionFieldTableValue($elTypeArr[$etRow['eltid']]['nm'], $etRow['nm'], $el[$fld]);
 		$replace[$fld] = $val['tl'];
 	}
 	
