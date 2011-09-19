@@ -156,12 +156,16 @@ Component.entryPoint = function(){
 	};
 	
 	API.showBigPhoto = function(cfg) {
+		cfg = L.merge({
+			'w': 200,
+			'h': 200
+		}, cfg || {});
 		var pid = cfg.fid, tmb = cfg.el;
 	    var p = gel("bigPhoto");
 	    gel("loading").style.display = "block";
 	    p.className = "big loading_bg";
 	    p.onload = function () {gel("loading").style.display = "none";p.className = "big";};
-	    p.src=tmb.src.replace("w_40-h_40","w_200-h_200");
+	    p.src=tmb.src.replace("w_40-h_40","w_"+cfg['w']+"-h_"+cfg['h']+"");
 	    gel("tmb" + pidCurrent).className = "tmb";
 	    tmb.className = "currentPhoto";
 	    pidCurrent = pid;
