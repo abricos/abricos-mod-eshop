@@ -263,14 +263,12 @@ Component.entryPoint = function(){
 		this.orderid = orderid*1;
 		this.callback = callback;
 		OrderAcceptPanel.superclass.constructor.call(this, {
-			fixedcenter: true, 
-			modal: true,
 			width: '800px',
 			resize: true
 		});
 	};
 	
-	YAHOO.extend(OrderAcceptPanel, Brick.widget.Panel, {
+	YAHOO.extend(OrderAcceptPanel, Brick.widget.Dialog, {
 		initTemplate: function(){
 			buildTemplate(this, 'orderacceptpanel');
 			return this._T['orderacceptpanel'];
@@ -304,14 +302,12 @@ Component.entryPoint = function(){
 		this.orderid = orderid*1;
 		this.callback = callback;
 		OrderAcceptPanel.superclass.constructor.call(this, {
-			fixedcenter: true, 
-			modal: true,
 			width: '800px',
 			resize: true
 		});
 	};
 	
-	YAHOO.extend(OrderRemovePanel, Brick.widget.Panel, {
+	YAHOO.extend(OrderRemovePanel, Brick.widget.Dialog, {
 		initTemplate: function(){
 			buildTemplate(this, 'orderremovepanel');
 			return this._T['orderremovepanel'];
@@ -345,14 +341,12 @@ Component.entryPoint = function(){
 		this.orderid = orderid*1;
 		this.callback = callback;
 		OrderClosePanel.superclass.constructor.call(this, {
-			fixedcenter: true, 
-			modal: true,
 			width: '800px',
 			resize: true
 		});
 	};
 	
-	YAHOO.extend(OrderClosePanel, Brick.widget.Panel, {
+	YAHOO.extend(OrderClosePanel, Brick.widget.Dialog, {
 		initTemplate: function(){
 			buildTemplate(this, 'orderclosepanel');
 			return this._T['orderclosepanel'];
@@ -384,14 +378,12 @@ Component.entryPoint = function(){
 		this.orderid = orderid*1;
 		this.callback = callback;
 		OrderViewPanel.superclass.constructor.call(this, {
-			fixedcenter: true, 
-			modal: true,
 			width: '800px',
 			resize: true
 		});
 	};
 	
-	YAHOO.extend(OrderViewPanel, Brick.widget.Panel, {
+	YAHOO.extend(OrderViewPanel, Brick.widget.Dialog, {
 		initTemplate: function(){
 			buildTemplate(this, 'orderviewpanel');
 			return this._T['orderviewpanel'];

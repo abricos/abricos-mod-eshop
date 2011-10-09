@@ -535,15 +535,13 @@ Component.entryPoint = function(){
 	var OrderPanel = function(){
 		OrderPanel.instance = this;
 		OrderPanel.superclass.constructor.call(this, {
-			fixedcenter: true, 
-			modal: true,
 			width: '800px', zindex: '9999', 
 			resize: true
 		});
 	};
 	OrderPanel.instance = null;
 	
-	YAHOO.extend(OrderPanel, Brick.widget.Panel, {
+	YAHOO.extend(OrderPanel, Brick.widget.Dialog, {
 		initTemplate: function(){
 		
 			var TM = TMG.build('panel'), T = TM.data, TId = TM.idManager;

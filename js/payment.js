@@ -192,12 +192,11 @@ Component.entryPoint = function(){
 		this.row = row;
 		this.callback = callback;
 		EditorPanel.superclass.constructor.call(this, {
-			modal: true,
-			fixedcenter: true, width: '600px', resize: true
+			width: '600px', resize: true
 		});
 	};
 	
-	YAHOO.extend(EditorPanel, Brick.widget.Panel, {
+	YAHOO.extend(EditorPanel, Brick.widget.Dialog, {
 		el: function(name){ return Dom.get(this._TId['editorpanel'][name]); },
 		elv: function(name){ return Brick.util.Form.getValue(this.el(name)); },
 		setelv: function(name, value){ Brick.util.Form.setValue(this.el(name), value); },
@@ -234,11 +233,11 @@ Component.entryPoint = function(){
 		this.row = row;
 		this.callback = callback;
 		RemovePanel.superclass.constructor.call(this, {
-			modal: true, resize: false,
-			fixedcenter: true, width: '400px'
+			resize: false,
+			width: '400px'
 		});
 	};
-	YAHOO.extend(RemovePanel, Brick.widget.Panel, {
+	YAHOO.extend(RemovePanel, Brick.widget.Dialog, {
 		initTemplate: function(){
 			buildTemplate(this, 'removepanel');
 			return this._TM.replace('removepanel', {
