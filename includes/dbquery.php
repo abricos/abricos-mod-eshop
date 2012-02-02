@@ -11,15 +11,15 @@
 class EShopQuery {
 	/*
 	// выборка списка товаров из БД с сортировкой по полю fld_ord базового типа товара
-	public static function ElementList(CMSDatabase $db, $catalogId, $page = 1, $limit = 10){
+	public static function ElementList(Ab_Database $db, $catalogId, $page = 1, $limit = 10){
 		return CatalogQuery::ElementList($db, $catalogId, $page, $limit, '', "fld_ord DESC, fld_sklad DESC, dateline DESC");
 	}
 	// выборка списка товаров по логическому полю (акции, новинки, хиты продаж) из БД с сортировкой по дате изменения (сортировка не реализована - добавить в базу поле Дата Редактирования )
-	public static function ElementFldList(CMSDatabase $db, $fld, $page = 1, $limit = 3){
+	public static function ElementFldList(Ab_Database $db, $fld, $page = 1, $limit = 3){
 		return CatalogQuery::ElementList($db, $catalogId, $page, $limit, $fld, "fld_ord DESC, fld_sklad DESC, dateline DESC");
 	}
 	/**/
-	public static function DiscountList(CMSDatabase $db, $isadmin = false){
+	public static function DiscountList(Ab_Database $db, $isadmin = false){
 		$sql = "
 			SELECT 
 				discountid as id,
@@ -37,7 +37,7 @@ class EShopQuery {
 		return $db->query_read($sql);
 	}
 	
-	public static function DiscountAppend(CMSDatabase $db, $d){
+	public static function DiscountAppend(Ab_Database $db, $d){
 		$sql = "
 			INSERT INTO ".$db->prefix."eshp_discount
 			(dtype, title, descript, disabled, price, ispercent, fromsum, endsum) VALUES
@@ -55,7 +55,7 @@ class EShopQuery {
 		$db->query_write($sql);
 	}
 	
-	public static function DiscountUpdate(CMSDatabase $db, $d){
+	public static function DiscountUpdate(Ab_Database $db, $d){
 		$sql = "
 			UPDATE ".$db->prefix."eshp_discount
 			SET
@@ -73,7 +73,7 @@ class EShopQuery {
 		$db->query_write($sql);
 	}
 	
-	public static function DiscountRemove(CMSDatabase $db, $id){
+	public static function DiscountRemove(Ab_Database $db, $id){
 		$sql = "
 			DELETE FROM ".$db->prefix."eshp_discount
 			WHERE discountid=".bkint($id)."
@@ -81,7 +81,7 @@ class EShopQuery {
 		$db->query_write($sql);
 	}
 
-	public static function PaymentList(CMSDatabase $db, $isadmin = false){
+	public static function PaymentList(Ab_Database $db, $isadmin = false){
 		$sql = "
 			SELECT 
 				paymentid as id,
@@ -98,7 +98,7 @@ class EShopQuery {
 		return $db->query_read($sql);
 	}
 	
-	public static function PaymentAppend(CMSDatabase $db, $d){
+	public static function PaymentAppend(Ab_Database $db, $d){
 		$sql = "
 			INSERT INTO ".$db->prefix."eshp_payment
 			(title, descript, ord, disabled, js, php) VALUES
@@ -114,7 +114,7 @@ class EShopQuery {
 		$db->query_write($sql);
 	}
 	
-	public static function PaymentUpdate(CMSDatabase $db, $d){
+	public static function PaymentUpdate(Ab_Database $db, $d){
 		$sql = "
 			UPDATE ".$db->prefix."eshp_payment
 			SET
@@ -131,7 +131,7 @@ class EShopQuery {
 		$db->query_write($sql);
 	}
 	
-	public static function PaymentRemove(CMSDatabase $db, $id){
+	public static function PaymentRemove(Ab_Database $db, $id){
 		$sql = "
 			DELETE FROM ".$db->prefix."eshp_payment
 			WHERE paymentid=".bkint($id)."
@@ -139,7 +139,7 @@ class EShopQuery {
 		$db->query_write($sql);
 	}
 	
-	public static function DeliveryList(CMSDatabase $db){
+	public static function DeliveryList(Ab_Database $db){
 		$sql = "
 			SELECT 
 				deliveryid as id,
@@ -155,7 +155,7 @@ class EShopQuery {
 		return $db->query_read($sql);
 	}
 	
-	public static function DeliveryAppend(CMSDatabase $db, $d){
+	public static function DeliveryAppend(Ab_Database $db, $d){
 		$sql = "
 			INSERT INTO ".$db->prefix."eshp_delivery
 			(parentdeliveryid, title, ord, disabled, price, fromzero) VALUES
@@ -171,7 +171,7 @@ class EShopQuery {
 		$db->query_write($sql);
 	}
 	
-	public static function DeliveryUpdate(CMSDatabase $db, $d){
+	public static function DeliveryUpdate(Ab_Database $db, $d){
 		$sql = "
 			UPDATE ".$db->prefix."eshp_delivery
 			SET
@@ -187,7 +187,7 @@ class EShopQuery {
 		$db->query_write($sql);
 	}
 	
-	public static function DeliveryRemove(CMSDatabase $db, $id){
+	public static function DeliveryRemove(Ab_Database $db, $id){
 		$sql = "
 			DELETE FROM ".$db->prefix."eshp_delivery
 			WHERE deliveryid=".bkint($id)."
@@ -195,7 +195,7 @@ class EShopQuery {
 		$db->query_write($sql);
 	}
 	
-	public static function OrderConfigList(CMSDatabase $db){
+	public static function OrderConfigList(Ab_Database $db){
 		$sql = "
 			SELECT 
 				ordercfgid as id,
@@ -210,7 +210,7 @@ class EShopQuery {
 		return $db->query_read($sql);
 	}
 	
-	public static function OrderConfigAppend(CMSDatabase $db, $d){
+	public static function OrderConfigAppend(Ab_Database $db, $d){
 		$sql = "
 			INSERT INTO ".$db->prefix."eshp_ordercfg
 			(ord, cfgtype, title, input, output) VALUES
@@ -225,7 +225,7 @@ class EShopQuery {
 		$db->query_write($sql);
 	}
 	
-	public static function OrderConfigUpdate(CMSDatabase $db, $d){
+	public static function OrderConfigUpdate(Ab_Database $db, $d){
 		$sql = "
 			UPDATE ".$db->prefix."eshp_ordercfg
 			SET
@@ -240,7 +240,7 @@ class EShopQuery {
 		$db->query_write($sql);
 	}
 	
-	public static function OrderConfigRemove(CMSDatabase $db, $id){
+	public static function OrderConfigRemove(Ab_Database $db, $id){
 		$sql = "
 			DELETE FROM ".$db->prefix."eshp_ordercfg
 			WHERE ordercfgid=".bkint($id)."
@@ -248,7 +248,7 @@ class EShopQuery {
 		$db->query_write($sql);
 	}
 	
-	public static function Order(CMSDatabase $db, $orderid, $userid = -1){
+	public static function Order(Ab_Database $db, $orderid, $userid = -1){
 		$sql = "
 			SELECT 
 				o.orderid as id,
@@ -276,7 +276,7 @@ class EShopQuery {
 	/**
 	 * Получить список товаров конкретного заказа
 	 */
-	public static function OrderItemList(CMSDatabase $db, $orderid, $userid = -1){
+	public static function OrderItemList(Ab_Database $db, $orderid, $userid = -1){
 		$sql = "
 			SELECT
 				a.productid as id,
@@ -295,7 +295,7 @@ class EShopQuery {
 		return $db->query_read($sql);
 	}
 	
-	public static function Orders(CMSDatabase $db, $status, $page, $limit){
+	public static function Orders(Ab_Database $db, $status, $page, $limit){
 		$from = (($page-1)*$limit);
 		
 		// если $status=-1, то выбрать удаленные
@@ -320,7 +320,7 @@ class EShopQuery {
 		return $db->query_read($sql);
 	}
 	
-	public static function OrdersCount(CMSDatabase $db, $status){
+	public static function OrdersCount(Ab_Database $db, $status){
 		// если $status=-1, то выбрать удаленные
 		$where = $status < 0 ? "o.deldate>0" : "deldate < 1 AND o.status=".bkint($status); 
 		$sql = "
@@ -332,7 +332,7 @@ class EShopQuery {
 		return $db->query_read($sql);
 	}
 	
-	public static function OrderAppend(CMSDatabase $db, $d){
+	public static function OrderAppend(Ab_Database $db, $d){
 		$sql = "
 			INSERT INTO ".$db->prefix."eshp_order 
 			(userid, deliveryid, paymentid, firstname, lastname, secondname, phone, adress, extinfo, ip, dateline) VALUES (
@@ -355,10 +355,10 @@ class EShopQuery {
 	
 	/**
 	 * Принять заказ на исполнение
-	 * @param CMSDatabase $db
+	 * @param Ab_Database $db
 	 * @param integer $orderid
 	 */
-	public static function OrderAccept(CMSDatabase $db, $orderid){
+	public static function OrderAccept(Ab_Database $db, $orderid){
 		$sql = "
 			UPDATE ".$db->prefix."eshp_order 
 			SET status=".EShopManager::ORDER_STATUS_EXEC."
@@ -369,10 +369,10 @@ class EShopQuery {
 	
 	/**
 	 * Выполнить заказ (закрытие)
-	 * @param CMSDatabase $db
+	 * @param Ab_Database $db
 	 * @param integer $orderid
 	 */
-	public static function OrderClose(CMSDatabase $db, $orderid){
+	public static function OrderClose(Ab_Database $db, $orderid){
 		$sql = "
 			UPDATE ".$db->prefix."eshp_order 
 			SET status=".EShopManager::ORDER_STATUS_ARHIVE."
@@ -384,10 +384,10 @@ class EShopQuery {
 	/**
 	 * Удалить заказ в корзину
 	 * 
-	 * @param CMSDatabase $db
+	 * @param Ab_Database $db
 	 * @param integer $orderid
 	 */
-	public static function OrderRemove(CMSDatabase $db, $orderid){
+	public static function OrderRemove(Ab_Database $db, $orderid){
 		$sql = "
 			UPDATE ".$db->prefix."eshp_order 
 			SET deldate=".TIMENOW."
@@ -396,7 +396,7 @@ class EShopQuery {
 		$db->query_write($sql);
 	}
 	
-	public static function OrderItemAppend(CMSDatabase $db, $orderid, $productid, $quantity, $price){
+	public static function OrderItemAppend(Ab_Database $db, $orderid, $productid, $quantity, $price){
 		$sql = "
 			INSERT INTO ".$db->prefix."eshp_orderitem 
 			(orderid, productid, quantity, price) VALUES (
@@ -413,14 +413,14 @@ class EShopQuery {
 	/**
 	 * Добавить продукт в корзину
 	 * 
-	 * @param CMSDatabase $db
+	 * @param Ab_Database $db
 	 * @param integer $userid идентификатор пользователя, если авторизован
 	 * @param string $session сессия пользователя, если гость
 	 * @param integer $productid идентификатор товара
 	 * @param integer $quantity кол-во
 	 * @param double $price цена
 	 */
-	public static function CartAppend(CMSDatabase $db, $userid, $session, $productid, $quantity, $price){
+	public static function CartAppend(Ab_Database $db, $userid, $session, $productid, $quantity, $price){
 		
 		$session = $userid > 0 ? '' : $session;
 		
@@ -443,11 +443,11 @@ class EShopQuery {
 	 * Если пользователь зарегистрирован, необходимо перенести товар в
 	 * корзине набранный будучи гостем
 	 * 
-	 * @param CMSDatabase $db
+	 * @param Ab_Database $db
 	 * @param integer $userid идентификатор пользователя, если авторизован
 	 * @param string $session сессия пользователя, если гость
 	 */
-	public static function CartUserSessionFixed(CMSDatabase $db, $userid, $session){
+	public static function CartUserSessionFixed(Ab_Database $db, $userid, $session){
 		if ($userid < 1){ return; }
 		$sql = "
 			UPDATE ".$db->prefix."eshp_cart 
@@ -460,11 +460,11 @@ class EShopQuery {
 	/**
 	 * Получить информацию по корзине
 	 * 
-	 * @param CMSDatabase $db
+	 * @param Ab_Database $db
 	 * @param integer $userid идентификатор пользователя
 	 * @param string $session сессия пользователя
 	 */
-	public static function CartInfo(CMSDatabase $db, $userid, $session){
+	public static function CartInfo(Ab_Database $db, $userid, $session){
 		EShopQuery::CartUserSessionFixed($db, $userid, $session);
 		$sql = "
 			SELECT 
@@ -480,12 +480,12 @@ class EShopQuery {
 	/**
 	 * Получить полное содержание корзины
 	 * 
-	 * @param CMSDatabase $db
+	 * @param Ab_Database $db
 	 * @param integer $userid идентификатор пользователя
 	 * @param string $session сессия пользователя
 	 * @param integer $productid если указан, то возврат только этого продукта
 	 */
-	public static function Cart(CMSDatabase $db, $userid, $session, $productid = 0){
+	public static function Cart(Ab_Database $db, $userid, $session, $productid = 0){
 		$productid = bkint($productid);
 		$sql = "
 			SELECT
@@ -505,7 +505,7 @@ class EShopQuery {
 		return $db->query_read($sql);
 	}
 	
-	public static function CartClear(CMSDatabase $db, $userid, $sessionid){
+	public static function CartClear(Ab_Database $db, $userid, $sessionid){
 		$userid = intval($userid);
 		$sql = "
 			DELETE FROM ".$db->prefix."eshp_cart 
@@ -514,7 +514,7 @@ class EShopQuery {
 		$db->query_write($sql); 
 	}
 	
-	public static function CartRemove(CMSDatabase $db, $productid = 0){
+	public static function CartRemove(Ab_Database $db, $productid = 0){
 		$sql = "
 			DELETE FROM ".$db->prefix."eshp_cart
 			WHERE productid=".bkint($productid)."

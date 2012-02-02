@@ -9,7 +9,7 @@
  */
 
 $brick = Brick::$builder->brick;
-$mod = Brick::$modules->GetModule('eshop');
+$mod = Abricos::GetModule('eshop');
 $modMan = $mod->GetManager();
 
 /*

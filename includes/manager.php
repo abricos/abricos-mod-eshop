@@ -10,22 +10,13 @@
 
 require_once 'dbquery.php';
 
-class EShopManager extends ModuleManager {
+class EShopManager extends Ab_ModuleManager {
 	
 	/**
 	 * 
 	 * @var EShopModule
 	 */
 	public $module = null;
-	
-	/**
-	 * User
-	 * @var User
-	 */
-	public $user = null;
-	
-	public $userid = 0;
-	public $userSession = '';
 	
 	/**
 	 * Статус заказа - Новый
@@ -58,14 +49,10 @@ class EShopManager extends ModuleManager {
 	 */
 	public $catalogManager = null;
 	
-	public function EShopManager(EShopModule $module){
-		parent::ModuleManager($module);
+	public function __construct(EShopModule $module){
+		parent::__construct($module);
 		
-		$this->user = CMSRegistry::$instance->user;
-		$this->userid = $this->user->info['userid'];
-		$this->userSession = $this->user->session->key;
-		
-		$this->catalog = CMSRegistry::$instance->modules->GetModule('catalog');
+		$this->catalog = Abricos::GetModule('catalog');
 		$this->catalogManager = $module->GetCatalogManager();
 	}
 	
@@ -101,8 +88,8 @@ class EShopManager extends ModuleManager {
 				return $this->OrderClose($d->orderid);
 				
 			case "brick-productlist":
-				CMSRegistry::$instance->adress = new CMSAdress($d->uri); 
-				$smMenu = CMSRegistry::$instance->modules->GetModule('sitemap')->GetManager()->GetMenu();
+				Abricos::$adress = new Ab_URI($d->uri); 
+				$smMenu = Abricos::GetModule('sitemap')->GetManager()->GetMenu();
 				$this->module->BuildMenu($smMenu, true);
 				
 				$brick = Brick::$builder->LoadBrickS('eshop', 'product_list', Brick::$builder->brick, array("p" => array(
@@ -202,13 +189,13 @@ class EShopManager extends ModuleManager {
 			return $this->_productListData;
 		}
 		
-		$smMenu = CMSRegistry::$instance->modules->GetModule('sitemap')->GetManager()->GetMenu();
+		$smMenu = Abricos::GetModule('sitemap')->GetManager()->GetMenu();
 		$catItemMenu = $smMenu->menuLine[count($smMenu->menuLine)-1];
 		
 		// если на конце uri есть запись /pageN/, где N - число, значит запрос страницы
 		$listPage = 1;
 		
-		$adress = CMSRegistry::$instance->adress;
+		$adress = Abricos::$adress;
 		
 		$tag = $adress->dir[$adress->level-1];
 		if (substr($tag, 0, 4) == 'page'){
@@ -236,7 +223,7 @@ class EShopManager extends ModuleManager {
 	 */
 	public function CheckUserRegInfo($login, $email){
 		$ret = new stdClass();
-		$ret->error = CMSRegistry::$instance->user->GetManager()->RegisterCheck($login, $email);
+		$ret->error = Abricos::$user->GetManager()->RegisterCheck($login, $email);
 		if ($ret->error > 0){
 			sleep(1);
 		}
@@ -253,12 +240,12 @@ class EShopManager extends ModuleManager {
 	 */
 	public function Auth($login, $password){
 		$ret = new stdClass();
-		$ret->error = CMSRegistry::$instance->user->GetManager()->Login($login, $password);
+		$ret->error = Abricos::$user->GetManager()->Login($login, $password);
 		if ($error > 0){
 			sleep(1);
 			return $ret;
 		}
-		$ret->userid = CMSRegistry::$instance->user->session->Get('userid'); 
+		$ret->userid = Abricos::$user->session->Get('userid'); 
 		$ret->orderinfo = $this->OrderLastInfo(); 
 		return $ret;
 	}
@@ -270,7 +257,7 @@ class EShopManager extends ModuleManager {
 	public function OrderBuild($data){
 		$userid = $this->userid;
 		$db = $this->db;
-		if (!$this->user->IsRegistred() && $data->auth->type == 'reg'){
+		if ($this->user->id == 0 && $data->auth->type == 'reg'){
 			// пользователь решил заодно и зарегистрироваться
 			$login = $data->auth->login;
 			$email = $data->auth->email;
@@ -329,7 +316,7 @@ class EShopManager extends ModuleManager {
 			$email = trim($email);
 			if (empty($email)){ continue; }
 			
-			CMSRegistry::$instance->GetNotification()->SendMail($email, $subject, $body);
+			Abricos::Notify()->SendMail($email, $subject, $body);
 		}
 	}
 	

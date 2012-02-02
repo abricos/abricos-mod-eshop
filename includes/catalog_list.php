@@ -9,20 +9,20 @@
  */
 
 $brick = Brick::$builder->brick;
-$db = Brick::$db;
+$db = Abricos::$db;
 $p = &$brick->param->param;
 
-$mod = Brick::$modules->GetModule('eshop');
+$mod = Abricos::GetModule('eshop');
 
 $catalog = $mod->GetCatalog();
 $catalogManager = $mod->GetCatalogManager();
 
 
-$smMenu = CMSRegistry::$instance->modules->GetModule('sitemap')->GetManager()->GetMenu();
+$smMenu = Abricos::GetModule('sitemap')->GetManager()->GetMenu();
 $rootMenu = $smMenu->menuLine[count($smMenu->menuLine)-1];
 
 $catItemMenu = null;
-$adress = CMSRegistry::$instance->adress;
+$adress = Abricos::$adress;
 
 if ($adress->level == 0){
 	foreach ($rootMenu->child as $child){

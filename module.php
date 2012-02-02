@@ -10,7 +10,7 @@
  * @author Alexander Kuzmin (roosit@abricos.org)
  */
 
-class EShopModule extends CMSModule {
+class EShopModule extends Ab_Module {
 	
 	private $menuData = null;
 	/**
@@ -42,7 +42,7 @@ class EShopModule extends CMSModule {
 	public static $instance = null;
 	
 	public function EShopModule(){
-		$this->version = "0.1.0.13";
+		$this->version = "0.1.2";
 		$this->name = "eshop";
 		$this->takelink = "eshop";
 		$this->catinfo['dbprefix'] = "eshp";
@@ -69,7 +69,7 @@ class EShopModule extends CMSModule {
 	 */
 	public function GetCatalogManager(){
 		if (is_null($this->_catalogManager)){
-			$this->_catalogManager = CMSRegistry::$instance->modules->GetModule('catalog')->GetManager();
+			$this->_catalogManager = Abricos::GetModule('catalog')->GetManager();
 		}
 		CatalogQuery::PrefixSet($this->registry->db, $this->catinfo['dbprefix']);
 		return $this->_catalogManager;
@@ -189,15 +189,14 @@ class EShopAction {
 	const ADMIN = 50;
 }
 
-$modCatalog = CMSRegistry::$instance->modules->GetModule('catalog');
+$modCatalog = Abricos::GetModule('catalog');
 if (empty($modCatalog)){ return; }
 
-$modSitemap = CMSRegistry::$instance->modules->GetModule('sitemap');
+$modSitemap = Abricos::GetModule('sitemap');
 
 $modEShop = new EShopModule();
 
 $modCatalog->Register($modEShop);
-CMSRegistry::$instance->modules->Register($modEShop);
-// $modEShop->SetPrefix();
+Abricos::ModuleRegister($modEShop);
 
 ?>

@@ -12,8 +12,8 @@
 
 $brick = Brick::$builder->brick;
 
-$mod = Brick::$modules->GetModule('sys');
-$modEShop = Brick::$modules->GetModule('eshop');
+$mod = Abricos::GetModule('sys');
+$modEShop = Abricos::GetModule('eshop');
 $manager = $modEShop->GetManager();
 $ds = $mod->getDataSet();
 

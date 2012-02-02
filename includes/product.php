@@ -9,7 +9,7 @@
  */
 
 $brick = Brick::$builder->brick;
-$mod = Brick::$modules->GetModule('eshop');
+$mod = Abricos::GetModule('eshop');
 
 $catItemMenu = $mod->currentCatalogItem; 
 $catItem = $catItemMenu->source;
@@ -22,7 +22,7 @@ $brick->content = Brick::ReplaceVarByData($brick->content, array(
 	"catdesc" => $catItem['dsc']
 ));
 
-$db = Brick::$db;
+$db = Abricos::$db;
 $link = $catItemMenu->link;
 $p = &$brick->param->param;
 

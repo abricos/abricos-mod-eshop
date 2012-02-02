@@ -9,7 +9,7 @@
  */
 
 $brick = Brick::$builder->brick;
-$db = Brick::$db;
+$db = Abricos::$db;
 $p = &$brick->param->param;
 $v = &$brick->param->var;
 
@@ -18,7 +18,7 @@ $mod = EShopModule::$instance;
 $catalog = $mod->GetCatalog();
 $catalogManager = $mod->GetCatalogManager(); 
 
-$smMenu = CMSRegistry::$instance->modules->GetModule('sitemap')->GetManager()->GetMenu();
+$smMenu = Abricos::GetModule('sitemap')->GetManager()->GetMenu();
 
 $catItemMenu = $smMenu->menuLine[count($smMenu->menuLine)-1];
 $catItem = $catItemMenu->source;

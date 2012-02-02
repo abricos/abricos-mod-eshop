@@ -9,11 +9,11 @@
  */
 
 $var = &$brick->param->var; 
-if (!CMSRegistry::$instance->user->IsRegistred()){
+if (Abricos::$user->id == 0){
 	$var['result'] = $var['guest'];
 }else{
 	$var['result'] = Brick::ReplaceVarByData($var['user'], array(
-		"username" => CMSRegistry::$instance->user->info['username']
+		"username" => Abricos::$user->name
 	));
 }
  

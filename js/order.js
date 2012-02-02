@@ -1,22 +1,20 @@
 /**
-* @version $Id$
-* @package Abricos
-* @copyright Copyright (C) 2010 Abricos. All rights reserved.
-* @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-*/
+ * @version $Id$
+ * @package Abricos
+ * @copyright Copyright (C) 2010 Abricos. All rights reserved.
+ * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
+ */
 
 var Component = new Brick.Component();
 Component.requires = {
 	mod:[{name: 'eshop', files: ['cart.js']}]
 };
-Component.entryPoint = function(){
+Component.entryPoint = function(NS){
 	var Dom = YAHOO.util.Dom,
 		E = YAHOO.util.Event,
 		L = YAHOO.lang;
 	
-	var NS = this.namespace,
-		API = NS.API,
-		TMG = this.template;
+	var TMG = this.template;
 	
 	if (!NS.data){
 		NS.data = new Brick.util.data.byid.DataSet('eshop');
@@ -25,7 +23,7 @@ Component.entryPoint = function(){
 	
 	var LW = Brick.widget.LayWait;
 
-	API.showOrderPanel = function(){
+	NS.API.showOrderPanel = function(){
 		if (!L.isNull(NS.OrderPanel.instance)){ return; }
 		var panel = new NS.OrderPanel();
 		DATA.request();
@@ -60,12 +58,12 @@ Component.entryPoint = function(){
 				j = false,
 				__self = this;
 
-			var saveFS = Dom.getStyle(el, 'font-size');
 			var saveCLR = Dom.getStyle(el, 'color');
 
 			Dom.setStyle(el, 'color', 'red');
 			
-			var thread = setInterval(function(){
+			var thread = null;
+			thread = setInterval(function(){
 				if (i++ > 20 || __self._isDestroy){
 					clearInterval(thread);
 					Dom.setStyle(el, 'color', saveCLR);
@@ -224,7 +222,7 @@ Component.entryPoint = function(){
 				}
 				
 				__self.owner.waitStart();
-				Brick.ajax('eshop',{
+				Brick.ajax('eshop', {
 					'data': {
 						'do': 'checkreg',
 						'email': sEmail,
@@ -445,7 +443,7 @@ Component.entryPoint = function(){
 				var di = row.cell,
 					checked = di['def']*1 > 0;
 				if (checked){
-					current = di['id']
+					current = di['id'];
 				}
 				lst += TM.replace('payrow', {
 					'tl': di['tl'],
@@ -532,8 +530,9 @@ Component.entryPoint = function(){
 		}
 	});
 	
+
+	
 	var OrderPanel = function(){
-		OrderPanel.instance = this;
 		OrderPanel.superclass.constructor.call(this, {
 			width: '800px', zindex: '9999', 
 			resize: true
@@ -543,7 +542,8 @@ Component.entryPoint = function(){
 	
 	YAHOO.extend(OrderPanel, Brick.widget.Dialog, {
 		initTemplate: function(){
-		
+			OrderPanel.instance = this;
+
 			var TM = TMG.build('panel'), T = TM.data, TId = TM.idManager;
 			this._TM = TM; this._T = T; this._TId = TId;
 			
@@ -585,8 +585,8 @@ Component.entryPoint = function(){
 			
 			var elCartSum = TM.getEl('panel.cartsum');
 			elCartSum.innerHTML = '---';
-			API.getCartInfo(function(info){
-				elCartSum.innerHTML = API.formatPrice(info['sum']);
+			NS.API.getCartInfo(function(info){
+				elCartSum.innerHTML = NS.API.formatPrice(info['sum']);
 			});
 			
 			var tables = {
@@ -661,7 +661,6 @@ Component.entryPoint = function(){
 			this._currentPage = this.widgets[page];
 			this._currentPage.onShow();
 			this._currentPage.element.style.display = '';
-			
 		},
 		waitStart: function(){
 			this._lw = new LW(this._TM.getEl('panel.blast').parentNode, true);
@@ -744,8 +743,11 @@ Component.entryPoint = function(){
 			});
 		}
 	});
-	
 	NS.OrderPanel = OrderPanel;
+	
+	
+	
+	
 	
 	var OrderViewWidget = function(container, orderid){
 		this.init(container, orderid);
