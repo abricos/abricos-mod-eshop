@@ -27,7 +27,10 @@ $link = $catItemMenu->link;
 $p = &$brick->param->param;
 
 $arr = explode("x", $p['imgsize']);
-$size = array("w"=>$arr[0],"h"=>$arr[1]);  
+$size = array(
+	"w"=>$arr[0]*1,
+	"h"=>$arr[1]*1
+);  
 
 $el = $mod->currentProduct;
 
@@ -59,7 +62,7 @@ if (empty($imginfo)){
 			"h" => ($thumb['h']>0 ? $thumb['h']."px" : "")
 		));
 		if ($k == 0) $cphoto = Brick::ReplaceVar("{v#cphoto}", "cphoto", $imginfo['fid']); // первая превьюшка - pidCurrent в photosData
-		if ($k > 0) $otherphoto .= ', "'.$imginfo['fid'].'":{mw:250,mh:250,bw:200,bh:200}'; // если к > 0 добавляем фотку в список
+		if ($k > 0) $otherphoto .= ', "'.$imginfo['fid'].'":{mw:('.$size['w'].'+50),mh:('.$size['h'].'+50),bw:'.$size['w'].',bh:'.$size['h'].'}'; // если к > 0 добавляем фотку в список
 		$k = $k+1;
 		
 	}

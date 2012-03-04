@@ -171,34 +171,48 @@ Component.entryPoint = function(){
 	    pidCurrent = pid;
 	};
 	
-	var ViewImagePanel = null; 
+	
 	
 	var viewBigImage = function(fel, fid){
-		if (L.isNull(ViewImagePanel)){
-			var lw = new LW(fel.parentNode, true);
+		
+		var lw = new LW(fel.parentNode, true);
 
-			Brick.Component.API.fireFunction('eshop', 'cart', function(){
-				lw.hide();
+		Brick.ff('sys', 'container', function(){
+			
+			var scrBig = '/filemanager/i/'+fid+'/';
+			
+			var imgBig = document.createElement('img');
+			imgBig.onload = function(){
 				
-				ViewImagePanel = function(fileId){
-					this.fileId = fileId;
-					ViewImagePanel.superclass.constructor.call(this, {
-						fixedcenter: true, resize: true,
-						width: '640px', height: '480px'
-					});
-				};
-				YAHOO.extend(ViewImagePanel, Brick.widget.Panel, {
-					initTemplate: function(){
-						var TM = TMG.build('viewimagepanel'), T = TM.data, TId = TM.idManager;
-						
-						return TM.replace('viewimagepanel', {'fid': this.fileId});
-					}
+				lw.hide();
+				var w = imgBig.width*1,
+					h = imgBig.height*1;
+				
+				if (w == 0 || h == 0){ return; }
+				w += 20; h += 50;
+				
+				var pnl = new YAHOO.widget.Panel("wait", { 
+					'width': w+'px', 'height': h+'px',
+					close: true, 
+					draggable:false, 
+					zindex:4000,
+					modal:false,
+					visible:false,
+					overflow: true
 				});
-				new ViewImagePanel(fid);
-			});
-		}else{
-			new ViewImagePanel(fid);
-		}
+				pnl.setHeader('Image');
+				pnl.setBody('<img src="'+scrBig+'" />');
+				pnl.render(document.body);
+				pnl.center();
+				pnl.show();
+				E.on(pnl.element, 'click', function(){
+					pnl.hide();
+					pnl.destroy();
+				});
+			};
+			imgBig.src = scrBig;
+		});	
+
 	};
 	
 
