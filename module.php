@@ -14,7 +14,7 @@ class EShopModule extends Ab_Module {
 	
 	private $menuData = null;
 	/**
-	 * @var CMSSitemapMenuItem
+	 * @var SitemapMenuItem
 	 */
 	public $menu = null;
 	
@@ -166,12 +166,12 @@ class EShopModule extends Ab_Module {
 		$smMenu->Build($this->menu, $menuData, 1, $full);
 		$product = $this->currentProduct;
 		if (!is_null($product)){
-			array_push($smMenu->menuLine, new CMSSitemapMenuItem(null, 1, 0, 0, 'root', $product['fld_name'], '', count($smMenu->menuLine)));
+			array_push($smMenu->menuLine, new SitemapMenuItem(null, 1, 0, 0, 'root', $product['fld_name'], '', count($smMenu->menuLine)));
 		}
 		$this->catalog = &$catalog;
 	}
 	
-	public function GetFullSubCatalogId(CMSSitemapMenuItem $item){
+	public function GetFullSubCatalogId(SitemapMenuItem $item){
 		$arr = array($item->source['id']);
 		foreach ($item->child as $child){
 			$chids = $this->GetFullSubCatalogId($child);
