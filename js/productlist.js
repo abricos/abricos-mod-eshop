@@ -11,14 +11,13 @@ Component.requires = {
 	     {name: 'sitemap', files: ['paginator.js']}
 	]
 };
-Component.entryPoint = function(){
+Component.entryPoint = function(NS){
 	
 	var Dom = YAHOO.util.Dom,
 		E = YAHOO.util.Event,
 		L = YAHOO.lang;
 	
-	var NS = this.namespace, 
-		API = NS.API;
+	var API = NS.API;
 	
 	var LW = Brick.widget.LayWait;
 
@@ -32,6 +31,7 @@ Component.entryPoint = function(){
 	PageListManager.prototype = {
 		init: function(){
 			var pgs = new Brick.mod.sitemap.API.initPaginatorByClassName('paginator');
+
 			if (pgs.length < 1){ return; }
 			var pg = pgs[0];
 			pg.onPageChange.subscribe(this.onPageChange, this, true);
@@ -49,9 +49,10 @@ Component.entryPoint = function(){
 			this.loaderPageTemplate = Dom.get('pr_loader_template').innerHTML;
 		},
 		onPageChange: function(type, args){
-			var pg = this.paginator;
-			var page = args[0]*1;
-			var lastPage = (args[1] || pg.page)*1;
+			
+			var pg = this.paginator, 
+				page = args[0]*1, 
+				lastPage = (args[1] || pg.page)*1;
 			
 			if (this.pages[page]){
 				this.showPage(page);
@@ -60,25 +61,28 @@ Component.entryPoint = function(){
 
 			var __self = this;
 
-			this.setPageSource(page, Brick.util.Template.setPropertyArray(
-				this.loaderPageTemplate, {'numpage': page}
-			), function(pPage){
-				Brick.ajax('eshop',{
-					'type': 'html',
-					'data': {
-						'do': 'brick-productlist',
-						'page': page,
-						'uri': window.location.href 
-					},
-					'event': function(response){
-						__self.setPageSource(page, response.responseText);
-					}
-				});
-			});
+			this.setPageSource(
+				page, 
+				Brick.util.Template.setPropertyArray(this.loaderPageTemplate, {'numpage': page}), 
+				function(pPage){
+					Brick.ajax('eshop',{
+						'type': 'html',
+						'data': {
+							'do': 'brick-productlist',
+							'page': page,
+							'uri': window.location.href 
+						},
+						'event': function(response){
+							__self.setPageSource(page, response.responseText);
+						}
+					});
+				}
+			);
 		},
 		setPageSource: function(page, html, callback){
 			page = page*1;
 			var el = Dom.get('product-list-page-'+page);
+
 			if (!L.isNull(el)){
 				el.parentNode.removeChild(el);
 				delete this.pages[nn];

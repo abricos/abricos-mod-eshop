@@ -11,7 +11,8 @@
 $brick = Brick::$builder->brick;
 $db = Abricos::$db;
 $p = &$brick->param->param;
-$mod = Abricos::GetModule('eshop');
+Abricos::GetModule('eshop');
+$mod = EShopModule::$instance;
 
 $smMenu = Abricos::GetModule('sitemap')->GetManager()->GetMenu();
 $catItemMenu = $smMenu->menuLine[count($smMenu->menuLine)-1];
@@ -32,15 +33,22 @@ $brick->content = Brick::ReplaceVarByData($brick->content, array(
 	"cat_desc" => $cat_desc
 ));
 
-$link = $baseUrl = $catItemMenu->link; // ********
+$link = $baseUrl = $catItemMenu->link; 
 
 $listData = $mod->GetManager()->GetProductListData();
 
 $listPage = $listData['listPage'];
 $catids = $listData['catids'];
+// $listTotal = $catalogManager->ElementCount($catids);
+$listTotal = 0;
 
-$listTotal = $catalogManager->ElementCount($catids); // ********
-$perPage = bkint($p['count']); // ********
+foreach ($brick->child as $child){
+	if ($child->name == 'product_list'){
+		$listTotal = $child->totalElementCount;
+	}
+}
+
+$perPage = bkint($p['count']);
 
 // подгрузка кирпича пагинатора с параметрами
 Brick::$builder->LoadBrickS('sitemap', 'paginator', $brick, array("p" => array(
@@ -63,11 +71,7 @@ else if (!empty($catItem['tl'])){
 if (!empty($catItem['kwds']) && $catItem['kwds'] !="&nbsp;"){
 	Brick::$builder->SetGlobalVar('meta_keys', $catItem['kwds']);
 }
-/*
-else if (!empty($catItem['tl'])){
-	Brick::$builder->SetGlobalVar('meta_keys', $catItem['tl']);
-}
-*/
+
 // Вывод описания
 if (!empty($catItem['kdsc']) && $catItem['kdsc'] !="&nbsp;"){
 	Brick::$builder->SetGlobalVar('meta_desc', $catItem['kdsc']);

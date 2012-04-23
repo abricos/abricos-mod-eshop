@@ -2,10 +2,7 @@
 [tt=main][/tt]
 [script]products.php[/script]
 
-[desc]Страница разделов каталога и продукции. Параметры:
-count - кол-во товаров на странице (по умолчанию 6).[/desc]
-
-[mod=eshop]product_list,p_catalog_list[/mod]
+[mod=eshop]p_catalog_list,product_list[/mod]
 
 [mcss=sitemap]sitemap.css[/mcss]
 
@@ -20,29 +17,35 @@ count - кол-во товаров на странице (по умолчани�
 [/bkvar]
 
 [*]-->
-<h1><span>{v#cattitle}</span></h1><div class="clear" ></div>
+<div class="mod-eshop">
+	<h2>{v#cattitle}</h2>
 
-[mod]eshop:p_catalog_list[/mod]
+	[mod]eshop:p_catalog_list[/mod]
 
-<div id="pr_block">
-	{v#cat_desc}
-	<div id="product-list-wpage" style="position: relative;">
-		[mod]eshop:product_list[/mod]
+	<div id="pr_block">
+
+		{v#cat_desc}
+
+		<div id="product-list-wpage" style="position: relative;">
+			[mod]eshop:product_list[/mod]
+		</div>
 	</div>
+	
+	<div class="clearfloat"></div>
+	
+	[mod]sitemap:paginator[/mod]
+	
+	<pre id="pr_loader_template" style="display: none;"><ul id="product-list-page-{v#numpage}">
+			<li><div class="pr_loader"><img src="/images/loading.gif" />Идет загрузка</div></li>
+			<li><div class="pr_loader"><img src="/images/loading.gif" />Идет загрузка</div></li>
+			<li><div class="pr_loader"><img src="/images/loading.gif" />Идет загрузка</div></li>
+			<li><div class="pr_loader"><img src="/images/loading.gif" />Идет загрузка</div></li>
+			<li><div class="pr_loader"><img src="/images/loading.gif" />Идет загрузка</div></li>
+			<li><div class="pr_loader"><img src="/images/loading.gif" />Идет загрузка</div></li>
+		</ul>
+	</pre>
+
 </div>
-
-<div class="clearfloat"></div>
-[mod]sitemap:paginator[/mod]
-
-<pre id="pr_loader_template" style="display: none;"><ul id="product-list-page-{v#numpage}">
-		<li><div class="pr_loader">Идет загрузка</div></li>
-		<li><div class="pr_loader">Идет загрузка</div></li>
-		<li><div class="pr_loader">Идет загрузка</div></li>
-		<li><div class="pr_loader">Идет загрузка</div></li>
-		<li><div class="pr_loader">Идет загрузка</div></li>
-		<li><div class="pr_loader">Идет загрузка</div></li>
-	</ul>
-</pre>
 
 <script>
 	Brick.f('eshop', 'ui', 'buyButtonsInit');

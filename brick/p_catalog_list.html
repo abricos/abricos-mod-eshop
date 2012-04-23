@@ -1,29 +1,38 @@
 <!--[*]
+
 [script]catalog_list.php[/script]
 [mcss=eshop]eshop.css[/mcss]
 
 [bkvar=table]
-	<ul class="catls">{v#rows}</ul>
-	<div class="clear"></div>	
+	<ul class="catlist">{v#rows}</ul>
+	<div class="clear"></div>
 [/bkvar]
 
 [bkvar=row]
-	<li>
-		{v#image}
-		<p class="pr_title"><a title="{v#title}" href="{v#link}">{v#title}</a></p>
+	<li class="catitem">
+		<p class="photo">
+			{v#image}
+		</p>
+		<p class="title">
+			<a title="{v#title}" href="{v#link}">{v#title}</a>
+		</p>
     </li>
 [/bkvar]
 
 [bkvar=img]
-	<div><a title="{v#title}" href="{v#link}"><img width="{v#w}px" height="{v#h}px" alt="{v#title}" src="{v#src}"></a></div>
+	<a title="{v#title}" href="{v#link}"><img width="{v#w}px" height="{v#h}px" alt="{v#title}" src="{v#src}"></a>
 [/bkvar]
 
 [bkvar=imgempty]
-	<div class="rel"><a title="{v#title}" href="{v#link}"><img width="{v#w}px" height="{v#h}px" alt="{v#title}" src="/modules/eshop/images/empty.gif"></a><span class="nophoto"><a title="{v#title}" href="{v#link}">фотография временно недоступна</a></span></div>
+	<a title="{v#title}" href="{v#link}"><img width="{v#w}px" height="{v#h}px" alt="{v#title}" src="/modules/eshop/images/empty.gif"></a>
+	<span class="nophoto"><a title="{v#title}" href="{v#link}">фотография временно недоступна</a></span>
 [/bkvar]
 
 [mod=filemanager]enthumbs|list=200x200[/mod]
 [p=imgw]200[/p]
 [p=imgh]200[/p]
 
-[*]-->{v#result}
+[*]-->
+<div class="cataloglist">
+	{v#result}
+</div>

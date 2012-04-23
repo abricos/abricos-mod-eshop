@@ -10,14 +10,13 @@ Component.requires = {
 	yahoo: ['dom'],
 	mod:[{name: 'sys', files: ['wait.js']}]
 };
-Component.entryPoint = function(){
+Component.entryPoint = function(NS){
 	
 	var Dom = YAHOO.util.Dom,
 		E = YAHOO.util.Event,
 		L = YAHOO.lang;
 	
-	var NS = this.namespace, 
-		API = NS.API,
+	var API = NS.API,
 		F = Brick.Component.API.fire,
 		FF = Brick.Component.API.fireFunction,
 		TMG = this.template;
@@ -170,8 +169,6 @@ Component.entryPoint = function(){
 	    tmb.className = "currentPhoto";
 	    pidCurrent = pid;
 	};
-	
-	
 	
 	var viewBigImage = function(fel, fid){
 		

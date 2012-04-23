@@ -1,6 +1,48 @@
-img {
-	border: none;
+.mod-eshop .clear { clear: both; }
+.mod-eshop .rel { position: relative; }
+
+.mod-eshop .nophoto {
+	position:absolute;
+	left: 0;
+	top: 40%;
+	text-align: center;
+	width: 100%;
+	color: #C9C9C9;
+	font-weight: bold;
 }
+.mod-eshop .nophoto a {
+	color: #C9C9C9;
+	text-decoration: none;
+}
+
+.mod-eshop .cataloglist a {
+	text-decoration: none;
+}
+.mod-eshop .cataloglist .catlist {
+	width: 100%;
+}
+.mod-eshop .cataloglist li.catitem  {
+	position: relative;
+	width: 210px;
+	float: left;
+	margin: 0 3px 3px 0;
+}
+
+
+.mod-eshop .cataloglist li.catitem p {
+	border: 1px solid #EEF1F2;
+	text-align: center;
+}
+.mod-eshop .cataloglist li.catitem p.photo {
+	border-bottom: none;
+}
+
+.mod-eshop .cataloglist li.catitem p.title {
+	padding: 3px;
+}
+
+
+
 
 div#pr_block {
 	overflow: hidden;
@@ -160,19 +202,6 @@ width:335px;
 }
 .currentPhoto {
 	border: 4px solid #eee;
-}
-.nophoto {
-	position:absolute;
-	left: 0;
-	top: 40%;
-	text-align: center;
-	width: 100%;
-	color: #C9C9C9;
-	font-weight: bold;
-}
-.nophoto a {
-	color: #C9C9C9;
-	text-decoration: none;
 }
 
 .clearfloat {

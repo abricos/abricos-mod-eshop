@@ -3,9 +3,8 @@
  * @version $Id$
  * @package Abricos
  * @subpackage EShop
- * @copyright Copyright (C) 2008 Abricos All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * @author Alexander Kuzmin (roosit@abricos.org)
+ * @author Alexander Kuzmin <roosit@abricos.org>
  */
 
 $brick = Brick::$builder->brick;
@@ -28,6 +27,7 @@ $imgWidth = bkint($p['imgw']);
 $imgHeight = bkint($p['imgh']);
 
 $listData = $mod->GetManager()->GetProductListData();
+
 $listPage = $listData['listPage'];
 if (intval($p['page'])>0){
 	$listPage = intval($p['page']);
@@ -44,6 +44,10 @@ $tempArr = array();
 $custOrder = empty($p['custorder']) ? "fld_ord DESC" : $p['custorder'];
 
 $rows = $catalogManager->ElementList($catids, $listPage, bkint($p['count']), $p['custwhere'], $custOrder, $p['overfields']);
+
+$brick->totalElementCount = $catalogManager->ElementCount($catids, $p['custwhere']);
+ 
+
 
 $elTypeList = $catalogManager->ElementTypeListArray();
 
