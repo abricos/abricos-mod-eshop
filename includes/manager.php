@@ -54,6 +54,8 @@ class EShopManager extends Ab_ModuleManager {
 		
 		$this->catalog = Abricos::GetModule('catalog');
 		$this->catalogManager = $module->GetCatalogManager();
+		
+		$this->userSession = $this->user->session->key; 
 	}
 	
 	/**

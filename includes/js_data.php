@@ -2,12 +2,12 @@
 /**
  * Обработка запросов DataSet 
  * 
- * @version $Id: js_data.php 340 2010-02-04 14:51:50Z roosit $
+ * @version $Id$
  * @package Abricos
- * @subpackage User
+ * @subpackage Eshop
  * @copyright Copyright (C) 2008 Abricos. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * @author Alexander Kuzmin (roosit@abricos.org)
+ * @author Alexander Kuzmin <roosit@abricos.org>
  */
 
 $brick = Brick::$builder->brick;
