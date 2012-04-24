@@ -24,13 +24,13 @@ $catalogManager = $mod->GetCatalogManager();
 // <p></p> - вставляется автоматом при редактировании категории
 $cat_desc = "";
 if ($catItem['dsc'] != null AND $catItem['dsc'] != "<p></p>"){
-	$cat_desc = Brick::ReplaceVar($brick->param->var["cat_desc_not_null"], "descript", $catItem['dsc']);
+	$cat_desc = Brick::ReplaceVar($brick->param->var["description"], "descript", $catItem['dsc']);
 }
 
 // Для главной страницы /eshop/
 $brick->content = Brick::ReplaceVarByData($brick->content, array(
 	"cattitle" => !empty($catItem['tl']) ? $catItem['tl'] : $brick->param->var["deftitle"],
-	"cat_desc" => $cat_desc
+	"catdesc" => $cat_desc
 ));
 
 $link = $baseUrl = $catItemMenu->link; 

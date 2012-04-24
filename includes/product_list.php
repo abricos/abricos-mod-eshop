@@ -62,28 +62,32 @@ while (($row = $db->fetch_array($rows))){
 		$tempArr[$el['catid']] = $smMenu->FindSource('id', $el['catid']);
 	}
 	$link = $tempArr[$el['catid']]->link;
+
 	// Проверка, является ли товар Новинкой, Акцией или Хитом продаж
-	$pr_spec = $el['fld_akc'] != 0 ? $v["pr_akc"] : "";
+	$pr_spec = $el['fld_akc'] != 0 ? $v["isakc"] : "";
 	$pr_spec .= $el['fld_new'] != 0 ? $v["pr_new"] : "";
 	$pr_spec .= $el['fld_hit'] != 0 ? $v["pr_hit"] : "";
-	$pr_spec11 = Brick::ReplaceVar($v["pr_spec0"], "pr_spec", $pr_spec);
+	
+	$pr_special = "";
+	if (!empty($pr_spec)){
+		$pr_special = Brick::ReplaceVar($v["special"], "pr_spec", $pr_spec);
+	}
 
 	$imginfo = $db->fetch_array($catalogManager->FotoListThumb($el['elid'], $imgWidth, $imgHeight, 1));
 
 	if (empty($imginfo)){
 		$image = $brick->param->var["imgempty"];
-		$image = Brick::ReplaceVar($brick->param->var["imgempty"], "pr_spec1", $pr_spec11);
 	}else{
 		$thumb = CatalogModule::FotoThumbInfoParse($imginfo['thumb']);
 		
 		$image = Brick::ReplaceVarByData($brick->param->var["img"], array(
 			"src" => CatalogModule::FotoThumbLink($imginfo['fid'], $imgWidth, $imgHeight, $imginfo['fn']), 
 			"w" => ($thumb['w']>0 ? $thumb['w']."px" : ""),
-			"h" => ($thumb['h']>0 ? $thumb['h']."px" : ""),
-			"pr_spec1" => $pr_spec11
+			"h" => ($thumb['h']>0 ? $thumb['h']."px" : "")
 		));
 	}
 	$replace = array(
+		"special" => $pr_special,
 		"tpl_btn" => $brick->param->var[$el['fld_sklad']==0 ? 'btnnotorder' : 'btnorder'],
 		"image" => $image, 
 		"title" => addslashes(htmlspecialchars($el['fld_name'])),

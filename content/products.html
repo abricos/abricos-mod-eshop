@@ -10,41 +10,41 @@
 
 [bkvar=deftitle]Интернет-магазин[/bkvar]
 
-[bkvar=cat_desc_not_null]
-	<div class="pr_desc">
+[bkvar=description]
+	<div class="catdesc">
 		{v#descript}
 	</div>
 [/bkvar]
 
 [*]-->
 <div class="mod-eshop">
-	<h2>{v#cattitle}</h2>
+	<div class="pagemixed">
 
-	[mod]eshop:p_catalog_list[/mod]
-
-	<div id="pr_block">
-
-		{v#cat_desc}
+		<h2>{v#cattitle}</h2>
+	
+		[mod]eshop:p_catalog_list[/mod]
 
 		<div id="product-list-wpage" style="position: relative;">
 			[mod]eshop:product_list[/mod]
 		</div>
+		<div class="clear"></div>
+		
+		[mod]sitemap:paginator[/mod]
+		<div class="clear"></div>
+	
+		{v#catdesc}
+		
+		<pre id="pr_loader_template" style="display: none;"><ul id="product-list-page-{v#numpage}">
+				<li><div class="pr_loader"><img src="/images/loading.gif" />Идет загрузка</div></li>
+				<li><div class="pr_loader"><img src="/images/loading.gif" />Идет загрузка</div></li>
+				<li><div class="pr_loader"><img src="/images/loading.gif" />Идет загрузка</div></li>
+				<li><div class="pr_loader"><img src="/images/loading.gif" />Идет загрузка</div></li>
+				<li><div class="pr_loader"><img src="/images/loading.gif" />Идет загрузка</div></li>
+				<li><div class="pr_loader"><img src="/images/loading.gif" />Идет загрузка</div></li>
+			</ul>
+		</pre>
+		
 	</div>
-	
-	<div class="clearfloat"></div>
-	
-	[mod]sitemap:paginator[/mod]
-	
-	<pre id="pr_loader_template" style="display: none;"><ul id="product-list-page-{v#numpage}">
-			<li><div class="pr_loader"><img src="/images/loading.gif" />Идет загрузка</div></li>
-			<li><div class="pr_loader"><img src="/images/loading.gif" />Идет загрузка</div></li>
-			<li><div class="pr_loader"><img src="/images/loading.gif" />Идет загрузка</div></li>
-			<li><div class="pr_loader"><img src="/images/loading.gif" />Идет загрузка</div></li>
-			<li><div class="pr_loader"><img src="/images/loading.gif" />Идет загрузка</div></li>
-			<li><div class="pr_loader"><img src="/images/loading.gif" />Идет загрузка</div></li>
-		</ul>
-	</pre>
-
 </div>
 
 <script>

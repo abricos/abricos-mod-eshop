@@ -30,32 +30,36 @@
 [/v]
 [v=imgsm]<img class="tmb" src="{v#src}" alt="{v#fld_name}" width="{v#w}" height="{v#h}" onclick="Brick.f('eshop', 'ui', 'showBigPhoto', {fid: '{v#fid}', el: this}); return false;" id="tmb{v#fid}">[/v]
 [v=button]
-	Кол-во:<input type="text" value="1" size="3" class="txt-product-bcount-{v#productid}"> <a class="button btn-product-buy product-{v#productid}" href="#" ><span>Добавить в корзину</span></a>
+	<span>Кол-во:</span><input onfocus="this.select();" type="text" value="1" size="3" class="txt-product-bcount-{v#productid}"> <a class="button btn-product-buy product-{v#productid}" href="#" ><span>Добавить в корзину</span></a>
 [/v]
 [v=sklad0]<div class="center">Товара нет в наличии</div>
 [/v]
 [*]-->
-<div id="view_item">
-	<h1><span>{v#fld_name}</span></h1><div class="clear"></div>
-	<script type="text/javascript">
-		var photosData={"{v#cphoto}":{mw:250,mh:250,bw:200,bh:200}{v#otherphoto}}, pidCurrent="{v#cphoto}";
-	</script>
-	<div class="photos">
-		<div id="bigPhotoDiv">
-			{v#image}
-			<img width="31" height="31" src="/modules/eshop/images/loader.gif" alt="Loading" id="loading" style="display: none;">
+<div class="mod-eshop">
+	<div id="view_item" class="product">
+		<h3>{v#fld_name}</h3>
+		
+		<div class="photos">
+			<div id="bigPhotoDiv">
+				{v#image}
+				<img width="31" height="31" src="/modules/eshop/images/loader.gif" alt="Loading" id="loading" style="display: none;">
+			</div>
+			{v#imagelist}
+		</div>   
+		<div class="info">
+			{v#optlist}
+			<div class="add2cart">{v#add2cart}</div>
 		</div>
-		{v#imagelist}
-	</div>   
-	<div class="info">
-		{v#optlist}
-		<div class="add2cart">{v#add2cart}</div>
+		<br class="clear" />
+		<fieldset class="descript">
+			<legend>Подробнее о товаре</legend>
+			{v#fld_desc}
+		</fieldset>
 	</div>
-	<br class="clearfloat">
-	<fieldset class="note">
-		<legend>Подробнее о товаре</legend>
-		{v#fld_desc}
-	</fieldset>
 </div>
+
+<script type="text/javascript">
+	var photosData={"{v#cphoto}":{mw:250,mh:250,bw:200,bh:200}{v#otherphoto}}, pidCurrent="{v#cphoto}";
+</script>
 
 <script>Brick.f('eshop', 'ui', 'buyButtonsInit');</script>
