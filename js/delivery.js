@@ -9,13 +9,12 @@ var Component = new Brick.Component();
 Component.requires = {
 	mod:[{name: 'sys', files: ['data.js', 'container.js', 'wait.js', 'form.js']}]
 };
-Component.entryPoint = function(){
+Component.entryPoint = function(NS){
 	var Dom = YAHOO.util.Dom,
 		E = YAHOO.util.Event,
 		L = YAHOO.lang;
 	
-	var NS = this.namespace,
-		API = NS.API,
+	var API = NS.API,
 		TMG = this.template;
 
 	NS.delivery = NS.delivery || {}; 
@@ -27,23 +26,16 @@ Component.entryPoint = function(){
 	
 	var LW = Brick.widget.LayWait;
 
-	var buildTemplate = function(widget, templates){
-		var TM = TMG.build(templates), T = TM.data, TId = TM.idManager;
-		widget._TM = TM; 
-		widget._T = T; 
-		widget._TId = TId;
-	};
+	var buildTemplate = this.buildTemplate;
 	
 	var ManagerWidget = function(container){
 		this.init(container);
 	};
-	
 	ManagerWidget.prototype = {
 		init: function(container){
-			buildTemplate(this, 'manwidget,table,row,rowwait');
+			var TM = buildTemplate(this, 'manwidget,table,row,rowwait');
 			
-			container.innerHTML = this._T['manwidget'];
-			
+			container.innerHTML = TM.replace('manwidget');
 			var tables = {
 				'delivery': DATA.get('delivery', true)
 			};
@@ -73,10 +65,12 @@ Component.entryPoint = function(){
 			TM.getEl('manwidget.table').innerHTML = TM.replace('table', {'rows': T['rowwait']});
 		},
 		render: function(){
-			this._TM.getEl('manwidget.table').innerHTML = this.buildList(0);
+			var lst = this.buildList(0); 
+			
+			this._TM.getEl('manwidget.table').innerHTML = lst;
 		},
 		buildList: function(pid){
-			var __self = this, lst = "", TM = this._TM, T = this._T;
+			var TM = this._TM, __self = this, lst = "";
 			DATA.get('delivery').getRows().filter({'pid': pid}).foreach(function(row){
 				var di = row.cell;
 				lst += TM.replace('row', {
@@ -87,7 +81,7 @@ Component.entryPoint = function(){
 				});
 			});
 			
-			return lst.length == 0 ? "" : TM.replace('table', {'rows': lst});
+			return (lst.length == 0 && pid>0) ? "" : TM.replace('table', {'rows': lst});
 		},
 		onClick: function(el){
 			var TId = this._TId;
@@ -117,7 +111,6 @@ Component.entryPoint = function(){
 			return false;
 		},
 		edit: function(id, pid){
-			
 			id = id*1 || 0;
 			pid = pid*1 || 0;
 			var table = DATA.get('delivery'),
@@ -192,12 +185,13 @@ Component.entryPoint = function(){
 		elv: function(name){ return Brick.util.Form.getValue(this.el(name)); },
 		setelv: function(name, value){ Brick.util.Form.setValue(this.el(name), value); },
 		initTemplate: function(){
-			buildTemplate(this, 'editorpanel');
-			return this._T['editorpanel'];
+			var TM = buildTemplate(this, 'editorpanel');
+			return TM.replace('editorpanel');
 		},
 		onLoad: function(){
 			var di = this.row.cell;
 			this.setelv('tl', di['tl']);
+			this.setelv('pc', di['pc']);
 			this.setelv('it', di['it']);
 			this.setelv('ot', di['ot']);
 		},
@@ -213,6 +207,7 @@ Component.entryPoint = function(){
 			
 			this.row.update({
 				'tl': this.elv('tl'),
+				'pc': this.elv('pc')*1,
 				'it': this.elv('it'),
 				'ot': this.elv('ot')
 			});

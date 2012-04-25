@@ -23,10 +23,7 @@ Component.entryPoint = function(NS){
 	
 	NS['billing'] = NS['billing'] || {}; 
 	
-	if (!NS.data){
-		NS.data = new Brick.util.data.byid.DataSet('eshop');
-	}
-	var DATA = NS.data;
+	var DATA = NS.data = NS.data || new Brick.util.data.byid.DataSet('eshop');
 	
 	var LW = Brick.widget.LayWait;
 

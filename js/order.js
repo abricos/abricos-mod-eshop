@@ -1,4 +1,4 @@
-/**
+/*
  * @version $Id$
  * @package Abricos
  * @copyright Copyright (C) 2010 Abricos. All rights reserved.
@@ -14,15 +14,10 @@ Component.entryPoint = function(NS){
 		E = YAHOO.util.Event,
 		L = YAHOO.lang;
 	
-	var buildTemplate = this.buildTemplate;
-	var TMG = this.template;
-	
-	if (!NS.data){
-		NS.data = new Brick.util.data.byid.DataSet('eshop');
-	}
-	var DATA = NS.data;
-	
 	var LW = Brick.widget.LayWait;
+	var buildTemplate = this.buildTemplate;
+	
+	var DATA = NS.data = NS.data || new Brick.util.data.byid.DataSet('eshop');
 
 	NS.API.showOrderPanel = function(){
 		if (!L.isNull(NS.OrderPanel.instance)){ return; }
@@ -265,7 +260,6 @@ Component.entryPoint = function(NS){
 			var d = this.getData();
 			return this._TM.replace('authprint', d);
 		}
-		
 	});
 	
 
@@ -278,7 +272,8 @@ Component.entryPoint = function(NS){
 			this.deliveryid = null;
 		},
 		renderWait: function(){
-			this._TM.getEl('deli.table').innerHTML = this._TM.replace('delitable', {'rows': this._T['delirowwait']});
+			var TM = this._TM;
+			TM.getEl('deli.table').innerHTML = TM.replace('delitable', {'rows': TM.replace('delirowwait')});
 		},
 		renderElements: function(){
 			var TM = this._TM, T = this._T, TId = this._TId,
@@ -300,6 +295,7 @@ Component.entryPoint = function(NS){
 					lst += TM.replace('delirow', {
 						'tl': di['tl'],
 						'id': di['id'],
+						'pc': (di['pc']*1>0 ? TM.replace('delisum', {'pc':  NS.API.formatPrice(di['pc'])}) : ''),
 						'path': npath,
 						'level': level,
 						'child': buildNode(di['id'], level+1, npath)
@@ -405,17 +401,26 @@ Component.entryPoint = function(NS){
 				'firstname': this.getVal('im'),
 				'phone': this.getVal('phone'),
 				'adress': this.getVal('adress'),
-				'extinfo': this.getVal('extinfo')
+				'extinfo': this.getVal('extinfo'),
+				'delitl': '', 
+				'delipc': ''
 			};
 		},
 		print: function(){
-			var d = this.getData(),
+			var TM = this._TM, d = this.getData(),
 				deliid = d['deliveryid']*1;
 
 			d['hideadr'] = deliid > 0 ? '' : 'none';
 			
 			var row = DATA.get('delivery').getRows().getById(deliid);
-			d['delitl'] = L.isNull(row) ? '' : row.cell['tl'];
+			if (!L.isNull(row)){
+				d['delitl'] =  row.cell['tl'];
+				if (row.cell['pc']*1>0){
+					d['delipc'] = TM.replace('delisum', {
+						'pc':  NS.API.formatPrice(row.cell['pc'])
+					});
+				}
+			}
 			
 			return this._TM.replace('deliprint', d);
 		}
@@ -524,13 +529,11 @@ Component.entryPoint = function(NS){
 			var own = this.owner;
 			var print = 
 				own.authWidget.print() +
-				own.deliWidget.print() +
-				own.payWidget.print();
+				own.payWidget.print() +
+				own.deliWidget.print();
 			this._TM.getEl('conf.print').innerHTML = print;
 		}
 	});
-	
-
 	
 	var OrderPanel = function(){
 		OrderPanel.superclass.constructor.call(this, {
@@ -562,7 +565,7 @@ Component.entryPoint = function(NS){
 			
 			return TM.replace('panel', {
 				'auth': this.authWidget.initTemplate('authprint'),
-				'deli': this.deliWidget.initTemplate('delitable,delitablesub,delirow,delirowwait,deliprint'),
+				'deli': this.deliWidget.initTemplate('delitable,delitablesub,delirow,delirowwait,deliprint,delisum'),
 				'pay': this.payWidget.initTemplate('paytable,payrow,payrowwait,payprint'),
 				'conf': this.confWidget.initTemplate()
 			});
@@ -751,7 +754,7 @@ Component.entryPoint = function(NS){
 		init: function(container, orderid){
 			this.orderid = orderid;
 			
-			var TM = buildTemplate(this, 'viewwidget,deliprint,delitldef,payprint');
+			var TM = buildTemplate(this, 'viewwidget,deliprint,delitldef,payprint,delisum');
 			
 			this.cart = new NS.CartWidget(true, orderid);
 			container.innerHTML = TM.replace('viewwidget', {
@@ -798,20 +801,31 @@ Component.entryPoint = function(NS){
 			var payRow = DATA.get('payment').getRows().getById(order['payid']);
 			var pay = L.isNull(payRow) ? null : payRow.cell;
 
+			var sDelitl = "", sDelipc = "";
+			if (!L.isNull(deli)){
+				sDelitl = deli['tl'];
+				if (deli['pc']*1>0){
+					sDelipc = TM.replace('delisum', {
+						'pc': NS.API.formatPrice(deli['pc'])
+					});
+				}
+			}
+
 			TM.getEl('viewwidget.id').innerHTML = 
+				TM.replace('payprint', {
+					'tl': L.isNull(pay) ? '' : pay['tl'],
+					'dsc': L.isNull(pay) ? '' : pay['dsc']
+				}) + 
 				TM.replace('deliprint', {
 					'hideadr': L.isNull(deli) ? 'none' : '',
-					'delitl': L.isNull(deli) ? T['delitldef'] : deli['tl'],
+					'delitl': sDelitl,
+					'delipc': sDelipc,
 					'lastname': order['lnm'],
 					'firstname': order['fnm'],
 					'phone': order['ph'],
 					'adress': order['adress'],
 					'extinfo': order['extinfo']
-				}) +
-				TM.replace('payprint', {
-					'tl': L.isNull(pay) ? '' : pay['tl'],
-					'dsc': L.isNull(pay) ? '' : pay['dsc']
-				}); 
+				});
 		},
 		renderWait: function(){
 		}
