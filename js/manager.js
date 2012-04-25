@@ -13,20 +13,14 @@ Component.requires = {
          {name: 'catalog', files: ['catalog.js','eltype.js']}
     ]
 };
-Component.entryPoint = function(){
+Component.entryPoint = function(NS){
 	var Dom = YAHOO.util.Dom,
 		E = YAHOO.util.Event,
 		L = YAHOO.lang;
 
-	var NS = this.namespace, 
-		TMG = this.template;
-	
 	var API = NS.API;
 	
-	var buildTemplate = function(w, templates){
-		var TM = TMG.build(templates), T = TM.data, TId = TM.idManager;
-		w._TM = TM; w._T = T; w._TId = TId;
-	};
+	var buildTemplate = this.buildTemplate;
 	
 	var ManagerWidget = function(container){
 		this.init(container);
@@ -34,19 +28,17 @@ Component.entryPoint = function(){
 	ManagerWidget.prototype = {
 		init: function(container){
 		
-			var TM = TMG.build('widget'), T = TM.data, TId = TM.idManager;
-			
-			this._TM = TM; this._T = T; this._TId = TId;
-
-			container.innerHTML = T['widget']; 
+			var TM = buildTemplate(this, 'widget');
+			container.innerHTML = TM.replace('widget');
 			
 			var tabView = new YAHOO.widget.TabView(TM.getElId('widget.id'));
 			this.page = {
+				// 'billing': new NS.billing.Manager(TM.getEl('widget.orders')),
+					
 				'catalog': new Brick.mod.catalog.API.showElementTypeManagerWidget({
 					'container': TM.getEl('widget.catalog'),
 					'mmPrefix': 'eshop' 
 				}),
-				'billing': new NS.billing.Manager(TM.getEl('widget.orders')),
 				'config': new NS.config.Manager(TM.getEl('widget.config'))
 			};
 		}

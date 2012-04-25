@@ -23,8 +23,16 @@ Component.entryPoint = function(){
 		cp.MenuManager.add(menuItem);
 	}
 	
-	// Меню для админа
 	if (Brick.Permission.check('catalog', '50') > 0){
+		// заказы в магазине
+		var menuItem = new cp.MenuItem(this.moduleName, 'billing');
+		menuItem.icon = '/modules/sys/images/cp_icon.gif';
+		menuItem.titleId = 'mod.eshop.cp.title.billing';
+		menuItem.entryComponent = 'billing';
+		menuItem.entryPoint = 'Brick.mod.eshop.API.showBillingManagerWidget';
+		cp.MenuManager.add(menuItem);
+
+		// настройка магазина
 		var menuItem = new cp.MenuItem(this.moduleName, 'admin');
 		menuItem.icon = '/modules/sys/images/cp_icon.gif';
 		menuItem.titleId = 'mod.eshop.cp.title.admin';

@@ -4,26 +4,26 @@
 </div>
 
 <!--{panel}-->
-<div class='hd'>Корзина</div>
-<div class='bd'>
-	<h1><span>Моя корзина</span></h1><div class="clear"></div>
-	<div><div id="cart-view-page">
+<div class='hd'>Моя корзина</div>
+<div class='bd aw-eshop'>
+	<div class="cart">
 		{v#widget}
-		<div class="tright" id="{i#buttons}">
-			<input type="button" class="form-submit" value="Пересчитать" id="{i#brecalc}" >
-			<input type="button" class="form-submit" value="Оформить заказ" id="{i#bcheckout}" >
+		<div class="right buttons" id="{i#buttons}">
+			<input type="button" class="btn" value="Пересчитать" id="{i#brecalc}" >
+			<input type="button" class="btn" value="Оформить заказ" id="{i#bcheckout}" >
+			<input type="button" class="btn" value="Продолжить покупки" id="{i#bclose}" >
 		</div>
-		<a href="#" id="{i#bclose}">Продолжить покупки</a>
-	</div></div>
+	</div>
+	
 </div>
 
 <!--{widget}-->
-<div style="height: 200px; overflow: auto" id="{i#id}">
+<div id="{i#id}" class="list">
 	<div id="{i#table}"></div>
 </div>
 
 <!--{table}-->
-<table class="cart-table">
+<table>
 	<thead>
 		<tr class="alt">
 			<th class="desc">Товар</th>
@@ -37,7 +37,7 @@
 </table>
 
 <!--{tablero}-->
-<table class="cart-table">
+<table>
 	<thead>
 		<tr class="alt">
 			<th class="desc">Товар</th>
@@ -50,7 +50,7 @@
 </table>
 
 <!--{row}-->
-<tr class="cart-item {v#sel}">
+<tr class="{v#sel}">
 	<td class="desc"><p><a id="{i#view}-{v#id}" href="#">{v#title}</a></p></td>
 	<td class="price">{v#price}</td>
 	<td class="qty">
@@ -63,7 +63,7 @@
 </tr>
 
 <!--{rowro}-->
-<tr class="cart-item {v#sel}">
+<tr class="{v#sel}">
 	<td class="desc"><p><a id="{i#view}-{v#id}" href="#">{v#title}</a></p></td>
 	<td class="price" style="text-align: right">{v#price}</td>
 	<td class="qty" style="text-align: center">{v#count}</td>

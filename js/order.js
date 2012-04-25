@@ -14,6 +14,7 @@ Component.entryPoint = function(NS){
 		E = YAHOO.util.Event,
 		L = YAHOO.lang;
 	
+	var buildTemplate = this.buildTemplate;
 	var TMG = this.template;
 	
 	if (!NS.data){
@@ -88,11 +89,9 @@ Component.entryPoint = function(NS){
 			this.getEl(id).style.display = show ? '' : 'none';
 		},
 		initTemplate: function(overtpl){
-			var TM = TMG.build(this.name + (overtpl ? ','+overtpl : '')), 
-				T = TM.data, TId = TM.idManager;
-			this._TM = TM; this._T = T; this._TId = TId;
+			var TM = buildTemplate(this, this.name + (overtpl ? ','+overtpl : ''));
 			
-			return T[this.name];
+			return TM.replace(this.name);
 		},
 		onLoad: function(){
 			this.element = this._TM.getEl(this.name+'.id');
@@ -410,8 +409,9 @@ Component.entryPoint = function(NS){
 			};
 		},
 		print: function(){
-			var d = this.getData();
-			var deliid = d['deliveryid']*1;
+			var d = this.getData(),
+				deliid = d['deliveryid']*1;
+
 			d['hideadr'] = deliid > 0 ? '' : 'none';
 			
 			var row = DATA.get('delivery').getRows().getById(deliid);
@@ -544,8 +544,7 @@ Component.entryPoint = function(NS){
 		initTemplate: function(){
 			OrderPanel.instance = this;
 
-			var TM = TMG.build('panel'), T = TM.data, TId = TM.idManager;
-			this._TM = TM; this._T = T; this._TId = TId;
+			var TM = buildTemplate(this, 'panel');
 			
 			this._lw = null;
 			
@@ -745,22 +744,17 @@ Component.entryPoint = function(NS){
 	});
 	NS.OrderPanel = OrderPanel;
 	
-	
-	
-	
-	
 	var OrderViewWidget = function(container, orderid){
 		this.init(container, orderid);
 	};
 	OrderViewWidget.prototype = {
 		init: function(container, orderid){
 			this.orderid = orderid;
-			var TM = TMG.build('viewwidget,deliprint,delitldef,payprint'), 
-				T = TM.data, TId = TM.idManager;
-			this._TM = TM; this._T = T; this._TId = TId;
+			
+			var TM = buildTemplate(this, 'viewwidget,deliprint,delitldef,payprint');
 			
 			this.cart = new NS.CartWidget(true, orderid);
-			container.innerHTML = this._TM.replace('viewwidget', {
+			container.innerHTML = TM.replace('viewwidget', {
 				'cart': this.cart.initTemplate()
 			});
 			this.cart.onLoad();
@@ -790,20 +784,20 @@ Component.entryPoint = function(NS){
 			}
 		},
 		destroy: function(){
-			this.cart.destroy();
+			this.cart.destroy(); 
 			DATA.onComplete.unsubscribe(this.dsEvent);
 			DATA.onStart.unsubscribe(this.dsEvent);
 		},
 		renderElements: function(){
 			var TM = this._TM, T = this._T, TId = this._TId;
 			var order = DATA.get('order').getRows({'orderid': this.orderid}).getByIndex(0).cell;
-			
+
 			var deliRow = DATA.get('delivery').getRows().getById(order['delid']);
 			var deli = L.isNull(deliRow) ? null : deliRow.cell;
 			
 			var payRow = DATA.get('payment').getRows().getById(order['payid']);
 			var pay = L.isNull(payRow) ? null : payRow.cell;
-			
+
 			TM.getEl('viewwidget.id').innerHTML = 
 				TM.replace('deliprint', {
 					'hideadr': L.isNull(deli) ? 'none' : '',
@@ -811,11 +805,12 @@ Component.entryPoint = function(NS){
 					'lastname': order['lnm'],
 					'firstname': order['fnm'],
 					'phone': order['ph'],
+					'adress': order['adress'],
 					'extinfo': order['extinfo']
 				}) +
 				TM.replace('payprint', {
-					'tl': L.isNull(deli) ? '' : pay['tl'],
-					'dsc': L.isNull(deli) ? '' : pay['dsc']
+					'tl': L.isNull(pay) ? '' : pay['tl'],
+					'dsc': L.isNull(pay) ? '' : pay['dsc']
 				}); 
 		},
 		renderWait: function(){

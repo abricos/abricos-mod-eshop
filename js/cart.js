@@ -10,14 +10,13 @@ Component.requires = {
 	yahoo: ['animation','datasource','dragdrop','resize'],
 	mod:[{name: 'sys', files: ['data.js', 'form.js', 'container.js', 'wait.js']}]
 };
-Component.entryPoint = function(){
+Component.entryPoint = function(NS){
 	var Dom = YAHOO.util.Dom,
 		E = YAHOO.util.Event,
 		L = YAHOO.lang;
 	
-	var NS = this.namespace,
-		API = NS.API,
-		TMG = this.template;
+	var API = NS.API,
+		buildTemplate = this.buildTemplate;
 
 	var LW = Brick.widget.LayWait;
 
@@ -25,8 +24,6 @@ Component.entryPoint = function(){
 		NS.data = new Brick.util.data.byid.DataSet('eshop');
 	}
 	var DATA = NS.data;
-	
-(function(){
 	
 	var cartInfo = null;
 	
@@ -70,7 +67,6 @@ Component.entryPoint = function(){
 			}
 		});
 	};
-})();
 
 	API.formatPrice = function(price, notSpecSpice){
 		var fprice = YAHOO.util.Number.format(price, {
@@ -96,11 +92,9 @@ Component.entryPoint = function(){
 			this.orderid = orderid*1 || 0;
 		},
 		initTemplate: function(){
-			var TM = TMG.build('widget,table,row,rowwait,tablero,rowro,rowwaitro,rowsum,rowdsc,rowsumdsc,rowsumro,rowdscro,rowsumdscro'), 
-				T = TM.data, TId = TM.idManager;
-			this._TM = TM; this._T = T; this._TId = TId;
+			var TM = buildTemplate(this, 'widget,table,row,rowwait,tablero,rowro,rowwaitro,rowsum,rowdsc,rowsumdsc,rowsumro,rowdscro,rowsumdscro');
 			
-			return T['widget'];
+			return TM.replace('widget');
 		}, 
 		onLoad: function(){
 			this.element = this._TM.getEl('widget.id');
@@ -135,8 +129,7 @@ Component.entryPoint = function(){
 			}
 		},
 		renderData: function(){
-			var TM = this._TM, T = this._T, TId = this._TId;
-			var lst = "", flag = false, pfx = this.readonly ? 'ro' : '';
+			var TM = this._TM, lst = "", flag = false, pfx = this.readonly ? 'ro' : '';
 			var allsum = 0 ;
 			DATA.get('cart').getRows({'orderid': this.orderid}).foreach(function(row){
 				var di = row.cell,
@@ -243,8 +236,7 @@ Component.entryPoint = function(){
 	YAHOO.extend(CartPanel, Brick.widget.Panel, {
 		initTemplate: function(){
 		
-			var TM = TMG.build('panel'), T = TM.data, TId = TM.idManager;
-			this._TM = TM; this._T = T; this._TId = TId;
+			var TM = buildTemplate(this, 'panel');
 			
 			this.cartWidget = new CartWidget();
 			
@@ -283,8 +275,6 @@ Component.entryPoint = function(){
 	
 	NS.CartPanel = CartPanel;
 	
-(function(){
-	
 	var ProductCartMoveAnim = function(elFrom, elTo, callback){
 		try{
 			this.init(elFrom, elTo, callback);
@@ -305,7 +295,7 @@ Component.entryPoint = function(){
 				return; 
 			}
 			
-			var TM = TMG.build('pcimove');
+			var TM = buildTemplate(this, 'pcimove');
 			
 			var rg = Dom.getRegion(elFrom);
 
@@ -336,5 +326,5 @@ Component.entryPoint = function(){
 		}
 	};
 	NS.ProductCartMoveAnim = ProductCartMoveAnim;
-})();	
+
 };

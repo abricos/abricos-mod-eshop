@@ -1,5 +1,6 @@
 .mod-eshop .clear { clear: both; }
 .mod-eshop .rel { position: relative; }
+.mod-eshop .red { color: red; }
 
 .mod-eshop .nophoto {
 	position:absolute;
@@ -308,57 +309,11 @@ div#pr_block {
 	background: url('/modules/eshop/images/button_right0.gif') top right no-repeat;
 }
 
-.order_block	{
-	border:1px solid #CCCCCC;
-	height:360px;
-	margin:10px 0;
-	overflow-x:hidden;
-	overflow-y:auto;
-	padding:0 10px;
-	position:relative;
-	}
-.order-in-block	{
-	border-top:1px dashed #CCCCCC;
-	margin:5px 10px 0 0;
-}
-.order-in-block	p	{
-	margin-bottom:10px;
-}
-.order-in-list	{
-	overflow-x:hidden;
-	overflow-y:auto;
-	max-height: 90px;
-}
-.bk-order	{
-	font-weight: bold;
-}
-
-div.total {
-	top:20px;
-	font-family:Arial;
-	font-size:3em;
-	font-size-adjust:none;
-	font-stretch:normal;
-	font-style:italic;
-	font-variant:normal;
-	font-weight:bold;
-	padding-right:0.1em;
-	position:absolute;
-	right:10px;
-}
-#cart-view-page .order-in-block	 label	{
-	display:block;
-	float:left;
-	overflow:hidden;
-	width:130px;
-}
+/*
 #cart-view-page	h2, #cart-view-page	h3, #cart-view-page	h4	{
 	margin: 0.4em 0;
 }
-.node {
-	color: #999;
-	font-size:11px;
-}
+/**/
 	
 /*Добавлено на случай, если в основном стиле прописано очищение списка - не корректно будет работать интерактивный пагинатор*/
 #product-list-wpage	ul {
@@ -374,32 +329,12 @@ div.total {
 	position:relative;
 	top:0.12em;
 }
-.red {
-	color: red;
-}
-
-.order-in-list ul, .order-in-list ol	{
-	margin: 0;
-}
-.accepted {
-	background:transparent url(/modules/eshop/images/accepted.gif) repeat scroll 0 0;
-	bottom:80px;
-	height:82px;
-	position:absolute;
-	right:37px;
-	width:153px;
-}
-.accepted-n	{
-	bottom:80px;
-	height:82px;
-	position:absolute;
-	right:37px;
-	width:153px;
-}
-
+/*
 * html #product-list-wpage	{
-        width: 693px;/*ie fix*/
+	width: 693px;/*ie fix*/
 }
+/**/
+/*
 #cart-view-page .info dl	{
 	clear: both;
 	margin: 15px 0;
@@ -423,30 +358,7 @@ div.total {
 	font-size:1.2em;
 	font-weight: bold;
 }
-
-#cart-view-page	{
-	font-size:1.2em;
-}
-#cart-view-page table {
-	border-top:3px solid #FF5CAB;
-	margin:0 0 15px;
-	width:100%;
-}
-#cart-view-page th {
-	background:#FF5CAB none repeat scroll 0 0;
-	color:#FFFFFF;
-	padding:5px 5px 8px;
-	text-align:left;
-	border-bottom:3px solid #CCCCCC;
-	padding-right:1em;
-}
-#cart-view-page td, #cart-view-page th {
-	padding:5px 10px 5px 5px;
-}
-#cart-view-page .price, #cart-view-page .total	{
-	white-space: nowrap;
-	text-align: right;
-}
+/**/
 .td_over {
 	background-color: #F2F2F2;
 }

@@ -13,13 +13,12 @@ Component.requires = {
 	     {name: 'eshop', files: ['order.js']}
 	]
 };
-Component.entryPoint = function(){
+Component.entryPoint = function(NS){
 	var Dom = YAHOO.util.Dom,
 		E = YAHOO.util.Event,
 		L = YAHOO.lang;
 	
-	var NS = this.namespace,
-		API = NS.API,
+	var API = NS.API,
 		TMG = this.template;
 	
 	NS['billing'] = NS['billing'] || {}; 
@@ -31,12 +30,7 @@ Component.entryPoint = function(){
 	
 	var LW = Brick.widget.LayWait;
 
-	var buildTemplate = function(widget, templates){
-		var TM = TMG.build(templates), T = TM.data, TId = TM.idManager;
-		widget._TM = TM; 
-		widget._T = T; 
-		widget._TId = TId;
-	};
+	var buildTemplate = this.buildTemplate;
 
 	API.formatPrice = function(price){
 		var fprice = YAHOO.util.Number.format(price, {
@@ -47,21 +41,21 @@ Component.entryPoint = function(){
 		return fprice; 
 	};
 	
-	var Manager = function(container){
+	var BillingManager = function(container){
 		this.init(container);
 	};
 	
-	Manager.prototype = {
+	BillingManager.prototype = {
 		init: function(container){
-			buildTemplate(this, 'widget');
-			container.innerHTML = this._T['widget'];
+			var TM = buildTemplate(this, 'widget');
+			container.innerHTML = TM.replace('widget');
 			
-			var tabView = new YAHOO.widget.TabView(this._TM.getElId('widget.id'));
+			var tabView = new YAHOO.widget.TabView(TM.getElId('widget.id'));
 			this.page = {
-				'new': new OrderListNew(this, this._TM.getElId('widget.new')),
-				'exec': new OrderListExec(this, this._TM.getElId('widget.exec')),
-				'arhive': new OrderListArhive(this, this._TM.getElId('widget.arhive')),
-				'recycle': new OrderListRecycle(this, this._TM.getElId('widget.recycle'))
+				'new': new OrderListNew(this, TM.getElId('widget.new')),
+				'exec': new OrderListExec(this, TM.getElId('widget.exec')),
+				'arhive': new OrderListArhive(this, TM.getElId('widget.arhive')),
+				'recycle': new OrderListRecycle(this, TM.getElId('widget.recycle'))
 			};
 		},
 		onClick: function(el){
@@ -98,10 +92,10 @@ Component.entryPoint = function(){
 			});
 		}
 	};
-	NS.billing.Manager = Manager;
+	NS.BillingManager = BillingManager;
 	
 	API.showBillingManagerWidget = function(container){
-		new Manager(container);
+		new BillingManager(container);
 		DATA.request();
 	};
 	
@@ -270,8 +264,7 @@ Component.entryPoint = function(){
 	
 	YAHOO.extend(OrderAcceptPanel, Brick.widget.Dialog, {
 		initTemplate: function(){
-			buildTemplate(this, 'orderacceptpanel');
-			return this._T['orderacceptpanel'];
+			return buildTemplate(this, 'orderacceptpanel').replace('orderacceptpanel');
 		},
 		onLoad: function(){
 			var TM = this._TM, T = this._T, TId = this._TId,

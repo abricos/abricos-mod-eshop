@@ -1,67 +1,83 @@
 <!--{panel}-->
 <div class='hd'>Оформить заказ</div>
-<div class='bd'>
-	<h1>Ваш счет</h1>
-	<div>
-		<span id="{i#bk-buy}">Покупки</span>
-		<span id="{i#bk-auth}">&nbsp;→ Авторизация</span> 
-		<span id="{i#bk-deli}">&nbsp;→ Доставка</span> 
-		<span id="{i#bk-pay}">&nbsp;→ Оплата</span> 
-		<span id="{i#bk-conf}">&nbsp;→ Подверждение</span> 
-	</div>
-	<div class="total" style="opacity: 1;">
-		<span id="{i#cartsum}" class="price_number">10&nbsp;990</span>
-		<span class="thinsp">&nbsp;руб.</span>
-	</div>
-	<div id="cart-view-page">
-		{v#auth}
-		{v#deli}
-		{v#pay}
-		{v#conf}
-		
-		<div id="{i#accepted}" class="accepted-n"></div>
-		<img id="{i#imgaccepted}" src="/modules/eshop/images/accepted.gif" style="position: absolute; left: -9999px; top: -9999px;"/>
-		
-		<div class="tright">
-			<input type="button" class="form-submit" value="Вернуться" id="{i#blast}" >
-			<input type="button" class="form-submit" value="Продолжить" id="{i#bnext}" >
+<div class='bd aw-eshop'>
+	<div class="ordering">
+		<div class="ordtitle">Ваш счет</div>
+		<div class="movstep">
+			<span id="{i#bk-buy}">Покупки</span>
+			<span id="{i#bk-auth}">&nbsp;→ Авторизация</span> 
+			<span id="{i#bk-deli}">&nbsp;→ Доставка</span> 
+			<span id="{i#bk-pay}">&nbsp;→ Оплата</span> 
+			<span id="{i#bk-conf}">&nbsp;→ Подверждение</span> 
+		</div>
+		<div class="bigtotal">
+			<span id="{i#cartsum}" class="price_number">10&nbsp;990</span>
+			<span class="thinsp">&nbsp;руб.</span>
+		</div>
+		<div id="cart-view-page">
+			{v#auth}
+			{v#deli}
+			{v#pay}
+			{v#conf}
+			
+			<div id="{i#accepted}" class="accepted-n"></div>
+			<img id="{i#imgaccepted}" src="/modules/eshop/images/accepted.gif" style="position: absolute; left: -9999px; top: -9999px;"/>
+			
+			<div class="right">
+				<input type="button" class="btn" value="Вернуться" id="{i#blast}" >
+				<input type="button" class="btn" value="Продолжить" id="{i#bnext}" >
+			</div>
 		</div>
 	</div>
 </div>
 
 <!--{viewwidget}-->
 <div id="{i#id}">Идет загрузка данных. Пожалуйства, подождите...</div>
-{v#cart}
+<div class="cart">{v#cart}</div>
 
 <!--{auth}-->
-<div id="{i#id}" style="display: none;" class="order_block">
-	<h3>Регистрация на сайте:</h3>
-	<div class="order-in-list">
+<div id="{i#id}" style="display: none;" class="ordpage">
+	<div class="bktl">Регистрация на сайте</div>
+	<div class="radiolist">
 		<ul>
-			<li><input type="radio" checked="checked" value="1" id="{i#bnewuser}" name="{i#radioname}" />
-				<label for="{i#bnewuser}">Я&nbsp;новый покупатель</label></li>
-			<li><input type="radio" value="2" id="{i#bauth}" name="{i#radioname}">
-				<label for="{i#bauth}">Я&nbsp;зарегистрирован, готов ввести свой логин и пароль</label></li>
-			<li><input type="radio" value="3" id="{i#bnonauth}" name="{i#radioname}">
-				<label for="{i#bnonauth}">Пропустить этот шаг и перейти сразу к оформлению заказа</label></li>
+			<li>
+				<input type="radio" checked="checked" value="1" id="{i#bnewuser}" name="{i#radioname}" />
+				<label for="{i#bnewuser}">Я&nbsp;новый покупатель</label>
+			</li>
+			<li>
+				<input type="radio" value="2" id="{i#bauth}" name="{i#radioname}">
+				<label for="{i#bauth}">Я&nbsp;зарегистрирован, готов ввести свой логин и пароль</label>
+			</li>
+			<li>
+				<input type="radio" value="3" id="{i#bnonauth}" name="{i#radioname}">
+				<label for="{i#bnonauth}">Пропустить этот шаг и перейти сразу к оформлению заказа</label>
+			</li>
 		</ul>
 	</div>	
-	<div id="{i#reg}" class="order-in-block">
-		<h3>Регистрация персонального аккаунта</h3>
+	<div id="{i#reg}" class="ordblock">
+		<div class="bktl">Регистрация персонального аккаунта</div>
 		<p>
 			Если вы хотите иметь авторизованый доступ в наш магазин, то заполните 
-			необходимые поля для регистрации вашего персонального аккаунта  
-			(<a href="#">для чего нужна регистрация?</a>).
+			необходимые поля для регистрации вашего персонального аккаунта.
 		</p>
 		<ul>
-			<li><label for="{i#regemail}">E-mail<span class="red">*</span></label>
-				<input style="width: 200px;" size="25" id="{i#regemail}" type="text" class="node" value="my-email@mail.ru" onfocus="this.value=''; this.onfocus=null; this.className='';" /><span class="node">Введите адрес своей электронной почты. <a href="">А если нет e-mail'a?</a></span></li>
-			<li><label for="{i#reglogin}">Логин<span class="red">*</span></label>
-				<input style="width: 200px;" size="25" id="{i#reglogin}" type="text" class="node" value="MyLogin" onfocus="this.value=''; this.onfocus=null; this.className='';" /><span class="node">Вводите латинские буквы (abc) и цифры</span></li>
-			<li><label for="{i#regpass}">Пароль<span class="red">*</span></label>
-				<input style="width: 200px;" size="25" id="{i#regpass}" type="password" /><span class="node">Придумайте пароль, запомните его и никому его не говорите</span></li>
-			<li><label for="{i#regpassconf}">Повторите пароль<span class="red">*</span></label>
-				<input style="width: 200px;" size="25" id="{i#regpassconf}" type="password" /><span class="node">Введите пароль еще раз</span></li>
+			<li>
+				<label for="{i#regemail}">E-mail<span class="red">*</span></label>
+				<input style="width: 200px;" size="25" id="{i#regemail}" type="text" class="node" value="my-email@mail.ru" onfocus="this.value=''; this.onfocus=null; this.className='';" />
+				<span class="node">Введите адрес своей электронной почты.</span>
+			</li>
+			<li>
+				<label for="{i#reglogin}">Логин<span class="red">*</span></label>
+				<input style="width: 200px;" size="25" id="{i#reglogin}" type="text" class="node" value="MyLogin" onfocus="this.value=''; this.onfocus=null; this.className='';" /><span class="node">Вводите латинские буквы (abc) и цифры</span>
+			</li>
+			<li>
+				<label for="{i#regpass}">Пароль<span class="red">*</span></label>
+				<input style="width: 200px;" size="25" id="{i#regpass}" type="password" /><span class="node">Придумайте пароль, запомните его и никому его не говорите</span>
+			</li>
+			<li>
+				<label for="{i#regpassconf}">Повторите пароль<span class="red">*</span></label>
+				<input style="width: 200px;" size="25" id="{i#regpassconf}" type="password" /><span class="node">Введите пароль еще раз</span>
+			</li>
 		</ul>
 		<div style="display: none;">
 			<label id="{i#rerrc1}">Ошибка: Не заполнены обязательные поля</label> 
@@ -74,8 +90,8 @@
 		</div>
 	</div>
 	
-	<div id="{i#auth}"  class="order-in-block" style="display: none;">
-		<h3>Аторизация</h3>
+	<div id="{i#auth}" class="ordblock" style="display: none;">
+		<div class="bktl">Аторизация</div>
 		<ul>
 			<li><label for="{i#authlogin}">Логин<span class="red">*</span></label>
 				<input style="width: 200px;" size="25" id="{i#authlogin}" type="text" /></li>
@@ -91,17 +107,16 @@
 			<label id="{i#autherr999}">Ошибка на стороне сервера, попробуйте через минутку</label> 
 		</div>
 	</div>
-	<div id="{i#guest}" class="order-in-block" style="display: none;">
-		<h3>Обратите внимание!</h3>
+	<div id="{i#guest}" class="ordblock" style="display: none;">
+		<div class="bktl">Обратите внимание!</div>
 		<p>Не зарегистрированные пользователи не могут воспользоваться накопительными скидками, не учавствуют в акциях Интернет-магазина, не получают уведомления о спецпредложениях магазина и поступлении нового товара.
-		<!--(<a href="#">Хотите Узнать больше о преимуществах регистрации?</a>).-->
 		</p>
 	</div>
 
 </div>
 
 <!--{authprint}-->
-<h3>Зарегистрироваться на сайте:</h3>
+<div class="bktl">Зарегистрироваться на сайте:</div>
 <ul>
 	<li>Учетная запись: {v#login}</li>
 	<li>Электронная почта: {v#email}</li>
@@ -109,12 +124,12 @@
 
 
 <!--{deli}-->
-<div id="{i#id}" style="display: none;" class="order_block">
+<div id="{i#id}" style="display: none;" class="ordpage">
 	<div id="{i#deliselect}">
 		<h3>Выберите способ доставки:</h3>
-		<div class="order-in-list" id="{i#table}"></div>
+		<div class="radiolist" id="{i#table}"></div>
 	</div>
-	<div class="order-in-block">
+	<div class="ordblock">
 		<h3>Заказчик:</h3>
 		<ul>
 			<li>
@@ -181,7 +196,7 @@
 <li>Идет загрузка данных. Пожалуйста, подождите...</li>
 
 <!--{pay}-->
-<div id="{i#id}" style="display: none;" class="order_block">
+<div id="{i#id}" style="display: none;" class="ordpage">
 	<!--
 	<div class="info">
 		<dl>
@@ -193,7 +208,7 @@
 	</div>
 	-->
 	<h3>Выберите способ оплаты:</h3>
-	<div class="order-in-list" id="{i#table}"></div>
+	<div class="radiolist" id="{i#table}"></div>
 	<div id="{i#dsc}"></div>
 </div>
 
@@ -214,9 +229,11 @@
 <li>Идет загрузка данных. Пожалуйста, подождите...</li>
 
 <!--{conf}-->
-<div id="{i#id}" style="display: none;" class="order_block">
+<div id="{i#id}" style="display: none;" class="ordpage">
 
-	{v#cart}
-	
+	<div class="cart">
+		{v#cart}
+	</div>
+		
 	<div class="info" id="{i#print}"></div>
 </div>

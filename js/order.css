@@ -1,0 +1,98 @@
+.aw-eshop .red { color: red; }
+
+.aw-eshop .ordering {
+	position: relative;
+}
+.aw-eshop .ordering .ordtitle {
+	font-size: 1.2em;
+	font-weight: bold;
+	padding-bottom: 0.5em;
+}
+.aw-eshop .ordering .bktl {
+	font-weight: bold; 
+	padding: 5px 0;
+}
+.aw-eshop .ordering .bigtotal {
+	position: absolute;
+	right: 10px;
+	top: 0px;
+	font-family: Arial;
+	font-size: 3em;
+	font-size-adjust: none;
+	font-stretch: normal;
+	font-style: italic;
+	font-variant: normal;
+	font-weight: bold;
+	padding-right: 0.1em;
+}
+
+.aw-eshop .ordering .accepted-n	{
+	bottom: 80px;
+	height: 82px;
+	position: absolute;
+	right: 37px;
+	width: 153px;
+}
+.aw-eshop .ordering .accepted {
+	background:transparent url(/modules/eshop/images/accepted.gif) repeat scroll 0 0;
+	bottom:80px;
+	height:82px;
+	position:absolute;
+	right:37px;
+	width:153px;
+}
+
+.aw-eshop .ordering .ordpage {
+	border: 1px solid #CCCCCC;
+	height: 360px;
+	margin: 10px 0;
+	overflow-x: hidden;
+	overflow-y: auto;
+	padding: 5px 10px;
+	position: relative;
+}
+
+.aw-eshop .ordering .radiolist	{
+	overflow-x: hidden;
+	overflow-y: auto;
+	max-height: 90px;
+}
+.aw-eshop .ordering .radiolist ul {
+	margin-left: 12px;
+}
+.aw-eshop .ordering .radiolist label {
+	margin-left: 5px;
+	cursor: pointer;
+	line-height: 1.4em;
+}
+.aw-eshop .ordering .radiolist label:hover {
+	text-decoration: underline;
+} 
+
+.aw-eshop .ordering .ordblock {
+	border-top: 1px dashed #CCCCCC;
+	margin-top: 10px;
+	padding: 5px 0;
+}
+.aw-eshop .ordering .ordblock p {
+	margin-bottom: 10px;
+}
+.aw-eshop .ordering .ordblock li {
+	line-height: 1.5em;
+}
+.aw-eshop .ordering .ordblock label {
+	display: block;
+	float: left;
+	overflow: hidden;
+	width: 130px;
+}
+.aw-eshop .ordering .node {
+	color: #999;
+	font-size:11px;
+}
+.aw-eshop .ordering .ordblock ul .red {
+	margin-left: 3px;
+}
+.aw-eshop .ordering .ordblock ul span.node {
+	margin-left: 5px;
+}
