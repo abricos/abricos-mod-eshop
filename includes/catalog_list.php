@@ -63,12 +63,15 @@ foreach ($catItemMenu->child as $child){
 		"w" => $imgWidth,
 		"h" => $imgHeight
 	));
-	
+
 	$lst .= Brick::ReplaceVarByData($brick->param->var['row'], array(
+		"cattitle" => $child->source['tl'],
+		"catdesc" => $child->source['dsc'],
 		"image" => $image, 
 		"title" => addslashes(htmlspecialchars($child->source['tl'])),
 		"link" => $link
 	));
+	
 }
 $brick->content = Brick::ReplaceVarByData($brick->content, array(
 	"result" => Brick::ReplaceVarByData($brick->param->var['table'], array(
