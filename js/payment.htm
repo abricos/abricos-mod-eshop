@@ -1,34 +1,27 @@
-<!--{manpanel}-->
-<div class='hd'>Настройка способов оплаты</div>
+<!--{manpanel}--><div class='hd'>{#mod.eshop.payment.manpanel.1}</div>
 <div class='bd'>
 	<div class="field" id="{i#widget}"></div>
 </div>
-
-<!--{manwidget}-->
-<div class="buttons right">
-	<input type="button" value="Добавить" id="{i#bappend}"/>
+<!--{manwidget}--><div class="buttons right">
+	<input type="button" value="{#mod.eshop.payment.manwidget.1}" id="{i#bappend}"/>
 </div>
 <div id='{i#table}'></div>
 <div class="buttons right">
-	<input type="button" value="Сохранить порядок сортировки" id="{i#bsave}"/>
+	<input type="button" value="{#mod.eshop.payment.manwidget.2}" id="{i#bsave}"/>
 </div>
-
-<!--{table}-->
-<table class="bk-table-def">
+<!--{table}--><table class="bk-table-def">
 	<thead>
 		<tr>
 			<th></th>
-			<th>Название</th>
-			<th>Сортировка</th>
+			<th>{#mod.eshop.payment.table.1}</th>
+			<th>{#mod.eshop.payment.table.2}</th>
 			<th></th>
 			<th></th>
 		</tr>
 	</thead>
 	<tbody>{v#rows}</tbody>
 </table>
-
-<!--{row}-->
-<tr valign="top">
+<!--{row}--><tr valign="top">
 	<td style="text-align: center; width: 30px;">
 		<input type="radio" id="{i#def}-{v#id}" name="{i#radio}" {v#checked} />
 	</td>
@@ -36,48 +29,42 @@
 	<td style="text-align: center">
 		<input id="{i#ord}-{v#id}" type="text" value="{v#ord}" style="width: 30px;" />
 	</td>
-	<td><a href="#" id="{i#edit}-{v#id}">Править</a></td>
-	<td><a href="#" id="{i#remove}-{v#id}">Удалить</a></td>
+	<td><a href="#" id="{i#edit}-{v#id}">{#mod.eshop.payment.row.1}</a></td>
+	<td><a href="#" id="{i#remove}-{v#id}">{#mod.eshop.payment.row.2}</a></td>
 </tr>
-
-<!--{rowwait}-->
-<tr valign="top">
-	<td colspan="5">Идет загрузка данных. Пожалуйста, подождите...</td>
+<!--{rowwait}--><tr valign="top">
+	<td colspan="5">{#mod.eshop.payment.rowwait.1}</td>
 </tr>
-
-<!--{editorpanel}-->
-<div class='hd'>Редактор</div>
+<!--{editorpanel}--><div class='hd'>{#mod.eshop.payment.editorpanel.1}</div>
 <div class='bd'>
 
 	<div class="field">	
 		<p>
-			Название <input id="{i#tl}" type="text" style="width: 300px;" />
+			{#mod.eshop.payment.editorpanel.2} <input id="{i#tl}" type="text" style="width: 300px;" />
 		</p>
 
 		<p>
-			Описание <br />
+			{#mod.eshop.payment.editorpanel.3} <br />
 			<textarea id="{i#dsc}" style="width: 400px;" ></textarea>
 		</p>
 
 		<div class="buttons right">
-			<input type="button" value="Сохранить" id="{i#bsave}" />
-			<input type="button" value="Отмена" id="{i#bcancel}" />
+			<input type="button" value="{#mod.eshop.payment.editorpanel.4}" id="{i#bsave}" />
+			<input type="button" value="{#mod.eshop.payment.editorpanel.5}" id="{i#bcancel}" />
 		</div>
 	</div>
 </div>
-
-<!--{removepanel}-->
-<div class='hd'>Удаление</div>
+<!--{removepanel}--><div class='hd'>{#mod.eshop.payment.removepanel.1}</div>
 <div class='bd'>
 
 	<div class="field">	
 		<p>
-			Вы действительно хотите удалить "<strong>{v#tl}</strong>"?
+			{#mod.eshop.payment.removepanel.2}
 		</p>
 	
 		<div class="buttons right">
-			<input type="button" value="Удалить" id="{i#bremove}" />
-			<input type="button" value="Отмена" id="{i#bcancel}" />
+			<input type="button" value="{#mod.eshop.payment.removepanel.3}" id="{i#bremove}" />
+			<input type="button" value="{#mod.eshop.payment.removepanel.4}" id="{i#bcancel}" />
 		</div>
 	</div>
 </div>

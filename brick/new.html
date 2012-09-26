@@ -12,17 +12,17 @@
 	<li>
 		{v#image}
 		<p class="pr_title"><a title="{v#title}" href="{v#link}">{v#title}</a></p>
-		<p class="pr_price"><span>{v#price} руб.</span></p>
+		<p class="pr_price"><span>{v#price} {#brick.new.1}</span></p>
 		<p>{v#tpl_btn}</p>
     </li>
 [/bkvar]
 
 [bkvar=btnorder]
-	<a class="btn-product-buy product-{v#productid} button" href="#"><span>Добавить в корзину</span></a>
+	<a class="btn-product-buy product-{v#productid} button" href="#"><span>{#brick.new.2}</span></a>
 [/bkvar]
 
 [bkvar=btnnotorder]
-	<b class="button sklad0" href="#"><span>Нет в наличии</span></b>
+	<b class="button sklad0" href="#"><span>{#brick.new.3}</span></b>
 [/bkvar]
 
 [bkvar=img]
@@ -34,19 +34,19 @@
 [/bkvar]
 
 [bkvar=pr_new]
-	<img src="/modules/eshop/images/pr_new.png" class="abs_img pr_new" alt="Новинка" title="Новинка" />
+	<img src="/modules/eshop/images/pr_new.png" class="abs_img pr_new" alt="{#brick.new.4}" title="{#brick.new.4}" />
 [/bkvar]
 
 [bkvar=pr_akc]
-	<img src="/modules/eshop/images/pr_akc.png" class="abs_img pr_akc" alt="Акция" title="Акция" />
+	<img src="/modules/eshop/images/pr_akc.png" class="abs_img pr_akc" alt="{#brick.new.5}" title="{#brick.new.5}" />
 [/bkvar]
 
 [bkvar=pr_hit]
-	<img src="/modules/eshop/images/pr_hit.png" class="abs_img pr_hit" alt="Хит продаж" title="Хит продаж" />
+	<img src="/modules/eshop/images/pr_hit.png" class="abs_img pr_hit" alt="{#brick.new.6}" title="{#brick.new.6}" />
 [/bkvar]
 
 [bkvar=imgempty]
-	<div class="rel">{v#pr_spec1}<a title="{v#title}" href="{v#link}"><img width="200px" height="200px" alt="{v#title}" src="/modules/eshop/images/empty.gif"></a><span class="nophoto"><a title="{v#title}" href="{v#link}">фотография временно недоступна</a></span></div>
+	<div class="rel">{v#pr_spec1}<a title="{v#title}" href="{v#link}"><img width="200px" height="200px" alt="{v#title}" src="/modules/eshop/images/empty.gif"></a><span class="nophoto"><a title="{v#title}" href="{v#link}">{#brick.new.7}</a></span></div>
 [/bkvar]
 
 [mod=filemanager]enthumbs|list=200x200[/mod]
@@ -60,7 +60,7 @@
 [p=display][/p]
 
 [*]-->
-<h1><span>Новинки</span></h1><div class="clear" ></div>
+<h1><span>{#brick.new.8}</span></h1><div class="clear" ></div>
 <div id="pr_block">
 	<div id="product-list-wpage" style="position: relative;">
 		{v#result}

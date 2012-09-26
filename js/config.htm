@@ -1,10 +1,9 @@
-<!--{widget}-->
-<div id="{i#id}" class="yui-navset">
+<!--{widget}--><div id="{i#id}" class="yui-navset">
 	<ul class="yui-nav">
-		<li class="selected"><a href="#{i#pay}"><em>Способы оплаты</em></a></li>
-		<li><a href="#{i#delivery}"><em>Доставка</em></a></li>
-		<li><a href="#{i#discount}"><em>Скидки</em></a></li>
-		<li><a href="#{i#over}"><em>Прочие</em></a></li>
+		<li class="selected"><a href="#{i#pay}"><em>{#mod.eshop.config.widget.1}</em></a></li>
+		<li><a href="#{i#delivery}"><em>{#mod.eshop.config.widget.2}</em></a></li>
+		<li><a href="#{i#discount}"><em>{#mod.eshop.config.widget.3}</em></a></li>
+		<li><a href="#{i#over}"><em>{#mod.eshop.config.widget.4}</em></a></li>
 	</ul>            
   <div class="yui-content">
 	  <div id="{i#pay}"></div>
@@ -13,25 +12,23 @@
 	  <div id="{i#over}"></div>
   </div>
 </div>
-
-<!--{overconfig}-->
-<div class="field linespace-1">
-	<h3>Уведомление о поступлении заказа</h3>
+<!--{overconfig}--><div class="field linespace-1">
+	<h3>{#mod.eshop.config.overconfig.1}</h3>
 	<p>
-		<label>E-mail администратора</label><br />
+		<label>{#mod.eshop.config.overconfig.2}</label><br />
 		<input type="text" id="{i#adm_emails}" value="" style="width: 400px" />
 	</p>
-	<h3>Шаблон уведомления e-mail</h3>
+	<h3>{#mod.eshop.config.overconfig.3}</h3>
 	<p>
-		<label>Тема письма</label><br />
+		<label>{#mod.eshop.config.overconfig.4}</label><br />
 		<input type="text" id="{i#adm_notify_subj}" value="" style="width: 400px" disabled="disabled" />
 	</p>
 	<p>
-		<label>Сообщение</label><br />
+		<label>{#mod.eshop.config.overconfig.5}</label><br />
 		<textarea id="{i#adm_notify}" style="width: 500px; height: 200px" disabled="disabled"></textarea>
 	</p>
-	<p>Примечание: для изменения шаблона необходимо перегрузить кирпич templates.html модуля eshop</p>
+	<p>{#mod.eshop.config.overconfig.6}</p>
 </div>
 <div class="buttons-top right">
-	<input id='{i#bsave}' type="button" value="Сохранить" />
+	<input id='{i#bsave}' type="button" value="{#mod.eshop.config.overconfig.7}" />
 </div>

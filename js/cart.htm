@@ -1,56 +1,45 @@
-<!--{pcimove}-->
-<div id="{i#id}" class="laywidget" style="position:absolute; opacity: 0.7; -moz-opacity:0.70; filter: alpha(opacity=70); z-index: 10000; background-repeat:repeat; width:{v#w}px; height:{v#h}px; top:{v#top}px; left:{v#left}px; overflow: hidden;">
+<!--{pcimove}--><div id="{i#id}" class="laywidget" style="position:absolute; opacity: 0.7; -moz-opacity:0.70; filter: alpha(opacity=70); z-index: 10000; background-repeat:repeat; width:{v#w}px; height:{v#h}px; top:{v#top}px; left:{v#left}px; overflow: hidden;">
 
 </div>
-
-<!--{panel}-->
-<div class='hd'>Моя корзина</div>
+<!--{panel}--><div class='hd'>{#mod.eshop.cart.panel.1}</div>
 <div class='bd aw-eshop'>
 	<div class="cart">
 		{v#widget}
 		<div class="right buttons" id="{i#buttons}">
-			<input type="button" class="btn" value="Пересчитать" id="{i#brecalc}" >
-			<input type="button" class="btn" value="Оформить заказ" id="{i#bcheckout}" >
-			<input type="button" class="btn" value="Продолжить покупки" id="{i#bclose}" >
+			<input type="button" class="btn" value="{#mod.eshop.cart.panel.2}" id="{i#brecalc}" >
+			<input type="button" class="btn" value="{#mod.eshop.cart.panel.3}" id="{i#bcheckout}" >
+			<input type="button" class="btn" value="{#mod.eshop.cart.panel.4}" id="{i#bclose}" >
 		</div>
 	</div>
 	
 </div>
-
-<!--{widget}-->
-<div id="{i#id}" class="list">
+<!--{widget}--><div id="{i#id}" class="list">
 	<div id="{i#table}"></div>
 </div>
-
-<!--{table}-->
-<table>
+<!--{table}--><table>
 	<thead>
 		<tr class="alt">
-			<th class="desc">Товар</th>
-			<th class="price">Цена</th>
-			<th class="qty">Кол-во</th>
-			<th class="total">Сумма</th>
+			<th class="desc">{#mod.eshop.cart.table.1}</th>
+			<th class="price">{#mod.eshop.cart.table.2}</th>
+			<th class="qty">{#mod.eshop.cart.table.3}</th>
+			<th class="total">{#mod.eshop.cart.table.4}</th>
 			<th class="ops"><!--ops--></th>
 		</tr>
 	</thead>
 	<tbody>{v#rows}</tbody>
 </table>
-
-<!--{tablero}-->
-<table>
+<!--{tablero}--><table>
 	<thead>
 		<tr class="alt">
-			<th class="desc">Товар</th>
-			<th class="price">Цена</th>
-			<th class="qty">Кол-во</th>
-			<th class="total">Сумма</th>
+			<th class="desc">{#mod.eshop.cart.tablero.1}</th>
+			<th class="price">{#mod.eshop.cart.tablero.2}</th>
+			<th class="qty">{#mod.eshop.cart.tablero.3}</th>
+			<th class="total">{#mod.eshop.cart.tablero.4}</th>
 		</tr>
 	</thead>
 	<tbody>{v#rows}</tbody>
 </table>
-
-<!--{row}-->
-<tr class="{v#sel}">
+<!--{row}--><tr class="{v#sel}">
 	<td class="desc"><p><a id="{i#view}-{v#id}" href="#">{v#title}</a></p></td>
 	<td class="price">{v#price}</td>
 	<td class="qty">
@@ -59,69 +48,51 @@
 		</div>
 	</td>
 	<td class="total">{v#summ}</td>
-	<td class="ops"><a href="#" id="{i#remove}-{v#id}">Удалить</a></td>
+	<td class="ops"><a href="#" id="{i#remove}-{v#id}">{#mod.eshop.cart.row.1}</a></td>
 </tr>
-
-<!--{rowro}-->
-<tr class="{v#sel}">
+<!--{rowro}--><tr class="{v#sel}">
 	<td class="desc"><p><a id="{i#view}-{v#id}" href="#">{v#title}</a></p></td>
 	<td class="price" style="text-align: right">{v#price}</td>
 	<td class="qty" style="text-align: center">{v#count}</td>
 	<td class="total" style="text-align: right">{v#summ}</td>
 </tr>
-
-<!--{rowwait}-->
-<tr class="cart-item">
-	<td colspan="5">Идет загрузка списка товаров. Пожалуйста, подождите...</td>
+<!--{rowwait}--><tr class="cart-item">
+	<td colspan="5">{#mod.eshop.cart.rowwait.1}.</td>
 </tr>
-
-<!--{rowwaitro}-->
-<tr class="cart-item">
-	<td colspan="4">Идет загрузка списка товаров. Пожалуйста, подождите...</td>
+<!--{rowwaitro}--><tr class="cart-item">
+	<td colspan="4">{#mod.eshop.cart.rowwait.1}</td>
 </tr>
-
-<!--{rowsum}-->
-<tr class="even alt" id="cart-final">
-	<td colspan="3">Итого</td>
+<!--{rowsum}--><tr class="even alt" id="cart-final">
+	<td colspan="3">{#mod.eshop.cart.rowsum.1}</td>
 	<td id="cart-total" class="price">{v#amount}</td>
 	<td></td>
 </tr>
-
-<!--{rowdsc}-->
-<tr class="cart-item">
+<!--{rowdsc}--><tr class="cart-item">
 	<td class="desc"><strong>{v#tl}</strong></td>
 	<td class="qty"></td>
 	<td class="qty"></td>
 	<td class="price"><strong>{v#discount}</strong></td>
 	<td class="qty"></td>
 </tr>
-
-<!--{rowsumdsc}-->
-<tr class="cart-item">
-	<td class="desc"><strong>Итого с учетом скидки, руб.</strong></td>
+<!--{rowsumdsc}--><tr class="cart-item">
+	<td class="desc"><strong>{#mod.eshop.cart.rowsumdsc.1}</strong></td>
 	<td class="qty"></td>
 	<td class="qty"></td>
 	<td class="price" style="text-align: right"><strong>{v#finalprice}</strong></td>
 	<td class="qty"></td>
 </tr>
-
-<!--{rowsumro}-->
-<tr class="even alt" id="cart-final">
-	<td colspan="3">Итого</td>
+<!--{rowsumro}--><tr class="even alt" id="cart-final">
+	<td colspan="3">{#mod.eshop.cart.rowsumro.1}</td>
 	<td id="cart-total" style="text-align: right">{v#amount}</td>
 </tr>
-
-<!--{rowdscro}-->
-<tr class="cart-item">
+<!--{rowdscro}--><tr class="cart-item">
 	<td class="desc"><strong>{v#tl}</strong></td>
 	<td class="qty"></td>
 	<td class="qty"></td>
 	<td class="price" style="text-align: right"><strong>{v#discount}</strong></td>
 </tr>
-
-<!--{rowsumdscro}-->
-<tr class="cart-item">
-	<td class="desc"><strong>Итого с учетом скидки, руб.</strong></td>
+<!--{rowsumdscro}--><tr class="cart-item">
+	<td class="desc"><strong>{#mod.eshop.cart.rowsumdscro.1}</strong></td>
 	<td class="qty"></td>
 	<td class="qty"></td>
 	<td class="price" style="text-align: right"><strong>{v#finalprice}</strong></td>

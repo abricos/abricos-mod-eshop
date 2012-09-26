@@ -14,6 +14,7 @@ Component.entryPoint = function(NS){
 		E = YAHOO.util.Event,
 		L = YAHOO.lang;
 	
+	var LNG = this.language;
 	var LW = Brick.widget.LayWait;
 	var buildTemplate = this.buildTemplate;
 	
@@ -738,7 +739,7 @@ Component.entryPoint = function(NS){
 				Brick.ajax('eshop',{
 					'data': data,
 					'event': function(request){
-						alert('Спасибо! Ваш заказ принят!');
+						alert(LNG['order']['thanks']);
 						window.location.href="/";
 					}
 				});

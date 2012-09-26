@@ -25,7 +25,7 @@
 			<a title="{v#title}" href="{v#link}">{v#title}</a>
 		</p>
 		<p class="price">
-			<span>{v#price} руб.</span>
+			<span>{v#price} {#brick.product_list.7}</span>
 		</p>
 		<p class="action">{v#tpl_btn}</p>
 		{v#special}
@@ -38,15 +38,15 @@
 
 [bkvar=imgempty]
 	<a title="{v#title}" href="{v#link}"><img width="200px" height="200px" alt="{v#title}" src="/modules/eshop/images/empty.gif"></a>
-	<span class="nophoto"><a title="{v#title}" href="{v#link}">фотография временно недоступна</a></span>
+	<span class="nophoto"><a title="{v#title}" href="{v#link}">{#brick.product_list.1}</a></span>
 [/bkvar]
 
 [bkvar=btnorder]
-	<a class="btn-product-buy product-{v#productid} button" href="#"><span>Добавить в корзину</span></a>
+	<a class="btn-product-buy product-{v#productid} button" href="#"><span>{#brick.product_list.2}</span></a>
 [/bkvar]
 
 [bkvar=btnnotorder]
-	<b class="button sklad0" href="#"><span>Нет в наличии</span></b>
+	<b class="button sklad0" href="#"><span>{#brick.product_list.3}</span></b>
 [/bkvar]
 
 
@@ -55,15 +55,15 @@
 [/bkvar]
 
 [bkvar=pr_new]
-	<img src="/modules/eshop/images/pr_new.png" class="pr_new" alt="Новинка" title="Новинка" />
+	<img src="/modules/eshop/images/pr_new.png" class="pr_new" alt="{#brick.product_list.4}" title="{#brick.product_list.4}" />
 [/bkvar]
 
 [bkvar=pr_akc]
-	<img src="/modules/eshop/images/pr_akc.png" class="pr_akc" alt="Акция" title="Акция" />
+	<img src="/modules/eshop/images/pr_akc.png" class="pr_akc" alt="{#brick.product_list.5}" title="{#brick.product_list.5}" />
 [/bkvar]
 
 [bkvar=pr_hit]
-	<img src="/modules/eshop/images/pr_hit.png" class="pr_hit" alt="Хит продаж" title="Хит продаж" />
+	<img src="/modules/eshop/images/pr_hit.png" class="pr_hit" alt="{#brick.product_list.6}" title="{#brick.product_list.6}" />
 [/bkvar]
 
 

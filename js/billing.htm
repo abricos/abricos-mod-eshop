@@ -1,11 +1,10 @@
-<!--{widget}-->
-<h1>Заказы</h1>
+<!--{widget}--><h1>{#mod.eshop.billing.widget.1}</h1>
 <div id="{i#id}" class="yui-navset">
 	<ul class="yui-nav">
-		<li class="selected"><a href="#{i#new}"><em>Новые</em></a></li>
-		<li><a href="#{i#exec}"><em>Принятые на исполнение</em></a></li>
-    	<li><a href="#{i#arhive}"><em>Архив</em></a></li>
-    	<li><a href="#{i#recycle}"><em>Корзина</em></a></li>
+		<li class="selected"><a href="#{i#new}"><em>{#mod.eshop.billing.widget.2}</em></a></li>
+		<li><a href="#{i#exec}"><em>{#mod.eshop.billing.widget.3}</em></a></li>
+    	<li><a href="#{i#arhive}"><em>{#mod.eshop.billing.widget.4}</em></a></li>
+    	<li><a href="#{i#recycle}"><em>{#mod.eshop.billing.widget.5}</em></a></li>
 	</ul>            
   <div class="yui-content">
 	  <div id="{i#new}"></div>
@@ -14,30 +13,24 @@
 	  <div id="{i#recycle}"></div>
   </div>
 </div>
-
-<!--{list}-->
-<div id='{i#pagtop}'></div>
+<!--{list}--><div id='{i#pagtop}'></div>
 <div id='{i#table}'></div>
 <div id='{i#pagbot}'></div>
-
-<!--{table}-->
-<table class="bk-table-def">
+<!--{table}--><table class="bk-table-def">
 	<thead>
 		<tr>
-			<th>№</th>
-			<th>Дата</th>
-			<th>Сумма</th>
-			<th>Пользователь</th>
-			<th>Адрес доставки</th>
-			<th>IP</th>
+			<th>{#mod.eshop.billing.table.1}</th>
+			<th>{#mod.eshop.billing.table.2}</th>
+			<th>{#mod.eshop.billing.table.3}</th>
+			<th>{#mod.eshop.billing.table.4}</th>
+			<th>{#mod.eshop.billing.table.5}</th>
+			<th>{#mod.eshop.billing.table.6}</th>
 			{v#btns}
 		</tr>
 	</thead>
 	<tbody>{v#rows}</tbody>
 </table>
-
-<!--{row}-->
-<tr valign="top">
+<!--{row}--><tr valign="top">
 	<td style="text-align: center">{v#id}</td>
 	<td>{v#dl}</td>
 	<td style="text-align: right">{v#sm}</td>
@@ -46,78 +39,47 @@
 	<td>{v#ip}</td>
 	{v#btns}
 </tr>
-
-<!--{usertpname}-->
-<td><a href="#" id="{i#user}-{v#uid}">{v#unm}</a></td>
-
-<!--{usertpip}-->
-<td><a href="#" id="{i#user}-{v#uid}">{v#unm}</a></td>
-
-<!--{rowwait}-->
-<tr valign="top">
-	<td colspan="10">Идет загрузка данных. Пожалуйста, подождите...</td>
+<!--{usertpname}--><td><a href="#" id="{i#user}-{v#uid}">{v#unm}</a></td>
+<!--{usertpip}--><td><a href="#" id="{i#user}-{v#uid}">{v#unm}</a></td>
+<!--{rowwait}--><tr valign="top">
+	<td colspan="10">{#mod.eshop.billing.rowwait.1}</td>
 </tr>
-
-<!--{btnhnew}-->
-<th></th><th></th><th></th>
-
-<!--{btnnew}-->
-<td><a href="#" id="{i#view}-{v#id}">Просмотреть</a></td>
-<td><a href="#" id="{i#accept}-{v#id}">Принять</a></td>
-<td><a href="#" id="{i#remove}-{v#id}">Удалить</a></td>
-
-<!--{btnhexec}-->
-<th></th><th></th>
-
-<!--{btnexec}-->
-<td><a href="#" id="{i#view}-{v#id}">Просмотреть</a></td>
-<td><a href="#" id="{i#close}-{v#id}">Исполнить</a></td>
-
-<!--{btnharhive}-->
-<th></th>
-
-<!--{btnarhive}-->
-<td><a href="#" id="{i#view}-{v#id}">Просмотреть</a></td>
-
-<!--{btnhrecycle}-->
-<th></th>
-
-<!--{btnrecycle}-->
-<td><a href="#" id="{i#view}-{v#id}">Просмотреть</a></td>
-
-<!--{orderacceptpanel}-->
-<div class='hd'>Просмотр заказа</div>
+<!--{btnhnew}--><th></th><th></th><th></th>
+<!--{btnnew}--><td><a href="#" id="{i#view}-{v#id}">{#mod.eshop.billing.btnnew.1}</a></td>
+<td><a href="#" id="{i#accept}-{v#id}">{#mod.eshop.billing.btnnew.2}</a></td>
+<td><a href="#" id="{i#remove}-{v#id}">{#mod.eshop.billing.btnnew.3}</a></td>
+<!--{btnhexec}--><th></th><th></th>
+<!--{btnexec}--><td><a href="#" id="{i#view}-{v#id}">{#mod.eshop.billing.btnexec.1}</a></td>
+<td><a href="#" id="{i#close}-{v#id}">{#mod.eshop.billing.btnexec.2}</a></td>
+<!--{btnharhive}--><th></th>
+<!--{btnarhive}--><td><a href="#" id="{i#view}-{v#id}">{#mod.eshop.billing.btnarhive.1}</a></td>
+<!--{btnhrecycle}--><th></th>
+<!--{btnrecycle}--><td><a href="#" id="{i#view}-{v#id}">{#mod.eshop.billing.btnrecycle.1}</a></td>
+<!--{orderacceptpanel}--><div class='hd'>{#mod.eshop.billing.orderacceptpanel.1}</div>
 <div class='bd aw-eshop'>
-	<div id="{i#print}"">Идет загрузка данных. Пожалуйста, подождите...</div>
+	<div id="{i#print}"">{#mod.eshop.billing.orderacceptpanel.2}</div>
 	<div class="right">
-		<input type="button" class="btn" value="Принять заказ" id="{i#baccept}" >
-		<input type="button" class="btn" value="Отмена" id="{i#bcancel}" >
+		<input type="button" class="btn" value="{#mod.eshop.billing.orderacceptpanel.3}" id="{i#baccept}" >
+		<input type="button" class="btn" value="{#mod.eshop.billing.orderacceptpanel.4}" id="{i#bcancel}" >
 	</div>
 </div>
-
-<!--{orderremovepanel}-->
-<div class='hd'>Удаление заказа</div>
+<!--{orderremovepanel}--><div class='hd'>{#mod.eshop.billing.orderremovepanel.4}</div>
 <div class='bd aw-eshop'>
-	<div id="{i#print}">Идет загрузка данных. Пожалуйста, подождите...</div>
+	<div id="{i#print}">{#mod.eshop.billing.orderremovepanel.1}</div>
 	<div class="right">
-		<input type="button" class="btn" value="Удалить заказ" id="{i#bremove}" >
-		<input type="button" class="btn" value="Отмена" id="{i#bcancel}" >
+		<input type="button" class="btn" value="{#mod.eshop.billing.orderremovepanel.2}" id="{i#bremove}" >
+		<input type="button" class="btn" value="{#mod.eshop.billing.orderremovepanel.3}" id="{i#bcancel}" >
 	</div>
 </div>
-
-<!--{orderclosepanel}-->
-<div class='hd'>Закрытие заказа</div>
+<!--{orderclosepanel}--><div class='hd'>Закрытие заказа</div>
 <div class='bd aw-eshop'>
-	<div id="{i#print}">Идет загрузка данных. Пожалуйста, подождите...</div>
+	<div id="{i#print}">{#mod.eshop.billing.orderclosepanel.1}</div>
 	<div class="right">
-		<input type="button" class="btn" value="Закрыть заказ" id="{i#boclose}" >
-		<input type="button" class="btn" value="Отмена" id="{i#bcancel}" >
+		<input type="button" class="btn" value="{#mod.eshop.billing.orderclosepanel.2}" id="{i#boclose}" >
+		<input type="button" class="btn" value="{#mod.eshop.billing.orderclosepanel.3}" id="{i#bcancel}" >
 	</div>
 </div>
-
-<!--{orderviewpanel}-->
-<div class='hd'>Просмотр заказа</div>
+<!--{orderviewpanel}--><div class='hd'>{#mod.eshop.billing.orderviewpanel.1}</div>
 <div class='bd aw-eshop'>
-	<div id="{i#print}" style="height: 300px;">Идет загрузка данных. Пожалуйста, подождите...</div>
+	<div id="{i#print}" style="height: 300px;">{#mod.eshop.billing.orderviewpanel.2}</div>
 </div>
-

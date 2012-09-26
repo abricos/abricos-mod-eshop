@@ -3,7 +3,7 @@
 [mcss=eshop]eshop.css[/mcss]
 [*]-->
 <div id="basket">
-	<a href="#" class="btn-show-cart" >Корзина</a>: товаров - <span class="eshop-cart-count">{v#count}</span> на сумму <span class="eshop-cart-summ">{v#summ}</span> руб. 
-	(<a href="#" class="btn-show-order" >Оформить заказ</a>)
+	<a href="#" class="btn-show-cart" >{#brick.cartsm.1}</a>: {#brick.cartsm.2} - <span class="eshop-cart-count">{v#count}</span> {#brick.cartsm.3} <span class="eshop-cart-summ">{v#summ}</span> {#brick.cartsm.4} 
+	(<a href="#" class="btn-show-order" >{#brick.cartsm.5}</a>)
 </div>
 <script>Brick.f('eshop', 'ui', 'buyButtonsInit');</script>

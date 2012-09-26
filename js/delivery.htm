@@ -1,45 +1,34 @@
-<!--{manpanel}-->
-<div class='hd'>Настройка способов доставки</div>
+<!--{manpanel}--><div class='hd'>{#mod.eshop.delivery.manpanel.1}</div>
 <div class='bd'>
 	<div class="field" id="{i#widget}"></div>
 </div>
-
-<!--{manwidget}-->
-<div class="buttons right">
-	<input type="button" value="Добавить" id="{i#bappend}"/>
+<!--{manwidget}--><div class="buttons right">
+	<input type="button" value="{#mod.eshop.delivery.manwidget.1}" id="{i#bappend}"/>
 </div>
 <div id='{i#table}'></div>
 <div class="buttons right">
-	<input type="button" value="Сохранить порядок сортировки" id="{i#bsave}"/>
+	<input type="button" value="{#mod.eshop.delivery.manwidget.2}" id="{i#bsave}"/>
 </div>
-
-<!--{table}-->
-<ul>{v#rows}</ul>
-
-<!--{row}-->
-<li id="{i#id}-{v#id}">
+<!--{table}--><ul>{v#rows}</ul>
+<!--{row}--><li id="{i#id}-{v#id}">
 {v#tl}
-&nbsp;<a href="#" id="{i#add}-{v#id}">Добавить</a>
-&nbsp;<a href="#" id="{i#edit}-{v#id}">Править</a>
-&nbsp;<a href="#" id="{i#remove}-{v#id}">Удалить</a>
+&nbsp;<a href="#" id="{i#add}-{v#id}">{#mod.eshop.delivery.row.1}</a>
+&nbsp;<a href="#" id="{i#edit}-{v#id}">{#mod.eshop.delivery.row.2}</a>
+&nbsp;<a href="#" id="{i#remove}-{v#id}">{#mod.eshop.delivery.row.3}</a>
 {v#child}
 </li>
-
-<!--{rowwait}-->
-<li>Идет загрузка данных. Пожалуйста, подождите...</li>
-
-<!--{editorpanel}-->
-<div class='hd'>Редактор доставки</div>
+<!--{rowwait}--><li>{#mod.eshop.delivery.rowwait.1}</li>
+<!--{editorpanel}--><div class='hd'>{#mod.eshop.delivery.editorpanel.1}</div>
 <div class='bd'>
 
 	<div class="field">	
 		<p>
-			Название <input id="{i#tl}" type="text" style="width: 300px;" /> 
-			Цена, руб. <input id="{i#pc}" type="text" style="width: 80px;" />
+			{#mod.eshop.delivery.editorpanel.2} <input id="{i#tl}" type="text" style="width: 300px;" /> 
+			{#mod.eshop.delivery.editorpanel.3} <input id="{i#pc}" type="text" style="width: 80px;" />
 		</p>
 		
 		<p style="display: none;">
-			Шаблон ввода данных (используется при оформлении заказа) <br />
+			{#mod.eshop.delivery.editorpanel.4}<br />
 			<textarea id="{i#it}" style="width: 400px;" ></textarea>
 		</p>
 
@@ -49,24 +38,22 @@
 		</p>
  	
 		<div class="buttons right">
-			<input type="button" value="Сохранить" id="{i#bsave}" />
-			<input type="button" value="Отмена" id="{i#bcancel}" />
+			<input type="button" value="{#mod.eshop.delivery.editorpanel.5}" id="{i#bsave}" />
+			<input type="button" value="{#mod.eshop.delivery.editorpanel.6}" id="{i#bcancel}" />
 		</div>
 	</div>
 </div>
-
-<!--{removepanel}-->
-<div class='hd'>Удаление</div>
+<!--{removepanel}--><div class='hd'>{#mod.eshop.delivery.removepanel.1}</div>
 <div class='bd'>
 
 	<div class="field">	
 		<p>
-			Вы действительно хотите удалить "<strong>{v#tl}</strong>"?
+			{#mod.eshop.delivery.removepanel.2} "<strong>{v#tl}</strong>"?
 		</p>
 	
 		<div class="buttons right">
-			<input type="button" value="Удалить" id="{i#bremove}" />
-			<input type="button" value="Отмена" id="{i#bcancel}" />
+			<input type="button" value="{#mod.eshop.delivery.removepanel.3}" id="{i#bremove}" />
+			<input type="button" value="{#mod.eshop.delivery.removepanel.4}" id="{i#bcancel}" />
 		</div>
 	</div>
 </div>
