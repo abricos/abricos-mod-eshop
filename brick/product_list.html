@@ -18,9 +18,11 @@
 
 [bkvar=row]
 	<li class="proditem">
-		<p class="photo">
-			{v#image}
-		</p>
+		<div class="photo">
+			<div class="tmb tmb200">
+				{v#image}
+			</div>
+		</div>
 		<p class="title">
 			<a title="{v#title}" href="{v#link}">{v#title}</a>
 		</p>
@@ -33,7 +35,9 @@
 [/bkvar]
 
 [bkvar=img]
-	<a title="{v#title}" href="{v#link}"><img class="img-product-{v#productid}" width="{v#w}" height="{v#h}" alt="{v#title}" src="{v#src}"></a>
+	<a class="tmbpre" title="{v#title}" href="{v#link}">
+		<img class="img-product-{v#productid}" alt="{v#title}" src="{v#src}" />
+	</a>
 [/bkvar]
 
 [bkvar=imgempty]

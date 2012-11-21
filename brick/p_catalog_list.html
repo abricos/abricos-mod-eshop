@@ -10,17 +10,21 @@
 
 [bkvar=row]
 	<li class="catitem">
-		<p class="photo">
-			{v#image}
-		</p>
-		<p class="title">
+		<div class="photo">
+			<div class="tmb tmb200">
+				{v#image}
+			</div>
+		</div>
+		<div class="title">
 			<a title="{v#title}" href="{v#link}">{v#title}</a>
 		</p>
     </li>
 [/bkvar]
 
 [bkvar=img]
-	<a title="{v#title}" href="{v#link}"><img width="{v#w}px" height="{v#h}px" alt="{v#title}" src="{v#src}"></a>
+	<a title="{v#title}" href="{v#link}" class="tmbpre">
+		<img alt="{v#title}" src="{v#src}" />
+	</a>
 [/bkvar]
 
 [bkvar=imgempty]
