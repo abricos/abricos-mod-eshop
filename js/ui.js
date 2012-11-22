@@ -165,7 +165,7 @@ Component.entryPoint = function(NS){
 	    p.className = "big loading_bg";
 	    p.onload = function () {gel("loading").style.display = "none";p.className = "big";};
 	    p.src=tmb.src.replace("w_40-h_40","w_"+cfg['w']+"-h_"+cfg['h']+"");
-	    gel("tmb" + pidCurrent).className = "tmb";
+	    gel("tmb" + pidCurrent).className = "tmbsmsm";
 	    tmb.className = "currentPhoto";
 	    pidCurrent = pid;
 	};

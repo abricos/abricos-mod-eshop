@@ -23,12 +23,20 @@
 [p=imglimit]5[/p]
 
 [v=img]
-	<img id="bigPhoto" onclick="Brick.f('eshop', 'ui', 'showMaxPhoto', this); return false;" class="big img-product-{v#productid}" width="{v#w}" height="{v#h}" alt="{v#fld_name}" src="{v#src}">
+	<img id="bigPhoto" onclick="Brick.f('eshop', 'ui', 'showMaxPhoto', this); return false;" class="big img-product-{v#productid}" alt="{v#fld_name}" src="{v#src}">
 [/v]
 [v=imgempty]
 	<div class="rel"><a title="{v#fld_name}" href="#"><img width="200px" height="200px" alt="{v#fld_name}" src="/modules/eshop/images/empty.gif"></a><span class="nophoto">{#brick.product.9}</span></div>
 [/v]
-[v=imgsm]<img class="tmb" src="{v#src}" alt="{v#fld_name}" width="{v#w}" height="{v#h}" onclick="Brick.f('eshop', 'ui', 'showBigPhoto', {fid: '{v#fid}', el: this}); return false;" id="tmb{v#fid}">[/v]
+
+[v=imgsm]
+	<div class="tmb tmb40">
+		<span class="tmbpre">
+			<img class="tmbsm" src="{v#src}" alt="{v#fld_name}" onclick="Brick.f('eshop', 'ui', 'showBigPhoto', {fid: '{v#fid}', el: this}); return false;" id="tmb{v#fid}">
+		</span>
+	</div>
+[/v]
+
 [v=button]
 	<span>{#brick.product.10}:</span><input onfocus="this.select();" type="text" value="1" size="3" class="txt-product-bcount-{v#productid}"> <a class="button btn-product-buy product-{v#productid}" href="#" ><span>{#brick.product.11}</span></a>
 [/v]
@@ -40,11 +48,16 @@
 		<h3>{v#fld_name}</h3>
 		
 		<div class="photos">
-			<div id="bigPhotoDiv">
-				{v#image}
+			<div id="bigPhotoDiv" class="tmb tmb200">
+				<span class="tmbpre">
+					{v#image}
+				</span>
 				<img width="31" height="31" src="/modules/eshop/images/loader.gif" alt="Loading" id="loading" style="display: none;">
 			</div>
-			{v#imagelist}
+			<div class="lstsm">
+				{v#imagelist}
+			</div>
+			<div class="clear"></div>
 		</div>   
 		<div class="info">
 			{v#optlist}
