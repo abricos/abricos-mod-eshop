@@ -2,13 +2,30 @@
 
 [desc]
 	Список продукции.
+	
 	Параметры:
 	count - кол-во товаров на странице (по умолчанию 6),
+	
 	notchildlist - не выводить продукцию каталога и его подкаталогов в один лист (по умолчанию FALSE).
+	
+	forcontent - этот кирпич используется для построения страницы списка 
+				продукции (запрос из content/products.html). При этом принимается во внимание 
+				настройки модуля из конфига. 
 [/desc]
 
-[script]product_list.php[/script]
+[script]brick_product_list.php[/script]
 [mcss=eshop]eshop.css[/mcss]
+
+[p=forcontent]false[/p]
+[p=count]6[/p]
+[p=page][/p]
+[p=notchildlist]false[/p]
+[p=display][/p]
+
+[mod=filemanager]enthumbs|list=200x200[/mod]
+[p=imgw]200[/p]
+[p=imgh]200[/p]
+
 
 [bkvar=table]
 	<ul id="product-list-page-{v#page}" class="productlist">
@@ -72,14 +89,5 @@
 	<img src="/modules/eshop/images/pr_hit.png" class="pr_hit" alt="{#brick.product_list.6}" title="{#brick.product_list.6}" />
 [/bkvar]
 
-
-[mod=filemanager]enthumbs|list=200x200[/mod]
-[p=imgw]200[/p]
-[p=imgh]200[/p]
-
-[p=count]6[/p]
-[p=page][/p]
-[p=notchildlist]false[/p]
-[p=display][/p]
 
 [*]-->{v#result}

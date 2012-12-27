@@ -3,7 +3,6 @@
  * @version $Id$
  * @package Abricos
  * @subpackage EShop
- * @copyright Copyright (C) 2008 Abricos All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * @author Alexander Kuzmin (roosit@abricos.org)
  */
@@ -13,6 +12,7 @@ $db = Abricos::$db;
 $p = &$brick->param->param;
 Abricos::GetModule('eshop');
 $mod = EShopModule::$instance;
+$cfg = &Abricos::$config['module']['eshop'];
 
 $smMenu = Abricos::GetModule('sitemap')->GetManager()->GetMenu();
 $catItemMenu = $smMenu->menuLine[count($smMenu->menuLine)-1];
@@ -48,19 +48,23 @@ foreach ($brick->child as $child){
 	}
 }
 
-$perPage = bkint($p['count']);
-
 // подгрузка кирпича пагинатора с параметрами
 Brick::$builder->LoadBrickS('sitemap', 'paginator', $brick, array("p" => array(
 	"total" => $listTotal,
 	"page" => $listPage,
-	"perpage" => $perPage,
+	"perpage" => $cfg['productpagecount'],
 	"uri" => $baseUrl,
 	"hidepn" => "0"
 )));
 
+if ($p['jspage'] == 'true'){
+	
+	// подгрузка кирпича пагинатора с параметрами
+	Brick::$builder->LoadBrickS('eshop', 'jspage', $brick);
+}
+
 // Вывод заголовка страницы (проверка на &nbsp;, т.к. в базе может храниться и пробел)
-if (!empty($catItem['ktl']) && $catItem['ktl'] !="&nbsp;"){
+if (!empty($catItem['ktl']) && $catItem['ktl'] != "&nbsp;"){
 	Brick::$builder->SetGlobalVar('meta_title', $catItem['ktl']);
 }
 else if (!empty($catItem['tl'])){
@@ -68,12 +72,12 @@ else if (!empty($catItem['tl'])){
 }
 
 // Вывод ключевых слов
-if (!empty($catItem['kwds']) && $catItem['kwds'] !="&nbsp;"){
+if (!empty($catItem['kwds']) && $catItem['kwds'] != "&nbsp;"){
 	Brick::$builder->SetGlobalVar('meta_keys', $catItem['kwds']);
 }
 
 // Вывод описания
-if (!empty($catItem['kdsc']) && $catItem['kdsc'] !="&nbsp;"){
+if (!empty($catItem['kdsc']) && $catItem['kdsc'] != "&nbsp;"){
 	Brick::$builder->SetGlobalVar('meta_desc', $catItem['kdsc']);
 }
 

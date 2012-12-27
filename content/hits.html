@@ -1,5 +1,14 @@
 <!--[*]
 [tt=main][/tt]
-[mod=eshop]hits[/mod]
+[mod=eshop]product_list|custwhere=fld_hit>0[/mod]
 [*]-->
-[mod]eshop:hits[/mod]
+<div class="mod-eshop">
+	<div class="bd">
+		<h4>Хит продаж</h4>
+	</div>
+	
+	<div id="product-list-wpage" style="position: relative;">
+		[mod]eshop:product_list[/mod]
+	</div>
+	<div class="clear"></div>
+</div>

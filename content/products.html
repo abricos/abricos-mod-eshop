@@ -1,12 +1,10 @@
 <!--[*]
 [tt=main][/tt]
-[script]products.php[/script]
+[script]content_products.php[/script]
 
-[mod=eshop]p_catalog_list,product_list[/mod]
+[mod=eshop]p_catalog_list,product_list|forcontent=true[/mod]
 
 [mcss=sitemap]sitemap.css[/mcss]
-
-[p=count]6[/p]
 
 [bkvar=deftitle]{#content.products.1}[/bkvar]
 
@@ -24,30 +22,16 @@
 	
 		[mod]eshop:p_catalog_list[/mod]
 
-		<div id="product-list-wpage" style="position: relative;">
-			[mod]eshop:product_list[/mod]
-		</div>
+		[mod]eshop:product_list[/mod]
 		<div class="clear"></div>
 		
 		[mod]sitemap:paginator[/mod]
 		<div class="clear"></div>
 	
 		{v#catdesc}
-		
-		<pre id="pr_loader_template" style="display: none;"><ul id="product-list-page-{v#numpage}">
-				<li><div class="pr_loader"><img src="/images/loading.gif" />{#content.products.2}</div></li>
-				<li><div class="pr_loader"><img src="/images/loading.gif" />{#content.products.2}</div></li>
-				<li><div class="pr_loader"><img src="/images/loading.gif" />{#content.products.2}</div></li>
-				<li><div class="pr_loader"><img src="/images/loading.gif" />{#content.products.2}</div></li>
-				<li><div class="pr_loader"><img src="/images/loading.gif" />{#content.products.2}</div></li>
-				<li><div class="pr_loader"><img src="/images/loading.gif" />{#content.products.2}</div></li>
-			</ul>
-		</pre>
-		
 	</div>
 </div>
 
 <script>
 	Brick.f('eshop', 'ui', 'buyButtonsInit');
-	Brick.f('eshop', 'productlist', 'initProductListPaginator');
 </script>

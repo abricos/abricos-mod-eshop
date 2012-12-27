@@ -10,6 +10,20 @@
  * @author Alexander Kuzmin (roosit@abricos.org)
  */
 
+/*
+ * Настройки магазина по умолчанию
+ */
+$cfg = &Abricos::$config['module']['eshop'];
+
+// количество товаров на одной странице
+if (empty($cfg['productpagecount'])){
+	$cfg['productpagecount'] = 12;
+}
+
+
+/**
+ * Интернет-магазин
+ */
 class EShopModule extends Ab_Module {
 	
 	private $menuData = null;
@@ -42,7 +56,7 @@ class EShopModule extends Ab_Module {
 	public static $instance = null;
 	
 	public function EShopModule(){
-		$this->version = "0.1.4";
+		$this->version = "0.1.5";
 		$this->name = "eshop";
 		$this->takelink = "eshop";
 		$this->catinfo['dbprefix'] = "eshp";

@@ -11,6 +11,7 @@ $brick = Brick::$builder->brick;
 $db = Abricos::$db;
 $p = &$brick->param->param;
 $v = &$brick->param->var;
+$cfg = &Abricos::$config['module']['eshop'];
 
 $mod = EShopModule::$instance;
 
@@ -41,12 +42,17 @@ if ($p['notchildlist']){
 
 $tempArr = array();
 
-$custOrder = empty($p['custorder']) ? "fld_ord DESC" : $p['custorder'];
+$custOrder = empty($p['custorder']) ? "fld_ord DESC, fld_price=0, fld_price" : $p['custorder'];
+
+if ($p['forcontent'] == 'true'){
+	$p['count'] = $cfg['productpagecount'];
+}
+
+// 
 
 $rows = $catalogManager->ElementList($catids, $listPage, bkint($p['count']), $p['custwhere'], $custOrder, $p['overfields']);
 
 $brick->totalElementCount = $catalogManager->ElementCount($catids, $p['custwhere']);
- 
 
 
 $elTypeList = $catalogManager->ElementTypeListArray();

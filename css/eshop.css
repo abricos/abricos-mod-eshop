@@ -1,4 +1,8 @@
-.mod-eshop .clear { clear: both; }
+.mod-eshop .clear {
+	font-size: 1px;
+	height: 0;
+	line-height: 0;
+}
 .mod-eshop .rel { position: relative; }
 .mod-eshop .red { color: red; }
 
@@ -56,13 +60,14 @@
 	position: relative;
 	width: 210px;
 	float: left;
-	margin: 0 7px 7px 0;
+	margin: 0 3px 7px 0;
 }
 .mod-eshop .cataloglist .catitem .photo,
 .mod-eshop .cataloglist .catitem .title {
 	border: 1px solid #EEF1F2;
 }
 .mod-eshop .cataloglist .catitem .title {
+	height: 50px;
 	border-top: none;
 	text-align: center;
 	padding: 3px;
@@ -80,7 +85,7 @@
 	position: relative;
 	width: 210px;
 	float: left;
-	margin: 0 7px 7px 0;
+	margin: 0 3px 7px 0;
 }
 .mod-eshop .productlist .proditem .photo,
 .mod-eshop .productlist .proditem .info {
@@ -233,84 +238,9 @@
 }
 
 /* * * * * Старые стили, на удаление * * * * */
-div#pr_block {
-	overflow: hidden;
-	text-align: center;
-	position: relative;
-}
-
-#pr_block ul {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-}
-#pr_block ul li div {
-	text-align:center;
-}
-
-.pr_desc {
-	border-bottom: 5px dotted #C9C9C9;
-	padding: 1em 1em 1em 2em;
-	text-align: left;
-	margin-bottom: 2em;
-}
-
-#pr_block li { 
-	border-bottom: 5px dotted #C9C9C9;
-	float: left;
-	margin-bottom: 8px;
-	margin-right: 8px;
-	padding: 0 0 30px;
-	position: relative;
-	vertical-align: bottom;
-	width: 30%;
-}
-
-#pr_block ul p {
-	margin: 0 0 5px;
-	padding: 0 5px;
-	text-align: center;
-}
-
-#pr_block p.pr_price {
-	color: #959B9C;
-	font-size: 18px;
-	margin: 0 0 16px;
-	padding: 0.4em 0 0;
-}
-
-#pr_block p.pr_price span {
-	background: #DEE2E3;
-	padding: 0.2em 0.4em;
-}
-
-#pr_block p strong a {
-	font-size: 18px;
-	color: #DF267F;
-}
-
-.rel	{
-	position: relative;
-}
-
-#pr_block ul li	{
-	background: none;
-	height: 330px;
-}
-.pr_title	{
-	height: 3em;
-	overflow: hidden;
-}
-
-.clearfloat {
-	clear: both;
-	font-size: 1px;
-	height: 0;
-	line-height: 0;
-}
 .abs_img	{
 	display: block;
-	}
+}
 .button {
 	padding-left: 8px;
 	display: inline-block;
