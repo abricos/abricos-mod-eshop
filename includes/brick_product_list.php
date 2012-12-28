@@ -68,6 +68,12 @@ while (($row = $db->fetch_array($rows))){
 		$tempArr[$el['catid']] = $smMenu->FindSource('id', $el['catid']);
 	}
 	$link = $tempArr[$el['catid']]->link;
+	
+	$pTitle = addslashes(htmlspecialchars($el['fld_name']));
+	$pTitleSeo = "";
+	if ($cfg['seo']){
+		$pTitleSeo = translateruen($el['fld_name']);
+	}
 
 	// Проверка, является ли товар Новинкой, Акцией или Хитом продаж
 	$pr_spec = $el['fld_akc'] != 0 ? $v["isakc"] : "";
@@ -80,14 +86,19 @@ while (($row = $db->fetch_array($rows))){
 	}
 
 	$imginfo = $db->fetch_array($catalogManager->FotoListThumb($el['elid'], $imgWidth, $imgHeight, 1));
-
+	
 	if (empty($imginfo)){
 		$image = $brick->param->var["imgempty"];
 	}else{
 		$thumb = CatalogModule::FotoThumbInfoParse($imginfo['thumb']);
 		
+		$imgName = $imginfo['fn'];
+		if ($cfg['seo']){
+			$imgName = $pTitleSeo.".".$imginfo['ext'];
+		}
+		
 		$image = Brick::ReplaceVarByData($brick->param->var["img"], array(
-			"src" => CatalogModule::FotoThumbLink($imginfo['fid'], $imgWidth, $imgHeight, $imginfo['fn']), 
+			"src" => CatalogModule::FotoThumbLink($imginfo['fid'], $imgWidth, $imgHeight, $imgName), 
 			"w" => ($thumb['w']>0 ? $thumb['w']."px" : ""),
 			"h" => ($thumb['h']>0 ? $thumb['h']."px" : "")
 		));
@@ -96,7 +107,7 @@ while (($row = $db->fetch_array($rows))){
 		"special" => $pr_special,
 		"tpl_btn" => $brick->param->var[$el['fld_sklad']==0 ? 'btnnotorder' : 'btnorder'],
 		"image" => $image, 
-		"title" => addslashes(htmlspecialchars($el['fld_name'])),
+		"title" => $pTitle,
 		"price" => $el['fld_price'],
 		"desc" => $el['fld_desc'],
 		"link" => $link."product_".$row['id']."/",

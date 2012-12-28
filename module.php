@@ -19,7 +19,9 @@ $cfg = &Abricos::$config['module']['eshop'];
 if (empty($cfg['productpagecount'])){
 	$cfg['productpagecount'] = 12;
 }
-
+if (empty($cfg['seo'])){
+	$cfg['seo'] = false;
+}
 
 /**
  * Интернет-магазин

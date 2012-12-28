@@ -15,6 +15,7 @@ $catItemMenu = $mod->currentCatalogItem;
 $catItem = $catItemMenu->source;
 $productId = $mod->currentProductId;
 $catalogManager = $mod->GetCatalogManager();
+$cfg = &Abricos::$config['module']['eshop'];
 
 // заменяем данные по текущей категории, если нужно
 $brick->content = Brick::ReplaceVarByData($brick->content, array(
@@ -34,15 +35,27 @@ $size = array(
 
 $el = $mod->currentProduct;
 
+$pTitle = addslashes(htmlspecialchars($el['fld_name']));
+$pTitleSeo = "";
+if ($cfg['seo']){
+	$pTitleSeo = translateruen($el['fld_name']);
+}
+
 $imginfo = $db->fetch_array($catalogManager->FotoListThumb($el['elid'], $size['w'], $size['h'], 1));
 
 $imgSmList = "";
 if (empty($imginfo)){
 	$image = $brick->param->var["imgempty"];
 }else{
-	$thumb = CatalogModule::FotoThumbInfoParse($imginfo['thumb']); 
+	$thumb = CatalogModule::FotoThumbInfoParse($imginfo['thumb']);
+
+	$imgName = $imginfo['fn'];
+	if ($cfg['seo']){
+		$imgName = $pTitleSeo.".".$imginfo['ext'];
+	}
+	
 	$image = Brick::ReplaceVarByData($brick->param->var["img"], array(
-		"src" => CatalogModule::FotoThumbLink($imginfo['fid'],  $size['w'], $size['h'], $imginfo['fn']), 
+		"src" => CatalogModule::FotoThumbLink($imginfo['fid'],  $size['w'], $size['h'], $imgName), 
 		"w" => ($thumb['w']>0 ? $thumb['w']."px" : ""),
 		"h" => ($thumb['h']>0 ? $thumb['h']."px" : "")
 	));
