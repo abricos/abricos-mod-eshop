@@ -42,7 +42,7 @@ return array(
 			"8" => "Новинки"
 		)
 ,
-		'p_catalog_list' => array(
+		'catalog_list' => array(
 			"1" => "фотография временно недоступна"
 		)
 ,
