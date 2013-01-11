@@ -10,11 +10,10 @@
 
 [v=row]
 	<dt>{#brick.product.1}:</dt><dd>{v#fld_art}&nbsp;</dd>
-	<dt>{#brick.product.2}:</dt><dd>{v#fld_brand}&nbsp;</dd>
+	<dt>{#brick.product.2}:</dt><dd class="brand">{v#fld_brand}&nbsp;</dd>
 	<dt>{#brick.product.3}:</dt><dd>{v#fld_country}&nbsp;</dd>
 	<dt>{#brick.product.4}:</dt><dd>{v#fld_sklad}&nbsp;</dd>
-	<dt>{#brick.product.5}:</dt><dd>{#brick.product.7}</dd>
-	<dt>{#brick.product.6}:</dt><dd><b>{v#fld_price} {#brick.product.8}</b></dd>
+	<dt>{#brick.product.6}:</dt><dd><b><span class="price">{v#fld_price}</span> {#brick.product.8}</b></dd>
 [/v]
 
 [mod=filemanager]enthumbs|list=200x200/40x40[/mod]
@@ -24,6 +23,7 @@
 
 [v=img]
 	<img id="bigPhoto" onclick="Brick.f('eshop', 'ui', 'showMaxPhoto', this); return false;" class="big img-product-{v#productid}" alt="{v#fld_name}" src="{v#src}">
+	<a href="{v#srcf}" style="display: none" class="photo"></a>
 [/v]
 [v=imgempty]
 	<div class="rel"><a title="{v#fld_name}" href="#"><img width="200px" height="200px" alt="{v#fld_name}" src="/modules/eshop/images/empty.gif"></a><span class="nophoto">{#brick.product.9}</span></div>
@@ -44,8 +44,8 @@
 [/v]
 [*]-->
 <div class="mod-eshop">
-	<div id="view_item" class="product">
-		<h3>{v#fld_name}</h3>
+	<div id="view_item" class="product hproduct">
+		<h3 class="fn">{v#fld_name}</h3>
 		
 		<div class="photos">
 			<div id="bigPhotoDiv" class="tmb tmb200">
@@ -66,7 +66,7 @@
 		<br class="clear" />
 		<fieldset class="descript">
 			<legend>{#brick.product.13}</legend>
-			{v#fld_desc}
+			<div class="description">{v#fld_desc}</div>
 		</fieldset>
 	</div>
 </div>

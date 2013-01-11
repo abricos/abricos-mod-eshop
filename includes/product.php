@@ -56,6 +56,7 @@ if (empty($imginfo)){
 	
 	$image = Brick::ReplaceVarByData($brick->param->var["img"], array(
 		"src" => CatalogModule::FotoThumbLink($imginfo['fid'],  $size['w'], $size['h'], $imgName), 
+		"srcf" => CatalogModule::FotoThumbLink($imginfo['fid'],  0, 0, $imgName), 
 		"w" => ($thumb['w']>0 ? $thumb['w']."px" : ""),
 		"h" => ($thumb['h']>0 ? $thumb['h']."px" : "")
 	));
