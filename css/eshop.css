@@ -169,6 +169,14 @@
 	position: absolute;
 	top: 50%;
 }
+.mod-eshop .product #bigPhotoDiv a.showbig {
+	position: absolute; right: 5px; bottom: 5px;
+	display: block;
+	padding-left: 18px;
+	padding-bottom: 3px;
+	background: url("/modules/eshop/images/zoom.png") no-repeat 0 4px;
+	font-size: 10px;
+}
 .mod-eshop .product #bigPhoto.loading_bg	{
 	filter: progid: DXImageTransform.Microsoft.Alpha(opacity=40);
 	-moz-opacity: 0.4;    /* Mozilla 1.6   */

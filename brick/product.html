@@ -24,6 +24,7 @@
 [v=img]
 	<img id="bigPhoto" onclick="Brick.f('eshop', 'ui', 'showMaxPhoto', this); return false;" class="big img-product-{v#productid}" alt="{v#fld_name}" src="{v#src}">
 	<a href="{v#srcf}" style="display: none" class="photo"></a>
+	<a href="" onclick="Brick.f('eshop', 'ui', 'showMaxPhoto', document.getElementById('bigPhoto')); return false;" class="showbig">увеличить</a>
 [/v]
 [v=imgempty]
 	<div class="rel"><a title="{v#fld_name}" href="#"><img width="200px" height="200px" alt="{v#fld_name}" src="/modules/eshop/images/empty.gif"></a><span class="nophoto">{#brick.product.9}</span></div>
