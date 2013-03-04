@@ -1,8 +1,17 @@
 <!--[*]
 [script]brick_custom_plist.php[/script]
 
-[mod=eshop]product_list|custwhere=fld_hit>0|count=3[/mod]
+[p=fulllist][/p]
+[p=custwhere]fld_hit>0[/p]
+
 [mcss=eshop]eshop.css[/mcss]
+
+[bkvar=more]
+	<div class="text-align: right">
+		<a href="/eshop/hits/" title="Показать весь список.">Показать весь список...</a>
+	</div>
+[/bkvar]
+
 [*]-->
 <div class="mod-eshop">
 	<div class="bd">
@@ -13,8 +22,6 @@
 		[mod]eshop:product_list[/mod]
 	</div>
 	<div class="clear"></div>
-	<div class="text-align: right">
-		<a href="/eshop/hits/" title="Показать весь список.">Показать весь список...</a>
-	</div>
 	
+	{v#more}
 </div>
