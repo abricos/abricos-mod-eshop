@@ -2,26 +2,11 @@
 /**
  * Модуль "Интернет магазин"
  * 
- * @version $Id$
  * @package Abricos 
- * @subpackage News
- * @copyright Copyright (C) 2008 Abricos All rights reserved.
+ * @subpackage EShop
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * @author Alexander Kuzmin (roosit@abricos.org)
+ * @author Alexander Kuzmin <roosit@abricos.org>
  */
-
-/*
- * Настройки магазина по умолчанию
- */
-$cfg = &Abricos::$config['module']['eshop'];
-
-// количество товаров на одной странице
-if (empty($cfg['productpagecount'])){
-	$cfg['productpagecount'] = 12;
-}
-if (empty($cfg['seo'])){
-	$cfg['seo'] = false;
-}
 
 /**
  * Интернет-магазин

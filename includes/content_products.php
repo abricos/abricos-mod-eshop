@@ -1,10 +1,9 @@
 <?php
 /**
- * @version $Id$
  * @package Abricos
  * @subpackage EShop
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * @author Alexander Kuzmin (roosit@abricos.org)
+ * @author Alexander Kuzmin <roosit@abricos.org>
  */
 
 $brick = Brick::$builder->brick;
@@ -52,7 +51,7 @@ foreach ($brick->child as $child){
 Brick::$builder->LoadBrickS('sitemap', 'paginator', $brick, array("p" => array(
 	"total" => $listTotal,
 	"page" => $listPage,
-	"perpage" => $cfg['productpagecount'],
+	"perpage" => EShopConfig::$instance->productPageCount,
 	"uri" => $baseUrl,
 	"hidepn" => "0"
 )));

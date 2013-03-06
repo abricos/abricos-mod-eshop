@@ -1,11 +1,9 @@
 <?php
 /**
- * Обработка запросов DataSet 
- * 
- * @version $Id$
+ * Обработка запросов DataSet
+ *  
  * @package Abricos
- * @subpackage Eshop
- * @copyright Copyright (C) 2008 Abricos. All rights reserved.
+ * @subpackage EShop
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * @author Alexander Kuzmin <roosit@abricos.org>
  */

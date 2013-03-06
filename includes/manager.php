@@ -1,14 +1,12 @@
 <?php
 /**
- * @version $Id$
  * @package Abricos
- * @subpackage User
- * @copyright Copyright (C) 2008 Abricos. All rights reserved.
+ * @subpackage EShop
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * @author Alexander Kuzmin (roosit@abricos.org)
+ * @author Alexander Kuzmin <roosit@abricos.org>
  */
 
-require_once 'dbquery.php';
+require_once 'classes.php';
 
 class EShopManager extends Ab_ModuleManager {
 	
@@ -16,7 +14,12 @@ class EShopManager extends Ab_ModuleManager {
 	 * 
 	 * @var EShopModule
 	 */
-	public $module = null;
+	public $module;
+	
+	/**
+	 * @var EShopConfig
+	 */
+	public $config;
 	
 	/**
 	 * Статус заказа - Новый
@@ -55,7 +58,9 @@ class EShopManager extends Ab_ModuleManager {
 		$this->catalog = Abricos::GetModule('catalog');
 		$this->catalogManager = $module->GetCatalogManager();
 		
-		$this->userSession = $this->user->session->key; 
+		$this->userSession = $this->user->session->key;
+
+		$this->config = new EShopConfig(Abricos::$config['module']['eshop']);
 	}
 	
 	/**

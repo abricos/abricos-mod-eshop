@@ -1,11 +1,9 @@
 <?php
 /**
- * @version $Id$
  * @package Abricos
  * @subpackage EShop
- * @copyright Copyright (C) 2008 Abricos All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * @author Alexander Kuzmin (roosit@abricos.org)
+ * @author Alexander Kuzmin <roosit@abricos.org>
  */
 
 $brick = Brick::$builder->brick;
@@ -37,7 +35,7 @@ $el = $mod->currentProduct;
 
 $pTitle = addslashes(htmlspecialchars($el['fld_name']));
 $pTitleSeo = "";
-if ($cfg['seo']){
+if (EShopConfig::$instance->seo){
 	$pTitleSeo = translateruen($el['fld_name']);
 }
 
@@ -50,7 +48,7 @@ if (empty($imginfo)){
 	$thumb = CatalogModule::FotoThumbInfoParse($imginfo['thumb']);
 
 	$imgName = $imginfo['fn'];
-	if ($cfg['seo']){
+	if (EShopConfig::$instance->seo){
 		$imgName = $pTitleSeo.".".$imginfo['ext'];
 	}
 	

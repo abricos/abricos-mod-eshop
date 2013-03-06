@@ -1,6 +1,5 @@
 <?php
 /**
- * @version $Id$
  * @package Abricos
  * @subpackage EShop
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
@@ -45,7 +44,7 @@ $tempArr = array();
 $custOrder = empty($p['custorder']) ? "fld_ord DESC, fld_price=0, fld_price" : $p['custorder'];
 
 if ($p['forcontent'] == 'true'){
-	$p['count'] = $cfg['productpagecount'];
+	$p['count'] = EShopConfig::$instance->productPageCount;
 }
 
 // 
@@ -71,7 +70,7 @@ while (($row = $db->fetch_array($rows))){
 	
 	$pTitle = addslashes(htmlspecialchars($el['fld_name']));
 	$pTitleSeo = "";
-	if ($cfg['seo']){
+	if (EShopConfig::$instance->seo){
 		$pTitleSeo = translateruen($el['fld_name']);
 	}
 
@@ -93,7 +92,7 @@ while (($row = $db->fetch_array($rows))){
 		$thumb = CatalogModule::FotoThumbInfoParse($imginfo['thumb']);
 		
 		$imgName = $imginfo['fn'];
-		if ($cfg['seo']){
+		if (EShopConfig::$instance->seo){
 			$imgName = $pTitleSeo.".".$imginfo['ext'];
 		}
 		
