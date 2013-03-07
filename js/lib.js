@@ -6,7 +6,7 @@
 var Component = new Brick.Component();
 Component.requires = { 
 	mod:[
-        {name: 'widget', files: ['notice.js']},
+        {name: 'catalog', files: ['lib.js']},
         {name: '{C#MODNAME}', files: ['roles.js']}
 	]		
 };
@@ -47,41 +47,19 @@ Component.entryPoint = function(NS){
 		'go': function(url){
 			Brick.Page.reload(url);
 		}
-	};		
-
-	var Manager = function (callback){
-		this.init(callback);
+	};	
+	
+	var Manager = function(modname, callback){
+		NS.manager = this;
+		Manager.superclass.constructor.call(this, '{C#MODNAME}', callback);
 	};
-	Manager.prototype = {
-		init: function(callback){
-			NS.manager = this;
-			
-			this.users = Brick.mod.uprofile.viewer.users;
-			
-			var __self = this;
-			R.load(function(){
-				NS.life(callback, __self);
-			});
-		},
-		ajax: function(data, callback){
-			data = data || {};
-
-			Brick.ajax('{C#MODNAME}', {
-				'data': data,
-				'event': function(request){
-					NS.life(callback, request.data);
-				}
-			});
-		}
-	};
+	YAHOO.extend(Manager, Brick.mod.catalog.Manager, {
+		
+	});
 	NS.manager = null;
 	
 	NS.initManager = function(callback){
-		if (L.isNull(NS.manager)){
-			NS.manager = new Manager(callback);
-		}else{
-			NS.life(callback, NS.manager);
-		}
+		Brick.mod.catalog.initManager('{C#MODNAME}', callback);
 	};
 	
 };

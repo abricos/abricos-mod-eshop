@@ -6,7 +6,7 @@
 var Component = new Brick.Component();
 Component.requires = {
 	mod:[
-		{name: 'catalog', files: ['catalog.js','eltype.js']},
+		{name: 'catalog', files: ['cataloglist.js']},
 		{name: '{C#MODNAME}', files: ['lib.js']}
 	]
 };
@@ -16,6 +16,8 @@ Component.entryPoint = function(NS){
 		L = YAHOO.lang,
 		LNG = this.language,
 		buildTemplate = this.buildTemplate;
+	
+	var NSCat = Brick.mod.catalog;
 	
 	var CatalogManagerWidget = function(container){
 		CatalogManagerWidget.superclass.constructor.call(this, container, {
@@ -33,10 +35,7 @@ Component.entryPoint = function(NS){
 			});
 		},
 		_onLoadManager: function(){
-			new Brick.mod.catalog.API.showManagerWidget({
-				'container': this.gel('widget'), 
-				'mmPrefix': 'eshop'
-			});
+			this.widget = new NSCat.CatalogListWidget('{C#MODNAME}', this.gel('widget'));
 		}
 	});
 	NS.CatalogManagerWidget = CatalogManagerWidget;

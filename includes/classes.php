@@ -42,5 +42,31 @@ class EShopConfig {
 	}
 }
 
+class EShopCatalogManager extends CatalogModuleManager {
+	
+	/**
+	 * @var EShopManager
+	 */
+	public $manager;
+	
+	public function __construct(){
+		$this->manager = EShopManager::$instance;
+
+		parent::__construct("eshp");
+	}
+	
+	public function IsAdminRole(){
+		return $this->manager->IsAdminRole();
+	}
+	
+	public function IsWriteRole(){
+		return $this->manager->IsWriteRole();
+	}
+	
+	public function IsViewRole(){
+		return $this->manager->IsViewRole();
+	}
+}
+
 
 ?>

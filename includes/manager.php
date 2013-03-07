@@ -6,15 +6,16 @@
  * @author Alexander Kuzmin <roosit@abricos.org>
  */
 
+Abricos::GetModule('catalog')->GetManager();
+
 require_once 'classes.php';
 
 class EShopManager extends Ab_ModuleManager {
-	
+
 	/**
-	 * 
-	 * @var EShopModule
+	 * @var EShopManager
 	 */
-	public $module;
+	public static $instance;
 	
 	/**
 	 * @var EShopConfig
@@ -22,59 +23,45 @@ class EShopManager extends Ab_ModuleManager {
 	public $config;
 	
 	/**
-	 * Статус заказа - Новый
-	 * @var integer
+	 * @var EShopCatalogManager
 	 */
-	const ORDER_STATUS_NEW = 0;
-
-	/**
-	 * Статус заказа - Принятый на исполнение
-	 * @var integer
-	 */
-	const ORDER_STATUS_EXEC = 1;
-	
-	/**
-	 * Статус заказа - Закрытый
-	 * @var integer
-	 */
-	const ORDER_STATUS_ARHIVE = 2;
-		
-
-	/**
-	 * Модуль каталога
-	 * @var CatalogModule
-	 */
-	public $catalog = null;
-
-	/**
-	 * Менеджер каталога
-	 * @var CatalogManager
-	 */
-	public $catalogManager = null;
+	public $cManager;
 	
 	public function __construct(EShopModule $module){
 		parent::__construct($module);
 		
+		EShopManager::$instance = $this;
+		$this->config = new EShopConfig(Abricos::$config['module']['eshop']);
+		
+		$this->cManager = new EShopCatalogManager();
+		
+		// TODO: на удаление
 		$this->catalog = Abricos::GetModule('catalog');
 		$this->catalogManager = $module->GetCatalogManager();
 		
 		$this->userSession = $this->user->session->key;
-
-		$this->config = new EShopConfig(Abricos::$config['module']['eshop']);
-	}
-	
-	/**
-	 * @return CatalogManager
-	 */
-	public function GetCatalogManager(){
-		return $this->catalogManager;
 	}
 	
 	public function IsAdminRole(){
-		return $this->user->IsAdminMode();
+		return $this->IsRoleEnable(EShopAction::ADMIN);
+	}
+	
+	public function IsWriteRole(){
+		if ($this->IsAdminRole()){ return true; }
+		return $this->IsRoleEnable(EShopAction::WRITE);
+	}
+	
+	public function IsViewRole(){
+		if ($this->IsWriteRole()){ return true; }
+		return $this->IsRoleEnable(EShopAction::VIEW);
 	}
 	
 	public function AJAX($d){
+		
+		$ret = $this->cManager->AJAX($d);
+		if (!empty($ret)){ return $ret; }
+		
+		// TODO: на удаление/переделку
 		switch($d->do){
 			case "prodtocart":
 				return $this->CartAppend($d->productid, $d->quantity);
@@ -107,6 +94,53 @@ class EShopManager extends Ab_ModuleManager {
 				exit;
 		}
 		return -1;
+	}
+	
+	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+	 * TODO: Старая версия методов - на удаление
+	 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+	
+	/**
+	 * @var EShopModule
+	 */
+	public $module;
+	
+	/**
+	 * Статус заказа - Новый
+	 * @var integer
+	 */
+	const ORDER_STATUS_NEW = 0;
+	
+	/**
+	 * Статус заказа - Принятый на исполнение
+	 * @var integer
+	 */
+	const ORDER_STATUS_EXEC = 1;
+	
+	/**
+	 * Статус заказа - Закрытый
+	 * @var integer
+	 */
+	const ORDER_STATUS_ARHIVE = 2;
+	
+	
+	/**
+	 * Модуль каталога
+	 * @var CatalogModule
+	 */
+	public $catalog = null;
+	
+	/**
+	 * Менеджер каталога
+	 * @var CatalogManager
+	 */
+	public $catalogManager = null;
+	
+	/**
+	 * @return CatalogManager
+	 */
+	public function GetCatalogManager(){
+		return $this->catalogManager;
 	}
 	
 	public function DSProcess($name, $rows){
