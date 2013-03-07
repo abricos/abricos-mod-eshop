@@ -43,11 +43,13 @@ class EShopModule extends Ab_Module {
 	public static $instance = null;
 	
 	public function EShopModule(){
-		$this->version = "0.1.5";
+		$this->version = "0.2";
 		$this->name = "eshop";
 		$this->takelink = "eshop";
 		$this->catinfo['dbprefix'] = "eshp";
 		EShopModule::$instance = $this;
+		
+		$this->permission = new EShopPermission($this);
 	}
 	
 	/**
@@ -188,6 +190,30 @@ class EShopAction {
 	const VIEW = 10;
 	const WRITE = 30;
 	const ADMIN = 50;
+}
+
+class EShopPermission extends Ab_UserPermission {
+
+	public function EShopPermission(EShopModule $module){
+		$defRoles = array(
+			new Ab_UserRole(EShopAction::VIEW, Ab_UserGroup::GUEST),
+			new Ab_UserRole(EShopAction::VIEW, Ab_UserGroup::REGISTERED),
+			new Ab_UserRole(EShopAction::VIEW, Ab_UserGroup::ADMIN),
+
+			new Ab_UserRole(EShopAction::WRITE, Ab_UserGroup::ADMIN),
+
+			new Ab_UserRole(EShopAction::ADMIN, Ab_UserGroup::ADMIN),
+		);
+		parent::__construct($module, $defRoles);
+	}
+
+	public function GetRoles(){
+		return array(
+			EShopAction::VIEW => $this->CheckAction(EShopAction::VIEW),
+			EShopAction::WRITE => $this->CheckAction(EShopAction::WRITE),
+			EShopAction::ADMIN => $this->CheckAction(EShopAction::ADMIN)
+		);
+	}
 }
 
 $modCatalog = Abricos::GetModule('catalog');

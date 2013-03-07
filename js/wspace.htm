@@ -1,0 +1,51 @@
+<!--{panel}-->
+<div class='hd'>Интернет-магазин</div>
+<div class='bd aw-eshop'>
+	<div id="{i#widget}"></div>
+</div>
+
+<!--{widget}-->
+<div id="{i#id}" class="wspace">
+	<div id="{i#gmenu}">
+	
+		<div class="gheadermenu">
+			<h2>Интернет-магазин</h2>
+			
+			<a href="{v#urlhome}" class="logo">
+				<img src="/modules/eshop/images/logo-96x96.png" />
+			</a>
+			
+			<div class="topmenublock">
+				<ul class="topmenu topmenul">
+					<li id="{i#mcatalogman}"><a href="{v#urlcatalogman}" class="sel" title="">Продукция</a></li>
+					<li id="{i#mbilling}"><a href="{v#urlbilling}" title="">Заказы</a></li>
+					<li id="{i#mconfig}"><a href="{v#urlconfig}" title="">Настройки</a></li>
+				</ul>
+				<div class="clear"></div>
+			</div>
+			
+		</div>
+	</div>
+	
+	<div class="gbmenu">
+		<br class="clear" />
+		<div class="line"></div>
+	</div>
+	
+	<div id="{i#loading}" class="ws-loading">
+		<img src="/images/loading.gif" /> Идет загрузка данных <br />Пожалуйста, подождите...
+	</div>
+	<div id="{i#board}" class="board" style="display: none"></div>
+			
+</div>
+
+<!--{page}--><div id="{i#id}" class='wspage'></div>
+
+<!--{home}--><div id="{i#id}" class='wspage'>Добро пожаловать</div>
+
+<!--{accessdenied}--><div id="{i#id}" class='wspage'>
+	<div class="ws-loading">
+		Доступ запрещен <br />
+		У вас недостаточно прав, или необходимо зарегистрироваться.
+	</div>
+</div>

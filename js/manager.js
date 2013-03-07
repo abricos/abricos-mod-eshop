@@ -9,8 +9,8 @@ var Component = new Brick.Component();
 Component.requires = {
 	yahoo: ['tabview','dragdrop'],
     mod:[
-         {name: 'eshop', files: ['billing.js', 'config.js']},
-         {name: 'catalog', files: ['catalog.js','eltype.js']}
+         {name: 'catalog', files: ['catalog.js','eltype.js']},
+         {name: 'eshop', files: ['billing.js', 'config.js']}
     ]
 };
 Component.entryPoint = function(NS){
@@ -18,14 +18,12 @@ Component.entryPoint = function(NS){
 		E = YAHOO.util.Event,
 		L = YAHOO.lang;
 
-	var API = NS.API;
-	
 	var buildTemplate = this.buildTemplate;
 	
-	var ManagerWidget = function(container){
+	var ConfigWidget = function(container){
 		this.init(container);
 	};
-	ManagerWidget.prototype = {
+	ConfigWidget.prototype = {
 		init: function(container){
 		
 			var TM = buildTemplate(this, 'widget');
@@ -33,51 +31,23 @@ Component.entryPoint = function(NS){
 			
 			var tabView = new YAHOO.widget.TabView(TM.getElId('widget.id'));
 			this.page = {
-				// 'billing': new NS.billing.Manager(TM.getEl('widget.orders')),
-					
 				'catalog': new Brick.mod.catalog.API.showElementTypeManagerWidget({
 					'container': TM.getEl('widget.catalog'),
 					'mmPrefix': 'eshop' 
 				}),
 				'config': new NS.config.Manager(TM.getEl('widget.config'))
 			};
+			NS.data.request();
 		}
 	};
-	NS.ManagerWidget = ManagerWidget;
+	NS.ConfigWidget = ConfigWidget;
 	
-	var ManagerPanel = function(){
-		ManagerPanel.superclass.constructor.call(this,{
-			fixedcenter: true, width: '780px', height: '480px'
-		});
-	};
-	YAHOO.extend(ManagerPanel, Brick.widget.Panel, {
-		initTemplate: function(){
-			buildTemplate(this, 'panel');
-			return this._T['panel'];
-		},
-		onLoad: function(){
-			this.widget = new ManagerWidget(this._TM.getEl('panel.widget'));
-		}
-	});
-	NS.ManagerPanel = ManagerPanel;
-	
-	API.showManagerWidget = function(container){
-		var widget = new ManagerWidget(container);
-		NS.data.request();
+	NS.API.showConfigWidget = function(container){
+		var widget = new NS.ConfigWidget(container);
 		return widget;
 	};
-	
-	API.showManagerPanel = function(){
-		var panel = new ManagerPanel();
-		NS.data.request();
-		return panel;
-	};
-	
-	API.showCatalogManagerPanel = function(){
-		new Brick.mod.catalog.API.showManagerPanel('eshop');
-	}
-	
-	API.showCatalogManagerWidget = function(container){
+
+	NS.API.showCatalogManagerWidget = function(container){
 		new Brick.mod.catalog.API.showManagerWidget({
 			'container': container, 
 			'mmPrefix': 'eshop'

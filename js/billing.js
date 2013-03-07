@@ -18,15 +18,12 @@ Component.entryPoint = function(NS){
 		E = YAHOO.util.Event,
 		L = YAHOO.lang;
 	
-	var API = NS.API,
-		TMG = this.template;
+	var API = NS.API;
 	
 	NS['billing'] = NS['billing'] || {}; 
 	
 	var DATA = NS.data = NS.data || new Brick.util.data.byid.DataSet('eshop');
 	
-	var LW = Brick.widget.LayWait;
-
 	var buildTemplate = this.buildTemplate;
 
 	API.formatPrice = function(price){
@@ -38,11 +35,10 @@ Component.entryPoint = function(NS){
 		return fprice; 
 	};
 	
-	var BillingManager = function(container){
+	var BillingWidget = function(container){
 		this.init(container);
 	};
-	
-	BillingManager.prototype = {
+	BillingWidget.prototype = {
 		init: function(container){
 			var TM = buildTemplate(this, 'widget');
 			container.innerHTML = TM.replace('widget');
@@ -54,7 +50,9 @@ Component.entryPoint = function(NS){
 				'arhive': new OrderListArhive(this, TM.getElId('widget.arhive')),
 				'recycle': new OrderListRecycle(this, TM.getElId('widget.recycle'))
 			};
+			DATA.request();
 		},
+		destroy: function(){},
 		onClick: function(el){
 			return false;
 		},
@@ -89,11 +87,10 @@ Component.entryPoint = function(NS){
 			});
 		}
 	};
-	NS.BillingManager = BillingManager;
+	NS.BillingWidget = BillingWidget;
 	
-	API.showBillingManagerWidget = function(container){
-		new BillingManager(container);
-		DATA.request();
+	API.showBillingWidgetWidget = function(container){
+		new BillingWidget(container);
 	};
 	
 	var OrderList = function(owner, container, type, extButtonsCount){

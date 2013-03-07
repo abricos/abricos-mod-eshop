@@ -37,7 +37,7 @@ Component.entryPoint = function(){
 		menuItem.icon = '/modules/sys/images/cp_icon.gif';
 		menuItem.titleId = 'mod.eshop.cp.title.admin';
 		menuItem.entryComponent = 'manager';
-		menuItem.entryPoint = 'Brick.mod.eshop.API.showManagerWidget';
+		menuItem.entryPoint = 'Brick.mod.eshop.API.showConfigWidget';
 		cp.MenuManager.add(menuItem);
 	}
 

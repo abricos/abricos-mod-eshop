@@ -1,0 +1,120 @@
+.aw-eshop .clear { clear: both;}
+.aw-eshop .loading,
+.aw-eshop .nullitem { 
+	text-align: center;
+	padding: 70px 0; 
+}
+
+/* * * * * * AHref Button * * * * */
+.aw-eshop a.habtn {
+	border-bottom: 1px dotted;
+	text-decoration: none;
+	margin: 0 5px;
+}
+.aw-eshop a.warn {
+	color: #DA4242;
+}
+
+/* * * * Превьюшки * * * * */
+.aw-eshop .tmb24 { width: 24px; height: 24px; }
+.aw-eshop .tmb24 img { max-width: 24px; max-height: 24px; }
+
+.aw-eshop .tmb { display: table; }
+.aw-eshop .tmb .tmbpre {
+	display: table-cell;
+	vertical-align: middle;
+}
+.aw-eshop .tmb .tmbpre img {
+	display: block;
+	margin: 0 auto;
+}
+
+
+/* * * * Editor Form * * * */
+.aw-eshop .editform {
+	padding: 10px 0;
+	background-color: #F9F5DF;
+}
+.aw-eshop .editform .dsc,
+.aw-eshop .viewform .dsc {
+	color: #555555;
+	font-size: .9em;
+}
+
+.aw-eshop .editform h3,
+.aw-eshop .viewform h3 {
+    color: #333333;
+    font-size: 1.28em;
+    font-weight: bold;
+    padding-bottom: 0.5em;
+
+	font-weight: normal !important;
+}
+.aw-eshop .editform h4,
+.aw-eshop .viewform h4 {
+	margin-bottom: 10px;
+	font-weight: bold;
+}
+.aw-eshop .editform .group,
+.aw-eshop .viewform .group {
+	margin: 0 20px;
+	border-bottom: 1px solid #E3E3D7;
+	margin-bottom: 1em;
+	padding-bottom: .8em;
+}
+.aw-eshop .editform .fieldline {
+	margin-bottom: 10px;
+}
+.aw-eshop .editform dl,
+.aw-eshop .viewform dl {
+	margin: 0 0 0.3em;
+    padding: 0;
+    clear: both;
+}
+.aw-eshop .editform dt,
+.aw-eshop .viewform dt {
+    float: left;
+    padding: 0.5em 0 0.5em 0;
+    width: 12em;
+}
+.aw-eshop .viewform dt {
+	text-align: right;
+	color: #999999;
+}
+
+.aw-eshop .editform dd,
+.aw-eshop .viewform dd  {
+    float: none;
+    margin-left: 13em;
+    padding: 0.5em 0;
+}
+.aw-eshop .editform p {
+	margin: 5px 0 7px;
+}
+.aw-eshop .editform input.inp,
+.aw-eshop .editform select.inp,
+.aw-eshop .editform textarea.inp {
+    border: 1px solid #ACAEB4;
+    border-radius: 3px 3px 3px 3px;
+    line-height: 20px;
+    padding: 3px;
+    width: 400px;
+}
+.aw-eshop .editform select.inp {
+	width: 407px;
+}
+.aw-eshop .editform textarea.inp {
+	height: 100px;
+}
+.aw-eshop .editform .baction {
+	margin-top: 10px;
+	margin-right: 2em;
+}
+.aw-eshop .editform .baction input {
+ 	margin-right: 10px;
+    padding: 2px 5px;	
+}
+.aw-eshop .editform .baction .error {
+	color: red;
+	margin-right: 10px;
+}

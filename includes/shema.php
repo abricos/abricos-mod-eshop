@@ -179,4 +179,9 @@ if ($updateManager->isUpdate('0.1.0.13')){
 	$catalogManager->ElementOptionAppend(0, 0, 1, 'ord', 'Сортировка', '', 0, '{"cst":{"en":0,"inpen":0,"inp":"","onlden":0,"onld":""},"size":"10","def":"0"}');
 
 }
+
+if ($updateManager->isUpdate('0.2')){
+	Abricos::GetModule('eshop')->permission->Install();
+}
+
 ?>
