@@ -6,7 +6,7 @@
 var Component = new Brick.Component();
 Component.requires = {
 	mod:[
-		{name: 'catalog', files: ['cataloglist.js']},
+		{name: 'catalog', files: ['board.js']},
 		{name: '{C#MODNAME}', files: ['lib.js']}
 	]
 };
@@ -35,7 +35,7 @@ Component.entryPoint = function(NS){
 			});
 		},
 		_onLoadManager: function(){
-			this.widget = new NSCat.CatalogListWidget('{C#MODNAME}', this.gel('widget'));
+			this.widget = new NSCat.BoardWidget('{C#MODNAME}', this.gel('widget'));
 		}
 	});
 	NS.CatalogManagerWidget = CatalogManagerWidget;
