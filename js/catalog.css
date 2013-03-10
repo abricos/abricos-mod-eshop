@@ -1,0 +1,10 @@
+.aw-eshop .board .brdtable {
+	width: 100%;
+}
+.aw-eshop .board .brdtable .brdlcol {
+	width: 300px;
+	border-right: 1px solid #D1D3DC;
+}
+.aw-eshop .board .brdtable .brdlcol .explore {
+	width: 300px;
+}

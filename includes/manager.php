@@ -93,7 +93,7 @@ class EShopManager extends Ab_ModuleManager {
 				print($brick->content);
 				exit;
 		}
-		return -1;
+		return null;
 	}
 	
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
