@@ -6,7 +6,7 @@
 var Component = new Brick.Component();
 Component.requires = {
 	mod:[
-		{name: 'catalog', files: ['catalogexplore.js']},
+		{name: 'catalog', files: ['catalogexplore.js', 'elementlist.js']},
 		{name: '{C#MODNAME}', files: ['lib.js']}
 	]
 };
@@ -27,9 +27,10 @@ Component.entryPoint = function(NS){
 	YAHOO.extend(CatalogManagerWidget, Brick.mod.widget.Widget, {
 		init: function(){
 			this.wsMenuItem = 'catalog'; // использует wspace.js
-			this.treeWidget = null;
-			this.catItemViewWidget = null;
 			this.manager = null;
+			this.treeWidget = null;
+			this.catViewWidget = null;
+			this.elementListWidget = null;
 		},
 		onLoad: function(catid){
 			var __self = this;
@@ -41,8 +42,8 @@ Component.entryPoint = function(NS){
 			if (!L.isNull(this.treeWidget)){
 				this.treeWidget.destroy();
 			}
-			if (!L.isNull(this.catItemViewWidget)){
-				this.catItemViewWidget.destroy();
+			if (!L.isNull(this.catViewWidget)){
+				this.catViewWidget.destroy();
 			}
 			CatalogManagerWidget.superclass.destroy.call(this);
 		},
@@ -63,14 +64,22 @@ Component.entryPoint = function(NS){
 			this.showCatalogViewWidget(cat.id);
 		},
 		showCatalogViewWidget: function(catid){
-			if (!L.isNull(this.catItemViewWidget)){
-				this.catItemViewWidget.destroy();
-			}
-			this.elShow('itemloading');
+			this.elShow('colloading');
+			this.elHide('colview');
 			var __self = this;
-			this.manager.catalogLoad(catid, function(){
-				__self.elHide('itemloading');
-			});
+			this.manager.catalogLoad(catid, function(cat, elList){
+				__self._onLoadCatalogDetail(cat, elList);
+			}, {'elementlist': true});
+		},
+		_onLoadCatalogDetail: function(cat, elList){
+			this.elHide('colloading');
+			this.elShow('colview');
+			
+			if (L.isNull(this.elementListWidget)){
+				this.elementListWidget = new NSCat.ElementListWidget(this.gel('ellist'), elList);
+			}else{
+				this.elementListWidget.setList(elList);
+			}
 		}
 	});
 	NS.CatalogManagerWidget = CatalogManagerWidget;

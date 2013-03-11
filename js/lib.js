@@ -32,8 +32,12 @@ Component.entryPoint = function(NS){
 	
 	NS.navigator = {
 		'home': function(){ return WS; },
-		'catalogman': function(){
-			return WS+'catalog/CatalogManagerWidget/';
+		'catalogman': function(catid){
+			var link = WS+'catalog/CatalogManagerWidget/';
+			if (catid && catid*1>0){
+				link += catid+'/';
+			}
+			return link;
 		},
 		'billing': function(){
 			return WS+'billing/BillingWidget/';
