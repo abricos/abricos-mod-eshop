@@ -76,7 +76,7 @@ Component.entryPoint = function(NS){
 			this.elShow('colview');
 			
 			if (L.isNull(this.elementListWidget)){
-				this.elementListWidget = new NSCat.ElementListWidget(this.gel('ellist'), elList);
+				this.elementListWidget = new NSCat.ElementListWidget(this.gel('ellist'), this.manager, elList);
 			}else{
 				this.elementListWidget.setList(elList);
 			}

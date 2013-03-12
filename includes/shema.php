@@ -15,7 +15,8 @@ $updateManager = Ab_UpdateManager::$current;
 $db = Abricos::$db;
 $pfx = $db->prefix;
 
-$catalogManager = Abricos::GetModule('eshop')->GetCatalogManager();
+Abricos::GetModule('eshop');
+$catalogManager = EShopModule::$instance->GetCatalogManager();
 $catalogManager->DisableRole();
 
 if ($updateManager->isInstall()){
@@ -27,12 +28,13 @@ if ($updateManager->isInstall()){
 	$catalogManager->ElementOptionAppend(0, 0, 2, 'price', 'Цена розничная', '', 0, '{"cst":{"en":0,"inpen":0,"inp":"","onlden":0,"onld":""},"size":"10,2","def":"0"}');
 	$catalogManager->ElementOptionAppend(0, 0, 5, 'brand', 'Бренд', '', 0, '{"cst":{"en":0,"inpen":0,"inp":"","onlden":0,"onld":""}}');
 	$catalogManager->ElementOptionAppend(0, 0, 5, 'country', 'Страна-производитель', '', 0, '{"cst":{"en":0,"inpen":0,"inp":"","onlden":0,"onld":""}}');
-	$catalogManager->ElementOptionAppend(0, 0, 3, 'metatitle', 'Тег title', '', 0, '{"cst":{"en":0,"inpen":0,"inp":"","onlden":0,"onld":""},"size":"255","def":""}');
-	$catalogManager->ElementOptionAppend(0, 0, 3, 'metakeys', 'Тег keywords', '', 0, '{"cst":{"en":0,"inpen":0,"inp":"","onlden":0,"onld":""},"size":"255","def":""}');
-	$catalogManager->ElementOptionAppend(0, 0, 3, 'metadesc', 'Тег description', '', 0, '{"cst":{"en":0,"inpen":0,"inp":"","onlden":0,"onld":""},"size":"255","def":""}');
 	$catalogManager->ElementOptionAppend(0, 0, 0, 'new', 'Новинка', '', 0, '{"cst":{"en":0,"inpen":0,"inp":"","onlden":0,"onld":""},"def":"0"}');
 	$catalogManager->ElementOptionAppend(0, 0, 0, 'hit', 'Хит продаж', '', 0, '{"cst":{"en":0,"inpen":0,"inp":"","onlden":0,"onld":""},"def":"0"}');
 	$catalogManager->ElementOptionAppend(0, 0, 1, 'akc', 'Акция', '', 0, '{"cst":{"en":0,"inpen":0,"inp":"","onlden":0,"onld":""},"size":"10","def":"0"}');
+	
+	// $catalogManager->ElementOptionAppend(0, 0, 3, 'metatitle', 'Тег title', '', 0, '{"cst":{"en":0,"inpen":0,"inp":"","onlden":0,"onld":""},"size":"255","def":""}');
+	// $catalogManager->ElementOptionAppend(0, 0, 3, 'metakeys', 'Тег keywords', '', 0, '{"cst":{"en":0,"inpen":0,"inp":"","onlden":0,"onld":""},"size":"255","def":""}');
+	// $catalogManager->ElementOptionAppend(0, 0, 3, 'metadesc', 'Тег description', '', 0, '{"cst":{"en":0,"inpen":0,"inp":"","onlden":0,"onld":""},"size":"255","def":""}');
 }
 
 if ($updateManager->isUpdate('0.1.0.2')){
@@ -176,12 +178,42 @@ if ($updateManager->isUpdate('0.1.0.12')){
 }
 if ($updateManager->isUpdate('0.1.0.13')){
 
-	$catalogManager->ElementOptionAppend(0, 0, 1, 'ord', 'Сортировка', '', 0, '{"cst":{"en":0,"inpen":0,"inp":"","onlden":0,"onld":""},"size":"10","def":"0"}');
+	// $catalogManager->ElementOptionAppend(0, 0, 1, 'ord', 'Сортировка', '', 0, '{"cst":{"en":0,"inpen":0,"inp":"","onlden":0,"onld":""},"size":"10","def":"0"}');
 
 }
 
 if ($updateManager->isUpdate('0.2')){
 	Abricos::GetModule('eshop')->permission->Install();
 }
+
+if ($updateManager->isUpdate('0.2.1') && !$updateManager->isInstall()){
+	
+	$db->query_write("
+		UPDATE `".$pfx."ctg_eshp_element`
+		SET 
+			ord = fld_ord, 
+			metatitle = fld_metatitle,
+			metakeys = fld_metakeys,
+			metadesc = fld_metadesc 
+	");
+
+	$db->query_write("
+		DELETE FROM `".$pfx."ctg_eshp_eloption`
+		WHERE eltypeid=0 AND (
+			name='ord' OR name='metatitle' OR 
+			name='metakeys' OR name='metadesc'
+		)
+	");
+	
+	$db->query_write("
+		ALTER TABLE `".$pfx."ctg_eshp_element`
+		DROP fld_ord,
+		DROP fld_metatitle,
+		DROP fld_metakeys,
+		DROP fld_metadesc
+	");
+	
+}
+
 
 ?>

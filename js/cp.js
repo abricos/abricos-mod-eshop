@@ -8,7 +8,7 @@ Component.requires = {
 	mod:[{name: 'user', files: ['cpanel.js']}]
 };
 Component.entryPoint = function(){
-	
+	/*
 	var cp = Brick.mod.user.cp;
 	
 	// Меню для оператора
@@ -38,5 +38,5 @@ Component.entryPoint = function(){
 		menuItem.entryPoint = 'Brick.mod.eshop.API.showConfigWidget';
 		cp.MenuManager.add(menuItem);
 	}
-
+/**/
 };

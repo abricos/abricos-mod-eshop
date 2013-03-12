@@ -41,7 +41,7 @@ if ($p['notchildlist']){
 
 $tempArr = array();
 
-$custOrder = empty($p['custorder']) ? "fld_ord DESC, fld_price=0, fld_price" : $p['custorder'];
+$custOrder = empty($p['custorder']) ? "fld_price=0, fld_price" : $p['custorder'];
 
 if ($p['forcontent'] == 'true'){
 	$p['count'] = EShopConfig::$instance->productPageCount;
