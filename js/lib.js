@@ -55,6 +55,7 @@ Component.entryPoint = function(NS){
 	
 	var Manager = function(modname, callback){
 		NS.manager = this;
+		
 		Manager.superclass.constructor.call(this, '{C#MODNAME}', callback);
 	};
 	YAHOO.extend(Manager, Brick.mod.catalog.Manager, {
@@ -63,7 +64,9 @@ Component.entryPoint = function(NS){
 	NS.manager = null;
 	
 	NS.initManager = function(callback){
-		Brick.mod.catalog.initManager('{C#MODNAME}', callback);
+		Brick.mod.catalog.initManager('{C#MODNAME}', callback, {
+			'language': LNG
+		});
 	};
 	
 };

@@ -8,3 +8,12 @@
 .aw-eshop .board .brdtable .brdlcol .explore {
 	width: 300px;
 }
+.aw-eshop .board .brdtable .brdrcol {
+	padding-left: 5px;
+}
+
+.aw-eshop .board .aw-catalog .elementlist {
+	border-top: 1px solid #D1D3DC;
+	margin-top: 10px;
+	padding-top: 3px;
+}

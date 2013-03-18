@@ -6,7 +6,7 @@
 var Component = new Brick.Component();
 Component.requires = {
 	mod:[
-		{name: 'catalog', files: ['catalogexplore.js', 'elementlist.js']},
+		{name: 'catalog', files: ['catalogexplore.js', 'catalogview.js', 'elementlist.js']},
 		{name: '{C#MODNAME}', files: ['lib.js']}
 	]
 };
@@ -45,16 +45,16 @@ Component.entryPoint = function(NS){
 			if (!L.isNull(this.catViewWidget)){
 				this.catViewWidget.destroy();
 			}
+			if (!L.isNull(this.elementListWidget)){
+				this.elementListWidget.destroy();
+			}
+			
 			CatalogManagerWidget.superclass.destroy.call(this);
 		},
 		_onLoadManager: function(man){
 			this.manager = man;
 			this.elHide('loading');
-			this.treeWidget = new NSCat.CatalogTreeWidget(this.gel('explore'), man.catalogList, {
-				'rootItem': {
-					'title': 'Каталог товаров'
-				}
-			});
+			this.treeWidget = new NSCat.CatalogTreeWidget(this.gel('explore'), man.catalogList);
 			this.treeWidget.selectedItemEvent.subscribe(this.onSelectedCatalogItem, this, true);
 			
 			this.showCatalogViewWidget(0);
@@ -74,7 +74,13 @@ Component.entryPoint = function(NS){
 		_onLoadCatalogDetail: function(cat, elList){
 			this.elHide('colloading');
 			this.elShow('colview');
-			
+
+			if (L.isNull(this.catViewWidget)){
+				this.catViewWidget = new NSCat.CatalogViewWidget(this.gel('catview'), this.manager, cat);
+			}else{
+				this.catViewWidget.setCatalog(cat);
+			}
+
 			if (L.isNull(this.elementListWidget)){
 				this.elementListWidget = new NSCat.ElementListWidget(this.gel('ellist'), this.manager, elList);
 			}else{
