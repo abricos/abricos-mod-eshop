@@ -102,10 +102,23 @@ Component.entryPoint = function(NS){
 			var pid = this.catViewWidget.cat.id;
 			
 			var cat = new NSCat.CatalogItem({'pid': pid});
+			var __self = this;
 			
 			this.subCatalogEditorWidget = new NSCat.CatalogEditorWidget(this.gel('subcatedit'), this.manager, cat, {
-				
+				'onCancelClick': function(){
+					__self.closeSubCatalogEditorWidget();
+				},
+				'onSaveCallback': function(cat){
+					__self.closeSubCatalogEditorWidget();
+					__self.showCatalogViewWidget(cat.id);
+				}
 			});
+		},
+		closeSubCatalogEditorWidget: function(){
+			if (L.isNull(this.subCatalogEditorWidget)){ return; }
+			this.subCatalogEditorWidget.destroy();
+			
+			this.subCatalogEditorWidget = null;
 		}
 	});
 	NS.CatalogManagerWidget = CatalogManagerWidget;
