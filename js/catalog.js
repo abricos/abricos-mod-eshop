@@ -31,7 +31,6 @@ Component.entryPoint = function(NS){
 			this.treeWidget = null;
 			this.catViewWidget = null;
 			this.elementListWidget = null;
-			this.subCatalogEditorWidget = null;
 		},
 		onLoad: function(catid){
 			var __self = this;
@@ -59,6 +58,11 @@ Component.entryPoint = function(NS){
 			this.treeWidget.selectedItemEvent.subscribe(this.onSelectedCatalogItem, this, true);
 			
 			this.showCatalogViewWidget(0);
+			
+			this.manager.catalogChangedEvent.subscribe(this.onCatalogChanged, this, true);
+		},
+		onCatalogChanged: function(){
+			Brick.console(arguments);
 		},
 		onSelectedCatalogItem: function(evt, prms){
 			var cat = prms[0];
@@ -81,9 +85,6 @@ Component.entryPoint = function(NS){
 				this.catViewWidget = new NSCat.CatalogViewWidget(this.gel('catview'), this.manager, cat, {
 					'addElementClick': function(){
 						__self.elementListWidget.showNewEditor();
-					},
-					'addCatalogClick': function(){
-						__self.showSubCatalogEditorWidget();
 					}
 				});
 			}else{
@@ -95,30 +96,6 @@ Component.entryPoint = function(NS){
 			}else{
 				this.elementListWidget.setList(elList);
 			}
-		},
-		showSubCatalogEditorWidget: function(){
-			if (!L.isNull(this.subCatalogEditorWidget)){ return; }
-			
-			var pid = this.catViewWidget.cat.id;
-			
-			var cat = new NSCat.CatalogItem({'pid': pid});
-			var __self = this;
-			
-			this.subCatalogEditorWidget = new NSCat.CatalogEditorWidget(this.gel('subcatedit'), this.manager, cat, {
-				'onCancelClick': function(){
-					__self.closeSubCatalogEditorWidget();
-				},
-				'onSaveCallback': function(cat){
-					__self.closeSubCatalogEditorWidget();
-					__self.showCatalogViewWidget(cat.id);
-				}
-			});
-		},
-		closeSubCatalogEditorWidget: function(){
-			if (L.isNull(this.subCatalogEditorWidget)){ return; }
-			this.subCatalogEditorWidget.destroy();
-			
-			this.subCatalogEditorWidget = null;
 		}
 	});
 	NS.CatalogManagerWidget = CatalogManagerWidget;
