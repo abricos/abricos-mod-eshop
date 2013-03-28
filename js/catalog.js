@@ -41,6 +41,7 @@ Component.entryPoint = function(NS){
 		destroy: function(){
 			if (!L.isNull(this.treeWidget)){
 				this.treeWidget.destroy();
+				
 			}
 			if (!L.isNull(this.catViewWidget)){
 				this.catViewWidget.destroy();
@@ -48,6 +49,11 @@ Component.entryPoint = function(NS){
 			if (!L.isNull(this.elementListWidget)){
 				this.elementListWidget.destroy();
 			}
+
+			var man = this.manager;
+			man.catalogCreatedEvent.unsubscribe(this.onCatalogCreated);
+			man.catalogChangedEvent.unsubscribe(this.onCatalogChanged);
+			man.catalogRemovedEvent.unsubscribe(this.onCatalogRemoved);
 			
 			CatalogManagerWidget.superclass.destroy.call(this);
 		},
@@ -59,10 +65,21 @@ Component.entryPoint = function(NS){
 			
 			this.showCatalogViewWidget(0);
 			
-			this.manager.catalogChangedEvent.subscribe(this.onCatalogChanged, this, true);
+			man.catalogChangedEvent.subscribe(this.onCatalogChanged, this, true);
+			man.catalogCreatedEvent.subscribe(this.onCatalogCreated, this, true);
+			man.catalogRemovedEvent.subscribe(this.onCatalogRemoved, this, true);
 		},
 		onCatalogChanged: function(){
-			Brick.console(arguments);
+			this.treeWidget.render();
+		},
+		onCatalogCreated: function(evt, prms){
+			var catid = prms[0];
+			this.treeWidget.render();
+			this.treeWidget.selectItem(catid);
+		},
+		onCatalogRemoved: function(evt, prms){
+			this.treeWidget.render();
+			this.treeWidget.selectItem(0);
 		},
 		onSelectedCatalogItem: function(evt, prms){
 			var cat = prms[0];
