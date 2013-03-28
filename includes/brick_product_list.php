@@ -47,12 +47,9 @@ if ($p['forcontent'] == 'true'){
 	$p['count'] = EShopConfig::$instance->productPageCount;
 }
 
-// 
-
 $rows = $catalogManager->ElementList($catids, $listPage, bkint($p['count']), $p['custwhere'], $custOrder, $p['overfields']);
 
 $brick->totalElementCount = $catalogManager->ElementCount($catids, $p['custwhere']);
-
 
 $elTypeList = $catalogManager->ElementTypeListArray();
 
@@ -63,6 +60,8 @@ $etArr0 = $catalogManager->ElementOptionListByType($el['eltid'], true);
 
 while (($row = $db->fetch_array($rows))){
 	$el = $catalogManager->Element($row['id'], true);
+	$el['fld_name'] = $el['tl'];
+	
 	if (empty($tempArr[$el['catid']])){
 		$tempArr[$el['catid']] = $smMenu->FindSource('id', $el['catid']);
 	}

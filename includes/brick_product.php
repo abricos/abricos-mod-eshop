@@ -140,6 +140,7 @@ foreach ($etArr as $etRow){
 	
 	$replace["fldnm_".$etRow['nm']] = $etRow['tl'];
 }
+$replace["fld_name"] = $el['tl'];
 
 $tpTable = $brick->param->var["table"];
 $tpRow = $brick->param->var["row"];

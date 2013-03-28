@@ -101,7 +101,14 @@ class EShopModule extends Ab_Module {
 			$catManager = $this->GetCatalogManager();
 			
 			$this->currentProductId = intval($arr[1]);
-			$this->currentProduct = $catManager->Element($this->currentProductId, true); 
+			$this->currentProduct = $catManager->Element($this->currentProductId, true);
+			$el = &$this->currentProduct;
+			 
+			$el['fld_name'] = $el['tl'];
+			$el['fld_metatitle'] = $el['mtl'];
+			$el['fld_metakeys'] = $el['mks'];
+			$el['fld_metadesc'] = $el['mdsc'];
+			
 			return "product";
 		}
 		
