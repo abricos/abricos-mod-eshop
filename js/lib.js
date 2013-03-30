@@ -17,6 +17,7 @@ Component.entryPoint = function(NS){
 	
 	var SysNS = Brick.mod.sys;
 	var LNG = this.language;
+	var NSCat = Brick.mod.catalog;
 
 	var buildTemplate = this.buildTemplate;
 	buildTemplate({},'');
@@ -28,8 +29,48 @@ Component.entryPoint = function(NS){
 	NS.Item = SysNS.Item;
 	NS.ItemList = SysNS.ItemList;
 	
-	var WS = "#app={C#MODNAMEURI}/wspace/ws/";
+	var CatalogItem = function(manager, d){
+		CatalogItem.superclass.constructor.call(this, manager, d);
+	};
+	YAHOO.extend(CatalogItem, NSCat.CatalogItem, {
+		update: function(d){
+			this._urlCache = null;
+			CatalogItem.superclass.update.call(this, d);
+		},
+		url: function(){
+			if (!L.isNull(this._urlCache)){ return this._urlCache; }
+			var url = "/eshop/", pline = this.getPathLine();
+			for (var i=1;i<pline.length;i++){
+				url += pline[i].name+'/';
+			}
+			
+			this._urlCache = url;
+			return url;
+		}
+	});
+	NS.CatalogItem = CatalogItem;
 	
+	var Element = function(manager, d){
+		Element.superclass.constructor.call(this, manager, d);
+	};
+	YAHOO.extend(Element, NSCat.Element, {
+		update: function(d){
+			this._urlCache = null;
+			Element.superclass.update.call(this, d);
+		},
+		url: function(){
+			if (!L.isNull(this._urlCache)){ return this._urlCache; }
+			
+			var cat = this.manager.catalogList.find(this.catid);
+			
+			this._urlCache = cat.url() + 'product_'+this.id;;
+			return this._urlCache;
+		}
+	});
+	NS.Element = Element;
+
+	
+	var WS = "#app={C#MODNAMEURI}/wspace/ws/";
 	NS.navigator = {
 		'home': function(){ return WS; },
 		'catalogman': function(catid){
@@ -53,6 +94,7 @@ Component.entryPoint = function(NS){
 		}
 	};	
 	
+	/*
 	var Manager = function(modname, callback){
 		NS.manager = this;
 		
@@ -61,10 +103,14 @@ Component.entryPoint = function(NS){
 	YAHOO.extend(Manager, Brick.mod.catalog.Manager, {
 		
 	});
+	/**/
+	
 	NS.manager = null;
 	
 	NS.initManager = function(callback){
-		Brick.mod.catalog.initManager('{C#MODNAME}', callback, {
+		NSCat.initManager('{C#MODNAME}', callback, {
+			'CatalogItemClass': NS.CatalogItem,
+			'ElementClass': NS.Element,
 			'language': LNG
 		});
 	};
