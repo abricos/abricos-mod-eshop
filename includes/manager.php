@@ -96,6 +96,20 @@ class EShopManager extends Ab_ModuleManager {
 		return null;
 	}
 	
+	/**
+	 * Выгрузка оффлайн каталога товаров
+	 */
+	public function Offline_Build(OfflineDir $dir){
+		$offMan = OfflineManager::$instance;
+		
+		$brick = Brick::$builder->LoadBrickS("eshop", "offline_catalog_list");
+		
+		$offMan->WritePage($dir, "index", $brick->content);
+		
+		return $brick->content;
+	}
+	
+	
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	 * TODO: Старая версия методов - на удаление
 	 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */

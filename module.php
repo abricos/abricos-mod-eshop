@@ -191,6 +191,11 @@ class EShopModule extends Ab_Module {
 		}
 		return $arr;
 	}
+	
+	/**
+	 * Этот модуль делает оффлайн выгрузку
+	 */
+	public function Offline_IsBuild(){ return true; }
 }
 
 class EShopAction {

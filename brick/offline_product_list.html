@@ -1,0 +1,82 @@
+<!--[*]
+
+[desc][/desc]
+
+[script]brick_product_list.php[/script]
+[mcss=eshop]eshop.css[/mcss]
+
+[p=forcontent]false[/p]
+[p=count]6[/p]
+[p=page][/p]
+[p=notchildlist]false[/p]
+[p=display][/p]
+
+[mod=filemanager]enthumbs|list=200x200[/mod]
+[p=imgw]200[/p]
+[p=imgh]200[/p]
+
+
+[bkvar=table]
+	<ul id="product-list-page-{v#page}" class="productlist">
+		{v#rows}
+	</ul>
+[/bkvar]
+
+[bkvar=row]
+	<li class="proditem">
+		<div class="photo">
+			<div class="tmb tmb200">
+				{v#image}
+			</div>
+		</div>
+		<div class="info">
+			<p class="title">
+				<a title="{v#title}" href="{v#link}">{v#title}</a>
+			</p>
+			<p class="price">
+				<span>{v#price} {#brick.product_list.7}</span>
+			</p>
+			<p class="action">{v#tpl_btn}</p>
+		</div>
+		{v#special}
+    </li>
+[/bkvar]
+
+[bkvar=img]
+	<a class="tmbpre" title="{v#title}" href="{v#link}">
+		<img class="img-product-{v#productid}" alt="{v#title}" src="{v#src}" />
+	</a>
+[/bkvar]
+
+[bkvar=imgempty]
+	<a title="{v#title}" href="{v#link}"><img width="200px" height="200px" alt="{v#title}" src="/modules/eshop/images/empty.gif"></a>
+	<span class="nophoto"><a title="{v#title}" href="{v#link}">{#brick.product_list.1}</a></span>
+[/bkvar]
+
+[bkvar=btnorder]
+	<a class="btn-product-buy product-{v#productid} button" href="#"><span>{#brick.product_list.2}</span></a>
+[/bkvar]
+
+[bkvar=btnnotorder]
+	<b class="button sklad0" href="#"><span>{#brick.product_list.3}</span></b>
+[/bkvar]
+
+
+[bkvar=special]
+	<div class="special"><a title="{v#title}" href="{v#link}">{v#pr_spec}</a></div>
+[/bkvar]
+
+[bkvar=pr_new]
+	<img src="/modules/eshop/images/pr_new.png" class="pr_new" alt="{#brick.product_list.4}" title="{#brick.product_list.4}" />
+[/bkvar]
+
+[bkvar=pr_akc]
+	<img src="/modules/eshop/images/pr_akc.png" class="pr_akc" alt="{#brick.product_list.5}" title="{#brick.product_list.5}" />
+[/bkvar]
+
+[bkvar=pr_hit]
+	<img src="/modules/eshop/images/pr_hit.png" class="pr_hit" alt="{#brick.product_list.6}" title="{#brick.product_list.6}" />
+[/bkvar]
+
+
+[*]-->{v#result}

@@ -1,0 +1,42 @@
+<!--[*]
+
+[script]brick_offline_catalog_list.php[/script]
+[mcss=eshop]eshop.css[/mcss]
+
+[bkvar=table]
+	<ul class="catlist">{v#rows}</ul>
+	<div class="clear"></div>
+[/bkvar]
+
+[bkvar=row]
+	<li class="catitem">
+		<div class="photo">
+			<div class="tmb tmb200">
+				{v#image}
+			</div>
+		</div>
+		<div class="title">
+			<a title="{v#title}" href="{v#link}">{v#title}</a>
+		</p>
+    </li>
+[/bkvar]
+
+[bkvar=img]
+	<a title="{v#title}" href="{v#link}" class="tmbpre">
+		<img alt="{v#title}" src="{v#src}" />
+	</a>
+[/bkvar]
+
+[bkvar=imgempty]
+	<a title="{v#title}" href="{v#link}"><img width="{v#w}px" height="{v#h}px" alt="{v#title}" src="/modules/eshop/images/empty.gif"></a>
+	<span class="nophoto"><a title="{v#title}" href="{v#link}">{#brick.catalog_list.1}</a></span>
+[/bkvar]
+
+[mod=filemanager]enthumbs|list=200x200[/mod]
+[p=imgw]200[/p]
+[p=imgh]200[/p]
+
+[*]-->
+<div class="cataloglist">
+	{v#result}
+</div>
