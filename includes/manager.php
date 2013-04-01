@@ -102,7 +102,9 @@ class EShopManager extends Ab_ModuleManager {
 	public function Offline_Build(OfflineDir $dir){
 		$offMan = OfflineManager::$instance;
 		
-		$brick = Brick::$builder->LoadBrickS("eshop", "offline_catalog_list");
+		$brick = Brick::$builder->LoadBrickS("eshop", "offline_catalog_list", null, array(
+			"p" => array("dir" => $dir)
+		));
 		
 		$offMan->WritePage($dir, "index", $brick->content);
 		

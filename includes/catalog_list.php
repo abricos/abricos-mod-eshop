@@ -50,8 +50,6 @@ foreach ($catItemMenu->child as $child){
 	if (empty($imageid)){
 		$image = $brick->param->var["imgempty"];
 	}else{
-		$thumb = CatalogModule::FotoThumbInfoParse($imginfo['thumb']);
-		
 		$image = Brick::ReplaceVarByData($brick->param->var["img"], array(
 			"src" => CatalogModule::FotoThumbLink($imageid, $imgWidth, $imgHeight, 'image')
 		));

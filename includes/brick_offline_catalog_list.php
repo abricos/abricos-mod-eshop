@@ -20,18 +20,20 @@ $lst = "";
 $imgWidth = bkint($p['imgw']);
 $imgHeight = bkint($p['imgh']);
 
+
 for($i=0; $i<$catList->Count();$i++){
 	$cat = $catList->GetByIndex($i);
 	
-	// $link = $child->link;
+	$link = $child->link;
 	
 	if (empty($cat->foto)){
 		$image = $v["imgempty"];
 	}else{
-		$thumb = CatalogModule::FotoThumbInfoParse($imginfo['thumb']);
-	
+		
+		$imgSrc = OfflineManager::$instance->WriteImage($p['dir'], $cat->foto, $imgWidth, $imgHeight);
+		
 		$image = Brick::ReplaceVarByData($v["img"], array(
-			"src" => CatalogModule::FotoThumbLink($cat->foto, $imgWidth, $imgHeight, 'image')
+			"src" => $imgSrc
 		));
 	}
 	
