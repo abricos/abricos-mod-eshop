@@ -96,19 +96,34 @@ class EShopManager extends Ab_ModuleManager {
 		return null;
 	}
 	
-	/**
-	 * Выгрузка оффлайн каталога товаров
-	 */
-	public function Offline_Build(OfflineDir $dir){
+	private function BuildOfflineCatalog(OfflineDir $dir, $catid){
 		$offMan = OfflineManager::$instance;
 		
 		$brick = Brick::$builder->LoadBrickS("eshop", "offline_catalog_list", null, array(
-			"p" => array("dir" => $dir)
+			"p" => array(
+				"dir" => $dir,
+				"catid" => $catid
+			)
 		));
 		
 		$offMan->WritePage($dir, "index", $brick->content);
 		
-		return $brick->content;
+		$catMain = $this->cManager->CatalogList()->Find($catid);
+		$catList = $catMain->childs;
+		
+		for($i=0; $i<$catList->Count();$i++){
+			$cat = $catList->GetByIndex($i);
+			
+			$cdir = new OfflineDir($dir, $cat->name);
+			$this->BuildOfflineCatalog($cdir, $cat->id);
+		}
+	}
+	
+	/**
+	 * Выгрузка оффлайн каталога товаров
+	 */
+	public function Offline_Build(OfflineDir $dir){
+		$this->BuildOfflineCatalog($dir, 0);
 	}
 	
 	

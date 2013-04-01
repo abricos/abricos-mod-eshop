@@ -1,20 +1,21 @@
 <!--[*]
 
-[desc][/desc]
-
-[script]brick_product_list.php[/script]
-[mcss=eshop]eshop.css[/mcss]
-
-[p=forcontent]false[/p]
-[p=count]6[/p]
-[p=page][/p]
-[p=notchildlist]false[/p]
-[p=display][/p]
+[script]brick_offline_product_list.php[/script]
+[mcss=eshop]offline.css[/mcss]
 
 [mod=filemanager]enthumbs|list=200x200[/mod]
 [p=imgw]200[/p]
 [p=imgh]200[/p]
 
+[p=dir][/p]
+[p=catid][/p]
+
+
+[p=forcontent]false[/p]
+[p=count]500[/p]
+[p=page][/p]
+[p=notchildlist]false[/p]
+[p=display][/p]
 
 [bkvar=table]
 	<ul id="product-list-page-{v#page}" class="productlist">
@@ -49,7 +50,7 @@
 [/bkvar]
 
 [bkvar=imgempty]
-	<a title="{v#title}" href="{v#link}"><img width="200px" height="200px" alt="{v#title}" src="/modules/eshop/images/empty.gif"></a>
+	<a title="{v#title}" href="{v#link}"><img width="200px" height="200px" alt="{v#title}" src="{v#rooturi}img/empty.gif"></a>
 	<span class="nophoto"><a title="{v#title}" href="{v#link}">{#brick.product_list.1}</a></span>
 [/bkvar]
 

@@ -1,7 +1,7 @@
 <!--[*]
 
 [script]brick_offline_catalog_list.php[/script]
-[mcss=eshop]eshop.css[/mcss]
+[mcss=eshop]offline.css[/mcss]
 
 [bkvar=table]
 	<ul class="catlist">{v#rows}</ul>
@@ -27,8 +27,12 @@
 	</a>
 [/bkvar]
 
+[bkvar=cattitle]
+	<h2>{v#title}</h2>
+[/bkvar]
+
 [bkvar=imgempty]
-	<a title="{v#title}" href="{v#link}"><img width="{v#w}px" height="{v#h}px" alt="{v#title}" src="/modules/eshop/images/empty.gif"></a>
+	<a title="{v#title}" href="{v#link}"><img width="{v#w}px" height="{v#h}px" alt="{v#title}" src="{v#rooturi}img/empty.gif"></a>
 	<span class="nophoto"><a title="{v#title}" href="{v#link}">{#brick.catalog_list.1}</a></span>
 [/bkvar]
 
@@ -37,8 +41,16 @@
 [p=imgh]200[/p]
 
 [p=dir][/p]
+[p=catid][/p]
 
 [*]-->
-<div class="cataloglist">
-	{v#result}
+<div class="mod-eshop">
+	{v#cattitle}
+	
+	<div class="cataloglist">
+		{v#result}
+	</div>
+	<div class="clear"></div>
+	
+	{v#productlist}
 </div>

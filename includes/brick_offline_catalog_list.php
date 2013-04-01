@@ -13,18 +13,18 @@ $v = &$brick->param->var;
 
 
 $man = EShopManager::$instance->cManager;
-$rootCat = $man->CatalogList()->GetByIndex(0);
-$catList = $rootCat->childs;
+
+$catMain = $man->CatalogList()->Find($p['catid']);
+$catList = $catMain->childs;
 $lst = "";
 
 $imgWidth = bkint($p['imgw']);
 $imgHeight = bkint($p['imgh']);
 
-
 for($i=0; $i<$catList->Count();$i++){
 	$cat = $catList->GetByIndex($i);
-	
-	$link = $child->link;
+
+	$link = $cat->name."/index.html";
 	
 	if (empty($cat->foto)){
 		$image = $v["imgempty"];
@@ -49,28 +49,26 @@ for($i=0; $i<$catList->Count();$i++){
 	));
 }
 
-$brick->content = Brick::ReplaceVarByData($brick->content, array(
-	"result" => Brick::ReplaceVarByData($v['table'], array(
-		"rows" => $lst
-	))
+$cattitle = "";
+if ($catMain->id > 0){
+	$cattitle = Brick::ReplaceVarByData($v['cattitle'], array(
+		"title" => $catMain->title
+	));
+}
+
+$brickPList = Brick::$builder->LoadBrickS("eshop", "offline_product_list", null, array(
+	"p" => array(
+		"dir" => $p['dir'],
+		"catid" => $p['catid']
+	)
 ));
 
-/*
-
-$link = $baseUrl = $catItemMenu->link; 
-
-foreach ($catItemMenu->child as $child){
-	
-
-	$lst .= Brick::ReplaceVarByData($brick->param->var['row'], array(
-		"cattitle" => $child->source['tl'],
-		"catdesc" => $child->source['dsc'],
-		"image" => $image, 
-		"title" => addslashes(htmlspecialchars($child->source['tl'])),
-		"link" => $link
-	));
-	
-}
-/**/
+$brick->content = Brick::ReplaceVarByData($brick->content, array(
+	"cattitle" => $cattitle,
+	"result" => Brick::ReplaceVarByData($v['table'], array(
+		"rows" => $lst
+	)),
+	"productlist" => $brickPList->content
+));
 
 ?>
