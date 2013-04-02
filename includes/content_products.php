@@ -9,7 +9,8 @@
 $brick = Brick::$builder->brick;
 $db = Abricos::$db;
 $p = &$brick->param->param;
-Abricos::GetModule('eshop');
+$v = &$brick->param->var;
+
 $mod = EShopModule::$instance;
 $cfg = &Abricos::$config['module']['eshop'];
 
@@ -23,12 +24,22 @@ $catalogManager = $mod->GetCatalogManager();
 // <p></p> - вставляется автоматом при редактировании категории
 $cat_desc = "";
 if ($catItem['dsc'] != null AND $catItem['dsc'] != "<p></p>"){
-	$cat_desc = Brick::ReplaceVar($brick->param->var["description"], "descript", $catItem['dsc']);
+	$cat_desc = Brick::ReplaceVar($v["description"], "descript", $catItem['dsc']);
 }
+
+
+$adminButton = "";
+if (EShopManager::$instance->IsAdminRole()){
+	$adminButton = Brick::ReplaceVarByData($v['adminbutton'], array(
+		"catid" => intval($catItem['id'])
+	));
+}
+
 
 // Для главной страницы /eshop/
 $brick->content = Brick::ReplaceVarByData($brick->content, array(
-	"cattitle" => !empty($catItem['tl']) ? $catItem['tl'] : $brick->param->var["deftitle"],
+	"adminbutton" => $adminButton,
+	"cattitle" => !empty($catItem['tl']) ? $catItem['tl'] : $v["deftitle"],
 	"catdesc" => $cat_desc
 ));
 
@@ -57,7 +68,6 @@ Brick::$builder->LoadBrickS('sitemap', 'paginator', $brick, array("p" => array(
 )));
 
 if ($p['jspage'] == 'true'){
-	
 	// подгрузка кирпича пагинатора с параметрами
 	Brick::$builder->LoadBrickS('eshop', 'jspage', $brick);
 }
@@ -79,5 +89,6 @@ if (!empty($catItem['kwds']) && $catItem['kwds'] != "&nbsp;"){
 if (!empty($catItem['kdsc']) && $catItem['kdsc'] != "&nbsp;"){
 	Brick::$builder->SetGlobalVar('meta_desc', $catItem['kdsc']);
 }
+
 
 ?>

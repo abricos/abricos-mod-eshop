@@ -14,12 +14,56 @@
 	</div>
 [/bkvar]
 
+[bkvar=adminbutton]
+	<div style="position: absolute; right: 0; top: 0">
+		<span id="manbuttons">
+			<a id="editcatalogbutton" href="#" 
+				onclick="showEditorCatalog({v#catid}); return false;"
+				title="Редактировать каталог">Редактировать</a> 
+			<a id="mancatalogbutton" href="#" 
+				onclick="showManagerCatalog({v#catid}); return false;"
+				title="Открыть панель управления каталогом">Открыть панель</a>
+		</span>
+		<img id="loadingcatalog" src="/images/loading.gif" style="display: none"/>
+	</div>
+	
+	<script>
+		var gel = function(id){ return document.getElementById(id); };
+		var show = function(id){ gel(id).style.display = ''; }
+		var hide = function(id){ gel(id).style.display = 'none'; }
+	
+		var showManagerCatalog = function(catid){
+			hide('manbuttons'); show('loadingcatalog');
+			
+			Brick.ff('eshop', 'catalog', function(){
+				show('manbuttons'); hide('loadingcatalog');
+				new Brick.mod.eshop.CatalogManagerDialog({
+					'catid': catid, 'refreshAfterClose': true
+				});
+			});
+		};
+		var showEditorCatalog = function(catid){
+			hide('manbuttons'); show('loadingcatalog');
+			
+			Brick.ff('eshop', 'catalog', function(){
+				show('manbuttons'); hide('loadingcatalog');
+				new Brick.mod.eshop.CatalogEditorDialog({
+					'catid': catid, 'refreshAfterClose': true
+				});
+			});
+		};
+	</script>
+	
+[/bkvar]
+
 [*]-->
 <div class="mod-eshop">
-	<div class="pagemixed">
-
-		<h2>{v#cattitle}</h2>
+	<div class="pagemixed rel">
 	
+		{v#adminbutton}
+		
+		<h2>{v#cattitle}</h2>
+
 		[mod]eshop:catalog_list[/mod]
 
 		[mod]eshop:product_list[/mod]
