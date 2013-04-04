@@ -8,12 +8,12 @@
 
 $brick = Brick::$builder->brick;
 $mod = Abricos::GetModule('eshop');
+EShopModule::$instance->GetManager();
 
 $catItemMenu = $mod->currentCatalogItem; 
 $catItem = $catItemMenu->source;
 $productId = $mod->currentProductId;
 $catalogManager = $mod->GetCatalogManager();
-$cfg = &Abricos::$config['module']['eshop'];
 
 // заменяем данные по текущей категории, если нужно
 $brick->content = Brick::ReplaceVarByData($brick->content, array(
