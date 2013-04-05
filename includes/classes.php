@@ -8,6 +8,32 @@
 
 require_once 'dbquery.php';
 
+class EShopMenuItem extends SMMenuItem {
+	
+	/**
+	 * @var Catalog
+	 */
+	public $cat;
+	
+	public function __construct(SMMenuItem $parent, Catalog $cat){
+		parent::__construct(array(
+			"id" => SMMenuItem::ToGlobalId("eshop", $cat->id),
+			"pid" => $parent->id,
+			"nm" => $cat->name,
+			"tl" => $cat->title
+		));
+		
+		$this->cat = $cat;
+		
+		$count = $cat->childs->Count();
+		for ($i=0; $i<$count;$i++){
+			$citem = new EShopMenuItem($this, $cat->childs->GetByIndex($i));
+			$this->childs->Add($citem);
+			$citem->level = $parent->level+1;
+		}
+	}
+}
+
 class EShopConfig {
 	
 	/**

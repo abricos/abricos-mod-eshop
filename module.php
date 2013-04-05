@@ -65,6 +65,11 @@ class EShopModule extends Ab_Module {
 		return $this->_manager;
 	}
 	
+	
+	public function Sitemap_IsMenuBuild(){
+		return true;
+	}
+	
 	/**
 	 * Получить менеджер каталога
 	 * 

@@ -126,6 +126,22 @@ class EShopManager extends Ab_ModuleManager {
 		$this->BuildOfflineCatalog($dir, 0);
 	}
 	
+	/**
+	 * Использует модуль Sitemap для построения меню товаров
+	 * 
+	 * @param SMMenuItem $menuItem
+	 */
+	public function Sitemap_MenuBuild(SMMenuItem $mItem){
+		$catList = $this->cManager->CatalogList();
+		
+		$rootCat = $catList->GetByIndex(0);
+		$count = $rootCat->childs->Count();
+		for ($i=0; $i<$count; $i++){
+			$cmItem = new EShopMenuItem($mItem, $rootCat->childs->GetByIndex($i));
+			$mItem->childs->Add($cmItem);
+		}
+	}
+	
 	
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	 * TODO: Старая версия методов - на удаление
