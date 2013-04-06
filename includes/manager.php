@@ -134,6 +134,8 @@ class EShopManager extends Ab_ModuleManager {
 	public function Sitemap_MenuBuild(SMMenuItem $mItem){
 		$catList = $this->cManager->CatalogList();
 		
+		require_once 'smclasses.php';
+		
 		$rootCat = $catList->GetByIndex(0);
 		$count = $rootCat->childs->Count();
 		for ($i=0; $i<$count; $i++){
