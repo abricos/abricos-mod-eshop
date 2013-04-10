@@ -7,46 +7,63 @@
  */
 
 $brick = Brick::$builder->brick;
-$db = Abricos::$db;
 $p = &$brick->param->param;
 $v = &$brick->param->var;
 
-$mod = EShopModule::$instance;
+$man = EShopModule::$instance->GetManager()->cManager;
 $cfg = &Abricos::$config['module']['eshop'];
 
-$smMenu = Abricos::GetModule('sitemap')->GetManager()->GetMenu();
-$catItemMenu = $smMenu->menuLine[count($smMenu->menuLine)-1];
-$catItem = $catItemMenu->source;
+$cat = $man->CatalogByAdress();
 
-$catalogManager = $mod->GetCatalogManager();
+if (empty($cat)){
+	$brick->content = ""; return;
+}
+$dtl = $cat->detail;
 
+$cat_desc = "";
 // Проверка на наличие описания категории. Если его нет, не выводим блок описания. 
 // <p></p> - вставляется автоматом при редактировании категории
-$cat_desc = "";
-if ($catItem['dsc'] != null AND $catItem['dsc'] != "<p></p>"){
-	$cat_desc = Brick::ReplaceVar($v["description"], "descript", $catItem['dsc']);
+if (!empty($dtl->descript) && $dtl->descript != "<p></p>"){
+	$cat_desc = Brick::ReplaceVar($v["description"], "descript", $dtl->descript);
 }
-
 
 $adminButton = "";
 if (EShopManager::$instance->IsAdminRole()){
 	$adminButton = Brick::ReplaceVarByData($v['adminbutton'], array(
-		"catid" => intval($catItem['id'])
+		"catid" => intval($cat->id)
 	));
 }
-
 
 // Для главной страницы /eshop/
 $brick->content = Brick::ReplaceVarByData($brick->content, array(
 	"adminbutton" => $adminButton,
-	"cattitle" => !empty($catItem['tl']) ? $catItem['tl'] : $v["deftitle"],
+	"cattitle" => !empty($cat->title) ? $cat->title : $v["deftitle"],
 	"catdesc" => $cat_desc
 ));
 
-$link = $baseUrl = $catItemMenu->link; 
+
+// Вывод заголовка страницы
+if (!empty($dtl->metaTitle)){
+	Brick::$builder->SetGlobalVar('meta_title', $dtl->metaTitle);
+}
+
+// Вывод ключевых слов
+if (!empty($dtl->metaKeys)){
+	Brick::$builder->SetGlobalVar('meta_keys', $dtl->metaKeys);
+}
+
+// Вывод описания
+if (!empty($dtl->metaDescript)){
+	Brick::$builder->SetGlobalVar('meta_desc', $dtl->metaDescript);
+}
+
+return; /////////////////////////////////////////////////////////////////////
+
+/*
+
+// TODO: Реализация постраничного вывода под вопросом
 
 $listData = $mod->GetManager()->GetProductListData();
-
 $listPage = $listData['listPage'];
 $catids = $listData['catids'];
 // $listTotal = $catalogManager->ElementCount($catids);
@@ -72,23 +89,6 @@ if ($p['jspage'] == 'true'){
 	Brick::$builder->LoadBrickS('eshop', 'jspage', $brick);
 }
 
-// Вывод заголовка страницы (проверка на &nbsp;, т.к. в базе может храниться и пробел)
-if (!empty($catItem['ktl']) && $catItem['ktl'] != "&nbsp;"){
-	Brick::$builder->SetGlobalVar('meta_title', $catItem['ktl']);
-}
-else if (!empty($catItem['tl'])){
-	Brick::$builder->SetGlobalVar('meta_title', $catItem['tl']);
-}
-
-// Вывод ключевых слов
-if (!empty($catItem['kwds']) && $catItem['kwds'] != "&nbsp;"){
-	Brick::$builder->SetGlobalVar('meta_keys', $catItem['kwds']);
-}
-
-// Вывод описания
-if (!empty($catItem['kdsc']) && $catItem['kdsc'] != "&nbsp;"){
-	Brick::$builder->SetGlobalVar('meta_desc', $catItem['kdsc']);
-}
-
+/**/
 
 ?>

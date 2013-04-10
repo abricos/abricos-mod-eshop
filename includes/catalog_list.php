@@ -7,72 +7,53 @@
  */
 
 $brick = Brick::$builder->brick;
-$db = Abricos::$db;
+$v = &$brick->param->var;
 $p = &$brick->param->param;
 
-$mod = Abricos::GetModule('eshop');
+$man = EShopModule::$instance->GetManager()->cManager;
 
-$catalog = $mod->GetCatalog();
-$catalogManager = $mod->GetCatalogManager();
+$catList = $man->CatalogList();
 
+$cCat = $man->CatalogByAdress();
 
-$smMenu = Abricos::GetModule('sitemap')->GetManager()->GetMenu();
-$rootMenu = $smMenu->menuLine[count($smMenu->menuLine)-1];
-
-$catItemMenu = null;
-$adress = Abricos::$adress;
-
-if ($adress->level == 0){
-	foreach ($rootMenu->child as $child){
-		if ($child->name == 'eshop'){
-			$catItemMenu = $child;
-			break;
-		}
-	}
-}else {
-	$catItemMenu = $rootMenu;
+if (empty($cCat)){
+	$brick->content = ""; return;
 }
 
-if (is_null($catItemMenu)){
-	$brick->content = "";
-	return;
-}
-$catItem = $catItemMenu->source;
+$cCat = $catList->Find($cCat->id);
 
-$link = $baseUrl = $catItemMenu->link; 
 $imgWidth = bkint($p['imgw']);
 $imgHeight = bkint($p['imgh']);
 
-foreach ($catItemMenu->child as $child){
-	$link = $child->link;
-	$imageid = $child->source['img'];
+$count = $cCat->childs->Count();
+
+for ($i=0; $i<$count; $i++){
+	$cat = $cCat->childs->GetByIndex($i);
 	
-	if (empty($imageid)){
-		$image = $brick->param->var["imgempty"];
+	if (empty($cat->foto)){
+		$image = $v["imgempty"];
 	}else{
-		$image = Brick::ReplaceVarByData($brick->param->var["img"], array(
-			"src" => CatalogModule::FotoThumbLink($imageid, $imgWidth, $imgHeight, 'image')
+		$image = Brick::ReplaceVarByData($v["img"], array(
+			"src" => $cat->FotoSrc($imgWidth, $imgHeight)
 		));
 	}
-	
 	$image = Brick::ReplaceVarByData($image, array(
 		"w" => $imgWidth,
 		"h" => $imgHeight
 	));
 
-	$lst .= Brick::ReplaceVarByData($brick->param->var['row'], array(
-		"cattitle" => $child->source['tl'],
-		"catdesc" => $child->source['dsc'],
-		"image" => $image, 
-		"title" => addslashes(htmlspecialchars($child->source['tl'])),
-		"link" => $link
+	$lst .= Brick::ReplaceVarByData($v['row'], array(
+		// "cattitle" => $cat->title,
+		// "catdesc" => $child->source['dsc'],
+		"image" => $image,
+		"title" => addslashes(htmlspecialchars($cat->title)),
+		"link" => $cat->URI()
 	));
-	
 }
 $brick->content = Brick::ReplaceVarByData($brick->content, array(
-	"result" => Brick::ReplaceVarByData($brick->param->var['table'], array(
+	"result" => Brick::ReplaceVarByData($v['table'], array(
 		"rows" => $lst
-	)) 
+	))
 ));
 
 ?>

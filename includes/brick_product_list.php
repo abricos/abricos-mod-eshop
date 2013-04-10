@@ -7,11 +7,21 @@
  */
 
 $brick = Brick::$builder->brick;
-$db = Abricos::$db;
 $p = &$brick->param->param;
 $v = &$brick->param->var;
 $cfg = &Abricos::$config['module']['eshop'];
 
+
+$imgWidth = bkint($p['imgw']);
+$imgHeight = bkint($p['imgh']);
+
+Abricos::GetModule('filemanager')->EnableThumbSize(array(array(
+	"w" => $imgWidth,
+	"h" => $imgHeight
+)));
+
+
+$db = Abricos::$db;
 $mod = EShopModule::$instance;
 
 $catalog = $mod->GetCatalog();
@@ -23,8 +33,6 @@ $catItemMenu = $smMenu->menuLine[count($smMenu->menuLine)-1];
 $catItem = $catItemMenu->source;
 
 $link = $baseUrl = $catItemMenu->link; 
-$imgWidth = bkint($p['imgw']);
-$imgHeight = bkint($p['imgh']);
 
 $listData = $mod->GetManager()->GetProductListData();
 
@@ -86,7 +94,8 @@ while (($row = $db->fetch_array($rows))){
 	$imginfo = $db->fetch_array($catalogManager->FotoListThumb($el['elid'], $imgWidth, $imgHeight, 1));
 	
 	if (empty($imginfo)){
-		$image = $brick->param->var["imgempty"];
+		$image = Brick::ReplaceVarByData($v["imgempty"], array(
+		));
 	}else{
 		$thumb = CatalogModule::FotoThumbInfoParse($imginfo['thumb']);
 		

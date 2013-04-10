@@ -1,5 +1,8 @@
 <!--[*]
 
+[script]brick_product_list.php[/script]
+[mcss=eshop]eshop.css[/mcss]
+
 [desc]
 	Список продукции.
 	
@@ -13,8 +16,6 @@
 				настройки модуля из конфига. 
 [/desc]
 
-[script]brick_product_list.php[/script]
-[mcss=eshop]eshop.css[/mcss]
 
 [p=forcontent]false[/p]
 [p=count]6[/p]
@@ -22,7 +23,6 @@
 [p=notchildlist]false[/p]
 [p=display][/p]
 
-[mod=filemanager]enthumbs|list=200x200[/mod]
 [p=imgw]200[/p]
 [p=imgh]200[/p]
 
@@ -60,7 +60,7 @@
 [/bkvar]
 
 [bkvar=imgempty]
-	<a title="{v#title}" href="{v#link}"><img width="200px" height="200px" alt="{v#title}" src="/modules/eshop/images/empty.gif"></a>
+	<a title="{v#title}" href="{v#link}"><img width="{v#width}px" height="{v#height}px" alt="{v#title}" src="/modules/eshop/images/empty.gif"></a>
 	<span class="nophoto"><a title="{v#title}" href="{v#link}">{#brick.product_list.1}</a></span>
 [/bkvar]
 
