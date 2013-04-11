@@ -58,7 +58,33 @@ class EShopCatalog extends Catalog {
 	
 }
 
+class EShopElement extends CatalogElement {
+	
+	private $_calcURI = null;
+	public function URI(){
+		if (is_null($this->_calcURI)){
+			$this->_calcURI = "";
+
+			// TODO: Необходимо оптимизировать
+			$catList = EShopCatalogManager::$instance->CatalogList();
+			$cat = $catList->Find($this->catid);
+			
+			if (!empty($cat)){
+				$this->_calcURI = $cat->URI();
+			}
+			
+			$this->_calcURI .= "product_".$this->id."/";
+		}
+		return $this->_calcURI;
+	}
+}
+
 class EShopCatalogManager extends CatalogModuleManager {
+	
+	/**
+	 * @var EShopCatalogManager
+	 */
+	public static $instance = null;
 	
 	/**
 	 * @var EShopManager
@@ -67,10 +93,13 @@ class EShopCatalogManager extends CatalogModuleManager {
 	
 	public function __construct(){
 		$this->manager = EShopManager::$instance;
+		
+		EShopCatalogManager::$instance = $this;
 
 		parent::__construct("eshp");
 		
-		$this->CatalogClass = EShopCatalog;
+		$this->CatalogClass			= EShopCatalog;
+		$this->CatalogElementClass	= EShopElement;
 	}
 	
 	public function IsAdminRole(){
@@ -118,6 +147,26 @@ class EShopCatalogManager extends CatalogModuleManager {
 		
 		return $this->_cacheCatByAdress;
 	}
+	
+	public function ProductList($cfg){
+		if (empty($cfg)){
+			$cfg = new CatalogElementListConfig();
+		}
+
+		$optionsBase = $this->ElementTypeList()->Get(0)->options;
+		
+		$cfg->orders->AddByOption($optionsBase->GetByName("price"));
+		
+		$cfg->extFields->Add($optionsBase->GetByName("price"));
+		$cfg->extFields->Add($optionsBase->GetByName("akc"));
+		$cfg->extFields->Add($optionsBase->GetByName("new"));
+		$cfg->extFields->Add($optionsBase->GetByName("hit"));
+		$cfg->extFields->Add($optionsBase->GetByName("sklad"));
+		
+		return $this->ElementList($cfg);
+	}
+	
+
 }
 
 

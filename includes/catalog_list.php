@@ -25,6 +25,12 @@ $cCat = $catList->Find($cCat->id);
 $imgWidth = bkint($p['imgw']);
 $imgHeight = bkint($p['imgh']);
 
+Abricos::GetModule('filemanager')->EnableThumbSize(array(array(
+	"w" => $imgWidth,
+	"h" => $imgHeight
+)));
+
+
 $count = $cCat->childs->Count();
 
 for ($i=0; $i<$count; $i++){
@@ -43,8 +49,7 @@ for ($i=0; $i<$count; $i++){
 	));
 
 	$lst .= Brick::ReplaceVarByData($v['row'], array(
-		// "cattitle" => $cat->title,
-		// "catdesc" => $child->source['dsc'],
+		"width" => $imgWidth,
 		"image" => $image,
 		"title" => addslashes(htmlspecialchars($cat->title)),
 		"link" => $cat->URI()
