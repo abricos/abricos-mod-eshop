@@ -165,7 +165,6 @@ class EShopCatalogManager extends CatalogModuleManager {
 		
 		return $this->ElementList($cfg);
 	}
-	
 
 }
 

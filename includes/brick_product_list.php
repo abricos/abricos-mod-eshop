@@ -11,7 +11,6 @@ $p = &$brick->param->param;
 $v = &$brick->param->var;
 
 $man = EShopModule::$instance->GetManager()->cManager;
-$cCat = $man->CatalogByAdress();
 
 $imgWidth = bkint($p['imgw']);
 $imgHeight = bkint($p['imgh']);
@@ -21,7 +20,12 @@ Abricos::GetModule('filemanager')->EnableThumbSize(array(array(
 	"h" => $imgHeight
 )));
 
-$cfg = new CatalogElementListConfig();
+if (is_object($p['cfg'])){
+	$cfg = $p['cfg'];
+}else{
+	$cfg = new CatalogElementListConfig();
+	$cfg->limit = $p['limit'];
+}
 
 if ($p['forcontent'] == 'true'){
 
@@ -31,10 +35,10 @@ if ($p['forcontent'] == 'true'){
 	$cfg->limit = EShopConfig::$instance->productPageCount;
 }else{
 	
-	return;
+	// return;
 }
-
 $elList = $man->ProductList($cfg);
+$brick->elementList = $elList;
 if (empty($elList)){ $brick->content = ""; return; }
 
 $lst = ""; $lstz = "";
@@ -44,9 +48,9 @@ for ($i=0;$i<$elList->Count();$i++){
 	$pTitle = addslashes(htmlspecialchars($el->title));
 	
 	$pr_spec = !empty($el->ext['akc']) ? $v['pr_akc'] : "";
-	$pr_spec = !empty($el->ext['new']) ? $v['pr_new'] : "";
-	$pr_spec = !empty($el->ext['hit']) ? $v['hit'] : "";
-	
+	$pr_spec .= !empty($el->ext['new']) ? $v['pr_new'] : "";
+	$pr_spec .= !empty($el->ext['hit']) ? $v['pr_hit'] : "";
+
 	$pr_special = "";
 	if (!empty($pr_spec)){
 		$pr_special = Brick::ReplaceVar($v["special"], "pr_spec", $pr_spec);
