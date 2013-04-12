@@ -33,6 +33,16 @@ if ($p['forcontent'] == 'true'){
 	array_push($cfg->catids, $cat->id); 
 	
 	$cfg->limit = EShopConfig::$instance->productPageCount;
+	
+	$adr = Abricos::$adress;
+	$page = $adr->dir[count($adr->dir)-1];
+	
+	if (preg_match("/^page[0-9]+/", $page)){
+		$page = intval(substr($page, 4));
+		if ($page > 0){
+			$cfg->page = $page;
+		}
+	}
 }else{
 	
 	// return;

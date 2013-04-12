@@ -41,10 +41,33 @@ $brick->content = Brick::ReplaceVarByData($brick->content, array(
 	"catdesc" => $cat_desc
 ));
 
+$elList = null;
+foreach ($brick->child as $child){
+	if ($child->name == 'product_list'){
+		$elList = $child->elementList;
+	}
+}
+$listTotal = 0; $listPage = 1;
+if (!empty($elList)){
+	$listTotal = $elList->total;
+	$listPage = $elList->cfg->page;
+}
+
+// подгрузка кирпича пагинатора с параметрами
+Brick::$builder->LoadBrickS('sitemap', 'paginator', $brick, array("p" => array(
+	"total" => $listTotal,
+	"page" => $listPage,
+	"perpage" => EShopConfig::$instance->productPageCount,
+	"uri" => $cat->URI(),
+	"hidepn" => "0"
+)));
+
 
 // Вывод заголовка страницы
 if (!empty($dtl->metaTitle)){
 	Brick::$builder->SetGlobalVar('meta_title', $dtl->metaTitle);
+}else{
+	Brick::$builder->SetGlobalVar('meta_title', $cat->title);
 }
 
 // Вывод ключевых слов
@@ -57,38 +80,5 @@ if (!empty($dtl->metaDescript)){
 	Brick::$builder->SetGlobalVar('meta_desc', $dtl->metaDescript);
 }
 
-return; /////////////////////////////////////////////////////////////////////
-
-/*
-
-// TODO: Реализация постраничного вывода под вопросом
-
-$listData = $mod->GetManager()->GetProductListData();
-$listPage = $listData['listPage'];
-$catids = $listData['catids'];
-// $listTotal = $catalogManager->ElementCount($catids);
-$listTotal = 0;
-
-foreach ($brick->child as $child){
-	if ($child->name == 'product_list'){
-		$listTotal = $child->totalElementCount;
-	}
-}
-
-// подгрузка кирпича пагинатора с параметрами
-Brick::$builder->LoadBrickS('sitemap', 'paginator', $brick, array("p" => array(
-	"total" => $listTotal,
-	"page" => $listPage,
-	"perpage" => EShopConfig::$instance->productPageCount,
-	"uri" => $baseUrl,
-	"hidepn" => "0"
-)));
-
-if ($p['jspage'] == 'true'){
-	// подгрузка кирпича пагинатора с параметрами
-	Brick::$builder->LoadBrickS('eshop', 'jspage', $brick);
-}
-
-/**/
 
 ?>
