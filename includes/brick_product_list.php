@@ -37,7 +37,7 @@ if ($p['forcontent'] == 'true'){
 $elList = $man->ProductList($cfg);
 if (empty($elList)){ $brick->content = ""; return; }
 
-$lst = "";
+$lst = ""; $lstz = "";
 for ($i=0;$i<$elList->Count();$i++){
 	$el = $elList->GetByIndex($i);
 	
@@ -74,13 +74,17 @@ for ($i=0;$i<$elList->Count();$i++){
 		"productid" => $el->id
 	);
 	
-	$lst .=  Brick::ReplaceVarByData($v['row'], $replace);
+	if ($el->ext['price'] > 0){
+		$lst .=  Brick::ReplaceVarByData($v['row'], $replace);
+	}else{
+		$lstz .=  Brick::ReplaceVarByData($v['row'], $replace);
+	}
 }
 
 $brick->content = Brick::ReplaceVarByData($brick->content, array(
 	"display" => $p['display'],
 	"result" => Brick::ReplaceVarByData($v['table'], array(
-		"rows" => $lst
+		"rows" => $lst.$lstz
 	))
 ));
 
