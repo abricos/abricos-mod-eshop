@@ -117,6 +117,27 @@ class EShopManager extends Ab_ModuleManager {
 			$cdir = new OfflineDir($dir, $cat->name);
 			$this->BuildOfflineCatalog($cdir, $cat->id);
 		}
+		
+		$cfg = new CatalogElementListConfig();
+		$cfg->limit = 500;
+		
+		array_push($cfg->catids, $catid);
+		
+		$elList = $this->cManager->ProductList($cfg);
+		if (empty($elList)){
+			return;
+		}
+		
+		for ($i=0; $i<$elList->Count(); $i++){
+			$product = $elList->GetByIndex($i);
+			$brick = Brick::$builder->LoadBrickS("eshop", "offline_product", null, array(
+				"p" => array(
+					"dir" => $dir,
+					"productid" => $product->id
+				)
+			));
+			$offMan->WritePage($dir, "product".$product->id, $brick->content);
+		}
 	}
 	
 	/**

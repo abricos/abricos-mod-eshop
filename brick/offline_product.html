@@ -1,0 +1,70 @@
+<!--[*]
+[script]brick_offline_product.php[/script]
+[mcss=eshop]offline.css[/mcss]
+
+[p=dir][/p]
+[p=catid][/p]
+
+[v=table]
+	<dl>
+		{v#rows}
+	</dl>
+[/v]
+
+[v=row]
+	<dt>{#brick.product.1}:</dt><dd>{v#fld_art}&nbsp;</dd>
+	<dt>{#brick.product.2}:</dt><dd class="brand">{v#fld_brand}&nbsp;</dd>
+	<dt>{#brick.product.3}:</dt><dd>{v#fld_country}&nbsp;</dd>
+	<dt>{#brick.product.4}:</dt><dd>{v#fld_sklad}&nbsp;</dd>
+	<dt>{#brick.product.6}:</dt><dd><b><span class="price">{v#fld_price}</span> {#brick.product.8}</b></dd>
+[/v]
+
+[mod=filemanager]enthumbs|list=200x200/40x40[/mod]
+[p=imgsize]200x200[/p]
+[p=imgsizesm]40x40[/p]
+[p=imglimit]5[/p]
+
+[v=img]
+	<img id="bigPhoto" onclick="Brick.f('eshop', 'ui', 'showMaxPhoto', this); return false;" class="big img-product-{v#productid}" alt="{v#fld_name}" src="{v#src}">
+[/v]
+[v=imgempty]
+	<div class="rel"><a title="{v#fld_name}" href="#"><img width="200px" height="200px" alt="{v#fld_name}" src="/modules/eshop/images/empty.gif"></a><span class="nophoto">{#brick.product.9}</span></div>
+[/v]
+
+[v=imgsm]
+	<div class="tmb tmb40">
+		<span class="tmbpre">
+			<img class="tmbsm" src="{v#src}" alt="{v#fld_name}" onclick="Brick.f('eshop', 'ui', 'showBigPhoto', {fid: '{v#fid}', el: this}); return false;" id="tmb{v#fid}">
+		</span>
+	</div>
+[/v]
+
+[v=button]
+	<span>{#brick.product.10}:</span><input onfocus="this.select();" type="text" value="1" size="3" class="txt-product-bcount-{v#productid}"> <a class="button btn-product-buy product-{v#productid}" href="#" ><span>{#brick.product.11}</span></a>
+[/v]
+
+[v=sklad0]<div class="center">{#brick.product.12}</div>[/v]
+[*]-->
+<div class="mod-eshop">
+	<div id="view_item" class="product hproduct">
+		<h3 class="fn">{v#fld_name}</h3>
+		
+		<div class="photos">
+			<div id="bigPhotoDiv" class="tmb tmb200">
+				<span class="tmbpre">
+					{v#image}
+				</span>
+				<img width="31" height="31" src="/modules/eshop/images/loader.gif" alt="Loading" id="loading" style="display: none;">
+			</div>
+			<div class="clear"></div>
+		</div>   
+		<div class="info">
+			{v#optlist}
+		</div>
+		<br class="clear" />
+		<fieldset class="descript">
+			<legend>{#brick.product.13}</legend>
+			<div class="description">{v#fld_desc}</div>
+		</fieldset>
+	</div>
+</div>

@@ -11,7 +11,6 @@ $db = Abricos::$db;
 $p = &$brick->param->param;
 $v = &$brick->param->var;
 
-
 $man = EShopManager::$instance->cManager;
 
 $catMain = $man->CatalogList()->Find($p['catid']);
