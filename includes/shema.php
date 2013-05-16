@@ -21,7 +21,7 @@ $catalogManager->DisableRole();
 
 if ($updateManager->isInstall()){
 	
-	$catalogManager->ElementOptionAppend(0, 0, 3, 'name', 'Название', 'Название товара', 1, '{"cst":{"en":0,"inpen":0,"inp":"","onlden":0,"onld":""},"size":"255","def":""}');
+	// $catalogManager->ElementOptionAppend(0, 0, 3, 'name', 'Название', 'Название товара', 1, '{"cst":{"en":0,"inpen":0,"inp":"","onlden":0,"onld":""},"size":"255","def":""}');
 	$catalogManager->ElementOptionAppend(0, 0, 7, 'desc', 'Описание товара', '', 0, '{"cst":{"en":0,"inpen":0,"inp":"","onlden":0,"onld":""}}');  
 	$catalogManager->ElementOptionAppend(0, 0, 3, 'art', 'Артикул', '', 1, '{"cst":{"en":0,"inpen":0,"inp":"","onlden":0,"onld":""},"size":"32","def":""}');
 	$catalogManager->ElementOptionAppend(0, 0, 1, 'sklad', 'Количество на складе', '', 0, '{"cst":{"en":0,"inpen":0,"inp":"","onlden":0,"onld":""},"size":"5","def":"0"}');

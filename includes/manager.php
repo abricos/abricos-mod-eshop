@@ -27,6 +27,8 @@ class EShopManager extends Ab_ModuleManager {
 	 */
 	public $cManager;
 	
+	private $_isRoleDisabled = false;
+	
 	public function __construct(EShopModule $module){
 		parent::__construct($module);
 		
@@ -42,7 +44,19 @@ class EShopManager extends Ab_ModuleManager {
 		$this->userSession = $this->user->session->key;
 	}
 	
+	/**
+	 * Отключить проверку ролей
+	 * 
+	 * Всем действиям, в том числе и админским - зеленый свет.
+	 * Используется в основном в процессе инсталяции, например, когда необходимо 
+	 * заполнить модуль товаром, как в модуле eshopportal
+	 */
+	public function RoleDisable(){
+		$this->_isRoleDisabled = true;
+	}
+	
 	public function IsAdminRole(){
+		if ($this->_isRoleDisabled){ return true; }
 		return $this->IsRoleEnable(EShopAction::ADMIN);
 	}
 	
