@@ -1,14 +1,14 @@
 /**
-* @version $Id$
-* @package Abricos
-* @copyright Copyright (C) 2010 Abricos. All rights reserved.
-* @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-*/
+ * @package Abricos
+ * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
+ */
 
 var Component = new Brick.Component();
 Component.requires = {
 	yahoo: ['animation','datasource','dragdrop','resize'],
-	mod:[{name: 'sys', files: ['data.js', 'form.js', 'container.js', 'wait.js']}]
+	mod:[{
+		name: 'sys', files: ['data.js', 'form.js', 'container.js', 'wait.js']
+	}]
 };
 Component.entryPoint = function(NS){
 	var Dom = YAHOO.util.Dom,
