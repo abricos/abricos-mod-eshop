@@ -125,7 +125,7 @@ class EShopCatalogManager extends CatalogModuleManager {
 		if (!is_null($this->_cacheCatByAdress)){
 			return $this->_cacheCatByAdress;
 		}
-		if (Abricos::$adress->level == 1){
+		if (Abricos::$adress->level <= 1){
 			$this->_cacheCatByAdress = $this->Catalog(0);
 			return $this->_cacheCatByAdress;
 		}
