@@ -111,22 +111,9 @@
 }
 
 .mod-eshop .productlist .proditem p.action {
-	padding: 2px 0 5px 0;
+	padding: 2px 0 10px 0;
 	border-bottom: 1px solid #EEF1F2;
 }
-
-/*
-.mod-eshop .productlist a {
-	text-decoration: none;
-}
-.mod-eshop li.proditem .nophoto {
-	top: 26%;
-}
-.mod-eshop .productlist .proditem p.photo {
-	border: 1px solid #EEF1F2;
-}
-/**/
-
 
 /* * * * * Спец.товар * * * * */
 .mod-eshop .proditem .special {
@@ -195,10 +182,6 @@
 	border: 4px solid #CCCCCC;
 }
 
-.mod-eshop .product .currentPhoto {
-	/* border: 4px solid #eee; /**/
-}
-
 /* Информация о товаре */
 .mod-eshop .product .info {
 	float: left;
@@ -245,34 +228,30 @@
 	margin: 0 0 10px 10px;
 }
 
+
+/* * * Купить * * */
+.mod-eshop .proditem .button, 
+.mod-eshop .product .button {
+	display: inline-block;
+	color: #fff;
+	height: 25px;
+	text-align: center;
+	border-radius: 7px;
+	background-color: #FC9C9C;
+	border: 1px solid #FC8888;
+	min-width: 80px;
+}
+.mod-eshop .proditem .button:hover,
+.mod-eshop .product .button:hover {
+	background-color: #FB6060;
+	border: 1px solid #FA3838;
+}
+
 /* * * * * Старые стили, на удаление * * * * */
-.abs_img	{
+.mod-eshop .abs_img	{
 	display: block;
 }
-.button {
-	padding-left: 8px;
-	display: inline-block;
-	/*margin-right: 5px;*/
-	background: url('/modules/eshop/images/button_left.gif') top left no-repeat;
-	text-decoration: none;
-	color:#fff;
-	height:28px;
-}
-.button span {
-	color: #fff;
-	display: inline-block;
-	padding: 4px 10px 5px 2px;
-	background: url('/modules/eshop/images/button_right.gif') top right no-repeat;
-	height:19px;
-}
-.sklad0 {
-	background: url('/modules/eshop/images/button_left0.gif') top left no-repeat;
-	font-weight: normal;
-}
-.sklad0 span {
-	background: url('/modules/eshop/images/button_right0.gif') top right no-repeat;
-}
-	
+
 /*Добавлено на случай, если в основном стиле прописано очищение списка - не корректно будет работать интерактивный пагинатор*/
 #product-list-wpage	ul {
 	clear: none;
@@ -280,12 +259,6 @@
 
 #product-list-wpage	{
 	overflow: hidden;
-}
-.h2	{
-	font-size:1.6em;
-	font-weight:bold;
-	position:relative;
-	top:0.12em;
 }
 
 #cart-view-page .info dd {
@@ -296,8 +269,8 @@
 	font-size:1.2em;
 	font-weight: bold;
 }
-/**/
-.td_over {
+
+.mod-eshop .td_over {
 	background-color: #F2F2F2;
 }
 	
@@ -308,12 +281,13 @@
 	padding-top:5px;
 }
 	
-	
+
 #pr_loader	{	
 	margin: 50% auto 0;
 	background: transparent url(/images/loading.gif) no-repeat scroll 20% 50%;
 }
-h1	a, h1	a:hover	{
+.mod-eshop h1 a,
+.mod-eshop h1 a:hover	{
 	color: #fff;
 	text-decoration: none;
 }
