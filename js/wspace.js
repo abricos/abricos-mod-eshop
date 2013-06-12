@@ -64,7 +64,8 @@ Component.entryPoint = function(NS){
 				'urlhome': NG.home(),
 				'urlcatalogman': NG.catalogman(),
 				'urlbilling': NG.billing(),
-				'urlconfig': NG.config()
+				'urlconfig': NG.config(),
+				'urlconfigcart': NG.cartconfig()
 			};
 		},
 		onLoad: function(pgInfo){
@@ -76,8 +77,8 @@ Component.entryPoint = function(NS){
 		onLoadManager: function(pgInfo){
 			this.showPage(pgInfo);
 			
-			if (R['isWrite']){
-				this.elShow('mwrite');
+			if (Brick.componentExists('eshopcart', 'lib')){
+				this.elShow('mconfigcart');
 			}
 		},
 		showPage: function(p){

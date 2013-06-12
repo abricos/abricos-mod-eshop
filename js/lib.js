@@ -86,6 +86,9 @@ Component.entryPoint = function(NS){
 		'config': function(){
 			return WS+'manager/ConfigWidget/';
 		},
+		'cartconfig': function(){
+			return WS+'eshopcart/CartConfigWidget/';
+		},
 		'about': function(){
 			return WS+'about/AboutWidget/';
 		},
