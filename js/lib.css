@@ -4,3 +4,12 @@
 	text-align: center;
 	padding: 70px 0; 
 }
+
+.aw-eshop .yui-navset .yui-content {
+    background-color: #FFF !important;
+    border: none !important;
+}
+.aw-eshop .yui-navset .yui-nav, 
+.aw-eshop .yui-navset .yui-navset-top .yui-nav {
+	border-width: 0 0 1px !important;
+} 
