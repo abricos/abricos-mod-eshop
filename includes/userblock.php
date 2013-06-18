@@ -1,11 +1,9 @@
 <?php
 /**
- * @version $Id$
  * @package Abricos
- * @subpackage User
- * @copyright Copyright (C) 2008 Abricos. All rights reserved.
+ * @subpackage Eshop
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- * @author Alexander Kuzmin (roosit@abricos.org)
+ * @author Alexander Kuzmin <roosit@abricos.org>
  */
 
 $var = &$brick->param->var; 

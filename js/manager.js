@@ -1,7 +1,5 @@
 /*
-@version $Id$
 @package Abricos
-@copyright Copyright (C) 2008 Abricos All rights reserved.
 @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
 */
 
@@ -10,7 +8,7 @@ Component.requires = {
 	yahoo: ['tabview','dragdrop'],
     mod:[
          {name: 'catalog', files: ['catalog.js','eltype.js']},
-         {name: 'eshop', files: ['billing.js', 'config.js']}
+         {name: 'eshop', files: ['billing.js']}
     ]
 };
 Component.entryPoint = function(NS){
@@ -29,14 +27,10 @@ Component.entryPoint = function(NS){
 			var TM = buildTemplate(this, 'widget');
 			container.innerHTML = TM.replace('widget');
 			
-			var tabView = new YAHOO.widget.TabView(TM.getElId('widget.id'));
-			this.page = {
-				'catalog': new Brick.mod.catalog.API.showElementTypeManagerWidget({
-					'container': TM.getEl('widget.catalog'),
-					'mmPrefix': 'eshop' 
-				}),
-				'config': new NS.config.Manager(TM.getEl('widget.config'))
-			};
+			new Brick.mod.catalog.API.showElementTypeManagerWidget({
+				'container': TM.getEl('widget.widget'),
+				'mmPrefix': 'eshop' 
+			});
 			NS.data.request();
 		}
 	};

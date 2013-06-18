@@ -245,32 +245,6 @@ class EShopManager extends Ab_ModuleManager {
 					if ($r->f == 'd'){ $this->OrderConfigRemove($r->d->id); }
 				}
 				return;
-			case 'delivery':
-				foreach ($rows->r as $r){
-					if ($r->f == 'u'){ $this->DeliveryUpdate($r->d); }
-					if ($r->f == 'a'){ $this->DeliveryAppend($r->d); }
-					if ($r->f == 'd'){ $this->DeliveryRemove($r->d->id); }
-				}
-				return;
-			case 'payment':
-				foreach ($rows->r as $r){
-					if ($r->f == 'u'){ $this->PaymentUpdate($r->d); }
-					if ($r->f == 'a'){ $this->PaymentAppend($r->d); }
-					if ($r->f == 'd'){ $this->PaymentRemove($r->d->id); }
-				}
-				return;
-			case 'discount':
-				foreach ($rows->r as $r){
-					if ($r->f == 'u'){ $this->DiscountUpdate($r->d); }
-					if ($r->f == 'a'){ $this->DiscountAppend($r->d); }
-					if ($r->f == 'd'){ $this->DiscountRemove($r->d->id); }
-				}
-				return;
-			case 'config':
-				foreach ($rows->r as $r){
-					if ($r->f == 'u'){ $this->ConfigSave($r->d); }
-				}
-				return;
 		}
 	}
 	
@@ -631,88 +605,7 @@ class EShopManager extends Ab_ModuleManager {
 		EShopQuery::OrderConfigRemove($this->db, $ordercfgid);
 	}
 	
-	// Оплата
-	
-	public function PaymentList(){
-		return EShopQuery::PaymentList($this->db, $this->IsAdminRole());
-	}
-	
-	public function PaymentAppend($d){
-		if (!$this->IsAdminRole()){ return null; }
-		EShopQuery::PaymentAppend($this->db, $d);
-	}
-	
-	public function PaymentUpdate($d){
-		if (!$this->IsAdminRole()){ return null; }
-		EShopQuery::PaymentUpdate($this->db, $d);
-	}
-	
-	public function PaymentRemove($id){
-		if (!$this->IsAdminRole()){ return null; }
-		EShopQuery::PaymentRemove($this->db, $id);
-	}
-
-	// Доставка
-	
-	public function DeliveryList(){
-		return EShopQuery::DeliveryList($this->db);
-	}
-	
-	public function DeliveryAppend($d){
-		if (!$this->IsAdminRole()){ return null; }
-		EShopQuery::DeliveryAppend($this->db, $d);
-	}
-	
-	public function DeliveryUpdate($d){
-		if (!$this->IsAdminRole()){ return null; }
-		EShopQuery::DeliveryUpdate($this->db, $d);
-	}
-	
-	public function DeliveryRemove($id){
-		if (!$this->IsAdminRole()){ return null; }
-		EShopQuery::DeliveryRemove($this->db, $id);
-	}
-
-
-	// Скидки
-	
-	public function DiscountList(){
-		return EShopQuery::DiscountList($this->db);
-	}
-	
-	public function DiscountAppend($d){
-		if (!$this->IsAdminRole()){ return null; }
-		EShopQuery::DiscountAppend($this->db, $d);
-	}
-	
-	public function DiscountUpdate($d){
-		if (!$this->IsAdminRole()){ return null; }
-		EShopQuery::DiscountUpdate($this->db, $d);
-	}
-	
-	public function DiscountRemove($id){
-		if (!$this->IsAdminRole()){ return null; }
-		EShopQuery::DiscountRemove($this->db, $id);
-	}
-	
-	public function Config($checkAdmin = true){
-		if ($checkAdmin && !$this->IsAdminRole()){ return array(); }
-		$config = array();
-		$config['id'] = 1;
-		$config['adm_emails'] = Brick::$builder->phrase->Get('eshop', 'adm_emails');
-
-		$brick = Brick::$builder->LoadBrickS('eshop', 'templates', null, null);
-		$tpl = &$brick->param->var;
-		$config['adm_notify_subj'] = $tpl['adm_notify_subj'];
-		$config['adm_notify'] = $tpl['adm_notify'];
-		
-		return $config;
-	}
-	
-	public function ConfigSave($cfg){
-		if (!$this->IsAdminRole()){ return null; }
-		Brick::$builder->phrase->Set('eshop', 'adm_emails', $cfg->adm_emails);
-		Brick::$builder->phrase->Save();
+	private function Config($checkAdmin = true){
 	}
 }
 
