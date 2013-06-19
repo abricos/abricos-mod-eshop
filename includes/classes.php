@@ -79,6 +79,12 @@ class EShopElement extends CatalogElement {
 	}
 }
 
+class EShopElementList extends CatalogElementList {
+	public function ToAJAX(){
+		return parent::ToAJAX(EShopCatalogManager::$instance);
+	}
+}
+
 class EShopCatalogManager extends CatalogModuleManager {
 	
 	/**
@@ -100,6 +106,7 @@ class EShopCatalogManager extends CatalogModuleManager {
 		
 		$this->CatalogClass			= EShopCatalog;
 		$this->CatalogElementClass	= EShopElement;
+		$this->CatalogElementListClass = EShopElementList;
 	}
 	
 	public function IsAdminRole(){
@@ -147,7 +154,11 @@ class EShopCatalogManager extends CatalogModuleManager {
 		
 		return $this->_cacheCatByAdress;
 	}
-	
+
+	/**
+	 * @param mixed $cfg
+	 * @return EShopElementList
+	 */
 	public function ProductList($cfg){
 		if (empty($cfg)){
 			$cfg = new CatalogElementListConfig();
@@ -165,6 +176,14 @@ class EShopCatalogManager extends CatalogModuleManager {
 		$cfg->extFields->Add($optionsBase->GetByName("sklad"));
 		
 		return $this->ElementList($cfg);
+	}
+	
+	public function ProductListToAJAX($cfg){
+		$list = $this->ProductList($cfg);
+
+		$ret = new stdClass();
+		$ret->elements = $list->ToAJAX($this);
+		return $ret;
 	}
 
 }
