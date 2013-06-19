@@ -12,6 +12,8 @@ $v = &$brick->param->var;
 
 $man = EShopModule::$instance->GetManager()->cManager;
 
+$modCart = Abricos::GetModule('eshopcart');
+
 $imgWidth = bkint($p['imgw']);
 $imgHeight = bkint($p['imgh']);
 
@@ -80,13 +82,20 @@ for ($i=0;$i<$elList->Count();$i++){
 
 	$replace = array(
 		"special" => $pr_special,
-		"tpl_btn" => $v[$el->ext['sklad']==0 ? 'btnnotorder' : 'btnorder'],
+		"buybutton" => "",
 		"image" => $image,
 		"title" => $pTitle,
 		"price" => $el->ext['price'],
 		"link" => $el->URI(),
 		"productid" => $el->id
 	);
+	
+	if (!empty($modCart)){
+		$cartBrick = Brick::$builder->LoadBrickS('eshopcart', 'buybutton', null, array("p" => array(
+			"product" => $el
+		)));
+		$replace["buybutton"] = $cartBrick->content;
+	}
 	
 	if ($el->ext['price'] > 0){
 		$lst .=  Brick::ReplaceVarByData($v['row'], $replace);
@@ -101,6 +110,11 @@ $brick->content = Brick::ReplaceVarByData($brick->content, array(
 		"rows" => $lst.$lstz
 	))
 ));
+
+if (!empty($modCart)){
+	$cartBrick = Brick::$builder->LoadBrickS('eshopcart', 'buybuttonjsinit');
+	$brick->content .= $cartBrick->content;
+}
 
 
 // TODO: реализовать СЕО, разные типы строк и возможность добавления через пар-тр своих полей 

@@ -110,9 +110,8 @@
 	padding: 3px;
 }
 
-.mod-eshop .productlist .proditem p.action {
+.mod-eshop .productlist .proditem .aw-eshopcart-buybutton {
 	padding: 2px 0 10px 0;
-	border-bottom: 1px solid #EEF1F2;
 }
 
 /* * * * * Спец.товар * * * * */
@@ -228,23 +227,6 @@
 	margin: 0 0 10px 10px;
 }
 
-/* * * Купить * * */
-.mod-eshop .proditem .button, 
-.mod-eshop .product .button {
-	display: inline-block;
-	color: #fff;
-	height: 25px;
-	text-align: center;
-	border-radius: 7px;
-	background-color: #FC9C9C;
-	border: 1px solid #FC8888;
-	min-width: 80px;
-}
-.mod-eshop .proditem .button:hover,
-.mod-eshop .product .button:hover {
-	background-color: #FB6060;
-	border: 1px solid #FA3838;
-}
 
 /* * * * * Старые стили, на удаление * * * * */
 .mod-eshop .abs_img	{

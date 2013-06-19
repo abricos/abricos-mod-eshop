@@ -47,7 +47,9 @@
 			<p class="price">
 				<span>{v#price} {#brick.product_list.7}</span>
 			</p>
-			<p class="action">{v#tpl_btn}</p>
+			
+			{v#buybutton}
+			
 		</div>
 		{v#special}
     </li>
@@ -63,15 +65,6 @@
 	<a title="{v#title}" href="{v#link}"><img width="{v#width}px" height="{v#height}px" alt="{v#title}" src="/modules/eshop/images/empty.gif"></a>
 	<span class="nophoto"><a title="{v#title}" href="{v#link}">{#brick.product_list.1}</a></span>
 [/bkvar]
-
-[bkvar=btnorder]
-	<a class="btn-product-buy product-{v#productid} button" href="#"><span>{#brick.product_list.2}</span></a>
-[/bkvar]
-
-[bkvar=btnnotorder]
-	<a class="btn-product-buy product-{v#productid} button" href="#"><span>Заказать</span></a>
-[/bkvar]
-
 
 [bkvar=special]
 	<div class="special"><a title="{v#title}" href="{v#link}">{v#pr_spec}</a></div>
