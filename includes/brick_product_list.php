@@ -85,7 +85,7 @@ for ($i=0;$i<$elList->Count();$i++){
 		"buybutton" => "",
 		"image" => $image,
 		"title" => $pTitle,
-		"price" => $el->ext['price'],
+		"price" => number_format($el->ext['price'], 2, ',', ' '),
 		"link" => $el->URI(),
 		"productid" => $el->id
 	);
