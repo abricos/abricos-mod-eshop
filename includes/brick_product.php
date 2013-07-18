@@ -7,13 +7,18 @@
  */
 
 $brick = Brick::$builder->brick;
+
 $mod = Abricos::GetModule('eshop');
 EShopModule::$instance->GetManager();
+
+$man = EShopModule::$instance->GetManager()->cManager;
+$modCart = Abricos::GetModule('eshopcart');
 
 $catItemMenu = $mod->currentCatalogItem; 
 $catItem = $catItemMenu->source;
 $productId = $mod->currentProductId;
 $catalogManager = $mod->GetCatalogManager();
+
 
 // заменяем данные по текущей категории, если нужно
 $brick->content = Brick::ReplaceVarByData($brick->content, array(
@@ -92,26 +97,23 @@ $brick->content = Brick::ReplaceVarByData($brick->content,  array(
 ));
 
 $replace = array(
-	"link" => $link."product_".$productId."/"
+	"link" => $link."product_".$productId."/",
+	"productid" => $productId
 );
 
 $el['fld_sklad'] = !empty($el['fld_sklad']) ? $el['fld_sklad'].' шт.' : 'Нет в наличии';
 
-if (!$el['fld_sklad'] OR $el['fld_sklad'] == 0)	{
-	$replace = array(
-		"add2cart" => $brick->param->var['sklad0']
-	);
-} else {
-	$btn = array(
-		"productid" => $productId
-	);
-	$brick->param->var['button'] = Brick::ReplaceVarByData($brick->param->var['button'], $btn);
-	$replace = array(
-		"link" => $link."product_".$productId."/",
-		"productid" => $productId,
-		"add2cart" => $brick->param->var['button']
-	);	
-};
+if (!empty($modCart)){
+	$cartBrick = Brick::$builder->LoadBrickS('eshopcart', 'buybutton', null, array("p" => array(
+		"product" => $el
+	)));
+	$replace["buybutton"] = $cartBrick->content;
+}
+
+if (!empty($modCart)){
+	$cartBrick = Brick::$builder->LoadBrickS('eshopcart', 'buybuttonjsinit');
+	$brick->content .= $cartBrick->content;
+}
 
 $etArr = $catalogManager->ElementOptionListByType(0, true);
 

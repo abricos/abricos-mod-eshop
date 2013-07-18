@@ -154,7 +154,7 @@ class EShopCatalogManager extends CatalogModuleManager {
 		
 		return $this->_cacheCatByAdress;
 	}
-
+	
 	/**
 	 * @param mixed $cfg
 	 * @return EShopElementList
