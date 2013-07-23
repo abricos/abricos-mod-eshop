@@ -156,6 +156,14 @@ class EShopCatalogManager extends CatalogModuleManager {
 	}
 	
 	/**
+	 * @param integer $productid
+	 * @return EShopElement
+	 */
+	public function Product($productid){
+		return $this->Element($productid);
+	}
+	
+	/**
 	 * @param mixed $cfg
 	 * @return EShopElementList
 	 */
