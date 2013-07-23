@@ -36,6 +36,7 @@ Component.entryPoint = function(NS){
 		'CatalogManagerWidget': 'catalogman',
 		'BillingWidget': 'billing',
 		'ConfigWidget': 'config',
+		'CartBillingWidget': 'cartbilling',
 		'CartConfigWidget': 'cartconfig',
 		'AboutWidget': 'about'
 	};
@@ -66,6 +67,7 @@ Component.entryPoint = function(NS){
 				'urlcatalogman': NG.catalogman(),
 				'urlbilling': NG.billing(),
 				'urlconfig': NG.config(),
+				'urlcartbilling': NG.cartbilling(),
 				'urlcartconfig': NG.cartconfig()
 			};
 		},
@@ -79,6 +81,7 @@ Component.entryPoint = function(NS){
 			this.showPage(pgInfo);
 			
 			if (Brick.componentExists('eshopcart', 'lib')){
+				// this.elShow('mcartconfig,mcartbilling');
 				this.elShow('mcartconfig');
 			}
 		},

@@ -10,6 +10,7 @@ Component.requires = {
 	yahoo: ['datasource','tabview','resize'],
 	mod:[
 	     {name: 'sys', files: ['data.js', 'form.js', 'container.js', 'wait.js', 'widgets.js']},
+	     {name: 'eshopcart', files: ['cart.js']},
 	     {name: 'eshop', files: ['order.js']}
 	]
 };
@@ -34,7 +35,7 @@ Component.entryPoint = function(NS){
 		}); 
 		return fprice; 
 	};
-	
+
 	var BillingWidget = function(container){
 		this.init(container);
 	};
@@ -43,7 +44,7 @@ Component.entryPoint = function(NS){
 			var TM = buildTemplate(this, 'widget');
 			container.innerHTML = TM.replace('widget');
 			
-			var tabView = new YAHOO.widget.TabView(TM.getElId('widget.id'));
+			new YAHOO.widget.TabView(TM.getElId('widget.id'));
 			this.page = {
 				'new': new OrderListNew(this, TM.getElId('widget.new')),
 				'exec': new OrderListExec(this, TM.getElId('widget.exec')),
@@ -123,13 +124,14 @@ Component.entryPoint = function(NS){
 		renderRow: function(di){
 			var TM = this._TM, T = this._T;
 			
+			/*
 			var user = "";
 			if (di['uid'] > 0){
 				user = TM.replace('usertpname', {'uid': di['uid'], 'unm': di['unm']});
 			}else{
 				user = TM.replace('usertpip', { 'uid': di['uid'], 'unm': di['ip']});
 			}
-			
+			/**/
     		return TM.replace('row', {
     			'btns': this.extButtonsCount > 0 ? T['btn'+this.listType] : '',
     			'fnm': di['fnm'],
@@ -166,7 +168,6 @@ Component.entryPoint = function(NS){
 			switch(prefix){
 			case tp['view']+'-':
 			case tp['accept']+'-':
-				var owner = this.owner;
 				new OrderAcceptPanel(orderid, function(){
 					owner.orderAccept(orderid);
 				});
@@ -196,7 +197,6 @@ Component.entryPoint = function(NS){
 			switch(prefix){
 			case tp['view']+'-':
 			case tp['close']+'-':
-				var owner = this.owner;
 				new OrderClosePanel(orderid, function(){
 					owner.orderClose(orderid);
 				});
@@ -251,7 +251,7 @@ Component.entryPoint = function(NS){
 		this.orderid = orderid*1;
 		this.callback = callback;
 		OrderAcceptPanel.superclass.constructor.call(this, {
-			width: '800px',
+			width: '920px',
 			resize: true
 		});
 	};
@@ -261,10 +261,14 @@ Component.entryPoint = function(NS){
 			return buildTemplate(this, 'orderacceptpanel').replace('orderacceptpanel');
 		},
 		onLoad: function(){
-			var TM = this._TM, T = this._T, TId = this._TId,
-				orderid = this.orderid;
+			var TM = this._TM;
 			
-			this.orderView = new NS.OrderViewWidget(TM.getEl('orderacceptpanel.print'), orderid);
+			// this.orderView = new NS.OrderViewWidget(TM.getEl('orderacceptpanel.print'), orderid);
+			
+			this.orderView = new Brick.mod.eshopcart.OrderingWidget(TM.getEl('orderacceptpanel.print'), {
+				'orderid': this.orderid,
+			});
+
 			DATA.request();
 		},
 		destroy: function(){
@@ -362,7 +366,8 @@ Component.entryPoint = function(NS){
     NS.OrderClosePanel = OrderClosePanel;
 
 	var OrderViewPanel = function(orderid, callback){
-		this.orderid = orderid*1;
+		Brick.console(orderid);
+		this.orderid = orderid|0;
 		this.callback = callback;
 		OrderViewPanel.superclass.constructor.call(this, {
 			width: '800px',
@@ -376,9 +381,9 @@ Component.entryPoint = function(NS){
 			return this._T['orderviewpanel'];
 		},
 		onLoad: function(){
-			var TM = this._TM, T = this._T, TId = this._TId;
-			this.orderView = new NS.OrderViewWidget(TM.getEl('orderviewpanel.print'), this.orderid);
-			DATA.request();
+			var TM = this._TM;
+			// this.orderView = new NS.OrderViewWidget(TM.getEl('orderviewpanel.print'), this.orderid);
+			this.orderView = new Brick.mod.eshopcart.OrderingWidget(TM.getEl('orderviewpanel.print'));
 		},
 		destroy: function(){
 			this.orderView.destroy();

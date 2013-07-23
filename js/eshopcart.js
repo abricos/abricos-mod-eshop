@@ -14,9 +14,39 @@ Component.entryPoint = function(NS){
 	var L = YAHOO.lang,
 		buildTemplate = this.buildTemplate;
 	
+	var CartBillingWidget = function(container){
+		CartBillingWidget.superclass.constructor.call(this, container, {
+			'buildTemplate': buildTemplate, 'tnames': 'billing' 
+		});
+	};
+	YAHOO.extend(CartBillingWidget, Brick.mod.widget.Widget, {
+		init: function(){
+			this.wsMenuItem = 'cartbilling'; // использует wspace.js
+			this.viewWidget = null;
+		},
+		destroy: function(){
+			if (L.isValue(this.viewWidget)){
+				this.viewWidget.destroy();
+			}
+			CartBillingWidget.superclass.destroy.call(this);
+		},
+		onLoad: function(){
+			var __self = this;
+			Brick.ff('eshopcart', 'billing', function(){
+				__self._onLoadWidget();
+			});
+		},
+		_onLoadWidget: function(){
+			this.elHide('loading');
+			this.viewWidget = new Brick.mod.eshopcart.BillingWidget(this.gel('view'));
+		}
+	});
+	NS.CartBillingWidget = CartBillingWidget;
+	
+	
 	var CartConfigWidget = function(container){
 		CartConfigWidget.superclass.constructor.call(this, container, {
-			'buildTemplate': buildTemplate, 'tnames': 'widget' 
+			'buildTemplate': buildTemplate, 'tnames': 'config' 
 		});
 	};
 	YAHOO.extend(CartConfigWidget, Brick.mod.widget.Widget, {

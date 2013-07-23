@@ -29,6 +29,13 @@ Component.entryPoint = function(NS){
 	NS.Item = SysNS.Item;
 	NS.ItemList = SysNS.ItemList;
 	
+	NS.ORDERSTATUS = {
+		'NEW': 0,
+		'EXEC': 1,
+		'ARCHIVE': 2,
+		'REMOVED': 3
+	};
+	
 	var CatalogItem = function(manager, d){
 		CatalogItem.superclass.constructor.call(this, manager, d);
 	};
@@ -85,6 +92,9 @@ Component.entryPoint = function(NS){
 		},
 		'config': function(){
 			return WS+'manager/ConfigWidget/';
+		},
+		'cartbilling': function(){
+			return WS+'eshopcart/CartBillingWidget/';
 		},
 		'cartconfig': function(){
 			return WS+'eshopcart/CartConfigWidget/';
