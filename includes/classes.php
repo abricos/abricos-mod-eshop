@@ -160,7 +160,17 @@ class EShopCatalogManager extends CatalogModuleManager {
 	 * @return EShopElement
 	 */
 	public function Product($productid){
-		return $this->Element($productid);
+		$el = $this->Element($productid);
+		
+		$ext = $el->detail->optionsBase;
+		
+		$el->ext['price'] = $ext['price'];
+		$el->ext['akc'] = $ext['akc'];
+		$el->ext['new'] = $ext['new'];
+		$el->ext['hit'] = $ext['hit'];
+		$el->ext['sklad'] = $ext['sklad'];
+		
+		return $el;
 	}
 	
 	/**

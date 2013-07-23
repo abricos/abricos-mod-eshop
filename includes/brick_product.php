@@ -149,8 +149,8 @@ for ($i=0;$i<2;$i++){
 	}
 }
 
-$tpTable = $brick->param->var["table"];
-$tpRow = $brick->param->var["row"];
+$tpTable = $v["table"];
+$tpRow = $v["row"];
 
 $brick->content = Brick::ReplaceVarByData($brick->content, array(
 	"optlist" => Brick::ReplaceVarByData($tpTable, array("rows" => $tpRow))
