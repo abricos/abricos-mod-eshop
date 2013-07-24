@@ -341,9 +341,8 @@ Component.entryPoint = function(NS){
 			return this._T['orderclosepanel'];
 		},
 		onLoad: function(){
-			var TM = this._TM, T = this._T, TId = this._TId;
-			this.orderView = new NS.OrderViewWidget(TM.getEl('orderclosepanel.print'), this.orderid);
-			DATA.request();
+			var TM = this._TM;
+			this.orderView = new Brick.mod.eshopcart.OrderViewWidget(TM.getEl('orderclosepanel.print'), this.orderid);
 		},
 		destroy: function(){
 			this.orderView.destroy();
