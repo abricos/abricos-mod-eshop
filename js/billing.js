@@ -10,7 +10,7 @@ Component.requires = {
 	yahoo: ['datasource','tabview','resize'],
 	mod:[
 	     {name: 'sys', files: ['data.js', 'form.js', 'container.js', 'wait.js', 'widgets.js']},
-	     {name: 'eshopcart', files: ['cart.js']},
+	     {name: 'eshopcart', files: ['orderview.js']},
 	     {name: 'eshop', files: ['order.js']}
 	]
 };
@@ -265,9 +265,7 @@ Component.entryPoint = function(NS){
 			
 			// this.orderView = new NS.OrderViewWidget(TM.getEl('orderacceptpanel.print'), orderid);
 			
-			this.orderView = new Brick.mod.eshopcart.OrderingWidget(TM.getEl('orderacceptpanel.print'), {
-				'orderid': this.orderid,
-			});
+			this.orderView = new Brick.mod.eshopcart.OrderViewWidget(TM.getEl('orderacceptpanel.print'), this.orderid);
 
 			DATA.request();
 		},
@@ -293,7 +291,7 @@ Component.entryPoint = function(NS){
 		this.orderid = orderid*1;
 		this.callback = callback;
 		OrderAcceptPanel.superclass.constructor.call(this, {
-			width: '800px',
+			width: '920px',
 			resize: true
 		});
 	};
@@ -332,7 +330,7 @@ Component.entryPoint = function(NS){
 		this.orderid = orderid*1;
 		this.callback = callback;
 		OrderClosePanel.superclass.constructor.call(this, {
-			width: '800px',
+			width: '920px',
 			resize: true
 		});
 	};
@@ -366,11 +364,10 @@ Component.entryPoint = function(NS){
     NS.OrderClosePanel = OrderClosePanel;
 
 	var OrderViewPanel = function(orderid, callback){
-		Brick.console(orderid);
 		this.orderid = orderid|0;
 		this.callback = callback;
 		OrderViewPanel.superclass.constructor.call(this, {
-			width: '800px',
+			width: '920px',
 			resize: true
 		});
 	};
@@ -382,8 +379,7 @@ Component.entryPoint = function(NS){
 		},
 		onLoad: function(){
 			var TM = this._TM;
-			// this.orderView = new NS.OrderViewWidget(TM.getEl('orderviewpanel.print'), this.orderid);
-			this.orderView = new Brick.mod.eshopcart.OrderingWidget(TM.getEl('orderviewpanel.print'));
+			this.orderView = new Brick.mod.eshopcart.OrderViewWidget(TM.getEl('orderviewpanel.print'), this.orderid);
 		},
 		destroy: function(){
 			this.orderView.destroy();
