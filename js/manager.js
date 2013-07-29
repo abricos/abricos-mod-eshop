@@ -5,10 +5,9 @@
 
 var Component = new Brick.Component();
 Component.requires = {
-	yahoo: ['tabview','dragdrop'],
     mod:[
-         {name: 'catalog', files: ['catalog.js','eltype.js']},
-         {name: 'eshop', files: ['billing.js']}
+ 		{name: 'catalog', files: ['catalogmanager.js']},
+		{name: '{C#MODNAME}', files: ['lib.js']}
     ]
 };
 Component.entryPoint = function(NS){
@@ -35,17 +34,5 @@ Component.entryPoint = function(NS){
 		}
 	};
 	NS.ConfigWidget = ConfigWidget;
-	
-	NS.API.showConfigWidget = function(container){
-		var widget = new NS.ConfigWidget(container);
-		return widget;
-	};
-
-	NS.API.showCatalogManagerWidget = function(container){
-		new Brick.mod.catalog.API.showManagerWidget({
-			'container': container, 
-			'mmPrefix': 'eshop'
-		});
-	}
 	
 };

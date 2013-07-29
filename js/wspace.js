@@ -36,6 +36,7 @@ Component.entryPoint = function(NS){
 		'CatalogManagerWidget': 'catalogman',
 		'BillingWidget': 'billing',
 		'ConfigWidget': 'config',
+		'CatalogConfigWidget': 'catalogconfig',
 		'CartBillingWidget': 'cartbilling',
 		'CartConfigWidget': 'cartconfig',
 		'AboutWidget': 'about'
@@ -67,6 +68,7 @@ Component.entryPoint = function(NS){
 				'urlcatalogman': NG.catalogman(),
 				'urlbilling': NG.billing(),
 				'urlconfig': NG.config(),
+				'urlcatalogconfig': NG.catalogconfig(),
 				'urlcartbilling': NG.cartbilling(),
 				'urlcartconfig': NG.cartconfig()
 			};
