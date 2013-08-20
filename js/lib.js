@@ -90,9 +90,6 @@ Component.entryPoint = function(NS){
 		'billing': function(){
 			return WS+'billing/BillingWidget/';
 		},
-		'config': function(){
-			return WS+'manager/ConfigWidget/';
-		},
 		'catalogconfig': function(){
 			return WS+'catalogconfig/CatalogConfigWidget/';
 		},

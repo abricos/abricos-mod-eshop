@@ -35,7 +35,6 @@ Component.entryPoint = function(NS){
 	var GMID = {
 		'CatalogManagerWidget': 'catalogman',
 		'BillingWidget': 'billing',
-		'ConfigWidget': 'config',
 		'CatalogConfigWidget': 'catalogconfig',
 		'CartBillingWidget': 'cartbilling',
 		'CartConfigWidget': 'cartconfig',
@@ -67,7 +66,6 @@ Component.entryPoint = function(NS){
 				'urlhome': NG.home(),
 				'urlcatalogman': NG.catalogman(),
 				'urlbilling': NG.billing(),
-				'urlconfig': NG.config(),
 				'urlcatalogconfig': NG.catalogconfig(),
 				'urlcartbilling': NG.cartbilling(),
 				'urlcartconfig': NG.cartconfig()

@@ -13,26 +13,12 @@
  */
 class EShopModule extends Ab_Module {
 	
-	private $menuData = null;
-	/**
-	 * @var SitemapMenuItem
-	 */
-	public $menu = null;
-	
-	public $currentCatalogItem = null;
-	
 	/**
 	 * Текущий продукт
 	 * 
 	 * @var integer
 	 */
 	public $currentProductId = 0;
-	
-	public $currentProduct = null;
-	
-	private $catalog = null;
-	
-	public $catinfo = array();
 	
 	private $_manager = null;
 	private $_catalogManager = null;
@@ -65,11 +51,6 @@ class EShopModule extends Ab_Module {
 		return $this->_manager;
 	}
 	
-	
-	public function Sitemap_IsMenuBuild(){
-		return true;
-	}
-	
 	/**
 	 * Получить менеджер каталога
 	 * 
@@ -79,7 +60,6 @@ class EShopModule extends Ab_Module {
 		if (is_null($this->_catalogManager)){
 			$this->_catalogManager = Abricos::GetModule('catalog')->GetManager();
 		}
-		CatalogQuery::PrefixSet($this->registry->db, $this->catinfo['dbprefix']);
 		return $this->_catalogManager;
 	}
 	
@@ -106,13 +86,6 @@ class EShopModule extends Ab_Module {
 			$catManager = $this->GetCatalogManager();
 			
 			$this->currentProductId = intval($arr[1]);
-			$this->currentProduct = $catManager->Element($this->currentProductId, true);
-			$el = &$this->currentProduct;
-			 
-			$el['fld_name'] = $el['tl'];
-			$el['fld_metatitle'] = $el['mtl'];
-			$el['fld_metakeys'] = $el['mks'];
-			$el['fld_metadesc'] = $el['mdsc'];
 			
 			return "product";
 		}
@@ -132,75 +105,16 @@ class EShopModule extends Ab_Module {
 		return array($fname, "products");
 	}
 	
-	public function &GetCatalog(){
-		if (!is_null($this->catalog)){
-			return $this->catalog;
-		}
-
-		$db = $this->registry->db;
-		
-		$rows = $this->GetCatalogManager()->CatalogList();
-		$catalog = array();
-		while (($row = $db->fetch_array($rows))){
-			$row["id"] = intval($row["id"]);
-			$row["pid"] = intval($row["pid"]);
-			$row["lvl"] = intval($row["lvl"]);
-			$row["ord"] = intval($row["ord"]);
-			$catalog[$row["id"]] = $row;
-		}
-		$this->catalog = $catalog;
-		return $this->catalog;
-	}
-	
-	public function BuildMenu($smMenu, $full){
-		$adress = $this->registry->adress;
-		
-		foreach ($smMenu->menu->child as $mmenu){
-			if ($mmenu->link == "/".$this->takelink."/"){
-				$this->menu = $mmenu;
-				break;
-			}
-		}
-		if (is_null($this->menu)){ return; }
-		$delta = 1000000;
-		
-		$catalog = $this->GetCatalog();
-		$menuData = array();
-		foreach($catalog as $id => &$row){
-			array_push($menuData, array(
-				'source' => &$row,
-				"id"=> $row['id']+$delta,
-				"pid"=> $row['pid']*1 == 0 ? $this->menu->id : $row['pid']+$delta,
-				"nm"=> $row['nm'],
-				"tl"=> $row['tl'],
-				"dsc"=> $row['dsc'],
-				"lvl"=> $row['lvl'],
-				"ord"=> $row['ord']
-			));
-		}
-		$smMenu->Build($this->menu, $menuData, 1, $full);
-		$product = $this->currentProduct;
-		if (!is_null($product)){
-			array_push($smMenu->menuLine, new SitemapMenuItem(null, 1, 0, 0, 'root', $product['fld_name'], '', count($smMenu->menuLine)));
-		}
-		$this->catalog = &$catalog;
-	}
-	
-	public function GetFullSubCatalogId(SitemapMenuItem $item){
-		$arr = array($item->source['id']);
-		foreach ($item->child as $child){
-			$chids = $this->GetFullSubCatalogId($child);
-			foreach ($chids as $cid){
-				array_push($arr, $cid);
-			}
-		}
-		return $arr;
-	}
-	
 	/**
-	 * Этот модуль делает оффлайн выгрузку
+	 * Этот модуль осуществляет оффлайн выгрузку
 	 */
 	public function Offline_IsBuild(){ return true; }
+	
+	/**
+	 * Этот модуль добавляет пункты меню в главное меню
+	 */
+	public function Sitemap_IsMenuBuild(){ return true; }
+	
 }
 
 class EShopAction {

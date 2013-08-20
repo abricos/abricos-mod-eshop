@@ -13,6 +13,11 @@ require_once 'classes.php';
 class EShopManager extends Ab_ModuleManager {
 
 	/**
+	 * @var EShopModule
+	 */
+	public $module;
+	
+	/**
 	 * @var EShopManager
 	 */
 	public static $instance;
@@ -26,6 +31,25 @@ class EShopManager extends Ab_ModuleManager {
 	 * @var EShopCatalogManager
 	 */
 	public $cManager;
+	
+	/**
+	 * Модуль каталога
+	 * @var CatalogModule
+	 */
+	public $catalog = null;
+	
+	/**
+	 * Менеджер каталога
+	 * @var CatalogManager
+	 */
+	public $catalogManager = null;
+	
+	/**
+	 * @return CatalogManager
+	 */
+	public function GetCatalogManager(){
+		return $this->catalogManager;
+	}
 	
 	private $_isRoleDisabled = false;
 	
@@ -75,38 +99,6 @@ class EShopManager extends Ab_ModuleManager {
 		$ret = $this->cManager->AJAX($d);
 		if (!empty($ret)){ return $ret; }
 		
-		// TODO: на удаление/переделку
-		switch($d->do){
-			case "prodtocart":
-				return $this->CartAppend($d->productid, $d->quantity);
-			case "cartinfo":
-				return $this->CartInfo();
-			case "auth":
-				return $this->Auth($d->login, $d->password);
-			case "checkreg":
-				return $this->CheckUserRegInfo($d->login, $d->email);
-			
-			case "orderbuild":
-				return $this->OrderBuild($d);
-			case "order-remove":
-				return $this->OrderRemove($d->orderid);
-			case "order-accept":
-				return $this->OrderAccept($d->orderid);
-			case "order-close":
-				return $this->OrderClose($d->orderid);
-				
-			case "brick-productlist":
-				Abricos::$adress = new Ab_URI($d->uri); 
-				$smMenu = Abricos::GetModule('sitemap')->GetManager()->GetMenu();
-				$this->module->BuildMenu($smMenu, true);
-				
-				$brick = Brick::$builder->LoadBrickS('eshop', 'product_list', Brick::$builder->brick, array("p" => array(
-					"page" => $d->page,
-					"display" => 'none'
-				)));
-				print($brick->content);
-				exit;
-		}
 		return null;
 	}
 	
@@ -178,16 +170,12 @@ class EShopManager extends Ab_ModuleManager {
 			$mItem->childs->Add($cmItem);
 		}
 	}
-	
+
+	/**/
 	
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	 * TODO: Старая версия методов - на удаление
-	 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-	
-	/**
-	 * @var EShopModule
-	 */
-	public $module;
+	* * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 	
 	/**
 	 * Статус заказа - Новый
@@ -208,41 +196,32 @@ class EShopManager extends Ab_ModuleManager {
 	const ORDER_STATUS_ARHIVE = 2;
 	
 	
-	/**
-	 * Модуль каталога
-	 * @var CatalogModule
-	 */
-	public $catalog = null;
-	
-	/**
-	 * Менеджер каталога
-	 * @var CatalogManager
-	 */
-	public $catalogManager = null;
-	
-	/**
-	 * @return CatalogManager
-	 */
-	public function GetCatalogManager(){
-		return $this->catalogManager;
-	}
-	
 	public function DSProcess($name, $rows){
 		$p = $rows->p;
 		$db = $this->db;
-		
+	
 		switch ($name){
 			case 'cart':
 				foreach ($rows->r as $r){
-					if ($r->f == 'd'){ $this->CartRemove($r->d->id); }
-					if ($r->f == 'u'){ $this->CartUpdate($r->d); }
+					if ($r->f == 'd'){
+						$this->CartRemove($r->d->id);
+					}
+					if ($r->f == 'u'){
+						$this->CartUpdate($r->d);
+					}
 				}
 				return;
 			case 'ordercfg':
 				foreach ($rows->r as $r){
-					if ($r->f == 'u'){ $this->OrderConfigUpdate($r->d); }
-					if ($r->f == 'a'){ $this->OrderConfigAppend($r->d); }
-					if ($r->f == 'd'){ $this->OrderConfigRemove($r->d->id); }
+					if ($r->f == 'u'){
+						$this->OrderConfigUpdate($r->d);
+					}
+					if ($r->f == 'a'){
+						$this->OrderConfigAppend($r->d);
+					}
+					if ($r->f == 'd'){
+						$this->OrderConfigRemove($r->d->id);
+					}
 				}
 				return;
 		}
@@ -250,30 +229,30 @@ class EShopManager extends Ab_ModuleManager {
 	
 	public function DSGetData($name, $rows){
 		$p = $rows->p;
-
+	
 		switch ($name){
 			case 'cart': return $this->Cart($p->orderid);
-			
+				
 			case 'order': return $this->Order($p->orderid);
 			case 'orderitem': return $this->OrderItemList($p->orderid);
-			
-			case 'orders-new':  return $this->Orders('new', $p->page, $p->limit); 
-			case 'orders-exec':  return $this->Orders('exec', $p->page, $p->limit); 
-			case 'orders-arhive':  return $this->Orders('arhive', $p->page, $p->limit); 
-			case 'orders-recycle':  return $this->Orders('recycle', $p->page, $p->limit); 
-			case 'orderscnt-new':  return $this->OrdersCount('new'); 
-			case 'orderscnt-exec':  return $this->OrdersCount('exec'); 
-			case 'orderscnt-arhive':  return $this->OrdersCount('arhive'); 
-			case 'orderscnt-recycle':  return $this->OrdersCount('recycle'); 
-			
-			case 'ordercfg':  return $this->OrderConfigList(); 
-			
+				
+			case 'orders-new':  return $this->Orders('new', $p->page, $p->limit);
+			case 'orders-exec':  return $this->Orders('exec', $p->page, $p->limit);
+			case 'orders-arhive':  return $this->Orders('arhive', $p->page, $p->limit);
+			case 'orders-recycle':  return $this->Orders('recycle', $p->page, $p->limit);
+			case 'orderscnt-new':  return $this->OrdersCount('new');
+			case 'orderscnt-exec':  return $this->OrdersCount('exec');
+			case 'orderscnt-arhive':  return $this->OrdersCount('arhive');
+			case 'orderscnt-recycle':  return $this->OrdersCount('recycle');
+				
+			case 'ordercfg':  return $this->OrderConfigList();
+				
 			case 'delivery':  return $this->DeliveryList();
 			case 'payment':  return $this->PaymentList();
 			case 'discount':  return $this->DiscountList();
-			case 'config':  return array($this->Config()); 
+			case 'config':  return array($this->Config());
 		}
-
+	
 		return null;
 	}
 	
@@ -287,23 +266,23 @@ class EShopManager extends Ab_ModuleManager {
 		if (!is_null($this->_productListData)){
 			return $this->_productListData;
 		}
-		
+	
 		$smMenu = Abricos::GetModule('sitemap')->GetManager()->GetMenu();
 		$catItemMenu = $smMenu->menuLine[count($smMenu->menuLine)-1];
-		
+	
 		// если на конце uri есть запись /pageN/, где N - число, значит запрос страницы
 		$listPage = 1;
-		
+	
 		$adress = Abricos::$adress;
-		
+	
 		$tag = $adress->dir[$adress->level-1];
 		if (substr($tag, 0, 4) == 'page'){
 			$listPage = intval(substr($tag, 4, strlen($tag)-4));
 		}
-		
+	
 		$this->_productListData = array(
-			"listPage" => $listPage,
-			"catids" => $this->module->GetFullSubCatalogId($catItemMenu)
+				"listPage" => $listPage,
+				"catids" => $this->module->GetFullSubCatalogId($catItemMenu)
 		);
 		return $this->_productListData;
 	}
@@ -312,11 +291,11 @@ class EShopManager extends Ab_ModuleManager {
 	 * Проверить данные для регистрации нового пользователя
 	 *
 	 * 0 - ошибки нет,
-	 * 1 - пользователь с таким логином уже зарегистрирован, 
+	 * 1 - пользователь с таким логином уже зарегистрирован,
 	 * 2 - пользователь с таким email уже зарегистрирован
 	 * 3 - ошибка в имени пользователя,
 	 * 4 - ошибка в email
-	 * 
+	 *
 	 * @param string $email
 	 * @param string $login
 	 */
@@ -344,8 +323,8 @@ class EShopManager extends Ab_ModuleManager {
 			sleep(1);
 			return $ret;
 		}
-		$ret->userid = Abricos::$user->session->Get('userid'); 
-		$ret->orderinfo = $this->OrderLastInfo(); 
+		$ret->userid = Abricos::$user->session->Get('userid');
+		$ret->orderinfo = $this->OrderLastInfo();
 		return $ret;
 	}
 	
@@ -367,11 +346,11 @@ class EShopManager extends Ab_ModuleManager {
 				$userid = $user['userid'];
 			}
 		}
-		
+	
 		$od = new stdClass();
 		$od->deliveryid = $data->deli->deliveryid;
 		$od->paymentid = $data->pay->paymentid;
-		
+	
 		$deli = $data->deli;
 		$od->userid = $userid;
 		$od->firstname = $deli->firstname;
@@ -380,90 +359,104 @@ class EShopManager extends Ab_ModuleManager {
 		$od->adress = $deli->adress;
 		$od->extinfo = $deli->extinfo;
 		$od->ip = $_SERVER['REMOTE_ADDR'];
-		
+	
 		$orderid = EShopQuery::OrderAppend($db, $od);
-		
+	
 		EShopQuery::CartUserSessionFixed($db, $userid, $this->userSession);
-		
+	
 		$rows = $this->CartByUserId($userid);
 		while (($row = $db->fetch_array($rows))){
 			EShopQuery::OrderItemAppend($db, $orderid, $row['id'], $row['qty'], $row['pc']);
 		}
 		EShopQuery::CartClear($db, $userid, $this->userSession);
-		
+	
 		$order = $this->db->fetch_array(EShopQuery::Order($this->db, $orderid));
-		
+	
 		// отправить уведомление на емайл админам
 		$config = $this->Config(false);
 		$emails = $config['adm_emails'];
 		$arr = explode(',', $emails);
 		$subject = $config['adm_notify_subj'];
 		$body = Brick::ReplaceVarByData($config['adm_notify'], array(
-			'orderid'=>$orderid,
-			'summ' => $order['sm'],
-			'qty' => $order['qty'],
-		
-			'fnm' => $order['fnm'],
-			'lnm' => $order['lnm'],
-			'phone' => $order['ph'],
-			'adress' => $order['adress'],
-			'extinfo' => $order['extinfo']
+				'orderid'=>$orderid,
+				'summ' => $order['sm'],
+				'qty' => $order['qty'],
+	
+				'fnm' => $order['fnm'],
+				'lnm' => $order['lnm'],
+				'phone' => $order['ph'],
+				'adress' => $order['adress'],
+				'extinfo' => $order['extinfo']
 		));
 		$body = nl2br($body);
-		
+	
 		foreach ($arr as $email){
 			$email = trim($email);
-			if (empty($email)){ continue; }
-			
+			if (empty($email)){
+				continue;
+			}
+				
 			Abricos::Notify()->SendMail($email, $subject, $body);
 		}
 	}
 	
 	/**
-	 * Принять заказ на исполнение 
+	 * Принять заказ на исполнение
 	 */
 	public function OrderAccept($orderid){
-		if (!$this->user->IsAdminMode()){ return null; }
-		
+		if (!$this->user->IsAdminMode()){
+			return null;
+		}
+	
 		$order = $this->Order($orderid);
-		if (empty($order)){ return; }
+		if (empty($order)){
+			return;
+		}
 		EShopQuery::OrderAccept($this->db, $orderid);
 	}
-
+	
 	/**
-	 * Исполнить заказ (закрыть) 
+	 * Исполнить заказ (закрыть)
 	 */
 	public function OrderClose($orderid){
-		if (!$this->user->IsAdminMode()){ return null; }
-		
+		if (!$this->user->IsAdminMode()){
+			return null;
+		}
+	
 		$order = $this->Order($orderid);
-		if (empty($order)){ return; }
+		if (empty($order)){
+			return;
+		}
 		EShopQuery::OrderClose($this->db, $orderid);
 	}
 	
 	/**
 	 * Удалить заказ в корзину
-	 * 
+	 *
 	 * @param integer $orderid идентификатор заказа
 	 */
 	public function OrderRemove($orderid){
-		if (!$this->user->IsAdminMode()){ return null; }
-		
+		if (!$this->user->IsAdminMode()){
+			return null;
+		}
+	
 		$order = $this->Order($orderid);
-		if (empty($order)){ return; }
+		if (empty($order)){
+			return;
+		}
 		EShopQuery::OrderRemove($this->db, $orderid);
 		return $orderid;
 	}
 	
 	/**
-	 * Получить информацию для полей заказа товара 
+	 * Получить информацию для полей заказа товара
 	 *
 	 */
 	public function OrderLastInfo(){
 		return array(
-			"fam"=>"Ivanov",
-			"im"=>"Ivan",
-			"otch"=>"Ivanovich"
+				"fam"=>"Ivanov",
+				"im"=>"Ivan",
+				"otch"=>"Ivanovich"
 		);
 	}
 	
@@ -479,25 +472,27 @@ class EShopManager extends Ab_ModuleManager {
 		}
 		return $this->CartAppend($product->id, $newQty);
 	}
-
+	
 	/**
 	 * Положить товар в корзину текущего пользователя
 	 * @return вернуть информацию по корзине
 	 */
 	public function CartAppend($productid, $quantity){
 		$quantity = bkint($quantity);
-		if ($quantity < 1){ return; }
+		if ($quantity < 1){
+			return;
+		}
 		$db = $this->db;
-		
+	
 		$product = $this->module->GetCatalogManager()->Element($productid, true);
 		if (empty($product)){
 			// попытка добавить несуществующий продукт???
 			return null;
 		}
-		
+	
 		$cartid = EShopQuery::CartAppend($this->db, $this->userid, $this->userSession, $productid, $quantity, $product['fld_price']);
-		
-		return $this->CartInfo(); 
+	
+		return $this->CartInfo();
 	}
 	
 	public function CartItem($productid){
@@ -511,16 +506,16 @@ class EShopManager extends Ab_ModuleManager {
 		}
 		EShopQuery::CartRemove($this->db, $productid);
 	}
-
+	
 	/**
 	 * Получить информацию по корзине текущего пользователя
 	 */
 	public function CartInfo(){
 		$info = EShopQuery::CartInfo($this->db, $this->userid, $this->userSession);
-		
+	
 		return array(
-			'qty' => intval($info['qty']),
-			'sum' => doubleval($info['sm'])
+				'qty' => intval($info['qty']),
+				'sum' => doubleval($info['sm'])
 		);
 	}
 	
@@ -547,27 +542,31 @@ class EShopManager extends Ab_ModuleManager {
 	}
 	
 	/**
-	 * Получить список заказов 
+	 * Получить список заказов
 	 *
 	 */
 	public function Orders($type, $page, $limit){
-		if (!$this->user->IsAdminMode()){ return null; }
+		if (!$this->user->IsAdminMode()){
+			return null;
+		}
 		$status = $this->OrderTypeToStatus($type);
 		return EShopQuery::Orders($this->db, $status, $page, $limit);
 	}
 	
 	public function OrdersCount($type){
-		if (!$this->user->IsAdminMode()){ return null; }
+		if (!$this->user->IsAdminMode()){
+			return null;
+		}
 		$status = $this->OrderTypeToStatus($type);
 		return EShopQuery::OrdersCount($this->db, $status);
 	}
 	
 	/**
-	 * Получить информацию о заказе 
+	 * Получить информацию о заказе
 	 */
 	public function Order($orderid){
 		if ($this->user->IsAdminMode()){
-			return EShopQuery::Order($this->db, $orderid); 
+			return EShopQuery::Order($this->db, $orderid);
 		}else if ($this->userid > 0){
 			return EShopQuery::Order($this->db, $orderid, $this->userid);
 		}
@@ -575,11 +574,11 @@ class EShopManager extends Ab_ModuleManager {
 	}
 	
 	/**
-	 * Получить список продукции конкретного заказа 
+	 * Получить список продукции конкретного заказа
 	 */
 	public function OrderItemList($orderid){
 		if ($this->user->IsAdminMode()){
-			return EShopQuery::OrderItemList($this->db, $orderid); 
+			return EShopQuery::OrderItemList($this->db, $orderid);
 		}else if ($this->userid > 0){
 			return EShopQuery::OrderItemList($this->db, $orderid, $this->userid);
 		}
@@ -591,22 +590,26 @@ class EShopManager extends Ab_ModuleManager {
 	}
 	
 	public function OrderConfigAppend($d){
-		if (!$this->IsAdminRole()){ return null; }
+		if (!$this->IsAdminRole()){
+			return null;
+		}
 		EShopQuery::OrderConfigAppend($this->db, $d);
 	}
 	
 	public function OrderConfigUpdate($d){
-		if (!$this->IsAdminRole()){ return null; }
+		if (!$this->IsAdminRole()){
+			return null;
+		}
 		EShopQuery::OrderConfigUpdate($this->db, $d);
 	}
 	
 	public function OrderConfigRemove($ordercfgid){
-		if (!$this->IsAdminRole()){ return null; }
+		if (!$this->IsAdminRole()){
+			return null;
+		}
 		EShopQuery::OrderConfigRemove($this->db, $ordercfgid);
 	}
 	
-	private function Config($checkAdmin = true){
-	}
 }
 
 ?>
