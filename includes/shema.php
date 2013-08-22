@@ -111,5 +111,11 @@ if ($updateManager->isUpdate('0.2.1') && !$updateManager->isInstall()){
 	
 }
 
-
+if ($updateManager->isUpdate('0.2.2')){
+	$db->query_write("
+		INSERT INTO `".$pfx."ctg_eshp_eloptgroup` (name, title, issystem) VALUES 
+		('specific', 'Технические характеристики', 1)
+");
+	
+}
 ?>
