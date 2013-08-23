@@ -113,6 +113,9 @@ if (!empty($modCart)){
 	$brick->content .= $cartBrick->content;
 }
 
+$ogList = $man->ElementOptionGroupList();
+$ogSpec = $ogList->GetByName("specific");
+$lstOGSpec = "";
 
 $elTypeList = $man->ElementTypeList();
 
@@ -137,17 +140,38 @@ for ($i=0;$i<2;$i++){
 				$replace[$fld] = $tblval['tl'];
 			}
 		}else{
-			$replace[$fld] = $elOpts[$optInfo->name];
+			if ($optInfo->name == 'price'){
+				$replace[$fld] = number_format($elOpts[$optInfo->name], 2, ',', ' ');
+			}else{
+				$replace[$fld] = $elOpts[$optInfo->name];
+			}
 		}
 
 		if (empty($replace[$fld])){
 			// Если опция пуста - пробел, чтобы не рушить верстку
 			$replace[$fld] = '&nbsp;';
+		}else{
+			
+			if ($ogSpec->id == $optInfo->groupid){
+				$lstOGSpec .= Brick::ReplaceVarByData($v['options-specific-row'], array(
+					"tl" => $optInfo->title,
+					"vl" => $replace[$fld]
+				));
+			}
 		}
 
 		$replace["fldnm_".$optInfo->name] = $optInfo->title;
 	}
 }
+
+if (!empty($lstOGSpec)){
+	$replace['options-specific'] = Brick::ReplaceVarByData($v['options-specific'], array(
+		"rows" => $lstOGSpec
+	));
+}else{
+	$replace['options-specific'] = "";	
+}
+
 
 $tpTable = $v["table"];
 $tpRow = $v["row"];

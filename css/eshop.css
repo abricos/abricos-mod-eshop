@@ -129,7 +129,7 @@
 .mod-eshop .product .photos {
 	float: left;
     margin-left: 10px;
-	margin-right: 20px;
+	margin-right: 30px;
     overflow: hidden;
     padding-top: 5px;
     width: 230px;
@@ -184,7 +184,7 @@
 /* Информация о товаре */
 .mod-eshop .product .info {
 	float: left;
-	width: 380px;
+	width: 320px;
 }
 .mod-eshop .product .info dl {
 	clear: both;
@@ -202,6 +202,30 @@
 .mod-eshop .product .info dd {
 	margin: 0 0 4px;
 	word-spacing: -1px;
+}
+
+/* Спецификация */
+.mod-eshop .product .specific {
+	float: left;
+}
+.mod-eshop .product .specific dl {
+	display: block;
+	overflow: hidden;
+	width: 100%;
+	border-bottom: 1px dotted #DDDDDD;
+}
+.mod-eshop .product .specific dt {
+	clear: left;
+	float: left;
+	padding: 5px 0 5px 0;
+	width: 250px;
+}
+.mod-eshop .product .specific dd {
+	float: none;
+	margin-left: 260px;
+	padding: 5px 0 5px 10px;
+	width: 50px;
+	border-left: 1px dotted #DDDDDD;
 }
 
 /* Описание товара */

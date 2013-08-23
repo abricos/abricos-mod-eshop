@@ -12,7 +12,6 @@
 	<dt>{#brick.product.1}:</dt><dd>{v#fld_art}&nbsp;</dd>
 	<dt>{#brick.product.2}:</dt><dd class="brand">{v#fld_brand}&nbsp;</dd>
 	<dt>{#brick.product.3}:</dt><dd>{v#fld_country}&nbsp;</dd>
-	<dt>{#brick.product.4}:</dt><dd>{v#fld_sklad}&nbsp;</dd>
 	<dt>{#brick.product.6}:</dt><dd><b><span class="price">{v#fld_price}</span> {#brick.product.8}</b></dd>
 [/v]
 
@@ -36,6 +35,19 @@
 			<img class="tmbsm" src="{v#src}" alt="{v#fld_name}" onclick="Brick.f('eshop', 'ui', 'showBigPhoto', {fid: '{v#fid}', el: this}); return false;" id="tmb{v#fid}">
 		</span>
 	</div>
+[/v]
+
+[v=options-specific]
+	<div class="specific">
+		{v#rows}
+	</div>
+[/v]
+
+[v=options-specific-row]
+	<dl class="specific-row">
+		<dt>{v#tl}</dt>
+		<dd>{v#vl}</dd>
+	</dl>
 [/v]
 
 [v=sklad0]<div class="center">{#brick.product.12}</div>[/v]
@@ -62,6 +74,9 @@
 				{v#buybutton}
 			</div>
 		</div>
+		
+		{v#options-specific}
+		
 		<br class="clear" />
 		<fieldset class="descript">
 			<legend>{#brick.product.13}</legend>
