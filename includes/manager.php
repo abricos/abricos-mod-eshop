@@ -34,15 +34,19 @@ class EShopManager extends Ab_ModuleManager {
 	
 	/**
 	 * Модуль каталога
+	 * TODO: на удаление
+	 * 
 	 * @var CatalogModule
 	 */
-	public $catalog = null;
+	private $catalog = null;
 	
 	/**
 	 * Менеджер каталога
+	 * TODO: на удаление
+	 * 
 	 * @var CatalogManager
 	 */
-	public $catalogManager = null;
+	private $catalogManager = null;
 	
 	/**
 	 * @return CatalogManager
@@ -62,8 +66,8 @@ class EShopManager extends Ab_ModuleManager {
 		$this->cManager = new EShopCatalogManager();
 		
 		// TODO: на удаление
-		$this->catalog = Abricos::GetModule('catalog');
-		$this->catalogManager = $module->GetCatalogManager();
+		// $this->catalog = Abricos::GetModule('catalog');
+		// $this->catalogManager = $module->GetCatalogManager();
 		
 		$this->userSession = $this->user->session->key;
 	}

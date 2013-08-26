@@ -54,9 +54,11 @@ class EShopModule extends Ab_Module {
 	/**
 	 * Получить менеджер каталога
 	 * 
+	 * TODO: на удаление
+	 * 
 	 * @return CatalogManager
 	 */
-	public function GetCatalogManager(){
+	private function GetCatalogManager(){
 		if (is_null($this->_catalogManager)){
 			$this->_catalogManager = Abricos::GetModule('catalog')->GetManager();
 		}
