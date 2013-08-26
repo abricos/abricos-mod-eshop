@@ -1,8 +1,7 @@
 /*
-* @version $Id$
-* @copyright Copyright (C) 2008 Abricos All rights reserved.
-* @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-*/
+ * @copyright Copyright (C) 2008 Abricos All rights reserved.
+ * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
+ */
 
 // Обработчик интерфейса размещенного на страницах сайта
 var Component = new Brick.Component();
