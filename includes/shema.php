@@ -13,8 +13,10 @@ $updateManager = Ab_UpdateManager::$current;
 $db = Abricos::$db;
 $pfx = $db->prefix;
 
+Abricos::GetModule('catalog')->GetManager();
+
 Abricos::GetModule('eshop');
-$catalogManager = EShopModule::$instance->GetCatalogManager();
+$catalogManager = CatalogManager::$instance;
 $catalogManager->DisableRole();
 
 if ($updateManager->isInstall()){

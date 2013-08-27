@@ -10,16 +10,12 @@ $cManager = EShopModule::$instance->GetManager()->cManager;
 $query = Abricos::CleanGPC('p', 'query', TYPE_STR);
 header('Content-type: text/plain');
 
+$arr = $cManager->SearchAutoComplete($query);
+
+for ($i=0;$i<count($arr);$i++){
+	print($arr[$i]."\n");
+}
 
 exit;
-
-/*
-$man = BlogModule::$instance->GetManager();
-
-$tags = $man->TagListByLikeQuery($query);
-for ($i=0;$i<count($tags);$i++){
-	print ($tags[$i]."\n");
-}
-/**/
 
 ?>

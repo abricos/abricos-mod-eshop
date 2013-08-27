@@ -21,7 +21,12 @@ Component.entryPoint = function(NS){
 	    ds.maxCacheEntries = 60;
 
 		var oAC = new YAHOO.widget.AutoComplete(input, container, ds);
-		oAC.delimChar = [",",";"]; // Enable comma and semi-colon delimiters
+		oAC.animSpeed = 0.1;
+		oAC.minQueryLength = 2;
+		oAC.animHoriz = false;
+		oAC.animVert = false;
+		// oAC.delimChar = [",",";"]; // Enable comma and semi-colon delimiters
+		return oAC;
 	};
 
 	var isSearLineInit = false;
@@ -43,8 +48,8 @@ Component.entryPoint = function(NS){
 			Dom.setStyle(elLoading, 'display', '');
 			
 			Brick.ff('eshop', 'autocomplete', function(){
-				autocompleteInit(elInput, elAc);
 				Dom.setStyle(elLoading, 'display', 'none');
+				autocompleteInit(elInput, elAc);
 			});
 		}
 	};

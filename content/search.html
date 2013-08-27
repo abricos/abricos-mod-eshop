@@ -1,10 +1,29 @@
 <!--[*]
 [tt=main][/tt]
+
 [script]content_search.php[/script]
 
+[bkvar=query][/bkvar]
+[bkvar=result]
+	<p>
+		К сожалению, ваш поиск не дал результатов.
+	</p>
+[/bkvar]
+
+[bkvar=rowcat]
+	<div class="search-row">
+		<a href="{v#url}">{v#tl}</a>
+	</div>
+[/bkvar]
+[bkvar=rowel]
+	<div class="search-row">
+		<a href="{v#url}">{v#tl}</a>
+	</div>
+[/bkvar]
 [*]-->
 <div class="mod-eshop">
 	<div class="search-result">
-		<h2>Результаты поиска</h2>
+		<h2>Результаты поиска по запросу: <i>[bkvar]query[/bkvar]</i></h2>
 	</div>
+	[bkvar]result[/bkvar]
 </div>

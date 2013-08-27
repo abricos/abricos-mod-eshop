@@ -1,4 +1,7 @@
 <!--[*]
+
+[mcss=eshop]eshop.css[/mcss]
+
 [*]-->
 <div class="aw-eshop-searchline">
 	<form action="/eshop/search/" method="get">
@@ -8,7 +11,7 @@
 		</td>
 		<td class="scol">
 			<div class="sinputcont">
-				<input type="text" class="sinput" name="q" onfocus="Brick.f('eshop', 'searchline', 'searchLineInit')"/>
+				<input type="text" class="sinput" name="q" autocomplete="off"/>
 				<img src="/images/loading.gif" class="loading" style="display: none" />
 				<div class="autocompletecont" style="position: relative"></div>
 			</div>
@@ -20,3 +23,7 @@
 	</form>
 	<div class="clear"></div>
 </div>
+
+<script>
+	Brick.f('eshop', 'searchline', 'searchLineInit');
+</script>

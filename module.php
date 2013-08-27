@@ -29,7 +29,7 @@ class EShopModule extends Ab_Module {
 	public static $instance = null;
 	
 	public function EShopModule(){
-		$this->version = "0.2.2.1";
+		$this->version = "0.2.2.3";
 		$this->name = "eshop";
 		$this->takelink = "eshop";
 		$this->catinfo['dbprefix'] = "eshp";
@@ -74,6 +74,7 @@ class EShopModule extends Ab_Module {
 				case 'action':
 				case 'new':
 				case 'hits':
+				case 'search':
 					return $adress->dir[1];
 			}
 		}
