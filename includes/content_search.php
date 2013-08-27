@@ -12,7 +12,6 @@ $query = Abricos::CleanGPC('g', 'q', TYPE_STR);
 $brick->param->var['query'] = $query;
 
 $cManager = EShopModule::$instance->GetManager()->cManager;
-header('Content-type: text/plain');
 
 $catids = array(); $elids = array();
 $arr = $cManager->Search($query);
@@ -26,7 +25,7 @@ for ($i=0;$i<count($arr);$i++){
 	}
 }
 
-if (count($catids) == 0 || count($elids) == 0){
+if (count($catids) == 0 && count($elids) == 0){
 	return;
 }
 
@@ -38,15 +37,12 @@ $lst .= $brickCatList->content;
 
 $elListCfg = new CatalogElementListConfig();
 $elListCfg->elids = $elids;
-$elList = $cManager->ProductList($elListCfg);
 
-for ($i=0; $i<$elList->Count(); $i++){
-	$el = $elList->GetByIndex($i);
-	$lst .= Brick::ReplaceVarByData($brick->param->var['rowel'], array(
-		"tl" => $el->title,
-		"url" => $el->URI()
-	));
-}
+$brickElList = Brick::$builder->LoadBrickS("eshop", "product_list", null, array('p'=>array(
+	"cfg" => $elListCfg
+)));
+$lst .= $brickElList->content;
+
 $brick->param->var['result'] = $lst;
 
 ?>

@@ -289,6 +289,11 @@
 	text-decoration: none;
 }
 
+/* * * Search * * */
+.mod-eshop .search-result h3 {
+	margin-bottom: 10px;
+}
+
 /* * * Search Line * * */
 .aw-eshop-searchline {
 	font-size: 13px;
@@ -320,9 +325,3 @@
 	position: absolute;
 	right: 3px; top: 4px; 
 }
-
-/*
-.aw-eshop-searchline .scol {
-	float: left;
-}
-/**/

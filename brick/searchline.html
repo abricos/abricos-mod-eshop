@@ -2,6 +2,9 @@
 
 [mcss=eshop]eshop.css[/mcss]
 
+[script]brick_searchline.php[/script]
+
+
 [*]-->
 <div class="aw-eshop-searchline">
 	<form action="/eshop/search/" method="get">
@@ -11,7 +14,7 @@
 		</td>
 		<td class="scol">
 			<div class="sinputcont">
-				<input type="text" class="sinput" name="q" autocomplete="off"/>
+				<input type="text" class="sinput" name="q" autocomplete="off" value="{v#query}"/>
 				<img src="/images/loading.gif" class="loading" style="display: none" />
 				<div class="autocompletecont" style="position: relative"></div>
 			</div>
