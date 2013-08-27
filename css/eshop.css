@@ -296,25 +296,33 @@
 .aw-eshop-searchline form {
 	float: right;
 }
-.aw-eshop-searchline .scol {
-	float: left;
-	margin-left: 5px;
+.aw-eshop-searchline td.scol {
+	padding-left: 5px;
 }
 .aw-eshop-searchline .stitle {
-	margin-top: 4px;
+	margin-top: 4px; 
 }
+
 .aw-eshop-searchline .sinputcont {
+    width: 390px;
+    margin-right: 5px;
 	position: relative;
+}
+.aw-eshop-searchline input.sinput {
+	width: 100%;
+	height: 20px;
+    padding: 1px 3px;
+}
+.aw-eshop-searchline .sbutton {
+	padding: 0 7px;
 }
 .aw-eshop-searchline .loading {
 	position: absolute;
 	right: 3px; top: 4px; 
 }
-.aw-eshop-searchline .sinput {
-	height: 20px;
-    padding: 1px 3px;
-    width: 390px;
+
+/*
+.aw-eshop-searchline .scol {
+	float: left;
 }
-.aw-eshop-searchline .sbutton {
-	padding: 0 7px;
-}
+/**/

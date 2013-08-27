@@ -2,21 +2,21 @@
 [*]-->
 <div class="aw-eshop-searchline">
 	<form action="/eshop/search/" method="get">
-		<div class="scol">
+		<table class="stable"><tbody><tr>
+		<td class="scol">
 			<div class="stitle">Поиск</div>
-		</div>
-		<div class="scol sinputcont">
-			<input type="text" class="sinput" name="q" onfocus="Brick.f('eshop', 'searchline', 'searchLineInit')"/>
-			<img src="/images/loading.gif" class="loading" style="display: none" />
-			<div class="autocompletecont" style="position: relative"></div>
-		</div>
-		<div class="scol">
+		</td>
+		<td class="scol">
+			<div class="sinputcont">
+				<input type="text" class="sinput" name="q" onfocus="Brick.f('eshop', 'searchline', 'searchLineInit')"/>
+				<img src="/images/loading.gif" class="loading" style="display: none" />
+				<div class="autocompletecont" style="position: relative"></div>
+			</div>
+		</td>
+		<td class="scol">
 			<input type="submit" value="Найти" class="sbutton" />
-		</div>
-		<div class="clear"></div>
+		</td>
+		</tr></tbody></table>
 	</form>
 	<div class="clear"></div>
 </div>
-
-<script>
-</script>

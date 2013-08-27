@@ -4,7 +4,7 @@
 */
 var Component = new Brick.Component();
 Component.requires = {
-    yahoo: ['event', 'datasource', 'autocomplete', 'dragdrop']
+    yahoo: ['connection', 'animation', 'datasource', 'autocomplete']
 };
 Component.entryPoint = function(NS){
 	
