@@ -10,18 +10,6 @@ $brick = Brick::$builder->brick;
 $v = &$brick->param->var;
 $p = &$brick->param->param;
 
-$man = EShopModule::$instance->GetManager()->cManager;
-
-$catList = $man->CatalogList();
-
-$cCat = $man->CatalogByAdress();
-
-if (empty($cCat)){
-	$brick->content = ""; return;
-}
-
-$cCat = $catList->Find($cCat->id);
-
 $imgWidth = bkint($p['imgw']);
 $imgHeight = bkint($p['imgh']);
 
@@ -30,11 +18,28 @@ Abricos::GetModule('filemanager')->EnableThumbSize(array(array(
 	"h" => $imgHeight
 )));
 
+$man = EShopModule::$instance->GetManager()->cManager;
 
-$count = $cCat->childs->Count();
+$catList = $man->CatalogList();
+
+if (!empty($p['catids'])){
+	$catids = explode(",", $p['catids']);
+	$cCatList = $man->CatalogListByIds($catids);
+}else{
+	$cCat = $man->CatalogByAdress();
+	
+	if (empty($cCat)){
+		$brick->content = ""; return;
+	}
+	
+	$cCat = $catList->Find($cCat->id);
+	$cCatList = $cCat->childs;
+}
+
+$count = $cCatList->Count();
 
 for ($i=0; $i<$count; $i++){
-	$cat = $cCat->childs->GetByIndex($i);
+	$cat = $cCatList->GetByIndex($i);
 	
 	if (empty($cat->foto)){
 		$image = $v["imgempty"];

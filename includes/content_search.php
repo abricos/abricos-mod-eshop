@@ -30,16 +30,11 @@ if (count($catids) == 0 || count($elids) == 0){
 	return;
 }
 
-$catList = $cManager->CatalogListLine();
+$brickCatList = Brick::$builder->LoadBrickS("eshop", "catalog_list", null, array('p'=>array(
+	"catids" => implode(",", $catids)
+)));
 
-$lst = "";
-for ($i=0; $i<count($catids); $i++){
-	$cat = $catList->Get($catids[$i]);
-	$lst .= Brick::ReplaceVarByData($brick->param->var['rowcat'], array(
-		"tl" => $cat->title,
-		"url" => $cat->URI()
-	));
-}
+$lst .= $brickCatList->content;
 
 $elListCfg = new CatalogElementListConfig();
 $elListCfg->elids = $elids;
