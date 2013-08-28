@@ -13,7 +13,7 @@ Component.entryPoint = function(NS){
 	var Dom = YAHOO.util.Dom,
 		L = YAHOO.lang;
 	
-	var autocompleteInit = function(input, container){
+	var autocompleteInit = function(input, container, elFField, elFValue){
 	    var ds = new YAHOO.util.XHRDataSource('/ajax/eshop/js_search/');
 	    ds.connMethodPost = true;  
 	    ds.responseSchema = {recordDelim:"\n", fieldDelim: "\t"};
@@ -26,6 +26,14 @@ Component.entryPoint = function(NS){
 		oAC.animHoriz = false;
 		oAC.animVert = false;
 		// oAC.delimChar = [",",";"]; // Enable comma and semi-colon delimiters
+
+		if (L.isValue(elFField) && L.isValue(elFValue)){
+			oAC.generateRequest = function(q){
+				return "eff="+ encodeURIComponent(elFField.value)
+					+"&ef="+encodeURIComponent(elFValue.value)+"&query="+q;
+			};
+		}
+		
 		return oAC;
 	};
 
@@ -41,7 +49,9 @@ Component.entryPoint = function(NS){
 		for (var i=0;i<elCont.length;i++){
 			var elInput = Dom.getElementsByClassName('sinput', 'input', elCont[i])[0],
 				elLoading = Dom.getElementsByClassName('loading', '', elCont[i])[0],
-				elAc = Dom.getElementsByClassName('autocompletecont', '', elCont[i])[0];
+				elAc = Dom.getElementsByClassName('autocompletecont', '', elCont[i])[0],
+				elFilter = Dom.getElementsByClassName('sfilter', 'select', elCont[i])[0],
+				elFilterField = Dom.getElementsByClassName('sfilterfield', 'input', elCont[i])[0];
 
 			if (!L.isValue(elInput) || !L.isValue(elAc)){ continue; }
 			
@@ -49,7 +59,7 @@ Component.entryPoint = function(NS){
 			
 			Brick.ff('eshop', 'autocomplete', function(){
 				Dom.setStyle(elLoading, 'display', 'none');
-				autocompleteInit(elInput, elAc);
+				autocompleteInit(elInput, elAc, elFilterField, elFilter);
 			});
 		}
 	};

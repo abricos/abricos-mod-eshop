@@ -4,6 +4,29 @@
 
 [script]brick_searchline.php[/script]
 
+[p=extfilter][p]
+[pdesc=extfilter]
+	Дополнительное поле-фильтр в поиске 
+	Например: brand:выбор по производителю
+[/pdesc]
+
+[bkvar=textfilter]
+	<td class="scol sextfilter">
+		{v#select}
+		<input class="sfilterfield" type="hidden" name="eff" value="{v#fld}" />
+	</td>
+[/bkvar]
+
+[bkvar=select]
+	<select name="ef" class="sfilter">
+		<option value="0">{v#tl}</option>
+		{v#rows}
+	</select>
+[/bkvar]
+[bkvar=option]
+	<option value="{v#id}">{v#tl}</option>
+[/bkvar]
+
 
 [*]-->
 <div class="aw-eshop-searchline">
@@ -19,6 +42,7 @@
 				<div class="autocompletecont" style="position: relative"></div>
 			</div>
 		</td>
+		{v#extfiltercol}
 		<td class="scol">
 			<input type="submit" value="Найти" class="sbutton" />
 		</td>

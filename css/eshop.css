@@ -309,7 +309,7 @@
 }
 
 .aw-eshop-searchline .sinputcont {
-    width: 390px;
+    width: 350px;
     margin-right: 5px;
 	position: relative;
 }
@@ -324,4 +324,11 @@
 .aw-eshop-searchline .loading {
 	position: absolute;
 	right: 3px; top: 4px; 
+}
+.aw-eshop-searchline .sextfilter {
+	width: 250px;
+}
+.aw-eshop-searchline .sextfilter select {
+	width: 100%;
+    padding: 3px 3px;
 }

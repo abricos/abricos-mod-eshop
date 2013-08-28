@@ -8,9 +8,12 @@
 
 $cManager = EShopModule::$instance->GetManager()->cManager;
 $query = Abricos::CleanGPC('p', 'query', TYPE_STR);
+$extFilterField = Abricos::CleanGPC('p', 'eff', TYPE_STR);
+$extFilterValue = Abricos::CleanGPC('p', 'ef', TYPE_STR);
+
 header('Content-type: text/plain');
 
-$arr = $cManager->SearchAutoComplete($query);
+$arr = $cManager->SearchAutoComplete($query, $extFilterField, $extFilterValue);
 
 for ($i=0;$i<count($arr);$i++){
 	print($arr[$i]."\n");
