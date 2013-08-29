@@ -13,16 +13,25 @@ $pFField = Abricos::CleanGPC('g', 'eff', TYPE_STR);
 $pFValue = Abricos::CleanGPC('g', 'ef', TYPE_STR);
 
 $brick->param->var['query'] = $pQuery;
+$p = &$brick->param->param;
+$v = &$brick->param->var;
 
 $cManager = EShopModule::$instance->GetManager()->cManager;
 
 $catids = array(); $elids = array();
 $arr = $cManager->Search($pQuery, $pFField, $pFValue);
 
+$redirectCat = 0;
+
 for ($i=0;$i<count($arr);$i++){
 	$row = $arr[$i];
 	if ($row['tp'] == "c"){
 		array_push($catids, $row['id']);
+
+		// переход на раздел, если он релевантный поиску
+		if ($row['tl'] == $pQuery){
+			$redirectCat = $row['id'];
+		}
 	}else if ($row['tp'] == "e"){
 		array_push($elids, $row['id']);
 	}
@@ -47,5 +56,22 @@ $brickElList = Brick::$builder->LoadBrickS("eshop", "product_list", null, array(
 $lst .= $brickElList->content;
 
 $brick->param->var['result'] = $lst;
+
+if ($redirectCat > 0){
+	$cat = $cManager->CatalogList()->Find($redirectCat);
+	$v['redirect'] = Brick::ReplaceVarByData($v['redirectt'], array(
+		"url" => $cat->URI()
+	));
+	header("Location: ".$cat->URI());
+}else if (count($elids) == 1){
+	$el = $cManager->Element($elids[0]);
+	if (!empty($el)){
+		$v['redirect'] = Brick::ReplaceVarByData($v['redirectt'], array(
+			"url" => $el->URI()
+		));
+		header("Location: ".$el->URI());
+	}
+}
+
 
 ?>

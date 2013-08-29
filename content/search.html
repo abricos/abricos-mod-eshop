@@ -15,6 +15,11 @@
 		<a href="{v#url}">{v#tl}</a>
 	</div>
 [/bkvar]
+
+[bkvar=redirectt]
+	<script>Brick.Page.reload('{v#url}');</script>
+[/bkvar]
+[bkvar=redirect][/bkvar]
 [*]-->
 <div class="mod-eshop">
 	<div class="search-result">
@@ -22,3 +27,4 @@
 	</div>
 	[bkvar]result[/bkvar]
 </div>
+[bkvar]redirect[/bkvar]
