@@ -13,30 +13,6 @@ Component.entryPoint = function(NS){
 	var Dom = YAHOO.util.Dom,
 		L = YAHOO.lang;
 	
-	var autocompleteInit = function(input, container, elFField, elFValue){
-	    var ds = new YAHOO.util.XHRDataSource('/ajax/eshop/js_search/');
-	    ds.connMethodPost = true;  
-	    ds.responseSchema = {recordDelim:"\n", fieldDelim: "\t"};
-	    ds.responseType = YAHOO.util.XHRDataSource.TYPE_TEXT;
-	    ds.maxCacheEntries = 60;
-
-		var oAC = new YAHOO.widget.AutoComplete(input, container, ds);
-		oAC.animSpeed = 0.1;
-		oAC.minQueryLength = 2;
-		oAC.animHoriz = false;
-		oAC.animVert = false;
-		// oAC.delimChar = [",",";"]; // Enable comma and semi-colon delimiters
-
-		if (L.isValue(elFField) && L.isValue(elFValue)){
-			oAC.generateRequest = function(q){
-				return "eff="+ encodeURIComponent(elFField.value)
-					+"&ef="+encodeURIComponent(elFValue.value)+"&query="+q;
-			};
-		}
-		
-		return oAC;
-	};
-
 	var isSearLineInit = false;
 	NS.API.searchLineInit = function(){
 		if (isSearLineInit){ return; }
@@ -48,10 +24,11 @@ Component.entryPoint = function(NS){
 		
 		for (var i=0;i<elCont.length;i++){
 			var elInput = Dom.getElementsByClassName('sinput', 'input', elCont[i])[0],
+				elForm = Dom.getElementsByClassName('sform', 'form', elCont[i])[0],
 				elLoading = Dom.getElementsByClassName('loading', '', elCont[i])[0],
 				elAc = Dom.getElementsByClassName('autocompletecont', '', elCont[i])[0],
-				elFilter = Dom.getElementsByClassName('sfilter', 'select', elCont[i])[0],
-				elFilterField = Dom.getElementsByClassName('sfilterfield', 'input', elCont[i])[0];
+				elFValue = Dom.getElementsByClassName('sfilter', 'select', elCont[i])[0],
+				elFField = Dom.getElementsByClassName('sfilterfield', 'input', elCont[i])[0];
 
 			if (!L.isValue(elInput) || !L.isValue(elAc)){ continue; }
 			
@@ -59,7 +36,33 @@ Component.entryPoint = function(NS){
 			
 			Brick.ff('eshop', 'autocomplete', function(){
 				Dom.setStyle(elLoading, 'display', 'none');
-				autocompleteInit(elInput, elAc, elFilterField, elFilter);
+				
+				var ds = new YAHOO.util.XHRDataSource('/ajax/eshop/js_search/');
+			    ds.connMethodPost = true;  
+			    ds.responseSchema = {recordDelim:"\n", fieldDelim: "\t"};
+			    ds.responseType = YAHOO.util.XHRDataSource.TYPE_TEXT;
+			    ds.maxCacheEntries = 60;
+
+				var oAC = new YAHOO.widget.AutoComplete(elInput, elAc, ds);
+				oAC.animSpeed = 0.1;
+				oAC.minQueryLength = 2;
+				oAC.animHoriz = false;
+				oAC.animVert = false;
+				oAC.maxResultsDisplayed = 20; 
+
+				if (L.isValue(elFField) && L.isValue(elFValue)){
+					oAC.generateRequest = function(q){
+						return "eff="+ encodeURIComponent(elFField.value)
+							+"&ef="+encodeURIComponent(elFValue.value)+"&query="+q;
+					};
+				}
+				
+				oAC.itemSelectEvent.subscribe(function(sType, aArgs){
+					if (L.isValue(elForm) && L.isFunction(elForm.submit)){
+						elForm.submit();
+					}
+				});				
+				
 			});
 		}
 	};

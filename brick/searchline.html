@@ -30,14 +30,14 @@
 
 [*]-->
 <div class="aw-eshop-searchline">
-	<form action="/eshop/search/" method="get">
+	<form action="/eshop/search/" method="get" class="sform">
 		<table class="stable"><tbody><tr>
 		<td class="scol">
 			<div class="stitle">Поиск</div>
 		</td>
 		<td class="scol">
 			<div class="sinputcont">
-				<input type="text" class="sinput" name="q" autocomplete="off" value="{v#query}"/>
+				<input type="text" class="sinput" name="q" autocomplete="off" value="{v#query}" onfocus="select()"/>
 				<img src="/images/loading.gif" class="loading" style="display: none" />
 				<div class="autocompletecont" style="position: relative"></div>
 			</div>
