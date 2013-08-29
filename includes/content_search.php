@@ -8,13 +8,16 @@
 
 $brick = Brick::$builder->brick;
 
-$query = Abricos::CleanGPC('g', 'q', TYPE_STR);
-$brick->param->var['query'] = $query;
+$pQuery = Abricos::CleanGPC('g', 'q', TYPE_STR);
+$pFField = Abricos::CleanGPC('g', 'eff', TYPE_STR);
+$pFValue = Abricos::CleanGPC('g', 'ef', TYPE_STR);
+
+$brick->param->var['query'] = $pQuery;
 
 $cManager = EShopModule::$instance->GetManager()->cManager;
 
 $catids = array(); $elids = array();
-$arr = $cManager->Search($query);
+$arr = $cManager->Search($pQuery, $pFField, $pFValue);
 
 for ($i=0;$i<count($arr);$i++){
 	$row = $arr[$i];
