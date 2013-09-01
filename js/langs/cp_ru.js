@@ -1,9 +1,9 @@
-Brick.util.Language.add('ru',{'mod': {'{C#MODNAME}':{
-	'cp': {
-		'title': {
-			'operator': 'Каталог продукции',
-			'admin': 'Настройка магазина',
-			'billing': 'Заказы в магазине'
-		}
-	}
+Brick.util.Language.add('ru',{'mod':{'{C#MODNAME}': {
+	'title': 'Интернет-магазин',
+	'roles':{
+		'10': 'Чтение',
+		'30': 'Запись',
+		'50': 'Администрирование'
+	},
+	'cp':{'title': 'Интернет-магазин' }
 }}});
