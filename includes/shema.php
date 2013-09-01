@@ -25,6 +25,7 @@ function EShopOptionAppend($name, $title, $type, $size = ''){
 	$d->nm = $name;
 	$d->tl = $title;
 	$d->tp = $type;
+	$d->sz = $size;
 	return $cManager->ElementOptionSave(0, $d);
 }
 
