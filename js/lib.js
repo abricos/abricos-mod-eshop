@@ -29,13 +29,6 @@ Component.entryPoint = function(NS){
 	NS.Item = SysNS.Item;
 	NS.ItemList = SysNS.ItemList;
 	
-	NS.ORDERSTATUS = {
-		'NEW': 0,
-		'EXEC': 1,
-		'ARCHIVE': 2,
-		'REMOVED': 3
-	};
-	
 	var CatalogItem = function(manager, d){
 		CatalogItem.superclass.constructor.call(this, manager, d);
 	};
