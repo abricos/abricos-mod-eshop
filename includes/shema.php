@@ -132,7 +132,12 @@ if ($updateManager->isUpdate('0.2.2')){
 	$db->query_write("
 		INSERT INTO `".$pfx."ctg_eshp_eloptgroup` (name, title, issystem) VALUES 
 		('specific', 'Технические характеристики', 1)
-");
-	
+	");
 }
+
+
+if ($updateManager->isUpdate('0.2.3') && !$updateManager->isInstall()){
+	Abricos::GetModule('eshop')->permission->Reinstall();
+}
+
 ?>

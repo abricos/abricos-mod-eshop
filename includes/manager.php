@@ -88,6 +88,16 @@ class EShopManager extends Ab_ModuleManager {
 		return $this->IsRoleEnable(EShopAction::ADMIN);
 	}
 	
+	public function IsModeratorRole(){
+		if ($this->IsAdminRole()){ return true; }
+		return $this->IsRoleEnable(EShopAction::MODERATOR);
+	}
+	
+	public function IsOperatorRole(){
+		if ($this->IsAdminRole()){ return true; }
+		return $this->IsRoleEnable(EShopAction::OPERATOR);
+	}
+	
 	public function IsWriteRole(){
 		if ($this->IsAdminRole()){ return true; }
 		return $this->IsRoleEnable(EShopAction::WRITE);

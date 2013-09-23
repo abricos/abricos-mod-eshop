@@ -104,10 +104,13 @@ Component.entryPoint = function(NS){
 	NS.manager = null;
 	
 	NS.initManager = function(callback){
-		NSCat.initManager('{C#MODNAME}', callback, {
-			'CatalogItemClass': NS.CatalogItem,
-			'ElementClass': NS.Element,
-			'language': LNG
+		R.load(function(){
+			NSCat.initManager('{C#MODNAME}', callback, {
+				'roles': R,
+				'CatalogItemClass': NS.CatalogItem,
+				'ElementClass': NS.Element,
+				'language': LNG
+			});
 		});
 	};
 	

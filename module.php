@@ -33,7 +33,7 @@ class EShopModule extends Ab_Module {
 	);
 	
 	public function EShopModule(){
-		$this->version = "0.2.2.4";
+		$this->version = "0.2.3";
 		$this->name = "eshop";
 		$this->takelink = "eshop";
 		// $this->catinfo['dbprefix'] = "eshp";
@@ -127,6 +127,8 @@ class EShopModule extends Ab_Module {
 class EShopAction {
 	const VIEW = 10;
 	const WRITE = 30;
+	const OPERATOR = 40;
+	const MODERATOR = 45;
 	const ADMIN = 50;
 }
 
@@ -139,6 +141,8 @@ class EShopPermission extends Ab_UserPermission {
 			new Ab_UserRole(EShopAction::VIEW, Ab_UserGroup::ADMIN),
 
 			new Ab_UserRole(EShopAction::WRITE, Ab_UserGroup::ADMIN),
+			new Ab_UserRole(EShopAction::OPERATOR, Ab_UserGroup::ADMIN),
+			new Ab_UserRole(EShopAction::MODERATOR, Ab_UserGroup::ADMIN),
 
 			new Ab_UserRole(EShopAction::ADMIN, Ab_UserGroup::ADMIN),
 		);
@@ -149,6 +153,8 @@ class EShopPermission extends Ab_UserPermission {
 		return array(
 			EShopAction::VIEW => $this->CheckAction(EShopAction::VIEW),
 			EShopAction::WRITE => $this->CheckAction(EShopAction::WRITE),
+			EShopAction::OPERATOR => $this->CheckAction(EShopAction::OPERATOR),
+			EShopAction::MODERATOR => $this->CheckAction(EShopAction::MODERATOR),
 			EShopAction::ADMIN => $this->CheckAction(EShopAction::ADMIN)
 		);
 	}
