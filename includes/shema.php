@@ -130,8 +130,8 @@ if ($updateManager->isUpdate('0.2.1') && !$updateManager->isInstall()){
 
 if ($updateManager->isUpdate('0.2.2')){
 	$db->query_write("
-		INSERT INTO `".$pfx."ctg_eshp_eloptgroup` (name, title, issystem) VALUES 
-		('specific', 'Технические характеристики', 1)
+		INSERT INTO `".$pfx."ctg_eshp_eloptgroup` (name, title, issystem, language) VALUES 
+		('specific', 'Технические характеристики', 1, 'ru')
 	");
 }
 
@@ -140,4 +140,11 @@ if ($updateManager->isUpdate('0.2.3') && !$updateManager->isInstall()){
 	Abricos::GetModule('eshop')->permission->Reinstall();
 }
 
+if ($updateManager->isUpdate('0.2.3.1') && !$updateManager->isInstall()){
+	$db->query_write("
+		UPDATE `".$pfx."ctg_eshp_eloptgroup` 
+		SET language='ru'
+		WHERE language=''
+	");
+}
 ?>
