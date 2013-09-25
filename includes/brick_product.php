@@ -118,6 +118,7 @@ $ogSpec = $ogList->GetByName("specific");
 $lstOGSpec = "";
 
 $elTypeList = $man->ElementTypeList();
+$replaceOption = array();
 
 for ($i=0;$i<2;$i++){
 	$elOpts = $el->detail->optionsBase;
@@ -147,6 +148,10 @@ for ($i=0;$i<2;$i++){
 			}
 		}
 
+		if (!empty($v['option-'.$optInfo->name])){
+			$replaceOption['option-'.$optInfo->name] = empty($replace[$fld]) ? "" : $v['option-'.$optInfo->name];
+		}
+		
 		if (empty($replace[$fld])){
 			// Если опция пуста - пробел, чтобы не рушить верстку
 			$replace[$fld] = '&nbsp;';
@@ -161,6 +166,7 @@ for ($i=0;$i<2;$i++){
 		}
 
 		$replace["fldnm_".$optInfo->name] = $optInfo->title;
+		
 	}
 }
 
@@ -172,13 +178,13 @@ if (!empty($lstOGSpec)){
 	$replace['options-specific'] = "";	
 }
 
-
 $tpTable = $v["table"];
 $tpRow = $v["row"];
 
 $brick->content = Brick::ReplaceVarByData($brick->content, array(
 	"optlist" => Brick::ReplaceVarByData($tpTable, array("rows" => $tpRow))
 ));
+$brick->content = Brick::ReplaceVarByData($brick->content, $replaceOption);
 $brick->content = Brick::ReplaceVarByData($brick->content, $replace);
 
 // Вывод заголовка страницы.
@@ -199,7 +205,7 @@ if (!empty($el->detail->metaDesc) && $el->detail->metaDesc !="&nbsp;"){
 /* * * * * * * * * * Старый метод - на удаление * * * * * * * */
 return; // TODO: Удалить старый код  * * * * * * * * * * * * * /
 /* * * * * * * * * * Старый метод - на удаление * * * * * * * */
-
+/*
 $catItemMenu = $mod->currentCatalogItem; 
 $catItem = $catItemMenu->source;
 $productid = $mod->currentProductId;
@@ -330,6 +336,8 @@ foreach ($etArr as $etRow){
 }
 $replace["fld_name"] = $el['tl'];
 
+
+
 $tpTable = $v["table"];
 $tpRow = $v["row"];
 $elTypeId = $el['eltid'];
@@ -348,5 +356,5 @@ $brick->content = Brick::ReplaceVarByData($brick->content, array(
 	"optlist" => Brick::ReplaceVarByData($tpTable, array("rows" => $tpRow))
 ));
 $brick->content = Brick::ReplaceVarByData($brick->content, $replace);
-
+/**/
 ?>

@@ -9,10 +9,20 @@
 [/v]
 
 [v=row]
-	<dt>{#brick.product.1}:</dt><dd>{v#fld_art}&nbsp;</dd>
-	<dt>{#brick.product.2}:</dt><dd class="brand">{v#fld_brand}&nbsp;</dd>
-	<dt>{#brick.product.3}:</dt><dd>{v#fld_country}&nbsp;</dd>
+	{v#option-art}
+	{v#option-brand}
+	{v#option-country}
 	<dt>{#brick.product.6}:</dt><dd><b><span class="price">{v#fld_price}</span> {#brick.product.8}</b></dd>
+[/v]
+
+[v=option-art]
+	<dt>{#brick.product.1}:</dt><dd>{v#fld_art}&nbsp;</dd>
+[/v]
+[v=option-brand]
+	<dt>{#brick.product.2}:</dt><dd class="brand">{v#fld_brand}&nbsp;</dd>
+[/v]
+[v=option-country]
+	<dt>{#brick.product.3}:</dt><dd>{v#fld_country}&nbsp;</dd>
 [/v]
 
 [mod=filemanager]enthumbs|list=200x200/40x40[/mod]
