@@ -25,28 +25,6 @@
 	<dt>{#brick.product.3}:</dt><dd>{v#fld_country}&nbsp;</dd>
 [/v]
 
-[mod=filemanager]enthumbs|list=200x200/40x40[/mod]
-[p=imgsize]200x200[/p]
-[p=imgsizesm]40x40[/p]
-[p=imglimit]5[/p]
-
-[v=img]
-	<img id="bigPhoto" onclick="Brick.f('eshop', 'ui', 'showMaxPhoto', this); return false;" class="big img-product-{v#productid}" alt="{v#fld_name}" src="{v#src}">
-	<a href="{v#srcf}" style="display: none" class="photo"></a>
-	<a href="" onclick="Brick.f('eshop', 'ui', 'showMaxPhoto', document.getElementById('bigPhoto')); return false;" class="showbig">увеличить</a>
-[/v]
-[v=imgempty]
-	<div class="rel"><a title="{v#fld_name}" href="#"><img width="200px" height="200px" alt="{v#fld_name}" src="/modules/eshop/images/empty.gif"></a><span class="nophoto">{#brick.product.9}</span></div>
-[/v]
-
-[v=imgsm]
-	<div class="tmb tmb40">
-		<span class="tmbpre">
-			<img class="tmbsm" src="{v#src}" alt="{v#fld_name}" onclick="Brick.f('eshop', 'ui', 'showBigPhoto', {fid: '{v#fid}', el: this}); return false;" id="tmb{v#fid}">
-		</span>
-	</div>
-[/v]
-
 [v=options-specific]
 	<div class="specific">
 		{v#rows}
@@ -60,25 +38,13 @@
 	</dl>
 [/v]
 
-[v=sklad0]<div class="center">{#brick.product.12}</div>[/v]
 [*]-->
 <div class="mod-eshop">
 	<div id="view_item" class="product hproduct">
 		<h3 class="fn">{v#fld_name}</h3>
 		
 		<div class="photoinfoblock">
-			<div class="photos">
-				<div id="bigPhotoDiv" class="tmb tmb200">
-					<span class="tmbpre">
-						{v#image}
-					</span>
-					<img width="31" height="31" src="/modules/eshop/images/loader.gif" alt="Loading" id="loading" style="display: none;">
-				</div>
-				<div class="lstsm">
-					{v#imagelist}
-				</div>
-				<div class="clear"></div>
-			</div>   
+			{v#brickfoto}
 			<div class="info">
 				{v#optlist}
 				<div class="add2cart">
@@ -112,11 +78,8 @@
 </div>
 
 <script type="text/javascript">
-	var photosData={"{v#cphoto}":{mw:250,mh:250,bw:200,bh:200}{v#otherphoto}}, pidCurrent="{v#cphoto}";
-	
 	Brick.ff('eshop', 'tabview', function(){
 		new YAHOO.widget.TabView('mod-eshop-maintab');
 	});
-	
 </script>
 
