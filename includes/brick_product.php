@@ -6,6 +6,25 @@
  * @author Alexander Kuzmin <roosit@abricos.org>
  */
 
+/*
+ * Кирпич product
+ * 
+ * Интернет-магазины очень разные, а перегрузка этого кирпича влечет
+ * неприятные последствия сопровождения с выходом новых версий.
+ * Поэтому разработан приближено к универсальному механизм сборки страницы 
+ * товара, смыслк которого в разбиение на блоки. Эти блоки уже проще
+ * сопровождать в шаблонах, перегружая не весь кирпич, а только определенный
+ * блок
+ * 
+ * Переменные:
+ * includebrick - перечень подключаемых кирпичей
+ * 
+ * Параметры:
+ * includebrick - дополнительный перечень подключаемых кирпичей, 
+ *		который можно задать в параметрах из родителя  
+ *
+ */
+
 $brick = Brick::$builder->brick;
 $p = &$brick->param->param;
 $v = &$brick->param->var;
@@ -16,50 +35,45 @@ EShopModule::$instance->GetManager();
 $man = EShopModule::$instance->GetManager()->cManager;
 $modCart = Abricos::GetModule('eshopcart');
 
-
-$productid = $mod->currentProductId;
-$el = $man->Product($productid);
+$elementid = $mod->currentProductId;
+$el = $man->Product($elementid);
 $cat = $man->Catalog($el->catid);
 
-// заменяем данные по текущей категории, если нужно
-$brick->content = Brick::ReplaceVarByData($brick->content, array(
-	"cattitle" => $cat->title,
-	"catdesc" => $cat->detail->descript
-));
+// динамически подключить кирпичи
+$sIncBricks =  $v['includebrick'];
+if (!empty($p['includebrick'])){
+	$sIncBricks .= ",".$p['includebrick'];
+}
 
-$brickFoto = Brick::$builder->LoadBrickS("eshop", "product-foto", null, array("p" => array(
-	"element" => $el
-)));
+$replaceBrick = array();
 
-$brick->content = Brick::ReplaceVarByData($brick->content,  array(
-	"options" => Brick::ReplaceVarByData($v["options"],  array(
-		"overoptions" => $v["options".$el->elTypeId],
-	)),
-	"brickfoto" => $brickFoto->content
-));
+$aIncBricks = explode(",", $sIncBricks);
+foreach ($aIncBricks as $sIncBrick){
+	$sIncBrick = trim($sIncBrick);
+	if (empty($sIncBrick)){ continue; }
+	$incBrick = Brick::$builder->LoadBrickS("eshop", $sIncBrick, null, array("p" => array(
+		"element" => $el,
+		"cat" => $cat
+	)));
+	
+	$replaceBrick["brick_".$sIncBrick] = empty($incBrick) ? "" : $incBrick->content;
+}
+$brick->content = Brick::ReplaceVarByData($brick->content,  $replaceBrick);
 
 $replace = array(
 	"link" => $el->URI(),
-	"elementid" => $productid,
-	"fld_name" => $el->title
+	"elementid" => $elementid,
+	"title" => $el->title,
+	"name" => $el->name,
+	"cattitle" => $cat->title,
+	"catdesc" => $cat->detail->descript
 );
-
-if (!empty($modCart)){
-	$cartBrick = Brick::$builder->LoadBrickS('eshopcart', 'buybutton', null, array("p" => array(
-		"product" => $el
-	)));
-	$replace["buybutton"] = $cartBrick->content;
-	
-	$cartBrick = Brick::$builder->LoadBrickS('eshopcart', 'buybuttonjsinit');
-	$brick->content .= $cartBrick->content;
-}
 
 $ogList = $man->ElementOptionGroupList();
 $ogSpec = $ogList->GetByName("specific");
 $lstOGSpec = "";
 
 $elTypeList = $man->ElementTypeList();
-$replaceOption = array();
 
 for ($i=0;$i<2;$i++){
 	$elOpts = $el->detail->optionsBase;
@@ -89,10 +103,6 @@ for ($i=0;$i<2;$i++){
 			}
 		}
 
-		if (!empty($v['option-'.$optInfo->name])){
-			$replaceOption['option-'.$optInfo->name] = empty($replace[$fld]) ? "" : $v['option-'.$optInfo->name];
-		}
-		
 		if (empty($replace[$fld])){
 			// Если опция пуста - пробел, чтобы не рушить верстку
 			$replace[$fld] = '&nbsp;';
@@ -106,7 +116,7 @@ for ($i=0;$i<2;$i++){
 			}
 		}
 
-		$replace["fldnm_".$optInfo->name] = $optInfo->title;
+		$replace["fldtl_".$optInfo->name] = $optInfo->title;
 		
 	}
 }
@@ -120,13 +130,6 @@ if (!empty($lstOGSpec)){
 	$replace['options-specific'] = "";	
 }
 
-$tpTable = $v["table"];
-$tpRow = $v["row"];
-
-$brick->content = Brick::ReplaceVarByData($brick->content, array(
-	"optlist" => Brick::ReplaceVarByData($tpTable, array("rows" => $tpRow))
-));
-$brick->content = Brick::ReplaceVarByData($brick->content, $replaceOption);
 $brick->content = Brick::ReplaceVarByData($brick->content, $replace);
 
 // Вывод заголовка страницы.

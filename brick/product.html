@@ -2,28 +2,8 @@
 [script]brick_product.php[/script]
 [mcss=eshop]eshop.css[/mcss]
 
-[v=table]
-	<dl>
-		{v#rows}
-	</dl>
-[/v]
-
-[v=row]
-	{v#option-art}
-	{v#option-brand}
-	{v#option-country}
-	<dt>{#brick.product.6}:</dt><dd><b><span class="price">{v#fld_price}</span> {#brick.product.8}</b></dd>
-[/v]
-
-[v=option-art]
-	<dt>{#brick.product.1}:</dt><dd>{v#fld_art}&nbsp;</dd>
-[/v]
-[v=option-brand]
-	<dt>{#brick.product.2}:</dt><dd class="brand">{v#fld_brand}&nbsp;</dd>
-[/v]
-[v=option-country]
-	<dt>{#brick.product.3}:</dt><dd>{v#fld_country}&nbsp;</dd>
-[/v]
+[v=includebrick]product-foto,product-buyblock[/v]
+[p=includebrick][/v]
 
 [v=options-specific]
 	<div class="specific">
@@ -41,16 +21,11 @@
 [*]-->
 <div class="mod-eshop">
 	<div id="view_item" class="product hproduct">
-		<h3 class="fn">{v#fld_name}</h3>
+		<h3 class="fn">{v#title}</h3>
 		
 		<div class="photoinfoblock">
-			{v#brickfoto}
-			<div class="info">
-				{v#optlist}
-				<div class="add2cart">
-					{v#buybutton}
-				</div>
-			</div>
+			{v#brick_product-foto}
+			{v#brick_product-buyblock}
 			<br class="clear" />
 		</div>
 		
