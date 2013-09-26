@@ -169,11 +169,12 @@ for ($i=0;$i<2;$i++){
 		
 	}
 }
-
+$replace['disspecific'] = "none";
 if (!empty($lstOGSpec)){
 	$replace['options-specific'] = Brick::ReplaceVarByData($v['options-specific'], array(
 		"rows" => $lstOGSpec
 	));
+	$replace['disspecific'] = " ";
 }else{
 	$replace['options-specific'] = "";	
 }

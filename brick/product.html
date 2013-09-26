@@ -66,36 +66,57 @@
 	<div id="view_item" class="product hproduct">
 		<h3 class="fn">{v#fld_name}</h3>
 		
-		<div class="photos">
-			<div id="bigPhotoDiv" class="tmb tmb200">
-				<span class="tmbpre">
-					{v#image}
-				</span>
-				<img width="31" height="31" src="/modules/eshop/images/loader.gif" alt="Loading" id="loading" style="display: none;">
+		<div class="photoinfoblock">
+			<div class="photos">
+				<div id="bigPhotoDiv" class="tmb tmb200">
+					<span class="tmbpre">
+						{v#image}
+					</span>
+					<img width="31" height="31" src="/modules/eshop/images/loader.gif" alt="Loading" id="loading" style="display: none;">
+				</div>
+				<div class="lstsm">
+					{v#imagelist}
+				</div>
+				<div class="clear"></div>
+			</div>   
+			<div class="info">
+				{v#optlist}
+				<div class="add2cart">
+					{v#buybutton}
+				</div>
 			</div>
-			<div class="lstsm">
-				{v#imagelist}
-			</div>
-			<div class="clear"></div>
-		</div>   
-		<div class="info">
-			{v#optlist}
-			<div class="add2cart">
-				{v#buybutton}
+			<br class="clear" />
+		</div>
+		
+	    <div id="mod-eshop-maintab" class="yui-navset">
+			<ul class="yui-nav">
+				<li class="selected">
+					<a href="#mod-eshop-maintab-tabinfo"><em>Описание</em></a>
+				</li>
+				<li style="display: {v#disspecific}">
+					<a href="#mod-eshop-maintab-tabspec"><em>Характеристики</em></a>
+				</li>
+			</ul>            
+			<div class="yui-content">
+				<div id="mod-eshop-maintab-tabinfo">
+					{v#fld_desc}
+				</div>
+				<div id="mod-eshop-maintab-tabspec" style="display: {v#disspecific}">
+					{v#options-specific}
+					<br class="clear" />
+				</div>
 			</div>
 		</div>
 		
-		{v#options-specific}
-		
-		<br class="clear" />
-		<fieldset class="descript">
-			<legend>{#brick.product.13}</legend>
-			<div class="description">{v#fld_desc}</div>
-		</fieldset>
 	</div>
 </div>
 
 <script type="text/javascript">
 	var photosData={"{v#cphoto}":{mw:250,mh:250,bw:200,bh:200}{v#otherphoto}}, pidCurrent="{v#cphoto}";
+	
+	Brick.ff('eshop', 'tabview', function(){
+		new YAHOO.widget.TabView('mod-eshop-maintab');
+	});
+	
 </script>
 

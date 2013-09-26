@@ -33,10 +33,9 @@ class EShopModule extends Ab_Module {
 	);
 	
 	public function EShopModule(){
-		$this->version = "0.2.3.1";
+		$this->version = "0.2.3.2";
 		$this->name = "eshop";
 		$this->takelink = "eshop";
-		// $this->catinfo['dbprefix'] = "eshp";
 		EShopModule::$instance = $this;
 		
 		$this->permission = new EShopPermission($this);

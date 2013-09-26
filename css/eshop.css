@@ -181,7 +181,7 @@
 	border: 4px solid #CCCCCC;
 }
 
-/* Информация о товаре */
+/* * * * Информация о товаре * * * */
 .mod-eshop .product .info {
 	float: left;
 	width: 320px;
@@ -203,8 +203,11 @@
 	margin: 0 0 4px;
 	word-spacing: -1px;
 }
+.mod-eshop .product .photoinfoblock {
+	margin-bottom: 20px;
+}
 
-/* Спецификация */
+/* * * * Спецификация * * * */
 .mod-eshop .product .specific {
 	float: left;
 }
@@ -331,4 +334,63 @@
 .aw-eshop-searchline .sextfilter select {
 	width: 100%;
     padding: 3px 3px;
+}
+
+/* * * * TabView * * * * */
+.mod-eshop .yui-navset .yui-content {
+	background: none !important;
+	border: none !important;
+	padding: 10px 0 0 0 !important;
+}
+.mod-eshop .yui-navset .yui-nav {
+	border: none !important;
+}
+
+.mod-eshop .yui-navset .yui-nav .selected, 
+.mod-eshop .yui-navset .yui-navset-top .yui-nav .selected {
+	margin: 0 2px 0 0 !important;
+}
+.mod-eshop .yui-navset .yui-nav .selected a, 
+.mod-eshop .yui-navset .yui-nav .selected a em {
+    border-color: #6A7398 !important;
+    background: none !important;
+}
+.mod-eshop .yui-navset .yui-nav .selected a, 
+/*.mod-eshop .yui-navset .yui-nav .selected a:focus, /**/
+.mod-eshop .yui-navset .yui-nav .selected a:hover {
+    background: none !important;
+    border-width: 1px !important;
+}
+.mod-eshop .yui-navset .yui-nav li, 
+.mod-eshop .yui-navset .yui-navset-top .yui-nav li {
+	padding: 0 !important;
+}
+.mod-eshop .yui-navset .yui-nav a, 
+.mod-eshop .yui-navset .yui-navset-top .yui-nav a {
+    background: none !important;
+    color: #191B24 !important;
+    border-width: 1px !important;
+    
+}
+.mod-eshop .yui-navset .yui-nav a em, 
+.mod-eshop .yui-navset .yui-navset-top .yui-nav a em {
+    border: none !important;
+    border-width: 0 !important;
+    padding: 5px 10px !important;
+    top: 0 !important;
+}
+
+.mod-eshop .yui-navset .yui-nav a, 
+.mod-eshop .yui-navset .yui-navset-top .yui-nav a {
+    border-color: #6A7398 !important;
+}
+.mod-eshop .yui-navset .yui-nav a {
+	border-radius: 5px !important;
+} 
+
+.mod-eshop .yui-navset .yui-nav .selected a,
+.mod-eshop .yui-navset .yui-nav .selected a:hover,
+.mod-eshop .yui-navset .yui-nav a:focus,
+.mod-eshop .yui-navset .yui-nav a:hover {
+	background-color: #E7E8EE !important;
 }
