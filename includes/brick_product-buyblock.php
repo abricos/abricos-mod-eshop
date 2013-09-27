@@ -28,9 +28,4 @@ if (!empty($modCart)){
 
 $brick->content = Brick::ReplaceVarByData($brick->content, $replace);
 
-$bkParser = EShopManager::$instance->GetElementBrickParser($el);
-$replace = $bkParser->ParseOptions($brick);
-
-$brick->content = Brick::ReplaceVarByData($brick->content, $replace);
-
 ?>

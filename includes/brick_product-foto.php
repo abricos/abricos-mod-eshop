@@ -26,6 +26,10 @@ $fotoSmallSize = array("w"=> intval($a[0]), "h"=> intval($a[1]));
 
 Abricos::GetModule('filemanager')->EnableThumbSize(array($fotoSize, $fotoSmallSize));
 
+if (false){
+	$el = new CatalogElement();
+}
+
 $fotoList = $el->detail->fotoList;
 
 $pTitle = addslashes(htmlspecialchars($el->title));
@@ -57,7 +61,7 @@ if ($fotoList->Count() == 0){
 
 		$lstFotoSmall .= Brick::ReplaceVarByData($v["fotosmall"], array(
 			"src" => $foto->Link($fotoSmallSize['w'], $fotoSmallSize['h']),
-			"fid" => $foto->id
+			"fid" => $foto->filehash
 		));
 	}
 }

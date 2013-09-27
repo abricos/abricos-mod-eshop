@@ -38,6 +38,8 @@ $elementid = $mod->currentProductId;
 $el = $man->Product($elementid);
 $cat = $man->Catalog($el->catid);
 
+$bkParser = EShopManager::$instance->GetElementBrickParser($el);
+
 // динамически подключить кирпичи
 $sIncBricks =  $v['includebrick'];
 if (!empty($p['includebrick'])){
@@ -54,6 +56,8 @@ foreach ($aIncBricks as $sIncBrick){
 		"element" => $el,
 		"cat" => $cat
 	)));
+	
+	$bkParser->Parse($incBrick);
 	
 	$replaceBrick["brick_".$sIncBrick] = empty($incBrick) ? "" : $incBrick->content;
 }

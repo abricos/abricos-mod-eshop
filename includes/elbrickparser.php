@@ -21,7 +21,9 @@ class EShopElementBrickParser {
 	public function Parse(Ab_CoreBrick $brick){
 		
 		$replace = $this->ParseOptions($brick);
+		$brick->content = Brick::ReplaceVarByData($brick->content, $replace);
 		
+		$replace = $this->ParseOptionGroups($brick);
 		$brick->content = Brick::ReplaceVarByData($brick->content, $replace);
 	}
 	
@@ -141,7 +143,7 @@ class EShopElementBrickParser {
 		
 		$replace = array(
 			"link" => $el->URI(),
-			"elementid" => $elementid,
+			"elementid" => $el->id,
 			"title" => $el->title,
 			"name" => $el->name,
 			"cattitle" => $cat->title,
