@@ -2,21 +2,8 @@
 [script]brick_product.php[/script]
 [mcss=eshop]eshop.css[/mcss]
 
-[v=includebrick]product-foto,product-buyblock[/v]
+[v=includebrick]product-foto,product-buyblock,product-specific[/v]
 [p=includebrick][/v]
-
-[v=options-specific]
-	<div class="specific">
-		{v#rows}
-	</div>
-[/v]
-
-[v=options-specific-row]
-	<dl class="specific-row">
-		<dt>{v#tl}</dt>
-		<dd>{v#vl}</dd>
-	</dl>
-[/v]
 
 [*]-->
 <div class="mod-eshop">
@@ -43,8 +30,7 @@
 					{v#fld_desc}
 				</div>
 				<div id="mod-eshop-maintab-tabspec" style="display: {v#disspecific}">
-					{v#options-specific}
-					<br class="clear" />
+					{v#brick_product-specific}
 				</div>
 			</div>
 		</div>

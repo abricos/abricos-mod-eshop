@@ -11,13 +11,6 @@ $p = &$brick->param->param;
 $v = &$brick->param->var;
 
 $el = $p['element'];
-if (empty($el)){
-	$brick->content = "";
-	return;
-}
-if (false){
-	$el = new CatalogElement();
-}
 
 $replace = array("buybutton" => "");
 
@@ -33,28 +26,10 @@ if (!empty($modCart)){
 	$brick->content .= $cartBrick->content;
 }
 
-$elTypeList = EShopManager::$instance->cManager->ElementTypeList();
+$brick->content = Brick::ReplaceVarByData($brick->content, $replace);
 
-$elOptBase = $el->detail->optionsBase;
-$elOptPers = $el->detail->optionsPers;
-
-$aOptions = explode(",", $v['options']);
-foreach ($aOptions as $sOption){
-	$sOption = trim($sOption);
-	if (empty($sOption)){ continue; }
-	
-	$replace['option-'.$sOption] = "";
-	$value = "";
-	if (!empty($elOptBase[$sOption])){
-		$value = $elOptBase[$sOption];
-	}else if (!empty($elOptPers[$sOption])){
-		$value = $elOptPers[$sOption];
-	}
-	
-	if (empty($value) || empty($v['option-'.$sOption])){ continue; }
-	
-	$replace['option-'.$sOption] = $v['option-'.$sOption];
-}
+$bkParser = EShopManager::$instance->GetElementBrickParser($el);
+$replace = $bkParser->ParseOptions($brick);
 
 $brick->content = Brick::ReplaceVarByData($brick->content, $replace);
 
