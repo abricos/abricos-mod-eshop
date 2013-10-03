@@ -92,6 +92,9 @@ Component.entryPoint = function(NS){
 		'cartconfig': function(){
 			return WS+'eshopcart/CartConfigWidget/';
 		},
+		'elemcat': function(){
+			return WS+'elemcat/ElemcatWidget/';
+		},
 		'about': function(){
 			return WS+'about/AboutWidget/';
 		},

@@ -79,8 +79,10 @@ Component.entryPoint = function(NS){
 			this.showPage(pgInfo);
 			
 			if (Brick.componentExists('eshopcart', 'lib')){
-				// this.elShow('mcartconfig,mcartbilling');
 				this.elShow('mcartconfig');
+			}
+			if (Brick.componentExists('elemcat', 'lib')){
+				this.elShow('melemcat');
 			}
 		},
 		showPage: function(p){
