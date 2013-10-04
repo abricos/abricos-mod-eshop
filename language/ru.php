@@ -1,5 +1,10 @@
 <?php
 return array(
+	'team' => array(
+		'app' => array(
+			'title' => 'Каталог товаров'
+		)
+	), 
 	'brick' => array(
 		'action' => array(
 			"1" => "Купить",

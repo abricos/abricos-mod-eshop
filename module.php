@@ -121,6 +121,18 @@ class EShopModule extends Ab_Module {
 	 */
 	public function Sitemap_IsMenuBuild(){ return true; }
 	
+	/**
+	 * Метод запрашивает модуль Team
+	 * @return TeamAppInfo
+	 */
+	public function Team_GetAppInfo(){
+		$appInfo = new TeamAppInfo($this->name);
+		$appInfo->title = $this->lang['team']['app']['title'];
+		$appInfo->jsURI = "";
+	
+		return $appInfo;
+	}
+	
 }
 
 class EShopAction {
