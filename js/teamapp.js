@@ -18,15 +18,15 @@ Component.entryPoint = function(NS){
 	
 	// Точка входа работы приложения
 	
-	var TeamAppWidget = function(container, teamid){
-		TeamAppWidget.superclass.constructor.call(this, container, {
+	var TeamCatalogManagerWidget = function(container, teamid){
+		TeamCatalogManagerWidget.superclass.constructor.call(this, container, {
 			'buildTemplate': buildTemplate, 'tnames': 'widget' 
 		}, teamid);
 	};
-	YAHOO.extend(TeamAppWidget, Brick.mod.widget.Widget, {
+	YAHOO.extend(TeamCatalogManagerWidget, Brick.mod.widget.Widget, {
 		init: function(teamid){
 			this.wsList = [];
-			this.wsMenuItem = 'events'; // использует wspace.js
+			this.wsMenuItem = 'eshop'; // использует wspace.js
 		},
 		onLoad: function(teamid){
 			this.catalogWidget = new NS.CatalogManagerWidget(this.gel('view'), {
@@ -34,10 +34,10 @@ Component.entryPoint = function(NS){
 			});
 		},
 		destroy: function(){
-			this.eventListWidget.destroy();
-			TeamAppWidget.superclass.destroy.call(this);
+			this.catalogWidget.destroy();
+			TeamCatalogManagerWidget.superclass.destroy.call(this);
 		},
 	});
-	NS.TeamAppWidget = TeamAppWidget;
+	NS.TeamCatalogManagerWidget = TeamCatalogManagerWidget;
 
 };

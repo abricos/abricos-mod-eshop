@@ -106,9 +106,11 @@ Component.entryPoint = function(NS){
 	
 	NS.manager = null;
 	
-	NS.initManager = function(callback){
+	NS.initManager = function(callback, teamid){
+		teamid = teamid|0;
 		R.load(function(){
 			NSCat.initManager('{C#MODNAME}', callback, {
+				'teamid': teamid,
 				'roles': R,
 				'CatalogItemClass': NS.CatalogItem,
 				'ElementClass': NS.Element,

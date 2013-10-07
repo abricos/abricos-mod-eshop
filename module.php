@@ -126,11 +126,7 @@ class EShopModule extends Ab_Module {
 	 * @return TeamAppInfo
 	 */
 	public function Team_GetAppInfo(){
-		$appInfo = new TeamAppInfo($this->name);
-		$appInfo->title = $this->lang['team']['app']['title'];
-		$appInfo->jsURI = "";
-	
-		return $appInfo;
+		return new TeamAppInfo($this->name, "teamapp", "TeamCatalogManagerWidget", $this->lang['team']['app']['title']);
 	}
 	
 }
