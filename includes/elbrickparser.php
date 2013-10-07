@@ -51,7 +51,7 @@ class EShopElementBrickParser {
 		$el = $this->element;
 		$replace = array();
 		
-		$cMan = EShopModule::$instance->GetManager()->cManager;
+		$cMan = EShopModule::$instance->GetManager()->GetCatalogManager();
 		
 		$optionGroupList = $cMan->ElementOptionGroupList();
 		$elTypeList = $cMan->ElementTypeList();
@@ -138,7 +138,7 @@ class EShopElementBrickParser {
 	public function GetReplaceData(){
 		$el = $this->element;
 		
-		$cMan = EShopModule::$instance->GetManager()->cManager;
+		$cMan = EShopModule::$instance->GetManager()->GetCatalogManager();
 		$elTypeList = $cMan->ElementTypeList();
 		
 		$replace = array(

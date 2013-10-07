@@ -16,10 +16,10 @@ $brick->param->var['query'] = $pQuery;
 $p = &$brick->param->param;
 $v = &$brick->param->var;
 
-$cManager = EShopModule::$instance->GetManager()->cManager;
+$catManager = EShopModule::$instance->GetManager()->GetCatalogManager();
 
 $catids = array(); $elids = array();
-$arr = $cManager->Search($pQuery, $pFField, $pFValue);
+$arr = $catManager->Search($pQuery, $pFField, $pFValue);
 
 $redirectCat = 0;
 
@@ -58,13 +58,13 @@ $lst .= $brickElList->content;
 $brick->param->var['result'] = $lst;
 
 if ($redirectCat > 0){
-	$cat = $cManager->CatalogList()->Find($redirectCat);
+	$cat = $catManager->CatalogList()->Find($redirectCat);
 	$v['redirect'] = Brick::ReplaceVarByData($v['redirectt'], array(
 		"url" => $cat->URI()
 	));
 	header("Location: ".$cat->URI());
 }else if (count($elids) == 1){
-	$el = $cManager->Element($elids[0]);
+	$el = $catManager->Element($elids[0]);
 	if (!empty($el)){
 		$v['redirect'] = Brick::ReplaceVarByData($v['redirectt'], array(
 			"url" => $el->URI()

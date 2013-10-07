@@ -10,7 +10,7 @@ $brick = Brick::$builder->brick;
 $p = &$brick->param->param;
 $v = &$brick->param->var;
 
-$man = EShopModule::$instance->GetManager()->cManager;
+$man = EShopModule::$instance->GetManager()->GetCatalogManager();
 
 $imgWidth = bkint($p['imgw']);
 $imgHeight = bkint($p['imgh']);

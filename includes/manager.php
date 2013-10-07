@@ -28,32 +28,11 @@ class EShopManager extends Ab_ModuleManager {
 	public $config;
 	
 	/**
+	 * TODO: на удаление
+	 * @deprecated
 	 * @var EShopCatalogManager
 	 */
-	public $cManager;
-	
-	/**
-	 * Модуль каталога
-	 * TODO: на удаление
-	 * 
-	 * @var CatalogModule
-	 */
-	private $catalog = null;
-	
-	/**
-	 * Менеджер каталога
-	 * TODO: на удаление
-	 * 
-	 * @var CatalogManager
-	 */
-	private $catalogManager = null;
-	
-	/**
-	 * @return CatalogManager
-	 */
-	public function GetCatalogManager(){
-		return $this->catalogManager;
-	}
+	private $cManager;
 	
 	private $_isRoleDisabled = false;
 	
@@ -62,14 +41,33 @@ class EShopManager extends Ab_ModuleManager {
 		
 		EShopManager::$instance = $this;
 		$this->config = new EShopConfig(Abricos::$config['module']['eshop']);
+	}
+	
+	private $_cacheCatalogManager = array();
+	
+	/**
+	 * Менеджер управления каталогом
+	 * 
+	 * @param integer $teamid
+	 * @return EShopCatalogManager
+	 */
+	public function GetCatalogManager($teamid = 0){
+		$teamid = intval($teamid);
 		
-		$this->cManager = new EShopCatalogManager();
+		if ($teamid == 0){
+			// возможно идет глобальный запрос облака
+			$teamid = $this->GetCurrentTeamId();
+		}
 		
-		// TODO: на удаление
-		// $this->catalog = Abricos::GetModule('catalog');
-		// $this->catalogManager = $module->GetCatalogManager();
-		
-		$this->userSession = $this->user->session->key;
+		if (!empty($this->_cacheCatalogManager[$teamid])){
+			return $this->_cacheCatalogManager[$teamid];
+		}
+		$this->_cacheCatalogManager[$teamid] = new EShopCatalogManager($dbPrefix, $teamid);
+		return $this->_cacheCatalogManager[$teamid];
+	}
+	
+	public function GetCurrentTeamId(){
+		return Abricos::CleanGPC('g', 'teamid', TYPE_INT);
 	}
 	
 	/**
@@ -110,7 +108,9 @@ class EShopManager extends Ab_ModuleManager {
 	
 	public function AJAX($d){
 		
-		$ret = $this->cManager->AJAX($d);
+		$catManager = $this->GetCatalogManager($d->teamid);
+		
+		$ret = $catManager->AJAX($d);
 		if (!empty($ret)){ return $ret; }
 		
 		return null;
@@ -151,7 +151,9 @@ class EShopManager extends Ab_ModuleManager {
 		
 		$offMan->WritePage($dir, "index", $brick->content);
 		
-		$catMain = $this->cManager->CatalogList()->Find($catid);
+		$catManager = $this->GetCatalogManager();
+		
+		$catMain = $catManager->CatalogList()->Find($catid);
 		$catList = $catMain->childs;
 		
 		for($i=0; $i<$catList->Count();$i++){
@@ -166,7 +168,7 @@ class EShopManager extends Ab_ModuleManager {
 		
 		array_push($cfg->catids, $catid);
 		
-		$elList = $this->cManager->ProductList($cfg);
+		$elList = $catManager->ProductList($cfg);
 		if (empty($elList)){
 			return;
 		}
@@ -196,7 +198,7 @@ class EShopManager extends Ab_ModuleManager {
 	 * @param SMMenuItem $menuItem
 	 */
 	public function Sitemap_MenuBuild(SMMenuItem $mItem){
-		$catList = $this->cManager->CatalogList();
+		$catList = $this->GetCatalogManager()->CatalogList();
 		
 		require_once 'smclasses.php';
 		

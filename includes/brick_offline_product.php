@@ -10,7 +10,7 @@ $brick = Brick::$builder->brick;
 $p = &$brick->param->param;
 $v = &$brick->param->var;
 
-$man = EShopModule::$instance->GetManager()->cManager;
+$man = EShopModule::$instance->GetManager()->GetCatalogManager();
 $productId = $p['productid'];
 $el = $man->Element($p['productid']);
 
@@ -115,24 +115,5 @@ $brick->content = Brick::ReplaceVarByData($brick->content, array(
 
 $brick->content = Brick::ReplaceVarByData($brick->content, $replace);
 
-/*
 
-$elTypeId = $el['eltid'];
-$elTypeList = $catalogManager->ElementTypeListArray();
-if (!empty($elTypeList[$elTypeId])){
-	$elTypeName = $elTypeList[$elTypeId]['nm'];
-	if (!empty($brick->param->var['table-'.$elTypeName])){
-		$tpTable = $brick->param->var['table-'.$elTypeName];
-	}
-	if (!empty($brick->param->var['row-'.$elTypeName])){
-		$tpRow = $brick->param->var['row-'.$elTypeName];
-	}
-}
-
-$brick->content = Brick::ReplaceVarByData($brick->content, array(
-	"optlist" => Brick::ReplaceVarByData($tpTable, array("rows" => $tpRow))
-));
-$brick->content = Brick::ReplaceVarByData($brick->content, $replace);
-
-/**/
 ?>

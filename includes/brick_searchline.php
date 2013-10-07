@@ -15,14 +15,14 @@ $pFField = Abricos::CleanGPC('g', 'eff', TYPE_STR);
 $pFValue = Abricos::CleanGPC('g', 'ef', TYPE_STR);
 
 
-$cManager = EShopModule::$instance->GetManager()->cManager;
+$catManager = EShopModule::$instance->GetManager()->GetCatalogManager();
 
 $extFilterCol = "";
 
 if (!empty($p['extfilter'])){
 	$aEF = explode(":", $p['extfilter']);
 	
-	$elTypeList = $cManager->ElementTypeList();
+	$elTypeList = $catManager->ElementTypeList();
 	$elTypeBase = $elTypeList->Get(0);
 	$option = $elTypeBase->options->GetByName($aEF[0]);
 	if (!empty($option) && $option->type == Catalog::TP_TABLE){

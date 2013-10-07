@@ -16,21 +16,20 @@ $pfx = $db->prefix;
 Abricos::GetModule('eshop')->GetManager();
 EShopManager::$instance->RoleDisable();
 
-$cManager = EShopManager::$instance->cManager;
+$catManager = EShopManager::$instance->GetCatalogManager();
 
 function EShopOptionAppend($name, $title, $type, $size = ''){
-	$cManager = EShopManager::$instance->cManager;
+	$catManager = EShopManager::$instance->GetCatalogManager();
 	
 	$d = new stdClass();
 	$d->nm = $name;
 	$d->tl = $title;
 	$d->tp = $type;
 	$d->sz = $size;
-	return $cManager->ElementOptionSave(0, $d);
+	return $catManager->ElementOptionSave(0, $d);
 }
 
 if ($updateManager->isInstall()){
-	
 	EShopOptionAppend('desc', 'Описание товара', Catalog::TP_TEXT);
 	EShopOptionAppend('art', 'Артикул', Catalog::TP_STRING, 32);
 	EShopOptionAppend('sklad', 'Количество на складе', Catalog::TP_NUMBER, 5);
@@ -40,16 +39,6 @@ if ($updateManager->isInstall()){
 	EShopOptionAppend('new', 'Новинка', Catalog::TP_BOOLEAN);
 	EShopOptionAppend('hit', 'Хит продаж', Catalog::TP_BOOLEAN);
 	EShopOptionAppend('akc', 'Акция', Catalog::TP_NUMBER, 10);
-	
-	// $catalogManager->ElementOptionAppend(0, 0, 7, 'desc', 'Описание товара', '', 0, '{"cst":{"en":0,"inpen":0,"inp":"","onlden":0,"onld":""}}');  
-	// $catalogManager->ElementOptionAppend(0, 0, 3, 'art', 'Артикул', '', 1, '{"cst":{"en":0,"inpen":0,"inp":"","onlden":0,"onld":""},"size":"32","def":""}');
-	// $catalogManager->ElementOptionAppend(0, 0, 1, 'sklad', 'Количество на складе', '', 0, '{"cst":{"en":0,"inpen":0,"inp":"","onlden":0,"onld":""},"size":"5","def":"0"}');
-	// $catalogManager->ElementOptionAppend(0, 0, 2, 'price', 'Цена розничная', '', 0, '{"cst":{"en":0,"inpen":0,"inp":"","onlden":0,"onld":""},"size":"10,2","def":"0"}');
-	// $catalogManager->ElementOptionAppend(0, 0, 5, 'brand', 'Бренд', '', 0, '{"cst":{"en":0,"inpen":0,"inp":"","onlden":0,"onld":""}}');
-	// $catalogManager->ElementOptionAppend(0, 0, 5, 'country', 'Страна-производитель', '', 0, '{"cst":{"en":0,"inpen":0,"inp":"","onlden":0,"onld":""}}');
-	// $catalogManager->ElementOptionAppend(0, 0, 0, 'new', 'Новинка', '', 0, '{"cst":{"en":0,"inpen":0,"inp":"","onlden":0,"onld":""},"def":"0"}');
-	// $catalogManager->ElementOptionAppend(0, 0, 0, 'hit', 'Хит продаж', '', 0, '{"cst":{"en":0,"inpen":0,"inp":"","onlden":0,"onld":""},"def":"0"}');
-	// $catalogManager->ElementOptionAppend(0, 0, 1, 'akc', 'Акция', '', 0, '{"cst":{"en":0,"inpen":0,"inp":"","onlden":0,"onld":""},"size":"10","def":"0"}');
 }
 
 if ($updateManager->isUpdate('0.1.0.6')){

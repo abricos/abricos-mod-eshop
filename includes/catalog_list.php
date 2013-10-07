@@ -18,7 +18,7 @@ Abricos::GetModule('filemanager')->EnableThumbSize(array(array(
 	"h" => $imgHeight
 )));
 
-$man = EShopModule::$instance->GetManager()->cManager;
+$man = EShopModule::$instance->GetManager()->GetCatalogManager();
 
 $catList = $man->CatalogList();
 

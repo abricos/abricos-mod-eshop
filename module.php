@@ -21,7 +21,6 @@ class EShopModule extends Ab_Module {
 	public $currentProductId = 0;
 	
 	private $_manager = null;
-	private $_catalogManager = null;
 	
 	/**
 	 * @var EShopModule
@@ -54,20 +53,6 @@ class EShopModule extends Ab_Module {
 		return $this->_manager;
 	}
 	
-	/**
-	 * Получить менеджер каталога
-	 * 
-	 * TODO: на удаление
-	 * 
-	 * @return CatalogManager
-	 */
-	private function GetCatalogManager(){
-		if (is_null($this->_catalogManager)){
-			$this->_catalogManager = Abricos::GetModule('catalog')->GetManager();
-		}
-		return $this->_catalogManager;
-	}
-	
 	public function GetContentName(){
 		$adress = $this->registry->adress;
 		
@@ -87,9 +72,6 @@ class EShopModule extends Ab_Module {
 		if (preg_match("/^product_[0-9]+/", $lastitem)){
 			
 			$arr = explode("_", $lastitem);
-			
-			// $db = $this->registry->db;
-			$catManager = $this->GetCatalogManager();
 			
 			$this->currentProductId = intval($arr[1]);
 			

@@ -32,7 +32,7 @@ $v = &$brick->param->var;
 $mod = EShopModule::$instance;
 EShopModule::$instance->GetManager();
 
-$man = EShopModule::$instance->GetManager()->cManager;
+$man = EShopModule::$instance->GetManager()->GetCatalogManager();
 
 $elementid = $mod->currentProductId;
 $el = $man->Product($elementid);
