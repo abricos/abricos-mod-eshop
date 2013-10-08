@@ -97,12 +97,12 @@ class EShopCatalogManager extends CatalogModuleManager {
 	 */
 	public $manager;
 	
-	public function __construct(){
+	public function __construct($dbPrefix, $teamid = 0){
 		$this->manager = EShopManager::$instance;
 		
 		EShopCatalogManager::$instance = $this;
 
-		parent::__construct("eshp");
+		parent::__construct("eshp", $teamid);
 		
 		$this->CatalogClass			= EShopCatalog;
 		$this->CatalogElementClass	= EShopElement;

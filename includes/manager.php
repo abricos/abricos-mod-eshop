@@ -58,12 +58,11 @@ class EShopManager extends Ab_ModuleManager {
 			// возможно идет глобальный запрос облака
 			$teamid = $this->GetCurrentTeamId();
 		}
-		
-		if (!empty($this->_cacheCatalogManager[$teamid])){
-			return $this->_cacheCatalogManager[$teamid];
+		$cache = &$this->_cacheCatalogManager;
+		if (isset($cache[$teamid])){
+			return $cache[$teamid];
 		}
-		$this->_cacheCatalogManager[$teamid] = new EShopCatalogManager($dbPrefix, $teamid);
-		return $this->_cacheCatalogManager[$teamid];
+		return $cache[$teamid] = new EShopCatalogManager('eshp', $teamid);
 	}
 	
 	public function GetCurrentTeamId(){
@@ -107,7 +106,6 @@ class EShopManager extends Ab_ModuleManager {
 	}
 	
 	public function AJAX($d){
-		
 		$catManager = $this->GetCatalogManager($d->teamid);
 		
 		$ret = $catManager->AJAX($d);
