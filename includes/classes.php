@@ -140,7 +140,8 @@ class EShopCatalogManager extends CatalogModuleManager {
 		if (!is_null($this->_cacheCatByAdress)){
 			return $this->_cacheCatByAdress;
 		}
-		if (Abricos::$adress->level <= 1){
+		$dir = Abricos::$adress->dir;
+		if (Abricos::$adress->level <= 1 || substr($dir[1], 0, 4) == 'page'){
 			$this->_cacheCatByAdress = $this->Catalog(0);
 			return $this->_cacheCatByAdress;
 		}
@@ -149,7 +150,13 @@ class EShopCatalogManager extends CatalogModuleManager {
 		$cat = null; $mItem = null;
 		if (!empty($modSM)){
 			$mList = SitemapModule::$instance->GetManager()->MenuList();
-			$mItem = $mList->FindByPath(Abricos::$adress->dir, true);
+			
+			$arr = array();
+			foreach($dir as $d){
+				if (substr($d, 0, 4) == 'page'){ continue; }
+				array_push($arr, $d);
+			}
+			$mItem = $mList->FindByPath($arr, true);
 			if (!empty($mItem)){
 				$cat = $mItem->cat;
 			}

@@ -45,10 +45,19 @@ if ($p['forcontent'] == 'true'){
 			$cfg->page = $page;
 		}
 	}
+	
+	if ($p['notchildlist'] == 'false'){
+		$catList = $cat->childs;
+		for ($i=0;$i<$catList->Count();$i++){
+			array_push($cfg->catids, $catList->GetByIndex($i)->id); 
+		}
+	}
+	
 }else{
 	
 	// return;
 }
+
 $elList = $man->ProductList($cfg);
 $brick->elementList = $elList;
 if (empty($elList)){ $brick->content = ""; return; }

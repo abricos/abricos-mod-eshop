@@ -52,10 +52,25 @@ $aIncBricks = explode(",", $sIncBricks);
 foreach ($aIncBricks as $sIncBrick){
 	$sIncBrick = trim($sIncBrick);
 	if (empty($sIncBrick)){ continue; }
-	$incBrick = Brick::$builder->LoadBrickS("eshop", $sIncBrick, null, array("p" => array(
+	$incBrickParams = array(
 		"element" => $el,
 		"cat" => $cat
-	)));
+	);
+	
+	// если есть параметры
+	$aIncBrickParam = explode("|", $sIncBrick);
+	if (count($aIncBrickParam) > 1){
+		$sIncBrick = $aIncBrickParam[0];
+		for ($i=1;$i<count($aIncBrickParam);$i++){
+			$sPrm = $aIncBrickParam[$i];
+			$aPrm = explode("=", $sPrm);
+			if (count($aPrm) == 2){
+				$incBrickParams[$aPrm[0]] = $aPrm[1];
+			}
+		}
+	}
+	
+	$incBrick = Brick::$builder->LoadBrickS("eshop", $sIncBrick, null, array("p" => $incBrickParams));
 	
 	$bkParser->Parse($incBrick);
 	
