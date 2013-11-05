@@ -90,6 +90,8 @@ for ($i=0;$i<$elList->Count();$i++){
 	));
 
 	$replace = array(
+		"imgw" => $imgWidth,
+		"imgh" => $imgHeight,
 		"special" => $pr_special,
 		"buybutton" => "",
 		"image" => $image,
@@ -130,7 +132,7 @@ if (!empty($modCart)){
 
 return; ///////////////////////// END //////////////////////////////
 
-
+/*
 $listPage = $listData['listPage'];
 if (intval($p['page'])>0){
 	$listPage = intval($p['page']);
@@ -249,13 +251,13 @@ while (($row = $db->fetch_array($rows))){
 			// $el[$fld] = htmlspecialchars($el[$fld]);
 		}
 		$replace[$fld] = $el[$fld];
-		/*
+		
 		// Если тип опции - таблица (fldtp = 5), то необходимо получить значение опции из таблицы
-		if	($row['fldtp'] == 5){
+		// if	($row['fldtp'] == 5){
 			// Получаем значение опции 'tl'. '' - т.к. тип товара - default 
-			$val = $catalogManager->ElementOptionFieldTableValue('', $row['nm'], $el[$fld]);
-			$replace[$fld] = $val['tl'];
-		}/**/
+			// $val = $catalogManager->ElementOptionFieldTableValue('', $row['nm'], $el[$fld]);
+			// $replace[$fld] = $val['tl'];
+		// }
 		
 		$replace["fldnm_".$etRow['nm']] = $etRow['tl'];
 	}
@@ -288,6 +290,6 @@ $brick->content = Brick::ReplaceVarByData($brick->content, array(
 	"display" => $p['display'],
 	"result" => $lstResult
 ));
-
+/**/
 
 ?>
