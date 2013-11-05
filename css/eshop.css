@@ -2,6 +2,7 @@
 	font-size: 1px;
 	height: 0;
 	line-height: 0;
+	clear: both;
 }
 .mod-eshop .rel { position: relative; }
 .mod-eshop .red { color: red; }

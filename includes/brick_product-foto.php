@@ -52,7 +52,7 @@ if ($fotoList->Count() == 0){
 	$foto = $fotoList->GetByIndex(0);
 	
 	$tpFoto = Brick::ReplaceVarByData($v["foto"], array(
-		"src" => $foto->Link($size['w'], $size['h']),
+		"src" => $foto->Link($fotoSize['w'], $fotoSize['h']),
 		"srcf" => $foto->Link()
 	));
 	
