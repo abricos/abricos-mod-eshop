@@ -109,7 +109,7 @@ class EShopElementBrickParser {
 		
 		$elOptBase = $el->detail->optionsBase; // значение базовых опций
 		$elOptPers = $el->detail->optionsPers; // значения персональных опций
-		
+
 		$aOptions = explode(",", $v['options']);
 		foreach ($aOptions as $sOption){
 			$sOption = trim($sOption);
@@ -125,7 +125,9 @@ class EShopElementBrickParser {
 				$value = $elOptPers[$sOption];
 			}
 		
-			if (empty($value) || empty($v['option-'.$sOption])){
+			if (empty($value) || empty($v['option-'.$sOption]) 
+					|| $value=='0.00' // временно (для отключения опций с плавающей точкой)
+				){
 				continue;
 			}
 		

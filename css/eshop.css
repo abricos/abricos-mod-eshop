@@ -184,12 +184,12 @@
 
 /* * * * Информация о товаре * * * */
 .mod-eshop .product .info {
+	margin-top: 15px;
 	float: left;
 	width: 320px;
 }
 .mod-eshop .product .info dl {
 	clear: both;
-	margin: 15px 0;
 	overflow: hidden;
 	width: 100%;
 }
@@ -203,6 +203,9 @@
 .mod-eshop .product .info dd {
 	margin: 0 0 4px;
 	word-spacing: -1px;
+}
+.mod-eshop .product .info .add2cart {
+	margin-top: 15px;
 }
 .mod-eshop .product .photoinfoblock {
 	margin-bottom: 20px;
