@@ -49,10 +49,10 @@ class EShopManager extends Ab_ModuleManager {
 	private $catalogManager = null;
 	
 	/**
-	 * @return CatalogManager
+	 * @return EShopCatalogManager
 	 */
 	public function GetCatalogManager(){
-		return $this->catalogManager;
+		return $this->cManager;
 	}
 	
 	private $_isRoleDisabled = false;
