@@ -1,4 +1,9 @@
-abricos-mod-eshop
-=================
+# abricos-mod-eshop
 
-EShop Module
+Abricos EShop Module
+
+
+## License
+Copyright (c) 2008 Alexander Kuzmin
+
+Licensed under the GPLv2 license
