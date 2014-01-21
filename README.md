@@ -1,6 +1,6 @@
 # abricos-mod-eshop
 
-Abricos EShop Module
+EShop module for Abricos Platform
 
 
 ## License
