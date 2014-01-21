@@ -7,40 +7,37 @@
 
 [*]-->
 <div class="mod-eshop">
-	<div id="view_item" class="product hproduct">
-		<h3 class="fn">{v#title}</h3>
-		
-		<div class="photoinfoblock">
-			{v#brick_product-foto}
-			{v#brick_product-buyblock}
-			<br class="clear" />
-		</div>
-		
-	    <div id="mod-eshop-maintab" class="yui-navset">
-			<ul class="yui-nav">
-				<li class="selected">
-					<a href="#mod-eshop-maintab-tabinfo"><em>Описание</em></a>
-				</li>
-				<li style="display: {v#disspecific}">
-					<a href="#mod-eshop-maintab-tabspec"><em>Характеристики</em></a>
-				</li>
-			</ul>            
-			<div class="yui-content">
-				<div id="mod-eshop-maintab-tabinfo">
-					{v#fld_desc}
-				</div>
-				<div id="mod-eshop-maintab-tabspec" style="display: {v#disspecific}">
-					{v#brick_product-specific}
-				</div>
-			</div>
-		</div>
-		
-	</div>
+    <div id="view_item" class="product hproduct">
+        <h3 class="fn">{v#title}</h3>
+        <div class="photoinfoblock">
+            {v#brick_product-foto}
+            {v#brick_product-buyblock}
+            <br class="clear" />
+        </div>
+        <div id="mod-eshop-maintab" class="yui-navset">
+            <ul class="yui-nav">
+                <li class="selected">
+                    <a href="#mod-eshop-maintab-tabinfo"><em>Описание</em></a>
+                </li>
+                <li style="display: {v#disspecific}">
+                    <a href="#mod-eshop-maintab-tabspec"><em>Характеристики</em></a>
+                </li>
+            </ul>            
+            <div class="yui-content">
+                <div id="mod-eshop-maintab-tabinfo">
+                    {v#fld_desc}
+                </div>
+                <div id="mod-eshop-maintab-tabspec" style="display: {v#disspecific}">
+                    {v#brick_product-specific}
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script type="text/javascript">
-	Brick.ff('eshop', 'tabview', function(){
-		new YAHOO.widget.TabView('mod-eshop-maintab');
-	});
+    Brick.ff('eshop', 'tabview', function() {
+        new YAHOO.widget.TabView('mod-eshop-maintab');
+    });
 </script>
 

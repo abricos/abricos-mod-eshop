@@ -179,7 +179,7 @@
 	font-size: 10px;
 }
 .mod-eshop .product #bigPhoto.loading_bg	{
-	filter: progid: DXImageTransform.Microsoft.Alpha(opacity=40);
+	filter: progid:DXImageTransform.Microsoft.Alpha(opacity=40);
 	-moz-opacity: 0.4;    /* Mozilla 1.6   */
 	-khtml-opacity: 0.4;  /* Konqueror 3.1, Safari 1.1 */
 	opacity: 0.4;         /* CSS3 - Mozilla 1.7b +, Firefox 0.9 +,Safari 1.2+, Opera 9 */
