@@ -26,6 +26,56 @@
 
 [p=cfg][/p]
 
+[p=scroll][/p]
+
+[bkvar=scrolldiv]
+    <div id="{v#brickid}-content" class="yui3-scrollview-loading">
+        {v#result}
+    </div>
+
+    <style>
+
+        /* To layout horizontal LIs */
+        #{v#brickid}-content {
+            white-space:nowrap;
+        }
+
+        #{v#brickid}-content li {
+            display:inline-block;
+            background-color:#fff;
+        }
+
+        /* For IE 6/7 - needs inline block hack */
+        #{v#brickid}-content li {
+            *display:inline;
+            *zoom:1;
+        }
+    </style>
+
+    <script type="text/javascript" charset="utf-8">
+        Brick.YUI.use('scrollview', 'scrollview-paginator', function(Y) {
+
+            var scrollView = new Y.ScrollView({
+                id: "#{v#brickid}-scrollview",
+                srcNode: '{v#brickid}-content',
+                width: 820,
+                flick: {
+                    minDistance: 10,
+                    minVelocity: 0.3,
+                    axis: "x"
+                }
+            });
+
+            scrollView.plug(Y.Plugin.ScrollViewPaginator, {
+                selector: 'li'
+            });
+
+            scrollView.render();
+        });
+    </script>
+
+[/bkvar]
+
 [bkvar=table]
     <ul class="productlist">
         {v#rows}
