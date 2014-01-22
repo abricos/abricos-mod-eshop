@@ -7,7 +7,6 @@
     Список продукции.
 
     Параметры:
-    count - кол-во товаров на странице (по умолчанию 6),
 
     notchildlist - не выводить продукцию каталога и его подкаталогов в один лист (по умолчанию TRUE).
 
@@ -32,14 +31,15 @@
 
 [bkvar=scrolldiv]
 
-    <div id="{v#brickid}-scl-container">
-        <div id="{v#brickid}-scl-content" class="yui3-scrollview-loading">
-            {v#result}
-        </div>
+    <div class="scroll-container">
+        <div class="scroll-wrap">
+            <a id="{v#brickid}-scl-bprev" class="scroll-btn-prev scroll-horz-button"> </a>
 
-        <div id="{v#brickid}-scl-pager">
-            <button id="{v#brickid}-scl-bprev">Prev</button>
-            <button id="{v#brickid}-scl-bnext">Next</button>
+            <div id="{v#brickid}-scl-content" class="scroll-content yui3-scrollview-loading">
+                {v#result}
+            </div>
+
+            <a id="{v#brickid}-scl-bnext" class="scroll-btn-next scroll-horz-button"> </a>
         </div>
     </div>
 
@@ -49,7 +49,6 @@
             var scrollView = new Y.ScrollView({
                 id: "#{v#brickid}-scl",
                 srcNode: '#{v#brickid}-scl-content',
-                /*width: 974,/**/
                 flick: {
                     minDistance: 10,
                     minVelocity: 0.3,
@@ -63,30 +62,12 @@
 
             scrollView.render();
 
-            var content = scrollView.get("contentBox");
-
-            // Prevent default image drag behavior
-            content.delegate("mousedown", function(e) {
-                e.preventDefault();
-            }, "img");
-
             Y.one('#{v#brickid}-scl-bnext').on('click', Y.bind(scrollView.pages.next, scrollView.pages));
             Y.one('#{v#brickid}-scl-bprev').on('click', Y.bind(scrollView.pages.prev, scrollView.pages));
-
         });
     </script>
 
     <style>
-
-        .yui3-js-enabled .yui3-scrollview-loading {
-                visibility:hidden;
-        }
-
-        #{v#brickid}-scl-container {
-            float:none;
-            width:100%;
-            margin:0;
-        }
 
         /* To layout horizontal LIs */
         #{v#brickid}-scl-content {
@@ -104,16 +85,6 @@
             *zoom:1;
         }
 
-        /* === scrollview container and header styles === */
-
-        #{v#brickid}-scl-container {
-            float:left;
-            margin:0 10px;
-        }
-
-        .mod-eshop .productlist .proditem {
-            float: none !important;
-        }
     </style>
 
 [/bkvar]
