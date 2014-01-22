@@ -1,6 +1,7 @@
 <!--[*]
 [script]brick_product_list.php[/script]
 [mcss=eshop]eshop.css[/mcss]
+[css]/vendor/alloyui/scrollview-base/assets/scrollview-base-core.css[/css]
 
 [desc]
     Список продукции.
@@ -27,38 +28,28 @@
 [p=cfg][/p]
 
 [p=scroll][/p]
+[p=scrollwidth]974[/p]
 
 [bkvar=scrolldiv]
-    <div id="{v#brickid}-content" class="yui3-scrollview-loading">
-        {v#result}
+
+    <div id="{v#brickid}-scl-container">
+        <div id="{v#brickid}-scl-content" class="yui3-scrollview-loading">
+            {v#result}
+        </div>
+
+        <div id="{v#brickid}-scl-pager">
+            <button id="{v#brickid}-scl-bprev">Prev</button>
+            <button id="{v#brickid}-scl-bnext">Next</button>
+        </div>
     </div>
 
-    <style>
-
-        /* To layout horizontal LIs */
-        #{v#brickid}-content {
-            white-space:nowrap;
-        }
-
-        #{v#brickid}-content li {
-            display:inline-block;
-            background-color:#fff;
-        }
-
-        /* For IE 6/7 - needs inline block hack */
-        #{v#brickid}-content li {
-            *display:inline;
-            *zoom:1;
-        }
-    </style>
-
     <script type="text/javascript" charset="utf-8">
-        Brick.YUI.use('scrollview', 'scrollview-paginator', function(Y) {
+        YUI().use('scrollview', 'scrollview-paginator', function(Y) {
 
             var scrollView = new Y.ScrollView({
-                id: "#{v#brickid}-scrollview",
-                srcNode: '{v#brickid}-content',
-                width: 820,
+                id: "#{v#brickid}-scl",
+                srcNode: '#{v#brickid}-scl-content',
+                /*width: 974,/**/
                 flick: {
                     minDistance: 10,
                     minVelocity: 0.3,
@@ -71,8 +62,59 @@
             });
 
             scrollView.render();
+
+            var content = scrollView.get("contentBox");
+
+            // Prevent default image drag behavior
+            content.delegate("mousedown", function(e) {
+                e.preventDefault();
+            }, "img");
+
+            Y.one('#{v#brickid}-scl-bnext').on('click', Y.bind(scrollView.pages.next, scrollView.pages));
+            Y.one('#{v#brickid}-scl-bprev').on('click', Y.bind(scrollView.pages.prev, scrollView.pages));
+
         });
     </script>
+
+    <style>
+
+        .yui3-js-enabled .yui3-scrollview-loading {
+                visibility:hidden;
+        }
+
+        #{v#brickid}-scl-container {
+            float:none;
+            width:100%;
+            margin:0;
+        }
+
+        /* To layout horizontal LIs */
+        #{v#brickid}-scl-content {
+            white-space:nowrap;
+        }
+
+        #{v#brickid}-scl-content li {
+            display:inline-block;
+            background-color:#fff;
+        }
+
+        /* For IE 6/7 - needs inline block hack */
+        #{v#brickid}-scl-content li {
+            *display:inline;
+            *zoom:1;
+        }
+
+        /* === scrollview container and header styles === */
+
+        #{v#brickid}-scl-container {
+            float:left;
+            margin:0 10px;
+        }
+
+        .mod-eshop .productlist .proditem {
+            float: none !important;
+        }
+    </style>
 
 [/bkvar]
 
@@ -105,9 +147,9 @@
 [/bkvar]
 
 [bkvar=img]
-	<a class="tmbpre" title="{v#title}" href="{v#link}">
-		<img class="img-product-{v#productid}" alt="{v#title}" src="{v#src}" />
-	</a>
+        <a class="tmbpre" title="{v#title}" href="{v#link}">
+                <img class="img-product-{v#productid}" alt="{v#title}" src="{v#src}" />
+        </a>
 [/bkvar]
 
 [bkvar=imgempty]
