@@ -435,3 +435,8 @@
 .mod-eshop .yui-navset .yui-nav a:hover {
     background-color: #E7E8EE !important;
 }
+
+/* * * YUI2 to YUI3 fix * * */
+.yui-skin-sam .yui-ac-input {
+    position: inherit !important;
+}
