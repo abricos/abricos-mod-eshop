@@ -120,6 +120,8 @@
     width:100%;
     margin:0;
     position: relative;
+    -webkit-user-select:none;
+    -moz-user-select:none
 }
 .mod-eshop .scroll-container .scroll-wrap {
     margin: 0 32px;
