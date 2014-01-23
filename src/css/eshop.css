@@ -116,9 +116,6 @@
 }
 
 /* * * * * Horizontal Scroll View * * * * */
-.yui3-js-enabled .mod-eshop .yui3-scrollview-loading {
-    visibility:hidden;
-}
 .mod-eshop .scroll-container {
     width:100%;
     margin:0;
@@ -126,6 +123,7 @@
 }
 .mod-eshop .scroll-container .scroll-wrap {
     margin: 0 32px;
+    overflow: hidden;
 }
 .mod-eshop .scroll-container .productlist .proditem {
     float: none !important;
@@ -145,11 +143,11 @@
 }
 .mod-eshop .scroll-container .scroll-btn-prev {
     left: 0;
-    background: url('/modules/eshop/images/scl-prev.png') no-repeat 50% 50%;
+    background: url('/modules/eshop/images/scl-prev.png') no-repeat 42% 50%;
 }
 .mod-eshop .scroll-container .scroll-btn-next {
     right: 0;
-    background: url('/modules/eshop/images/scl-next.png') no-repeat 50% 50%;
+    background: url('/modules/eshop/images/scl-next.png') no-repeat 56% 50%;
 }
 
 /* * * * * Спец.товар * * * * */
