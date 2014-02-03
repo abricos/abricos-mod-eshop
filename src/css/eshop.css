@@ -27,7 +27,7 @@
     text-align: center;
 }
 .mod-eshop .tmb .tmbpre img {
-    /*display: block; /**/
+    display: block;
     margin: 0 auto !important;
 }
 
@@ -302,7 +302,7 @@
 }
 
 /*Добавлено на случай, если в основном стиле прописано очищение списка - не корректно будет работать интерактивный пагинатор*/
-#product-list-wpage	ul {
+#product-list-wpage ul {
     clear: none;
 }
 

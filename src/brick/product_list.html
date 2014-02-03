@@ -90,37 +90,35 @@
 [/bkvar]
 
 [bkvar=table]
-    <ul class="productlist">
+    <div class="productlist">
         {v#rows}
-    </ul>
+    </div>
 [/bkvar]
 
 [bkvar=row]
-    <li class="proditem">
+    <div class="proditem">
         <div class="photo">
-                <div class="tmb tmb{v#imgw}">
-                        {v#image}
-                </div>
+            <div class="tmb tmb{v#imgw}">
+                {v#image}
+            </div>
         </div>
         <div class="info">
-                <p class="title">
-                        <a title="{v#title}" href="{v#link}">{v#title}</a>
-                </p>
-                <p class="price">
-                        <span>{v#price} {#brick.product_list.7}</span>
-                </p>
-
-                {v#buybutton}
-
+            <p class="title">
+                <a title="{v#title}" href="{v#link}">{v#title}</a>
+            </p>
+            <p class="price">
+                <span>{v#price} {#brick.product_list.7}</span>
+            </p>
+            {v#buybutton}
         </div>
         {v#special}
-    </li>
+    </div>
 [/bkvar]
 
 [bkvar=img]
-        <a class="tmbpre" title="{v#title}" href="{v#link}">
-                <img class="img-product-{v#productid}" alt="{v#title}" src="{v#src}" />
-        </a>
+    <a class="tmbpre" title="{v#title}" href="{v#link}">
+        <img class="img-product-{v#productid}" alt="{v#title}" src="{v#src}" />
+    </a>
 [/bkvar]
 
 [bkvar=imgempty]

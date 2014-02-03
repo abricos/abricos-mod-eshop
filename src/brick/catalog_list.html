@@ -4,12 +4,12 @@
 [mcss=eshop]eshop.css[/mcss]
 
 [bkvar=table]
-        <ul class="catlist">{v#rows}</ul>
-        <div class="clear"></div>
+    <div class="catlist">{v#rows}</div>
+    <div class="clear"></div>
 [/bkvar]
 
 [bkvar=row]
-    <li class="catitem">
+    <div class="catitem">
         <div class="photo">
             <div class="tmb tmb{v#width}">
                 {v#image}
@@ -18,18 +18,18 @@
         <div class="title">
             <a title="{v#title}" href="{v#link}">{v#title}</a>
         </div>
-    </li>
+    </div>
 [/bkvar]
 
 [bkvar=img]
-        <a title="{v#title}" href="{v#link}" class="tmbpre">
-                <img alt="{v#title}" src="{v#src}" />
-        </a>
+    <a title="{v#title}" href="{v#link}" class="tmbpre">
+        <img alt="{v#title}" src="{v#src}" />
+    </a>
 [/bkvar]
 
 [bkvar=imgempty]
-        <a title="{v#title}" href="{v#link}"><img width="{v#w}px" height="{v#h}px" alt="{v#title}" src="/modules/eshop/images/empty.gif"></a>
-        <span class="nophoto"><a title="{v#title}" href="{v#link}">{#brick.catalog_list.1}</a></span>
+    <a class="tmbpre" title="{v#title}" href="{v#link}"><img width="{v#w}px" height="{v#h}px" alt="{v#title}" src="/modules/eshop/images/empty.gif"></a>
+    <span class="nophoto"><a title="{v#title}" href="{v#link}">{#brick.catalog_list.1}</a></span>
 [/bkvar]
 
 [p=imgw]200[/p]
