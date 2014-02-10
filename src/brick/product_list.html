@@ -57,7 +57,7 @@
             });
 
             scrollView.plug(Y.Plugin.ScrollViewPaginator, {
-                selector: 'li'
+                selector: '.proditem'
             });
 
             scrollView.render();
@@ -74,13 +74,13 @@
             white-space:nowrap;
         }
 
-        #{v#brickid}-scl-content li {
+        #{v#brickid}-scl-content .proditem {
             display:inline-block;
             background-color:#fff;
         }
 
         /* For IE 6/7 - needs inline block hack */
-        #{v#brickid}-scl-content li {
+        #{v#brickid}-scl-content .proditem {
             *display:inline;
             *zoom:1;
         }
