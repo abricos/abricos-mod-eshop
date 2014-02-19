@@ -63,7 +63,8 @@ for ($i=0; $i<$count; $i++){
 $brick->content = Brick::ReplaceVarByData($brick->content, array(
 	"result" => Brick::ReplaceVarByData($v['table'], array(
 		"rows" => $lst
-	))
+	)),
+    "brickid" => $brick->id
 ));
 
 ?>

@@ -90,12 +90,17 @@
 [/bkvar]
 
 [bkvar=table]
-    <div class="productlist">
-        {v#rows}
+    <div class="row">
+        <div class="productlist">
+            {v#rows}
+        </div>
     </div>
 [/bkvar]
 
 [bkvar=row]
+
+    <div class="col-md-3 col-sm-6">
+
     <div class="proditem">
         <div class="photo">
             <div class="tmb tmb{v#imgw}">
@@ -112,6 +117,8 @@
             {v#buybutton}
         </div>
         {v#special}
+    </div>
+
     </div>
 [/bkvar]
 

@@ -4,32 +4,32 @@
 [mcss=eshop]eshop.css[/mcss]
 
 [bkvar=table]
-    <div class="catlist">{v#rows}</div>
-    <div class="clear"></div>
+    <div class="row">
+        {v#rows}
+    </div>
 [/bkvar]
 
 [bkvar=row]
-    <div class="catitem">
-        <div class="photo">
-            <div class="tmb tmb{v#width}">
-                {v#image}
+    <div class="col-md-4 col-sm-6">
+        <div class="catalog_item">
+            <div class="thumbnail">
+                <a href="{v#link}" title="{v#title}" class="foto">
+                    {v#image}
+                </a>
+                <div class="caption">
+                    <a title="{v#title}" href="{v#link}">{v#title}</a>
+                </div>
             </div>
-        </div>
-        <div class="title">
-            <a title="{v#title}" href="{v#link}">{v#title}</a>
         </div>
     </div>
 [/bkvar]
 
 [bkvar=img]
-    <a title="{v#title}" href="{v#link}" class="tmbpre">
-        <img alt="{v#title}" src="{v#src}" />
-    </a>
+    <img src="{v#src}" alt="{v#title}" />
 [/bkvar]
 
 [bkvar=imgempty]
-    <a class="tmbpre" title="{v#title}" href="{v#link}"><img width="{v#w}px" height="{v#h}px" alt="{v#title}" src="/modules/eshop/images/empty.gif"></a>
-    <span class="nophoto"><a title="{v#title}" href="{v#link}">{#brick.catalog_list.1}</a></span>
+    <img src="/modules/eshop/images/empty.gif" alt="{v#title}" />
 [/bkvar]
 
 [p=imgw]200[/p]
@@ -38,6 +38,24 @@
 [p=catids][/p]
 
 [*]-->
-<div class="cataloglist">
+<div id="{v#brickid}" class="catalog_list">
     {v#result}
 </div>
+<script type="text/javascript">
+    YUI().use('node', function (Y) {
+
+        var setMinHeight = function(selector){
+            var elItems = Y.one('#{v#brickid}').all(selector);
+            var maxH = 0;
+            elItems.each(function (elItem) {
+                maxH = Math.max(elItem.get('region').height, maxH);
+            });
+            elItems.each(function (elItem) {
+                elItem.setStyle('min-height', maxH);
+            });
+        };
+
+        setMinHeight('.foto');
+        setMinHeight('.thumbnail');
+    });
+</script>
