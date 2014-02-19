@@ -7,8 +7,8 @@
  * @author Alexander Kuzmin <roosit@abricos.org>
  */
 $brick = Brick::$builder->brick;
-$p = &$brick->param->param;
-$v = &$brick->param->var;
+$p = & $brick->param->param;
+$v = & $brick->param->var;
 
 $man = EShopModule::$instance->GetManager()->cManager;
 
@@ -16,8 +16,8 @@ $imgWidth = bkint($p['imgw']);
 $imgHeight = bkint($p['imgh']);
 
 Abricos::GetModule('filemanager')->EnableThumbSize(array(array(
-        "w" => $imgWidth,
-        "h" => $imgHeight
+    "w" => $imgWidth,
+    "h" => $imgHeight
 )));
 
 $cfg = new CatalogElementListConfig();
@@ -42,8 +42,8 @@ for ($i = 0; $i < $elList->Count(); $i++) {
     $pTitle = addslashes(htmlspecialchars($el->title));
 
     $pr_spec = !empty($el->ext['akc']) ? $v['pr_akc'] : "";
-    $pr_spec .=!empty($el->ext['new']) ? $v['pr_new'] : "";
-    $pr_spec .=!empty($el->ext['hit']) ? $v['pr_hit'] : "";
+    $pr_spec .= !empty($el->ext['new']) ? $v['pr_new'] : "";
+    $pr_spec .= !empty($el->ext['hit']) ? $v['pr_hit'] : "";
 
     $pr_special = "";
     if (!empty($pr_spec)) {
@@ -56,12 +56,12 @@ for ($i = 0; $i < $elList->Count(); $i++) {
         $imgSrc = OfflineManager::$instance->WriteImage($p['dir'], $el->foto, $imgWidth, $imgHeight);
 
         $image = Brick::ReplaceVarByData($v["img"], array(
-                    "src" => $imgSrc
+            "src" => $imgSrc
         ));
     }
     $image = Brick::ReplaceVarByData($image, array(
-                "w" => $imgWidth,
-                "h" => $imgHeight
+        "w" => $imgWidth,
+        "h" => $imgHeight
     ));
 
     $replace = array(
@@ -70,7 +70,7 @@ for ($i = 0; $i < $elList->Count(); $i++) {
         "image" => $image,
         "title" => $pTitle,
         "price" => $el->ext['price'],
-        "link" => "product" . $el->id . ".html",
+        "link" => "product".$el->id.".html",
         "productid" => $el->id
     );
 
@@ -82,9 +82,9 @@ for ($i = 0; $i < $elList->Count(); $i++) {
 }
 
 $brick->content = Brick::ReplaceVarByData($brick->content, array(
-            "display" => $p['display'],
-            "result" => Brick::ReplaceVarByData($v['table'], array(
-                "rows" => $lst . $lstz
-            ))
-        ));
+    "display" => $p['display'],
+    "result" => Brick::ReplaceVarByData($v['table'], array(
+            "rows" => $lst.$lstz
+        ))
+));
 ?>

@@ -15,8 +15,8 @@ header('Content-type: text/plain');
 
 $arr = $cManager->SearchAutoComplete($query, $extFilterField, $extFilterValue);
 
-for ($i=0;$i<count($arr);$i++){
-	print($arr[$i]."\n");
+for ($i = 0; $i < count($arr); $i++) {
+    print($arr[$i]."\n");
 }
 
 exit;

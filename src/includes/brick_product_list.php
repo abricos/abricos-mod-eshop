@@ -7,8 +7,8 @@
  * @author Alexander Kuzmin <roosit@abricos.org>
  */
 $brick = Brick::$builder->brick;
-$p = &$brick->param->param;
-$v = &$brick->param->var;
+$p = & $brick->param->param;
+$v = & $brick->param->var;
 
 $man = EShopModule::$instance->GetManager()->cManager;
 
@@ -18,8 +18,8 @@ $imgWidth = bkint($p['imgw']);
 $imgHeight = bkint($p['imgh']);
 
 Abricos::GetModule('filemanager')->EnableThumbSize(array(array(
-        "w" => $imgWidth,
-        "h" => $imgHeight
+    "w" => $imgWidth,
+    "h" => $imgHeight
 )));
 
 if (is_object($p['cfg'])) {
@@ -72,8 +72,8 @@ for ($i = 0; $i < $elList->Count(); $i++) {
     $pTitle = addslashes(htmlspecialchars($el->title));
 
     $pr_spec = !empty($el->ext['akc']) ? $v['pr_akc'] : "";
-    $pr_spec .=!empty($el->ext['new']) ? $v['pr_new'] : "";
-    $pr_spec .=!empty($el->ext['hit']) ? $v['pr_hit'] : "";
+    $pr_spec .= !empty($el->ext['new']) ? $v['pr_new'] : "";
+    $pr_spec .= !empty($el->ext['hit']) ? $v['pr_hit'] : "";
 
     $pr_special = "";
     if (!empty($pr_spec)) {
@@ -84,12 +84,12 @@ for ($i = 0; $i < $elList->Count(); $i++) {
         $image = $v["imgempty"];
     } else {
         $image = Brick::ReplaceVarByData($v["img"], array(
-                    "src" => $el->FotoSrc($imgWidth, $imgHeight)
+            "src" => $el->FotoSrc($imgWidth, $imgHeight)
         ));
     }
     $image = Brick::ReplaceVarByData($image, array(
-                "w" => $imgWidth,
-                "h" => $imgHeight
+        "w" => $imgWidth,
+        "h" => $imgHeight
     ));
 
     $replace = array(
@@ -106,7 +106,7 @@ for ($i = 0; $i < $elList->Count(); $i++) {
 
     if (!empty($modCart)) {
         $cartBrick = Brick::$builder->LoadBrickS('eshopcart', 'buybutton', null, array("p" => array(
-                "product" => $el
+            "product" => $el
         )));
         $replace["buybutton"] = $cartBrick->content;
     }
@@ -119,20 +119,20 @@ for ($i = 0; $i < $elList->Count(); $i++) {
 }
 
 $result = Brick::ReplaceVarByData($v['table'], array(
-		"rows" => $lst.$lstz
-	));
+    "rows" => $lst.$lstz
+));
 
 if ($p['scroll'] == 'true') {
     $result = Brick::ReplaceVarByData($v["scrolldiv"], array(
-                "result" => $result
+        "result" => $result
     ));
 }
 
 $brick->content = Brick::ReplaceVarByData($brick->content, array(
-            "display" => $p['display'],
-            "result" => $result,
-            "brickid" => $brick->id
-        ));
+    "display" => $p['display'],
+    "result" => $result,
+    "brickid" => $brick->id
+));
 
 if (!empty($modCart)) {
     $cartBrick = Brick::$builder->LoadBrickS('eshopcart', 'buybuttonjsinit');

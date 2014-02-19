@@ -26,8 +26,8 @@
  */
 
 $brick = Brick::$builder->brick;
-$p = &$brick->param->param;
-$v = &$brick->param->var;
+$p = & $brick->param->param;
+$v = & $brick->param->var;
 
 $mod = EShopModule::$instance;
 EShopModule::$instance->GetManager();
@@ -43,7 +43,7 @@ $bkParser = EShopManager::$instance->GetElementBrickParser($el);
 // динамически подключить кирпичи
 $sIncBricks = $v['includebrick'];
 if (!empty($p['includebrick'])) {
-    $sIncBricks .= "," . $p['includebrick'];
+    $sIncBricks .= ",".$p['includebrick'];
 }
 
 $replaceBrick = array();
@@ -76,7 +76,7 @@ foreach ($aIncBricks as $sIncBrick) {
 
     $bkParser->Parse($incBrick);
 
-    $replaceBrick["brick_" . $sIncBrick] = empty($incBrick) ? "" : $incBrick->content;
+    $replaceBrick["brick_".$sIncBrick] = empty($incBrick) ? "" : $incBrick->content;
 }
 $brick->content = Brick::ReplaceVarByData($brick->content, $replaceBrick);
 
