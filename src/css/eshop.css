@@ -1,4 +1,9 @@
-.mod-eshop .catalog_list .thumbnail a.foto {
-    display: block;
-    min-height: 179px;
+.mod-eshop .catalog_list .catalog_item a.foto {
+  display: block;
+}
+.mod-eshop .catalog_list .col-md-3 .catalog_item a.foto {
+  min-height: 179px;
+}
+.mod-eshop .catalog_list .col-md-4 .catalog_item a.foto {
+  min-height: 200px;
 }
