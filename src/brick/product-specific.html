@@ -3,16 +3,19 @@
 
 [v=optiongroup-specific]
 	<div class="specific">
-		{v#rows}
+	    <table class="table table-hover table-striped">
+	        <tbody>
+	            {v#rows}
+	        </tbody>
+	    </table>
 	</div>
-	<br class="clear" />
 [/v]
 
 [v=optiongrouprow-specific]
-	<dl class="specific-row">
-		<dt>{v#tl}</dt>
-		<dd>{v#vl}</dd>
-	</dl>
+    <tr>
+        <td>{v#tl}</td>
+        <td>{v#vl}</td>
+    </tr>
 [/v]
 
 [*]-->

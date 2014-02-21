@@ -82,6 +82,7 @@ $brick->content = Brick::ReplaceVarByData($brick->content, $replaceBrick);
 
 $bkParser = EShopManager::$instance->GetElementBrickParser($el);
 $replace = $bkParser->GetReplaceData();
+$replace['brickid'] = $brick->id;
 
 $brick->content = Brick::ReplaceVarByData($brick->content, $replace);
 

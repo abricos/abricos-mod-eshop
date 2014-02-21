@@ -16,29 +16,32 @@
                 {v#brick_product-foto}
             </div>
 
-        </div>
+            <div class="col-md-7">
 
-        <div class="photoinfoblock">
-            {v#brick_product-buyblock}
-            <br class="clear" />
-        </div>
-        <div id="mod-eshop-maintab" class="yui-navset">
-            <ul class="yui-nav">
-                <li class="selected">
-                    <a href="#mod-eshop-maintab-tabinfo"><em>Описание</em></a>
-                </li>
-                <li style="display: {v#disspecific}">
-                    <a href="#mod-eshop-maintab-tabspec"><em>Характеристики</em></a>
-                </li>
-            </ul>            
-            <div class="yui-content">
-                <div id="mod-eshop-maintab-tabinfo">
-                    {v#fld_desc}
-                </div>
-                <div id="mod-eshop-maintab-tabspec" style="display: {v#disspecific}">
-                    {v#brick_product-specific}
+                {v#brick_product-buyblock}
+
+                <div class="product_tabinfo">
+                    <ul id="{v#brickid}-tab" class="nav nav-tabs">
+                        <li class="active">
+                            <a href="#{v#brickid}-tabinfo" data-toggle="tab">Описание</a>
+                        </li>
+                        <li>
+                            <a href="#{v#brickid}-tabspec" data-toggle="tab">Характеристики</a>
+                        </li>
+                    </ul>
+
+                    <div id="{v#brickid}-tabcontent" class="tab-content">
+                        <div id="{v#brickid}-tabinfo" class="tab-pane active">
+                            {v#fld_desc}
+                        </div>
+                        <div id="{v#brickid}-tabspec" class="tab-pane">
+                            {v#brick_product-specific}
+                        </div>
+                    </div>
                 </div>
             </div>
+
         </div>
+
     </div>
 </div>

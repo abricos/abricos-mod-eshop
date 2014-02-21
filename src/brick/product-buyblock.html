@@ -6,29 +6,30 @@
 [v=options]art,brand,country,price[/v]
 
 [v=option-art]
-	<dl><dt>{v#fldtl_art}:</dt><dd>{v#fld_art}&nbsp;</dd></dl>
+	<dt>{v#fldtl_art}</dt><dd>{v#fld_art}</dd>
 [/v]
 [v=option-brand]
-	<dl><dt>{v#fldtl_brand}:</dt><dd class="brand">{v#fld_brand}&nbsp;</dd></dl>
+	<dt>{v#fldtl_brand}</dt><dd>{v#fld_brand}</dd>
 [/v]
 [v=option-country]
-	<dl><dt>{v#fldtl_country}:</dt><dd>{v#fld_country}&nbsp;</dd></dl>
+	<dt>{v#fldtl_country}</dt><dd>{v#fld_country}</dd>
 [/v]
 [v=option-price]
-	<dl>
-		<dt>{#brick.product.6}:</dt>
-		<dd>
-			<b><span class="price">{v#fld_price}</span> {#brick.product.8}</b>
-		</dd>
-	</dl>
+    <dt>{#brick.product.6}</dt>
+    <dd class="price">
+        <b><span class="num">{v#fld_price}</span> <span span="cur">{#brick.product.8}<span></b>
+    </dd>
 [/v]
 
 [*]-->
-<div class="info">
-	{v#option-art}
-	{v#option-brand}
-	{v#option-country}
-	{v#option-price}
+<div class="product_buyblock">
+    <dl class="dl-horizontal">
+        {v#option-art}
+        {v#option-brand}
+        {v#option-country}
+        {v#option-price}
+    </dl>
+
 	<div class="add2cart">
 		{v#buybutton}
 	</div>

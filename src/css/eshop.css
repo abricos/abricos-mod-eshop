@@ -32,3 +32,9 @@
 .mod-eshop .product_view .product_foto .thumbnail {
   margin-bottom: 4px;
 }
+.mod-eshop .product_view .product_tabinfo {
+  margin-top: 20px;
+}
+.mod-eshop .product_view .aw-eshopcart-buybutton {
+  text-align: center;
+}
