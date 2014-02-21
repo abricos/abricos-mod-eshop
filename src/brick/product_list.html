@@ -101,15 +101,17 @@
         <div class="product_item">
 
             <div class="thumbnail">
-                <a href="{v#link}" title="{v#title}" class="foto">
+                <a href="{v#link}" title="{v#title}" class="tmbfoto">
                     {v#image}
                 </a>
                 <div class="caption">
-                    <a title="{v#title}" href="{v#link}">{v#title}</a>
+                    <div class="title">
+                        <a title="{v#title}" href="{v#link}">{v#title}</a>
+                    </div>
 
-                    <p class="price">
+                    <div class="price">
                         <span>{v#price} {#brick.product_list.7}</span>
-                    </p>
+                    </div>
                     {v#buybutton}
 
                 </div>
@@ -149,21 +151,3 @@
 <div id="{v#brickid}" class="product_list">
     {v#result}
 </div>
-<script type="text/javascript">
-    YUI().use('node', function (Y) {
-
-        var setMinHeight = function(selector){
-            var elItems = Y.one('#{v#brickid}').all(selector);
-            var maxH = 0;
-            elItems.each(function (elItem) {
-                maxH = Math.max(elItem.get('region').height, maxH);
-            });
-            elItems.each(function (elItem) {
-                elItem.setStyle('min-height', maxH);
-            });
-        };
-
-        setMinHeight('.foto');
-        setMinHeight('.thumbnail');
-    });
-</script>

@@ -63,6 +63,7 @@ if ($fotoList->Count() == 0) {
 
         $lstFotoSmall .= Brick::ReplaceVarByData($v["fotosmall"], array(
             "src" => $foto->Link($fotoSmallSize['w'], $fotoSmallSize['h']),
+            "srcf" => $foto->Link(),
             "fid" => $foto->filehash
         ));
     }
@@ -77,6 +78,7 @@ $brick->content = Brick::ReplaceVarByData($brick->content, array(
     "h" => $fotoSize['h'],
     "smw" => $fotoSmallSize['w'],
     "smh" => $fotoSmallSize['w'],
+    "brickid" => $brick->id
 ));
 
 ?>

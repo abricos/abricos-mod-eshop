@@ -4,46 +4,53 @@
 
 [p=element][/p]
 
-[p=fotosize]200x200[/p]
-[p=fotosmsize]40x40[/p]
+[p=fotosize]300x300[/p]
+[p=fotosmsize]300x300[/p]
 [p=fotolimit]5[/p]
 
 [v=foto]
-	<img id="bigPhoto" onclick="Brick.f('eshop', 'ui', 'showMaxPhoto', this); return false;" class="big img-product-{v#elementid}" alt="{v#title}" src="{v#src}">
-	<a href="{v#srcf}" style="display: none" class="photo"></a>
-	<a href="" onclick="Brick.f('eshop', 'ui', 'showMaxPhoto', document.getElementById('bigPhoto')); return false;" class="showbig">увеличить</a>
+    <img id="{v#brickid}-img" alt="{v#title}" src="{v#src}" data-zoom-image="{v#srcf}">
+    <a href="{v#srcf}" style="display: none" class="photo"></a>
 [/v]
 
 [v=fotoempty]
-	<div class="rel">
-		<a title="{v#title}" href="#">
-			<img width="{v#w}px" height="{v#h}px" alt="{v#title}" src="/modules/eshop/images/empty.gif">
-		</a>
-		<span class="nophoto">{#brick.product.9}</span>
-	</div>
+    <img src="/images/empty.gif" data-zoom-image="{v#srcf}">
 [/v]
 
 [v=fotosmall]
-	<div class="tmb tmb{v#smw}">
-		<span class="tmbpre">
-			<img class="tmbsm" src="{v#src}" alt="{v#title}" 
-				onclick="Brick.f('eshop', 'ui', 'showBigPhoto', {fid: '{v#fid}', el: this}); return false;" 
-				id="tmb{v#fid}"
-			/>
-		</span>
+	<div class="col-md-3">
+	    <a class="thumbnail" href="#"
+	        data-image="{v#src}"
+	        data-zoom-image="{v#srcf}" >
+            <img src="{v#src}" alt="{v#title}" id="tmb{v#fid}" />
+        </a>
 	</div>
 [/v]
 
+[js]/vendor/elevatezoom/jquery.elevateZoom-2.2.3.min.js[/js]
+
 [*]-->
-<div class="photos">
-	<div id="bigPhotoDiv" class="tmb tmb{v#w}">
-		<span class="tmbpre">
-			{v#foto}
-		</span>
-		<img width="31" height="31" src="/modules/eshop/images/loader.gif" alt="Loading" id="loading" style="display: none;">
-	</div>
-	<div class="lstsm">
-		{v#fotolist}
-	</div>
-	<div class="clear"></div>
-</div> 
+<div class="product_foto">
+    <div class="big_foto">
+        <div class="thumbnail">
+            {v#foto}
+        </div>
+    </div>
+
+    <div id="{v#brickid}-gallery" class="small_foto">
+        <div class="row">
+            {v#fotolist}
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#{v#brickid}-img').elevateZoom({
+            gallery: '{v#brickid}-gallery',
+            cursor: 'pointer',
+            galleryActiveClass: "active",
+            imageCrossfade: true            ,
+            loadingIcon: "/modules/eshop/images/loader.gif"
+        });
+    });
+</script>

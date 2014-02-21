@@ -7,10 +7,18 @@
 
 [*]-->
 <div class="mod-eshop">
-    <div id="view_item" class="product hproduct">
+    <div class="product_view hproduct">
         <h3 class="fn">{v#title}</h3>
+
+        <div class="row">
+
+            <div class="col-md-5">
+                {v#brick_product-foto}
+            </div>
+
+        </div>
+
         <div class="photoinfoblock">
-            {v#brick_product-foto}
             {v#brick_product-buyblock}
             <br class="clear" />
         </div>
@@ -34,10 +42,3 @@
         </div>
     </div>
 </div>
-
-<script type="text/javascript">
-    Brick.ff('eshop', 'tabview', function() {
-        new YAHOO.widget.TabView('mod-eshop-maintab');
-    });
-</script>
-

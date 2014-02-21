@@ -1,16 +1,49 @@
 .mod-eshop {
-  .catalog_list {
 
-    .catalog_item a.foto {
+  .thumbnail {
+    a.tmbfoto {
       display: block;
     }
-
-    .col-md-3 .catalog_item a.foto {
-      min-height: 179px;
+    .caption {
+      .title {
+        height: 45px;
+      }
+      .price {
+        height: 30px;
+      }
+      overflow: hidden;
+      text-align: center;
     }
+  }
 
-    .col-md-4 .catalog_item a.foto {
-      min-height: 200px;
+  .col-md-3 .thumbnail a.tmbfoto {
+    min-height: 179px;
+  }
+  .col-md-4 .thumbnail a.tmbfoto {
+    min-height: 200px;
+  }
+
+  .product_view {
+    .product_foto {
+
+      .big_foto .thumbnail {
+        min-height: 330px;
+      }
+
+      .small_foto {
+        .row {
+          margin: 0 -3px;
+        }
+        .col-md-3 {
+          padding: 0 3px;
+        }
+        .thumbnail {
+          height: 100px;
+        }
+      }
+      .thumbnail {
+        margin-bottom: 4px;
+      }
     }
   }
 }

@@ -1,0 +1,6 @@
+{
+    "name": "eshop",
+    "dependencies": {
+        "elevatezoom": "https://github.com/roosit/elevatezoom.git"
+    }
+}

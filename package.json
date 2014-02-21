@@ -1,0 +1,24 @@
+{
+  "name": "eshop",
+  "description": "Abricos EShop module",
+  "version": "0.2.4-dev",
+  "author": {
+    "name": "Alexander Kuzmin",
+    "email": "roosit@abricos.org",
+    "web": "http://abricos.org",
+    "twitter": "roositab"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/abricos/abricos-mod-eshop.git"
+  },
+  "keywords": [
+    "abricos",
+    "eshop",
+    "cms"
+  ],
+  "bugs": {
+    "url": "https://github.com/abricos/abricos-mod-eshop/issues"
+  }
+}
