@@ -14,7 +14,6 @@ $pQuery = Abricos::CleanGPC('g', 'q', TYPE_STR);
 $pFField = Abricos::CleanGPC('g', 'eff', TYPE_STR);
 $pFValue = Abricos::CleanGPC('g', 'ef', TYPE_STR);
 
-
 $cManager = EShopModule::$instance->GetManager()->cManager;
 
 $extFilterCol = "";
@@ -49,7 +48,8 @@ if (!empty($p['extfilter'])) {
 
 $brick->content = Brick::ReplaceVarByData($brick->content, array(
     "query" => htmlspecialchars($pQuery),
-    "extfiltercol" => $extFilterCol
+    "extfiltercol" => $extFilterCol,
+    "brickid" => $brick->id
 ));
 
 ?>

@@ -27,36 +27,46 @@
 	<option value="{v#id}" {v#selected}>{v#tl}</option>
 [/bkvar]
 
-
 [*]-->
-<div class="aw-eshop-searchline">
-    <form action="/eshop/search/" method="get" class="sform">
-        <table class="stable">
-            <tbody>
-            <tr>
-                <td class="scol">
-                    <div class="stitle">Поиск</div>
-                </td>
-                <td class="scol">
-                    <div class="sinputcont">
-                        <input type="text" class="sinput" name="q" autocomplete="off" value="{v#query}"
-                               onfocus="select()"/>
-                        <img src="/images/loading.gif" class="loading" style="display: none"/>
+<div id="{v#brickid}" class="aw-eshop-searchline">
 
-                        <div class="autocompletecont" style="position: relative"></div>
-                    </div>
-                </td>
-                {v#extfiltercol}
-                <td class="scol">
-                    <input type="submit" value="Найти" class="sbutton"/>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+    <form action="/eshop/search/" method="get" class="sform">
+
+        <div class="input-group">
+            <input id="{v#brickid}input" type="text" class="form-control"/>
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="button">Найти</button>
+            </span>
+        </div>
     </form>
+
+    <table class="stable">
+        <tbody>
+        <tr>
+            <td class="scol">
+                <div class="stitle">Поиск</div>
+            </td>
+            <td class="scol">
+                <div class="sinputcont">
+                    <input type="text" class="sinput" name="q" autocomplete="off" value="{v#query}"
+                           onfocus="select()"/>
+                    <img src="/images/loading.gif" class="loading" style="display: none"/>
+
+                    <div class="autocompletecont" style="position: relative"></div>
+                </div>
+            </td>
+            {v#extfiltercol}
+            <td class="scol">
+                <input type="submit" value="Найти" class="sbutton"/>
+            </td>
+        </tr>
+        </tbody>
+    </table>
     <div class="clear"></div>
 </div>
 
 <script>
-    Brick.f('eshop', 'searchline', 'searchLineInit');
+    YUI().use('autocomplete', function (Y) {
+        // Y.one('#{v#brickid}input').plug(Y.Plugin.AutoComplete);
+    });
 </script>
