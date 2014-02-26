@@ -1,11 +1,14 @@
-.twitter-typeahead {
+.mod-eshop .searchline .text-field-query {
+  width: 420px;
+}
+.mod-eshop .searchline .twitter-typeahead {
   vertical-align: middle;
 }
-.twitter-typeahead .tt-query,
-.twitter-typeahead .tt-hint {
+.mod-eshop .searchline .twitter-typeahead .tt-query,
+.mod-eshop .searchline .twitter-typeahead .tt-hint {
   margin-bottom: 0;
 }
-.tt-dropdown-menu {
+.mod-eshop .searchline .tt-dropdown-menu {
   min-width: 160px;
   margin-top: 2px;
   padding: 5px 0;
@@ -25,11 +28,14 @@
   background-clip: padding-box;
   width: 100%;
 }
-.tt-suggestion {
+.mod-eshop .searchline .tt-suggestion {
   display: block;
   padding: 3px 20px;
 }
-.tt-suggestion.tt-is-under-cursor {
+.mod-eshop .searchline .tt-suggestion p {
+  margin: 0;
+}
+.mod-eshop .searchline .tt-suggestion.tt-cursor {
   color: #fff;
   background-color: #0081c2;
   background-image: -moz-linear-gradient(top, #0088cc, #0077b3);
@@ -40,9 +46,6 @@
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc', endColorstr='#ff0077b3', GradientType=0);
 }
-.tt-suggestion.tt-is-under-cursor a {
+.mod-eshop .searchline .tt-suggestion.tt-cursor a {
   color: #fff;
-}
-.tt-suggestion p {
-  margin: 0;
 }
