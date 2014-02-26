@@ -1,6 +1,7 @@
 {
     "name": "eshop",
     "dependencies": {
-        "elevatezoom": "https://github.com/roosit/elevatezoom.git"
+        "elevatezoom": "https://github.com/roosit/elevatezoom.git",
+        "typeahead.js": "~0.10.1"
     }
 }

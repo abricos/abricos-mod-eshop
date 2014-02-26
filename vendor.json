@@ -3,6 +3,13 @@
         "elevatezoom": [
             "README.md",
             "jquery.elevate*"
+        ],
+        "typeahead.js": [
+            {
+                "cwd": "dist",
+                "src": "**"
+            },
+            "LICENSE", "README.md"
         ]
     }
 }
