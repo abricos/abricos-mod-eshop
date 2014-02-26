@@ -1,6 +1,7 @@
 <!--[*]
 
-[mcss=eshop]eshop.css[/mcss]
+[js]/vendor/typeahead.js/typeahead.bundle.js[/js]
+[mcss=eshop]searchline.css[/mcss]
 
 [script]brick_searchline.php[/script]
 
@@ -11,62 +12,61 @@
 [/pdesc]
 
 [bkvar=textfilter]
-	<td class="scol sextfilter">
-		{v#select}
-		<input class="sfilterfield" type="hidden" name="eff" value="{v#fld}" />
-	</td>
+    {v#select}
+    <input id="{v#brickid}-eff" type="hidden" name="eff" value="{v#fld}" />
 [/bkvar]
 
 [bkvar=select]
-	<select name="ef" class="sfilter">
+	<select id="{v#brickid}-ef" name="ef" class="form-control">
 		<option value="0">{v#tl}</option>
 		{v#rows}
 	</select>
 [/bkvar]
+
 [bkvar=option]
 	<option value="{v#id}" {v#selected}>{v#tl}</option>
 [/bkvar]
 
 [*]-->
 <div id="{v#brickid}" class="aw-eshop-searchline">
-
-    <form action="/eshop/search/" method="get" class="sform">
-
-        <div class="input-group">
-            <input id="{v#brickid}input" type="text" class="form-control"/>
-            <span class="input-group-btn">
-                <button class="btn btn-default" type="button">Найти</button>
-            </span>
-        </div>
+    <form action="/eshop/search/" method="get" class="form-inline">
+        <input id="{v#brickid}-input" type="text"
+               class="form-control"
+               name="q" value="{v#query}"
+               autocomplete="off"/>
+        {v#extfiltercol}
+        <button class="btn btn-default" type="submit">Найти</button>
     </form>
-
-    <table class="stable">
-        <tbody>
-        <tr>
-            <td class="scol">
-                <div class="stitle">Поиск</div>
-            </td>
-            <td class="scol">
-                <div class="sinputcont">
-                    <input type="text" class="sinput" name="q" autocomplete="off" value="{v#query}"
-                           onfocus="select()"/>
-                    <img src="/images/loading.gif" class="loading" style="display: none"/>
-
-                    <div class="autocompletecont" style="position: relative"></div>
-                </div>
-            </td>
-            {v#extfiltercol}
-            <td class="scol">
-                <input type="submit" value="Найти" class="sbutton"/>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-    <div class="clear"></div>
 </div>
 
 <script>
-    YUI().use('autocomplete', function (Y) {
-        // Y.one('#{v#brickid}input').plug(Y.Plugin.AutoComplete);
-    });
+    (function () {
+        var elf = $('#{v#brickid}-ef'), elff = $('#{v#brickid}-eff');
+
+        var engine = new Bloodhound({
+            datumTokenizer: function (d) {
+                return Bloodhound.tokenizers.whitespace(d.value);
+            },
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
+            remote: {
+                url: '/ajax/eshop/js_search/',
+                replace: function (url, query) {
+                    url += '?q=' + encodeURIComponent(query);
+                    if (!elf || !elff) {
+                        return url;
+                    }
+                    return url +
+                            '&ef=' + encodeURIComponent(elf.val()) +
+                            '&eff=' + encodeURIComponent(elff.val());
+                }
+            }
+        });
+
+        engine.initialize()
+
+        $('#{v#brickid}-input').typeahead(null, {
+            displayKey: 'tl',
+            source: engine.ttAdapter()
+        });
+    })();
 </script>
