@@ -65,10 +65,6 @@ class EShopManager extends Ab_ModuleManager {
 
         $this->cManager = new EShopCatalogManager();
 
-        // TODO: на удаление
-        // $this->catalog = Abricos::GetModule('catalog');
-        // $this->catalogManager = $module->GetCatalogManager();
-
         $this->userSession = $this->user->session->key;
     }
 
@@ -220,6 +216,18 @@ class EShopManager extends Ab_ModuleManager {
         }
     }
 
+    public function Bos_MenuData(){
+        $lng = $this->module->lang;
+        return [
+            [
+                "name" => "eshop",
+                "title" => $lng['bosmenu']['eshop'],
+                "role" => EShopAction::ADMIN,
+                "icon" => "/modules/eshop/images/logo-48x48.png",
+                "url" => "eshop/wspace/ws"
+            ]
+        ];
+    }
 
 }
 

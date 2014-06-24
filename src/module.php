@@ -125,6 +125,14 @@ class EShopModule extends Ab_Module {
         return true;
     }
 
+    /**
+     * Этот модуль добавляет элементы меню в Bos
+     * @return bool
+     */
+    public function Bos_IsMenu(){
+        return true;
+    }
+
 }
 
 class EShopAction {
