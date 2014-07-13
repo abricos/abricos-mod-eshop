@@ -216,17 +216,17 @@ class EShopManager extends Ab_ModuleManager {
         }
     }
 
-    public function Bos_MenuData(){
+    public function Bos_MenuData() {
         $lng = $this->module->lang;
-        return [
-            [
+        return array(
+            array(
                 "name" => "eshop",
                 "title" => $lng['bosmenu']['eshop'],
                 "role" => EShopAction::ADMIN,
                 "icon" => "/modules/eshop/images/logo-48x48.png",
                 "url" => "eshop/wspace/ws"
-            ]
-        ];
+            )
+        );
     }
 
 }
