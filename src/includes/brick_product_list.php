@@ -93,6 +93,7 @@ for ($i = 0; $i < $elList->Count(); $i++) {
     ));
 
     $replace = array(
+        "classcolumn" => $p['classcolumn'],
         "imgw" => $imgWidth,
         "imgh" => $imgHeight,
         "special" => $pr_special,

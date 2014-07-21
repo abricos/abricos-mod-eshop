@@ -55,6 +55,7 @@ for ($i = 0; $i < $count; $i++) {
     ));
 
     $lst .= Brick::ReplaceVarByData($v['row'], array(
+        "classcolumn" => $p['classcolumn'],
         "width" => $imgWidth,
         "image" => $image,
         "title" => addslashes(htmlspecialchars($cat->title)),

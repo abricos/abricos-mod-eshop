@@ -29,6 +29,8 @@
 [p=scroll][/p]
 [p=scrollwidth]974[/p]
 
+[p=classcolumn]col-md-4 col-sm-6[/p]
+
 [bkvar=scrolldiv]
 
     <div class="scroll-container">
@@ -44,6 +46,7 @@
     </div>
 
     <script type="text/javascript" charset="utf-8">
+        /*
         YUI().use('scrollview', 'scrollview-paginator', function(Y) {
 
             var scrollView = new Y.ScrollView({
@@ -65,10 +68,10 @@
             Y.one('#{v#brickid}-scl-bnext').on('click', Y.bind(scrollView.pages.next, scrollView.pages));
             Y.one('#{v#brickid}-scl-bprev').on('click', Y.bind(scrollView.pages.prev, scrollView.pages));
         });
+        /**/
     </script>
 
     <style>
-
         /* To layout horizontal LIs */
         #{v#brickid}-scl-content {
             white-space:nowrap;
@@ -84,7 +87,6 @@
             *display:inline;
             *zoom:1;
         }
-
     </style>
 
 [/bkvar]
@@ -96,7 +98,7 @@
 [/bkvar]
 
 [bkvar=row]
-    <div class="col-md-4 col-sm-6">
+    <div class="{v#classcolumn}">
 
         <div class="product_item">
 
