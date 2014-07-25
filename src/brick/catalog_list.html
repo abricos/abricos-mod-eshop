@@ -11,14 +11,14 @@
 
 [bkvar=row]
     <div class="{v#classcolumn}">
-        <div class="catalog_item">
+        <div class="catalog_item" itemscope itemtype="http://schema.org/ItemPage">
             <div class="thumbnail">
                 <a href="{v#link}" title="{v#title}" class="tmbfoto">
                     {v#image}
                 </a>
                 <div class="caption">
                     <div class="title">
-                        <a title="{v#title}" href="{v#link}">{v#title}</a>
+                        <a title="{v#title}" href="{v#link}"><span itemprop="name">{v#title}</span></a>
                     </div>
                 </div>
             </div>
@@ -27,7 +27,7 @@
 [/bkvar]
 
 [bkvar=img]
-    <img src="{v#src}" alt="{v#title}" />
+    <img src="{v#src}" alt="{v#title}" itemprop="image" />
 [/bkvar]
 
 [bkvar=imgempty]

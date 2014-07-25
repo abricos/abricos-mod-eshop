@@ -7,8 +7,8 @@
 
 [*]-->
 <div class="mod-eshop">
-    <div class="product_view hproduct">
-        <h3 class="fn">{v#title}</h3>
+    <div class="product_view" itemscope itemtype="http://schema.org/Product">
+        <h3 class="fn" itemprop="name">{v#title}</h3>
 
         <div class="row">
 
@@ -31,7 +31,7 @@
                     </ul>
 
                     <div id="{v#brickid}-tabcontent" class="tab-content">
-                        <div id="{v#brickid}-tabinfo" class="tab-pane active">
+                        <div id="{v#brickid}-tabinfo" class="tab-pane active" itemprop="description">
                             {v#fld_desc}
                         </div>
                         <div id="{v#brickid}-tabspec" class="tab-pane">
