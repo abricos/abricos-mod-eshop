@@ -41,6 +41,7 @@ $count = $cCatList->Count();
 
 for ($i = 0; $i < $count; $i++) {
     $cat = $cCatList->GetByIndex($i);
+    if ($cat->listDisable){ continue; }
 
     if (empty($cat->foto)) {
         $image = $v["imgempty"];
