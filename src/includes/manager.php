@@ -212,8 +212,8 @@ class EShopManager extends Ab_ModuleManager {
         $count = $rootCat->childs->Count();
         for ($i = 0; $i < $count; $i++) {
             $catItem = $rootCat->childs->GetByIndex($i);
-            if ($catItem->menuDisable){ continue; }
             $cmItem = new EShopMenuItem($mItem, $catItem);
+            $cmItem->off = $catItem->menuDisable;
             $mItem->childs->Add($cmItem);
         }
     }
