@@ -1,7 +1,7 @@
 <?php
 return array(
     "bosmenu" => array(
-        "eshop" => "Интернет магазин"
+        "eshop" => "Интернет-магазин"
     ),
     "brick" => array(
         "action" => array(
