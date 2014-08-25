@@ -64,14 +64,6 @@ Brick::$builder->LoadBrickS('sitemap', 'paginator', $brick, array("p" => array(
     "hidepn" => "0"
 )));
 
-
-// Вывод заголовка страницы
-if (!empty($dtl->metaTitle)) {
-    Brick::$builder->SetGlobalVar('meta_title', $dtl->metaTitle);
-} else {
-    Brick::$builder->SetGlobalVar('meta_title', $cat->title);
-}
-
 // Вывод ключевых слов
 if (!empty($dtl->metaKeys)) {
     Brick::$builder->SetGlobalVar('meta_keys', $dtl->metaKeys);
@@ -81,6 +73,18 @@ if (!empty($dtl->metaKeys)) {
 if (!empty($dtl->metaDescript)) {
     Brick::$builder->SetGlobalVar('meta_desc', $dtl->metaDescript);
 }
+
+// Вывод заголовка страницы
+$metaTitle = !empty($dtl->metaTitle) ? $dtl->metaTitle : $cat->title;
+
+$phrase = Brick::$builder->phrase;
+
+if (empty($metaTitle)){
+    $metaTitle = $v["deftitle"];
+    $metaTitle = $phrase->Get('eshop', 'catalog_list_meta_title', $metaTitle);
+}
+
+Brick::$builder->SetGlobalVar('meta_title', $metaTitle);
 
 
 ?>

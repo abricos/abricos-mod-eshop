@@ -2,6 +2,8 @@
 [tt=main][/tt]
 [script]content_products.php[/script]
 
+[ph=eshop:catalog_list_meta_title]Интернет-магазин[/pj]
+
 [mod=eshop]catalog_list,product_list|forcontent=true[/mod]
 
 [mcss=sitemap]sitemap.css[/mcss]
@@ -58,18 +60,17 @@
 
 [*]-->
 <div class="mod-eshop">
+    {v#adminbutton}
 
-		{v#adminbutton}
-		
-		<h2>{v#cattitle}</h2>
+    <h2>{v#cattitle}</h2>
 
-		[mod]eshop:catalog_list[/mod]
+    [mod]eshop:catalog_list[/mod]
 
-		[mod]eshop:product_list[/mod]
-		<div class="clear"></div>
-		
-		[mod]sitemap:paginator[/mod]
-		<div class="clear"></div>
-	
-		{v#catdesc}
+    [mod]eshop:product_list[/mod]
+    <div class="clear"></div>
+
+    [mod]sitemap:paginator[/mod]
+    <div class="clear"></div>
+
+    {v#catdesc}
 </div>
