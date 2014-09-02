@@ -33,7 +33,7 @@ class EShopModule extends Ab_Module {
     );
 
     public function EShopModule() {
-        $this->version = "0.2.4-dev";
+        $this->version = "0.2.4";
         $this->name = "eshop";
         $this->takelink = "eshop";
         EShopModule::$instance = $this;

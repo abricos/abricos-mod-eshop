@@ -1,7 +1,7 @@
 {
   "name": "eshop",
   "description": "Abricos EShop module",
-  "version": "0.2.4-dev",
+  "version": "0.2.4",
   "author": {
     "name": "Alexander Kuzmin",
     "email": "roosit@abricos.org",
