@@ -97,6 +97,25 @@
     </div>
 [/bkvar]
 
+[bkvar=pricebuy]
+    <div class="price">
+        <span>{v#price} {#brick.product_list.7}</span>
+    </div>
+[/bkvar]
+[bkvar=priceorder]
+    <div class="price">
+        <span>Цену уточняйте</span>
+    </div>
+[/bkvar]
+
+[bkvar=extdivbuy1][/bkvar]
+[bkvar=extdivbuy2][/bkvar]
+[bkvar=extdivbuy3][/bkvar]
+
+[bkvar=extdivorder1][/bkvar]
+[bkvar=extdivorder2][/bkvar]
+[bkvar=extdivorder3][/bkvar]
+
 [bkvar=row]
     <div class="{v#classcolumn}">
 
@@ -107,13 +126,19 @@
                     {v#image}
                 </a>
                 <div class="caption">
+
+                    {v#extdiv1}
+
                     <div class="title">
                         <a title="{v#title}" href="{v#link}"><span itemprop="name">{v#title}</span></a>
                     </div>
 
-                    <div class="price">
-                        <span>{v#price} {#brick.product_list.7}</span>
-                    </div>
+                    {v#extdiv2}
+
+                    {v#price}
+
+                    {v#extdiv3}
+
                     {v#buybutton}
 
                 </div>

@@ -7,8 +7,8 @@
  * @author Alexander Kuzmin <roosit@abricos.org>
  */
 $brick = Brick::$builder->brick;
-$p = & $brick->param->param;
-$v = & $brick->param->var;
+$p = &$brick->param->param;
+$v = &$brick->param->var;
 
 $man = EShopModule::$instance->GetManager()->cManager;
 
@@ -100,9 +100,7 @@ for ($i = 0; $i < $elList->Count(); $i++) {
         "buybutton" => "",
         "image" => $image,
         "title" => $pTitle,
-        "price" => number_format($el->ext['price'], 2, ',', ' '),
-        "link" => $el->URI(),
-        "productid" => $el->id
+        "link" => $el->URI()
     );
 
     if (!empty($modCart)) {
@@ -112,11 +110,29 @@ for ($i = 0; $i < $elList->Count(); $i++) {
         $replace["buybutton"] = $cartBrick->content;
     }
 
-    if ($el->ext['price'] > 0) {
+    if (doubleval($el->ext['price']) > 0) {
+        $replace['price'] =
+            Brick::ReplaceVarByData($v['pricebuy'], number_format($el->ext['price'], 2, ',', ' '));
+
+        $replace['extdiv1'] = $v['extdivbuy1'];
+        $replace['extdiv2'] = $v['extdivbuy2'];
+        $replace['extdiv3'] = $v['extdivbuy3'];
+    } else {
+        $replace['price'] = $v['priceorder'];
+
+        $replace['extdiv1'] = $v['extdivorder1'];
+        $replace['extdiv2'] = $v['extdivorder2'];
+        $replace['extdiv3'] = $v['extdivorder3'];
+    }
+
+    $replace["productid"] = $el->id;
+
+    if (doubleval($el->ext['price']) > 0) {
         $lst .= Brick::ReplaceVarByData($v['row'], $replace);
     } else {
         $lstz .= Brick::ReplaceVarByData($v['row'], $replace);
     }
+
 }
 
 $result = Brick::ReplaceVarByData($v['table'], array(
