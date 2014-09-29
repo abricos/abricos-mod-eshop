@@ -112,7 +112,9 @@ for ($i = 0; $i < $elList->Count(); $i++) {
 
     if (doubleval($el->ext['price']) > 0) {
         $replace['price'] =
-            Brick::ReplaceVarByData($v['pricebuy'], number_format($el->ext['price'], 2, ',', ' '));
+            Brick::ReplaceVarByData($v['pricebuy'], array(
+                "price" => number_format($el->ext['price'], 2, ',', ' '))
+            );
 
         $replace['extdiv1'] = $v['extdivbuy1'];
         $replace['extdiv2'] = $v['extdivbuy2'];
