@@ -70,9 +70,6 @@ $elTypeList = $man->ElementTypeList();
 for ($i = 0; $i < $elTypeList->Count(); $i++) {
     $elType = $elTypeList->GetByIndex($i);
     $elTypeName = $elType->name;
-    if (empty($elTypeName)) {
-        continue;
-    }
 
     $sOverrideBrick = "product_list-".$elTypeName;
     $overrideBricks[$elType->id] = Brick::$builder->LoadBrickS("eshop", $sOverrideBrick);

@@ -26,8 +26,10 @@
  */
 
 $brick = Brick::$builder->brick;
-$p = & $brick->param->param;
-$v = & $brick->param->var;
+$p = &$brick->param->param;
+$v = &$brick->param->var;
+$ph = &$brick->param->phrase;
+
 
 $mod = EShopModule::$instance;
 EShopModule::$instance->GetManager();
@@ -38,11 +40,31 @@ $elementid = $mod->currentProductId;
 $el = $man->Product($elementid);
 $cat = $man->Catalog($el->catid);
 
+$elTypeList = $man->ElementTypeList();
+$elType = $elTypeList->Get($el->elTypeId);
+$sOvrBrick = "product-tp-".$elType->name;
+
+$ovrBrick = Brick::$builder->LoadBrickS("eshop", $sOvrBrick);
+
+$pOvr = &$ovrBrick->param->param;
+$vOvr = &$ovrBrick->param->var;
+$phOvr = &$ovrBrick->param->phrase;
+
+$vIncludeBrick = isset($vOvr['includebrick']) ? $vOvr['includebrick'] : $v['includebrick'];
+$pIncludeBrick = $p['includebrick'];
+$brick->content = !$ovrBrick->isError && !empty($ovrBrick->content) ? $ovrBrick->content : $brick->content;
+
+if (is_array($phOvr)){
+    foreach($phOvr as $key => $value){
+        $ph[$key] = $value;
+    }
+}
+
 $bkParser = EShopManager::$instance->GetElementBrickParser($el);
 
 // динамически подключить кирпичи
-$sIncBricks = $v['includebrick'];
-if (!empty($p['includebrick'])) {
+$sIncBricks = $vIncludeBrick;
+if (!empty($pIncludeBrick)) {
     $sIncBricks .= ",".$p['includebrick'];
 }
 
