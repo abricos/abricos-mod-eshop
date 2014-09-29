@@ -151,6 +151,9 @@ class EShopElementBrickParser {
         $cMan = EShopModule::$instance->GetManager()->cManager;
         $elTypeList = $cMan->ElementTypeList();
 
+        $catList = $cMan->CatalogList();
+        $cat = $catList->Get($el->catid);
+
         $replace = array(
             "link" => $el->URI(),
             "elementid" => $el->id,
@@ -181,7 +184,12 @@ class EShopElementBrickParser {
                     }
                 } else {
                     if ($option->name == 'price') {
+
+                        $replace["fld_".$option->name."_int"] =
+                            number_format($value, 0, ',', ' ');
+
                         $value = number_format($value, 2, ',', ' ');
+
                     }
                 }
                 $replace["fldtl_".$option->name] = $option->title;
