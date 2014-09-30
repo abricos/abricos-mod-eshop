@@ -88,15 +88,15 @@ for ($i = 0; $i < $elList->Count(); $i++) {
 
     // Templates
     $tplClassColumn = isset($pOvr['classcolumn']) ? $pOvr['classcolumn'] : $p['classcolumn'];
-    $tplPriceBuy = $v['pricebuy'];
+    $tplPriceBuy = isset($vOvr['pricebuy']) ? $vOvr['pricebuy'] : $v['pricebuy'];
     $tplExtDivBuy1 = isset($vOvr['extdivbuy1']) ? $vOvr['extdivbuy1'] : $v['extdivbuy1'];
     $tplExtDivBuy2 = isset($vOvr['extdivbuy2']) ? $vOvr['extdivbuy2'] : $v['extdivbuy2'];
     $tplExtDivBuy3 = isset($vOvr['extdivbuy3']) ? $vOvr['extdivbuy3'] : $v['extdivbuy3'];
 
+    $tplPriceOrder = isset($vOvr['priceorder']) ? $vOvr['priceorder'] : $v['priceorder'];
     $tplExtDivOrder1 = isset($vOvr['extdivorder1']) ? $vOvr['extdivorder1'] : $v['extdivorder1'];
     $tplExtDivOrder2 = isset($vOvr['extdivorder2']) ? $vOvr['extdivorder2'] : $v['extdivorder2'];
     $tplExtDivOrder3 = isset($vOvr['extdivorder3']) ? $vOvr['extdivorder3'] : $v['extdivorder3'];
-    $tplPriceOrder = $v['priceorder'];
 
     $tplRow = $v['row'];
     $tplTable = $v['table'];
@@ -146,8 +146,9 @@ for ($i = 0; $i < $elList->Count(); $i++) {
     if (doubleval($el->ext['price']) > 0) {
         $replace['price'] =
             Brick::ReplaceVarByData($tplPriceBuy, array(
-                    "price" => number_format($el->ext['price'], 2, ',', ' '))
-            );
+                "price" => number_format($el->ext['price'], 2, ',', ' '),
+                "price_int" => number_format($el->ext['price'], 0, ',', ' ')
+            ));
 
         $replace['extdiv1'] = $tplExtDivBuy1;
         $replace['extdiv2'] = $tplExtDivBuy2;
