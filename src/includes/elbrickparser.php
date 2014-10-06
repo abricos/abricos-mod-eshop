@@ -27,6 +27,52 @@ class EShopElementBrickParser {
         $brick->content = Brick::ReplaceVarByData($brick->content, $replace);
     }
 
+    private $_cacheOptionsData = null;
+
+    public function GetOptionsData() {
+        if (!empty($this->_cacheOptionsData)) {
+            return $this->_cacheOptionsData;
+        }
+
+        $el = $this->element;
+
+        $cMan = EShopModule::$instance->GetManager()->cManager;
+        $elTypeList = $cMan->ElementTypeList();
+
+        $ret = array();
+        for ($i = 0; $i <= 2; $i++) {
+            if ($i == 0) {
+                $elType = $elTypeList->Get(0);
+            } else if ($el->elTypeId > 0) {
+                $elType = $elTypeList->Get($el->elTypeId);
+            } else {
+                continue;
+            }
+
+            for ($ii = 0; $ii < $elType->options->Count(); $ii++) {
+                $option = $elType->options->GetByIndex($ii);
+
+                $value = $this->GetOptionValue($option->name);
+
+                $reti = array("option" => $option, "title" => $option->title, "value" => $value, "value_int" => "");
+
+                if ($option->type == Catalog::TP_TABLE) {
+                    $tblval = $option->values[$value];
+                    if (!empty($tblval)) {
+                        $reti['value'] = $tblval['tl'];
+                    }
+                } else if ($option->type == Catalog::TP_DOUBLE) {
+                    $reti['value_int'] = number_format($value, 0, ',', ' ');
+
+                    $reti['value'] = number_format($value, 2, ',', ' ');
+
+                }
+                $ret[$option->name] = $reti;
+            }
+        }
+
+        return $this->_cacheOptionsData = $ret;
+    }
 
     /**
      * Получить значение опции элемента
@@ -46,8 +92,7 @@ class EShopElementBrickParser {
     }
 
     public function ParseOptionGroups(Ab_CoreBrick $brick) {
-        $p = & $brick->param->param;
-        $v = & $brick->param->var;
+        $v = &$brick->param->var;
         $el = $this->element;
         $replace = array();
 
@@ -95,28 +140,20 @@ class EShopElementBrickParser {
                         continue;
                     }
 
-                    $lst .= Brick::ReplaceVarByData($tpOptGRow, array(
-                        "tl" => "{v#fldtl_".$option->name."}",
-                        "vl" => "{v#fld_".$option->name."}"
-                    ));
+                    $lst .= Brick::ReplaceVarByData($tpOptGRow, array("tl" => "{v#fldtl_".$option->name."}", "vl" => "{v#fld_".$option->name."}"));
                 }
             }
 
-            $replace['optiongroup-'.$sOptGroup] = Brick::ReplaceVarByData($tpOptGroup, array(
-                "rows" => $lst
-            ));
+            $replace['optiongroup-'.$sOptGroup] = Brick::ReplaceVarByData($tpOptGroup, array("rows" => $lst));
         }
         return $replace;
     }
 
     public function ParseOptions(Ab_CoreBrick $brick) {
-        $p = & $brick->param->param;
-        $v = & $brick->param->var;
-        $el = $this->element;
+        $v = &$brick->param->var;
         $replace = array();
 
-        $elOptBase = $el->detail->optionsBase; // значение базовых опций
-        $elOptPers = $el->detail->optionsPers; // значения персональных опций
+        $optionsData = $this->GetOptionsData();
 
         $aOptions = explode(",", $v['options']);
         foreach ($aOptions as $sOption) {
@@ -126,30 +163,29 @@ class EShopElementBrickParser {
             }
 
             $replace['option-'.$sOption] = "";
-            $value = "";
-            if (!empty($elOptBase[$sOption])) {
-                $value = $elOptBase[$sOption];
-            } else if (!empty($elOptPers[$sOption])) {
-                $value = $elOptPers[$sOption];
-            }
+            $value = $this->GetOptionValue($sOption);
 
-            if (empty($value) || empty($v['option-'.$sOption])
-                || $value == '0.00' // временно (для отключения опций с плавающей точкой)
+            if (empty($value) || empty($v['option-'.$sOption]) || $value == '0.00' // временно (для отключения опций с плавающей точкой)
             ) {
                 continue;
             }
 
-            $replace['option-'.$sOption] = $v['option-'.$sOption];
+            $optData = $optionsData[$sOption];
+
+            $replace['option-'.$sOption] = Brick::ReplaceVarByData($v['option-'.$sOption], array(
+                "fldvalue" => $optData['value'],
+                "fldtitle" => $optData['title']
+            ));
         }
 
         return $replace;
     }
 
     public function GetReplaceData() {
+
         $el = $this->element;
 
         $cMan = EShopModule::$instance->GetManager()->cManager;
-        $elTypeList = $cMan->ElementTypeList();
 
         $catList = $cMan->CatalogList();
         $cat = $catList->Get($el->catid);
@@ -163,37 +199,14 @@ class EShopElementBrickParser {
             "catdesc" => $cat->detail->descript
         );
 
-        for ($i = 0; $i <= 2; $i++) {
-            if ($i == 0) {
-                $elType = $elTypeList->Get(0);
-            } else if ($el->elTypeId > 0) {
-                $elType = $elTypeList->Get($el->elTypeId);
-            } else {
-                continue;
-            }
+        $optionsData = $this->GetOptionsData();
 
-            for ($ii = 0; $ii < $elType->options->Count(); $ii++) {
-                $option = $elType->options->GetByIndex($ii);
-
-                $value = $this->GetOptionValue($option->name);
-
-                if ($option->type == Catalog::TP_TABLE) {
-                    $tblval = $option->values[$value];
-                    if (!empty($tblval)) {
-                        $value = $tblval['tl'];
-                    }
-                } else {
-                    if ($option->name == 'price') {
-
-                        $replace["fld_".$option->name."_int"] =
-                            number_format($value, 0, ',', ' ');
-
-                        $value = number_format($value, 2, ',', ' ');
-
-                    }
-                }
-                $replace["fldtl_".$option->name] = $option->title;
-                $replace["fld_".$option->name] = $value;
+        foreach ($optionsData as $optName => $optData) {
+            $option = $optData['option'];
+            $replace["fldtl_".$optName] = $option->title;
+            $replace["fld_".$optName] = $optData['value'];
+            if (!empty($optData['value_int'])) {
+                $replace["fld_".$optName."_int"] = $optData['value_int'];
             }
         }
 
