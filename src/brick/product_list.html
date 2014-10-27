@@ -123,6 +123,9 @@
         <div class="product_item" itemscope itemtype="http://schema.org/ItemPage">
 
             <div class="thumbnail">
+
+                {v#special}
+
                 <a href="{v#link}" title="{v#title}" class="tmbfoto">
                     {v#image}
                 </a>
@@ -144,8 +147,6 @@
 
                 </div>
 
-                {v#special}
-
             </div>
         </div>
     </div>
@@ -160,7 +161,9 @@
 [/bkvar]
 
 [bkvar=special]
-    <div class="special"><a title="{v#title}" href="{v#link}">{v#pr_spec}</a></div>
+    <div class="special">
+        <a title="{v#title}" href="{v#link}">{v#pr_spec}</a>
+    </div>
 [/bkvar]
 
 [bkvar=pr_new]
