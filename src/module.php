@@ -69,7 +69,7 @@ class EShopModule extends Ab_Module {
     }
 
     public function GetContentName() {
-        $adress = $this->registry->adress;
+        $adress = Abricos::$adress;
 
         if ($adress->level >= 2) {
             switch ($adress->dir[1]) {
@@ -88,7 +88,7 @@ class EShopModule extends Ab_Module {
 
             $arr = explode("_", $lastitem);
 
-            // $db = $this->registry->db;
+            // $db = Abricos::$db;
             $catManager = $this->GetCatalogManager();
 
             $this->currentProductId = intval($arr[1]);
