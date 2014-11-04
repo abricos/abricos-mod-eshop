@@ -77,11 +77,11 @@ if (!empty($dtl->metaDescript)) {
 // Вывод заголовка страницы
 $metaTitle = !empty($dtl->metaTitle) ? $dtl->metaTitle : $cat->title;
 
-$phrase = Brick::$builder->phrase;
+$phrases = EShopModule::$instance->GetPhrases();
 
 if (empty($metaTitle)){
     $metaTitle = $v["deftitle"];
-    $metaTitle = $phrase->Get('eshop', 'catalog_list_meta_title', $metaTitle);
+    $metaTitle = $phrases->Get('catalog_list_meta_title', $metaTitle);
 }
 
 Brick::$builder->SetGlobalVar('meta_title', $metaTitle);
