@@ -1,5 +1,6 @@
 <?php
 return array(
+    "title" => "Интернет-магазин",
     "bosmenu" => array(
         "eshop" => "Интернет-магазин"
     ),
