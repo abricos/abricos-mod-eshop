@@ -14,7 +14,7 @@ $db = Abricos::$db;
 $pfx = $db->prefix;
 
 Abricos::GetModule('eshop')->GetManager();
-EShopManager::$instance->RoleDisable();
+EShopManager::$instance->RolesDisable();
 
 $cManager = EShopManager::$instance->cManager;
 
