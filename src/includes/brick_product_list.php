@@ -175,12 +175,6 @@ $result = Brick::ReplaceVarByData($tplTable, array(
     "rows" => $lst.$lstz
 ));
 
-if ($p['scroll'] == 'true') {
-    $result = Brick::ReplaceVarByData($v["scrolldiv"], array(
-        "result" => $result
-    ));
-}
-
 $brick->content = Brick::ReplaceVarByData($brick->content, array(
     "display" => $p['display'],
     "result" => $result,

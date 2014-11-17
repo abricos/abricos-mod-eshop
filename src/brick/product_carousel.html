@@ -1,42 +1,123 @@
 <!--[*]
-[script]brick_product_carousel.php[/script]
+[script]brick_product_list.php[/script]
+[mcss=eshop]eshop.css[/mcss]
+
+[p=limit]24[/p]
+[p=notchildlist]true[/p]
+
+[p=display][/p]
+
+[p=imgw]200[/p]
+[p=imgh]200[/p]
+
+[p=cfg][/p]
+
+[p=classcolumn]col-sm-4[/p]
+
+[p=groupcount]3[/p]
+[bkvar=groupwrap]
+    <div class="item {v#active}">
+        {v#rows}
+    </div>
+[/bkvar]
+
+[bkvar=table]
+    <div class="row">
+        {v#rows}
+    </div>
+[/bkvar]
+
+[bkvar=pricebuy]
+    <div class="price">
+        <span><span class="price-value">{v#price}</span> {#brick.product_list.7}</span>
+    </div>
+[/bkvar]
+[bkvar=priceorder]
+    <div class="price">
+        <span>Цену уточняйте</span>
+    </div>
+[/bkvar]
+
+[bkvar=extdivbuy1][/bkvar]
+[bkvar=extdivbuy2][/bkvar]
+[bkvar=extdivbuy3][/bkvar]
+
+[bkvar=extdivorder1][/bkvar]
+[bkvar=extdivorder2][/bkvar]
+[bkvar=extdivorder3][/bkvar]
+
+[bkvar=row]
+    <div class="{v#classcolumn}">
+
+        <div class="product_item" itemscope itemtype="http://schema.org/ItemPage">
+
+            <div class="thumbnail">
+
+                {v#special}
+
+                <a href="{v#link}" title="{v#title}" class="tmbfoto">
+                    {v#image}
+                </a>
+                <div class="caption">
+
+                    {v#extdiv1}
+
+                    <div class="title">
+                        <a title="{v#title}" href="{v#link}"><span itemprop="name">{v#title}</span></a>
+                    </div>
+
+                    {v#extdiv2}
+
+                    {v#price}
+
+                    {v#extdiv3}
+
+                    {v#buybutton}
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+[/bkvar]
+
+[bkvar=img]
+    <img src="{v#src}" alt="{v#title}" itemprop="image" />
+[/bkvar]
+
+[bkvar=imgempty]
+    <img src="/modules/eshop/images/empty.gif" alt="{v#title}" />
+[/bkvar]
+
+[bkvar=special]
+    <div class="special">
+        <a title="{v#title}" href="{v#link}">{v#pr_spec}</a>
+    </div>
+[/bkvar]
+
+[bkvar=pr_new]
+    <img src="/modules/eshop/images/pr_new.png" class="pr_new" alt="{#brick.product_list.4}" title="{#brick.product_list.4}" />
+[/bkvar]
+
+[bkvar=pr_akc]
+    <img src="/modules/eshop/images/pr_akc.png" class="pr_akc" alt="{#brick.product_list.5}" title="{#brick.product_list.5}" />
+[/bkvar]
+
+[bkvar=pr_hit]
+    <img src="/modules/eshop/images/pr_hit.png" class="pr_hit" alt="{#brick.product_list.6}" title="{#brick.product_list.6}" />
+[/bkvar]
 
 [*]-->
-<div id="{v#brickid}" class="product-carousel">
+<div id="{v#brickid}" class="product_list carousel slide" data-ride="carousel">
 
-    <div id="myGallery">
-        <a href="http://alloyui.com/image-viewer/img/1-large.jpg" title="Resting on the rocks.">
-            <img class="picture" src="http://alloyui.com/image-viewer/img/1.jpg"/>
-        </a>
-        <a href="http://alloyui.com/image-viewer/img/2-large.jpg" title="Grand finale teams">
-            <img class="picture" src="http://alloyui.com/image-viewer/img/2.jpg"/>
-        </a>
-        <a href="http://alloyui.com/image-viewer/img/3-large.jpg" title="Looking at the landscape">
-            <img class="picture" src="http://alloyui.com/image-viewer/img/3.jpg"/>
-        </a>
-        <a href="http://alloyui.com/image-viewer/img/4-large.jpg" title="The real champion winners, Brazilian team!">
-            <img class="picture" src="http://alloyui.com/image-viewer/img/4.jpg"/>
-        </a>
+    <div class="carousel-inner">
+        {v#result}
     </div>
-    <script>
-        YUI().use(
-                'aui-image-viewer',
-                function(Y) {
-                    new Y.ImageViewer(
-                            {
-                                anim: true,
-                                caption: 'Liferay Champion Soccer',
-                                captionFromTitle: true,
-                                imageAnim: {
-                                    duration: 1,
-                                    easing: 'easeIn'
-                                },
-                                links: '#myGallery a',
-                                lockScroll: true,
-                                preloadAllImages: true,
-                                showInfo: true
-                            }
-                    ).render();
-                }
-        );    </script>
+
+    <a class="left carousel-control" href="#{v#brickid}" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+    <a class="right carousel-control" href="#{v#brickid}" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+    </a>
 </div>

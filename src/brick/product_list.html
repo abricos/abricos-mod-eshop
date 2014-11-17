@@ -1,7 +1,6 @@
 <!--[*]
 [script]brick_product_list.php[/script]
 [mcss=eshop]eshop.css[/mcss]
-[css]/vendor/alloyui/scrollview-base/assets/scrollview-base-core.css[/css]
 
 [desc]
     Список продукции.
@@ -27,70 +26,7 @@
 
 [p=cfg][/p]
 
-[p=scroll][/p]
-[p=scrollwidth]974[/p]
-
 [p=classcolumn]col-md-4 col-sm-6[/p]
-
-[bkvar=scrolldiv]
-
-    <div class="scroll-container">
-        <div class="scroll-wrap">
-            <a id="{v#brickid}-scl-bprev" class="scroll-btn-prev scroll-horz-button"> </a>
-
-            <div id="{v#brickid}-scl-content" class="scroll-content">
-                {v#result}
-            </div>
-
-            <a id="{v#brickid}-scl-bnext" class="scroll-btn-next scroll-horz-button"> </a>
-        </div>
-    </div>
-
-    <script type="text/javascript" charset="utf-8">
-        /*
-        YUI().use('scrollview', 'scrollview-paginator', function(Y) {
-
-            var scrollView = new Y.ScrollView({
-                id: "#{v#brickid}-scl",
-                srcNode: '#{v#brickid}-scl-content',
-                flick: {
-                    minDistance: 10,
-                    minVelocity: 0.3,
-                    axis: "x"
-                }
-            });
-
-            scrollView.plug(Y.Plugin.ScrollViewPaginator, {
-                selector: '.proditem'
-            });
-
-            scrollView.render();
-
-            Y.one('#{v#brickid}-scl-bnext').on('click', Y.bind(scrollView.pages.next, scrollView.pages));
-            Y.one('#{v#brickid}-scl-bprev').on('click', Y.bind(scrollView.pages.prev, scrollView.pages));
-        });
-        /**/
-    </script>
-
-    <style>
-        /* To layout horizontal LIs */
-        #{v#brickid}-scl-content {
-            white-space:nowrap;
-        }
-
-        #{v#brickid}-scl-content .proditem {
-            display:inline-block;
-            background-color:#fff;
-        }
-
-        /* For IE 6/7 - needs inline block hack */
-        #{v#brickid}-scl-content .proditem {
-            *display:inline;
-            *zoom:1;
-        }
-    </style>
-
-[/bkvar]
 
 [bkvar=table]
     <div class="row">
