@@ -1,124 +1,153 @@
-/*
-@package Abricos
-@license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
-*/
+/*!
+ * Copyright 2008-2014 Alexander Kuzmin <roosit@abricos.org>
+ * Licensed under the MIT license
+ */
 
 var Component = new Brick.Component();
-Component.requires = { 
-	mod:[
-        {name: 'catalog', files: ['lib.js']}
-	]		
+Component.requires = {
+    yui: ['base'],
+    mod: [
+        {name: 'sys', files: ['application.js', 'widget.js']},
+        {name: 'widget', files: ['notice.js']}
+    ]
 };
 Component.entryPoint = function(NS){
 
-    NS.roles = new Brick.AppRoles('{C#MODNAME}', {
-        isAdmin: 50,
-        isModerator: 45,
-        isOperator: 40,
-        isWrite: 30,
-        isView: 10
+    var Y = Brick.YUI,
+
+        COMPONENT = this,
+
+        WAITING = 'waiting',
+        BOUNDING_BOX = 'boundingBox',
+
+        SYS = Brick.mod.sys;
+
+    NS.AppWidget = Y.Base.create('appWidget', Y.Widget, [
+        SYS.Language,
+        SYS.Template,
+        SYS.WidgetClick,
+        SYS.WidgetWaiting
+    ], {
+        initializer: function(){
+            this._appWidgetArguments = Y.Array(arguments);
+
+            Y.after(this._syncUIAppWidget, this, 'syncUI');
+        },
+        _syncUIAppWidget: function(){
+            if (!this.get('useExistingWidget')){
+                var args = this._appWidgetArguments,
+                    tData = {};
+
+                if (Y.Lang.isFunction(this.buildTData)){
+                    tData = this.buildTData.apply(this, args);
+                }
+
+                var bBox = this.get(BOUNDING_BOX),
+                    defTName = this.template.cfg.defTName;
+
+                bBox.setHTML(this.template.replace(defTName, tData));
+            }
+            this.set(WAITING, true);
+
+            var instance = this;
+            NS.initApp({
+                initCallback: function(err, appInstance){
+                    instance._initAppWidget(err, appInstance);
+                }
+            });
+        },
+        _initAppWidget: function(err, appInstance){
+            this.set('appInstance', appInstance);
+            this.set(WAITING, false);
+            var args = this._appWidgetArguments
+            this.onInitAppWidget.apply(this, [err, appInstance, {
+                arguments: args
+            }]);
+        },
+        onInitAppWidget: function(){
+        }
+    }, {
+        ATTRS: {
+            render: {
+                value: true
+            },
+            appInstance: {
+                values: null
+            },
+            useExistingWidget: {
+                value: false
+            }
+        }
     });
 
-    var L = YAHOO.lang,
-		R = NS.roles;
-	
-	var SysNS = Brick.mod.sys;
-	var LNG = this.language;
-	var NSCat = Brick.mod.catalog;
 
-	var buildTemplate = this.buildTemplate;
-	buildTemplate({},'');
-	
-	NS.lif = function(f){return L.isFunction(f) ? f : function(){}; };
-	NS.life = function(f, p1, p2, p3, p4, p5, p6, p7){
-		f = NS.lif(f); f(p1, p2, p3, p4, p5, p6, p7);
-	};
-	NS.Item = SysNS.Item;
-	NS.ItemList = SysNS.ItemList;
-	
-	var CatalogItem = function(manager, d){
-		CatalogItem.superclass.constructor.call(this, manager, d);
-	};
-	YAHOO.extend(CatalogItem, NSCat.CatalogItem, {
-		update: function(d){
-			this._urlCache = null;
-			CatalogItem.superclass.update.call(this, d);
-		},
-		url: function(){
-			if (!L.isNull(this._urlCache)){ return this._urlCache; }
-			var url = "/eshop/", pline = this.getPathLine();
-			for (var i=1;i<pline.length;i++){
-				url += pline[i].name+'/';
-			}
-			
-			this._urlCache = url;
-			return url;
-		}
-	});
-	NS.CatalogItem = CatalogItem;
-	
-	var Element = function(manager, d){
-		Element.superclass.constructor.call(this, manager, d);
-	};
-	YAHOO.extend(Element, NSCat.Element, {
-		update: function(d){
-			this._urlCache = null;
-			Element.superclass.update.call(this, d);
-		},
-		url: function(){
-			if (!L.isNull(this._urlCache)){ return this._urlCache; }
-			
-			var cat = this.manager.catalogList.find(this.catid);
-			
-			this._urlCache = cat.url() + 'product_'+this.id;;
-			return this._urlCache;
-		}
-	});
-	NS.Element = Element;
+    var AppBase = function(){
+    };
+    AppBase.ATTRS = {
+        initCallback: {
+            value: function(){
+            }
+        }
+    };
+    AppBase.prototype = {
+        initializer: function(){
+            this.get('initCallback')(null, this);
+        },
+        onAJAXError: function(err){
+            Brick.mod.widget.notice.show(err.msg);
+        },
+        _treatAJAXResult: function(data){
+            data = data || {};
+            var ret = {};
 
-	
-	var WS = "#app={C#MODNAMEURI}/wspace/ws/";
-	NS.navigator = {
-		'home': function(){ return WS; },
-		'catalogman': function(catid){
-			var link = WS+'catalog/CatalogManagerWidget/';
-			if (catid && catid*1>0){
-				link += catid+'/';
-			}
-			return link;
-		},
-		'billing': function(){
-			return WS+'billing/BillingWidget/';
-		},
-		'catalogconfig': function(){
-			return WS+'catalogconfig/CatalogConfigWidget/';
-		},
-		'cartbilling': function(){
-			return WS+'eshopcart/CartBillingWidget/';
-		},
-		'cartconfig': function(){
-			return WS+'eshopcart/CartConfigWidget/';
-		},
-		'about': function(){
-			return WS+'about/AboutWidget/';
-		},
-		'go': function(url){
-			Brick.Page.reload(url);
-		}
-	};	
-	
-	
-	NS.manager = null;
-	
-	NS.initManager = function(callback){
-		R.load(function(){
-			NSCat.initManager('{C#MODNAME}', callback, {
-				'roles': R,
-				'CatalogItemClass': NS.CatalogItem,
-				'ElementClass': NS.Element,
-				'language': LNG
-			});
-		});
-	};
-	
+            return ret;
+        },
+        _defaultAJAXCallback: function(err, res, details){
+            var tRes = this._treatAJAXResult(res.data);
+
+            details.callback.apply(details.context, [err, tRes]);
+        }
+    };
+    NS.AppBase = AppBase;
+
+    NS.App = Y.Base.create('userApp', Y.Base, [
+        SYS.AJAX,
+        SYS.Language,
+        NS.AppBase
+    ], {
+        initializer: function(){
+            NS.appInstance = this;
+        }
+    }, {
+        ATTRS: {
+            component: {
+                value: COMPONENT
+            },
+            initCallback: {
+                value: null
+            },
+            moduleName: {
+                value: '{C#MODNAME}'
+            }
+        }
+    });
+
+    NS.appInstance = null;
+    NS.initApp = function(options){
+        if (Y.Lang.isFunction(options)){
+            options = {
+                initCallback: options
+            }
+        }
+        options = Y.merge({
+            initCallback: function(){
+            }
+        }, options || {});
+
+        if (NS.appInstance){
+            return options.initCallback(null, NS.appInstance);
+        }
+        new NS.App(options);
+    };
+
 };

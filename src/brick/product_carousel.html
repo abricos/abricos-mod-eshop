@@ -1,0 +1,42 @@
+<!--[*]
+[script]brick_product_carousel.php[/script]
+
+[*]-->
+<div id="{v#brickid}" class="product-carousel">
+
+    <div id="myGallery">
+        <a href="http://alloyui.com/image-viewer/img/1-large.jpg" title="Resting on the rocks.">
+            <img class="picture" src="http://alloyui.com/image-viewer/img/1.jpg"/>
+        </a>
+        <a href="http://alloyui.com/image-viewer/img/2-large.jpg" title="Grand finale teams">
+            <img class="picture" src="http://alloyui.com/image-viewer/img/2.jpg"/>
+        </a>
+        <a href="http://alloyui.com/image-viewer/img/3-large.jpg" title="Looking at the landscape">
+            <img class="picture" src="http://alloyui.com/image-viewer/img/3.jpg"/>
+        </a>
+        <a href="http://alloyui.com/image-viewer/img/4-large.jpg" title="The real champion winners, Brazilian team!">
+            <img class="picture" src="http://alloyui.com/image-viewer/img/4.jpg"/>
+        </a>
+    </div>
+    <script>
+        YUI().use(
+                'aui-image-viewer',
+                function(Y) {
+                    new Y.ImageViewer(
+                            {
+                                anim: true,
+                                caption: 'Liferay Champion Soccer',
+                                captionFromTitle: true,
+                                imageAnim: {
+                                    duration: 1,
+                                    easing: 'easeIn'
+                                },
+                                links: '#myGallery a',
+                                lockScroll: true,
+                                preloadAllImages: true,
+                                showInfo: true
+                            }
+                    ).render();
+                }
+        );    </script>
+</div>

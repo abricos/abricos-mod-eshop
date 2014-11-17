@@ -6,7 +6,7 @@
 var Component = new Brick.Component();
 Component.requires = { 
 	mod:[
-        {name: '{C#MODNAME}', files: ['lib.js']}
+        {name: '{C#MODNAME}', files: ['lib-manager.js']}
 	]		
 };
 Component.entryPoint = function(NS){
