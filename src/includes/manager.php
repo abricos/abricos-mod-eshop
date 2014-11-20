@@ -59,11 +59,9 @@ class EShopManager extends Ab_ModuleManager {
         parent::__construct($module);
 
         EShopManager::$instance = $this;
-        $this->config = new EShopConfig(Abricos::$config['module']['eshop']);
+        $this->config = new EShopConfig(isset(Abricos::$config['module']['eshop']) ? Abricos::$config['module']['eshop'] : array());
 
         $this->cManager = new EShopCatalogManager();
-
-        $this->userSession = $this->user->session->key;
     }
 
     public function IsAdminRole() {

@@ -107,9 +107,9 @@ class EShopCatalogManager extends CatalogModuleManager {
 
         parent::__construct("eshp");
 
-        $this->CatalogClass = EShopCatalog;
-        $this->CatalogElementClass = EShopElement;
-        $this->CatalogElementListClass = EShopElementList;
+        $this->CatalogClass = 'EShopCatalog';
+        $this->CatalogElementClass = 'EShopElement';
+        $this->CatalogElementListClass = 'EShopElementList';
     }
 
     public function IsAdminRole() {
@@ -183,7 +183,13 @@ class EShopCatalogManager extends CatalogModuleManager {
     public function Product($productid) {
         $el = $this->Element($productid);
 
-        $ext = $el->detail->optionsBase;
+        $ext = array_merge(array(
+            'price' => '',
+            'akc' => '',
+            'new' => '',
+            'hit' => '',
+            'sklad' => ''
+        ), $el->detail->optionsBase);
 
         $el->ext['price'] = $ext['price'];
         $el->ext['akc'] = $ext['akc'];

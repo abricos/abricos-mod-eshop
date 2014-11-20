@@ -101,12 +101,13 @@ class EShopElementBrickParser {
         $optionGroupList = $cMan->ElementOptionGroupList();
         $elTypeList = $cMan->ElementTypeList();
 
+        $v['optiongroups'] = isset($v['optiongroups']) ? $v['optiongroups'] : '';
         $aOptionGroups = explode(",", $v['optiongroups']);
 
         foreach ($aOptionGroups as $sOptGroup) {
             $sOptGroup = trim($sOptGroup);
-            $tpOptGroup = $v['optiongroup-'.$sOptGroup];
-            $tpOptGRow = $v['optiongrouprow-'.$sOptGroup];
+            $tpOptGroup = isset($v['optiongroup-'.$sOptGroup]) ? $v['optiongroup-'.$sOptGroup] : '';
+            $tpOptGRow = isset($v['optiongrouprow-'.$sOptGroup]) ? $v['optiongrouprow-'.$sOptGroup] : '';
             if (empty($sOptGroup) || empty($tpOptGroup) || empty($tpOptGRow)) {
                 continue;
             }
@@ -155,6 +156,8 @@ class EShopElementBrickParser {
 
         $optionsData = $this->GetOptionsData();
 
+        $v['options'] = isset($v['options']) ? $v['options'] : '';
+
         $aOptions = explode(",", $v['options']);
         foreach ($aOptions as $sOption) {
             $sOption = trim($sOption);
@@ -188,16 +191,19 @@ class EShopElementBrickParser {
         $cMan = EShopModule::$instance->GetManager()->cManager;
 
         $catList = $cMan->CatalogList();
-        $cat = $catList->Get($el->catid);
 
         $replace = array(
             "link" => $el->URI(),
             "elementid" => $el->id,
             "title" => $el->title,
-            "name" => $el->name,
-            "cattitle" => $cat->title,
-            "catdesc" => $cat->detail->descript
+            "name" => $el->name
         );
+
+        $cat = $catList->Get($el->catid);
+        if (!empty($cat)){
+            $cat["cattitle"] = $cat->title;
+            $cat["catdesc"] = $cat->detail->descript;
+        }
 
         $optionsData = $this->GetOptionsData();
 

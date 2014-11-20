@@ -51,7 +51,7 @@ $vOvr = &$ovrBrick->param->var;
 $phOvr = &$ovrBrick->param->phrase;
 
 $vIncludeBrick = isset($vOvr['includebrick']) ? $vOvr['includebrick'] : $v['includebrick'];
-$pIncludeBrick = $p['includebrick'];
+$pIncludeBrick = isset($p['includebrick']) ? $p['includebrick'] : '';
 $brick->content = !$ovrBrick->isError && !empty($ovrBrick->content) ? $ovrBrick->content : $brick->content;
 
 if (is_array($phOvr)){
