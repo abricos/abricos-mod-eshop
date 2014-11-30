@@ -212,7 +212,9 @@ class EShopCatalogManager extends CatalogModuleManager {
         $optionsBase = $this->ElementTypeList()->Get(0)->options;
 
         $ordOpt = $cfg->orders->AddByOption($optionsBase->GetByName("price"));
-        $ordOpt->zeroDesc = true;
+        if (!empty($ordOpt)){
+            $ordOpt->zeroDesc = true;
+        }
 
         $cfg->extFields->Add($optionsBase->GetByName("price"));
         $cfg->extFields->Add($optionsBase->GetByName("akc"));
