@@ -7,16 +7,18 @@
  */
 
 $brick = Brick::$builder->brick;
-$v = & $brick->param->var;
-$p = & $brick->param->param;
+$v = &$brick->param->var;
+$p = &$brick->param->param;
 
 $imgWidth = bkint($p['imgw']);
 $imgHeight = bkint($p['imgh']);
 
-Abricos::GetModule('filemanager')->EnableThumbSize(array(array(
-    "w" => $imgWidth,
-    "h" => $imgHeight
-)));
+Abricos::GetModule('filemanager')->EnableThumbSize(array(
+    array(
+        "w" => $imgWidth,
+        "h" => $imgHeight
+    )
+));
 
 $man = EShopModule::$instance->GetManager()->cManager;
 
@@ -38,10 +40,12 @@ if (!empty($p['catids'])) {
 }
 
 $count = $cCatList->Count();
-
+$lst = "";
 for ($i = 0; $i < $count; $i++) {
     $cat = $cCatList->GetByIndex($i);
-    if ($cat->listDisable){ continue; }
+    if ($cat->listDisable) {
+        continue;
+    }
 
     if (empty($cat->foto)) {
         $image = $v["imgempty"];
@@ -65,8 +69,8 @@ for ($i = 0; $i < $count; $i++) {
 }
 $brick->content = Brick::ReplaceVarByData($brick->content, array(
     "result" => Brick::ReplaceVarByData($v['table'], array(
-            "rows" => $lst
-        )),
+        "rows" => $lst
+    )),
     "brickid" => $brick->id
 ));
 

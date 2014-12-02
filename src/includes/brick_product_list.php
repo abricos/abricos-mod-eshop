@@ -17,10 +17,12 @@ $modCart = Abricos::GetModule('eshopcart');
 $imgWidth = bkint($p['imgw']);
 $imgHeight = bkint($p['imgh']);
 
-Abricos::GetModule('filemanager')->EnableThumbSize(array(array(
-    "w" => $imgWidth,
-    "h" => $imgHeight
-)));
+Abricos::GetModule('filemanager')->EnableThumbSize(array(
+    array(
+        "w" => $imgWidth,
+        "h" => $imgHeight
+    )
+));
 
 if (is_object($p['cfg'])) {
     $cfg = $p['cfg'];
@@ -75,6 +77,9 @@ for ($i = 0; $i < $elTypeList->Count(); $i++) {
     $overrideBricks[$elType->id] = Brick::$builder->LoadBrickS("eshop", $sOverrideBrick);
 }
 
+$tplRow = $v['row'];
+$tplTable = $v['table'];
+
 $lst = "";
 $lstz = "";
 for ($i = 0; $i < $elList->Count(); $i++) {
@@ -97,10 +102,6 @@ for ($i = 0; $i < $elList->Count(); $i++) {
     $tplExtDivOrder1 = isset($vOvr['extdivorder1']) ? $vOvr['extdivorder1'] : $v['extdivorder1'];
     $tplExtDivOrder2 = isset($vOvr['extdivorder2']) ? $vOvr['extdivorder2'] : $v['extdivorder2'];
     $tplExtDivOrder3 = isset($vOvr['extdivorder3']) ? $vOvr['extdivorder3'] : $v['extdivorder3'];
-
-    $tplRow = $v['row'];
-    $tplTable = $v['table'];
-
 
     $pTitle = addslashes(htmlspecialchars($el->title));
 
@@ -137,9 +138,11 @@ for ($i = 0; $i < $elList->Count(); $i++) {
     );
 
     if (!empty($modCart)) {
-        $cartBrick = Brick::$builder->LoadBrickS('eshopcart', 'buybutton', null, array("p" => array(
-            "product" => $el
-        )));
+        $cartBrick = Brick::$builder->LoadBrickS('eshopcart', 'buybutton', null, array(
+            "p" => array(
+                "product" => $el
+            )
+        ));
         $replace["buybutton"] = $cartBrick->content;
     }
 
