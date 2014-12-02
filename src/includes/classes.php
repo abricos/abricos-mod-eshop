@@ -155,6 +155,15 @@ class EShopCatalogManager extends CatalogModuleManager {
         if (!empty($modSM)) {
             $mList = SitemapModule::$instance->GetManager()->MenuList();
 
+            $miEshop = $mList->FindByPath('eshop');
+            if (empty($miEshop)){
+                require_once 'smclasses.php';
+
+                $miEshop = new EShopRootMenuItem($mList);
+                $mList->Add($miEshop);
+                EShopModule::$instance->GetManager()->Sitemap_MenuBuild($miEshop);
+            }
+
             $arr = array();
             foreach ($dir as $d) {
                 if (substr($d, 0, 4) == 'page') {
@@ -171,9 +180,7 @@ class EShopCatalogManager extends CatalogModuleManager {
             $cat = $this->Catalog($cat->id);
         }
 
-        $this->_cacheCatByAdress = $cat;
-
-        return $this->_cacheCatByAdress;
+        return ($this->_cacheCatByAdress = $cat);
     }
 
     /**

@@ -31,4 +31,17 @@ class EShopMenuItem extends SMMenuItem {
     }
 }
 
+class EShopRootMenuItem extends SMMenuItem {
+
+    public function __construct(SMMenuItemList $menuItemList) {
+        parent::__construct(array(
+            "id" => SMMenuItem::ToGlobalId("eshop", 0),
+            "pid" => 0,
+            "nm" => "eshop",
+            "tl" => "eshop",
+            "off" => 1
+        ));
+    }
+}
+
 ?>

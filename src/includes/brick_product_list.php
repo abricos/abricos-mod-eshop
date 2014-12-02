@@ -146,7 +146,7 @@ for ($i = 0; $i < $elList->Count(); $i++) {
         $replace["buybutton"] = $cartBrick->content;
     }
 
-    if (doubleval($el->ext['price']) > 0) {
+    if (isset($el->ext['price']) && doubleval($el->ext['price']) > 0) {
         $replace['price'] =
             Brick::ReplaceVarByData($tplPriceBuy, array(
                 "price" => number_format($el->ext['price'], 2, ',', ' '),
@@ -166,7 +166,7 @@ for ($i = 0; $i < $elList->Count(); $i++) {
 
     $replace["productid"] = $el->id;
 
-    if (doubleval($el->ext['price']) > 0) {
+    if (isset($el->ext['price']) && doubleval($el->ext['price']) > 0) {
         $lst .= Brick::ReplaceVarByData($tplRow, $replace);
     } else {
         $lstz .= Brick::ReplaceVarByData($tplRow, $replace);
