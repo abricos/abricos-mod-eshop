@@ -66,7 +66,7 @@ class EShopElementBrickParser {
                     if (!empty($tblval)) {
                         $reti['value'] = $tblval['tl'];
                     }
-                } else if ($option->type == Catalog::TP_DOUBLE) {
+                } else if ($option->type == Catalog::TP_DOUBLE || $option->type == Catalog::TP_CURRENCY) {
                     $reti['value_int'] = number_format($value, 0, ',', ' ');
 
                     $reti['value'] = number_format($value, 2, ',', ' ');

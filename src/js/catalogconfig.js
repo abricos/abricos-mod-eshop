@@ -5,7 +5,7 @@
 
 var Component = new Brick.Component();
 Component.requires = {
-    yahoo: ['tabview'],
+    yui: ['aui-tabview'],
     mod: [
         {name: 'catalog', files: ['typemanager.js']},
         {name: '{C#MODNAME}', files: ['lib-manager.js']}
@@ -47,7 +47,7 @@ Component.entryPoint = function(NS){
             this.elHide('loading');
             this.elShow('view');
 
-            new YAHOO.widget.TabView(this.gel('view'));
+            new Y.TabView({srcNode: this.gel('view')}).render();
             this.viewWidget = new NSCat.TypeManagerWidget(this.gel('typemanager'), man);
         }
     });

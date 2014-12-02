@@ -3,12 +3,12 @@
 	<div id="{i#loading}" class="loading">
 		<img src="/images/loading.gif" /> Идет загрузка данных <br /> Пожалуйста, подождите...
 	</div>
-	<div id="{i#view}" style="display: none" class="yui-navset">
-		<ul class="yui-nav">
-			<li class="selected"><a href="#{i#typemanager}"><em>Типы элементов каталога</em></a></li>
+	<div id="{i#view}" style="display: none" >
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#{i#typemanager}">Типы элементов каталога</a></li>
 		</ul>            
-		<div class="yui-content">
-			<div id="{i#typemanager}"></div>
+		<div class="tab-content">
+			<div id="{i#typemanager}" class="tab-pane"></div>
 		</div>
 	</div>
 </div>
