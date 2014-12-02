@@ -7,8 +7,8 @@
  */
 
 $brick = Brick::$builder->brick;
-$p = & $brick->param->param;
-$v = & $brick->param->var;
+$p = &$brick->param->param;
+$v = &$brick->param->var;
 
 $pQuery = Abricos::CleanGPC('g', 'q', TYPE_STR);
 $pFField = Abricos::CleanGPC('g', 'eff', TYPE_STR);
@@ -37,10 +37,10 @@ if (!empty($p['extfilter'])) {
         $extFilterCol = Brick::ReplaceVarByData($v["textfilter"], array(
             "fld" => $option->name,
             "select" => Brick::ReplaceVarByData($v['select'], array(
-                    "value" => $pFValue,
-                    "tl" => empty($aEF[1]) ? "" : $aEF[1],
-                    "rows" => $lst
-                ))
+                "value" => $pFValue,
+                "tl" => empty($aEF[1]) ? "" : $aEF[1],
+                "rows" => $lst
+            ))
         ));
     }
 

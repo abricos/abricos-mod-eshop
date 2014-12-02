@@ -7,11 +7,11 @@
  */
 
 $brick = Brick::$builder->brick;
-$p = & $brick->param->param;
-$v = & $brick->param->var;
+$p = &$brick->param->param;
+$v = &$brick->param->var;
 
 $man = EShopModule::$instance->GetManager()->cManager;
-$cfg = & Abricos::$config['module']['eshop'];
+$cfg = &Abricos::$config['module']['eshop'];
 
 $cat = $man->CatalogByAdress();
 
@@ -56,13 +56,15 @@ if (!empty($elList)) {
 }
 
 // подгрузка кирпича пагинатора с параметрами
-Brick::$builder->LoadBrickS('sitemap', 'paginator', $brick, array("p" => array(
-    "total" => $listTotal,
-    "page" => $listPage,
-    "perpage" => EShopConfig::$instance->productPageCount,
-    "uri" => $cat->URI(),
-    "hidepn" => "0"
-)));
+Brick::$builder->LoadBrickS('sitemap', 'paginator', $brick, array(
+    "p" => array(
+        "total" => $listTotal,
+        "page" => $listPage,
+        "perpage" => EShopConfig::$instance->productPageCount,
+        "uri" => $cat->URI(),
+        "hidepn" => "0"
+    )
+));
 
 // Вывод ключевых слов
 if (!empty($dtl->metaKeys)) {
@@ -79,7 +81,7 @@ $metaTitle = !empty($dtl->metaTitle) ? $dtl->metaTitle : $cat->title;
 
 $phrases = EShopModule::$instance->GetPhrases();
 
-if (empty($metaTitle)){
+if (empty($metaTitle)) {
     $metaTitle = $v["deftitle"];
     $metaTitle = $phrases->Get('catalog_list_meta_title', $metaTitle);
 }

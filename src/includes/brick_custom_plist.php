@@ -7,8 +7,8 @@
  * @author Alexander Kuzmin <roosit@abricos.org>
  */
 $brick = Brick::$builder->brick;
-$p = & $brick->param->param;
-$v = & $brick->param->var;
+$p = &$brick->param->param;
+$v = &$brick->param->var;
 
 $manEShop = EShopModule::$instance->GetManager();
 $man = $manEShop->cManager;
@@ -42,10 +42,12 @@ $brick->content = Brick::ReplaceVarByData($brick->content, array(
     "brickid" => $brick->id
 ));
 
-$nbrick = Brick::$builder->LoadBrickS('eshop', 'product_list', $brick, array("p" => array(
-    "scroll" => 'true',
-    "cfg" => $cfg
-)));
+$nbrick = Brick::$builder->LoadBrickS('eshop', 'product_list', $brick, array(
+    "p" => array(
+        "scroll" => 'true',
+        "cfg" => $cfg
+    )
+));
 
 if ($nbrick->elementList->Count() === 0) {
     $brick->content = "";

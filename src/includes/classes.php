@@ -16,12 +16,14 @@ class EShopConfig {
 
     /**
      * Количество товаров на странице
+     *
      * @var integer
      */
     public $productPageCount = 12;
 
     /**
      * SEO оптимизация страниц
+     *
      * @var boolean
      */
     public $seo = false;
@@ -156,7 +158,7 @@ class EShopCatalogManager extends CatalogModuleManager {
             $mList = SitemapModule::$instance->GetManager()->MenuList();
 
             $miEshop = $mList->FindByPath('eshop');
-            if (empty($miEshop)){
+            if (empty($miEshop)) {
                 require_once 'smclasses.php';
 
                 $miEshop = new EShopRootMenuItem($mList);
@@ -219,7 +221,7 @@ class EShopCatalogManager extends CatalogModuleManager {
         $optionsBase = $this->ElementTypeList()->Get(0)->options;
 
         $ordOpt = $cfg->orders->AddByOption($optionsBase->GetByName("price"));
-        if (!empty($ordOpt)){
+        if (!empty($ordOpt)) {
             $ordOpt->zeroDesc = true;
         }
 

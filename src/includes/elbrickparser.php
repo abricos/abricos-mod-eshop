@@ -54,7 +54,12 @@ class EShopElementBrickParser {
 
                 $value = $this->GetOptionValue($option->name);
 
-                $reti = array("option" => $option, "title" => $option->title, "value" => $value, "value_int" => "");
+                $reti = array(
+                    "option" => $option,
+                    "title" => $option->title,
+                    "value" => $value,
+                    "value_int" => ""
+                );
 
                 if ($option->type == Catalog::TP_TABLE) {
                     $tblval = $option->values[$value];
@@ -141,7 +146,10 @@ class EShopElementBrickParser {
                         continue;
                     }
 
-                    $lst .= Brick::ReplaceVarByData($tpOptGRow, array("tl" => "{v#fldtl_".$option->name."}", "vl" => "{v#fld_".$option->name."}"));
+                    $lst .= Brick::ReplaceVarByData($tpOptGRow, array(
+                        "tl" => "{v#fldtl_".$option->name."}",
+                        "vl" => "{v#fld_".$option->name."}"
+                    ));
                 }
             }
 
@@ -200,7 +208,7 @@ class EShopElementBrickParser {
         );
 
         $cat = $catList->Get($el->catid);
-        if (!empty($cat)){
+        if (!empty($cat)) {
             $cat["cattitle"] = $cat->title;
             $cat["catdesc"] = $cat->detail->descript;
         }

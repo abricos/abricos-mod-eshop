@@ -7,8 +7,8 @@
  */
 
 $brick = Brick::$builder->brick;
-$p = & $brick->param->param;
-$v = & $brick->param->var;
+$p = &$brick->param->param;
+$v = &$brick->param->var;
 
 $el = $p['element'];
 if (empty($el)) {
@@ -25,10 +25,12 @@ $cfg->limit = 0;
 
 array_push($cfg->catids, $catid);
 
-$nbrick = Brick::$builder->LoadBrickS('eshop', 'product_list', $brick, array("p" => array(
-    "scroll" => 'true',
-    "cfg" => $cfg
-)));
+$nbrick = Brick::$builder->LoadBrickS('eshop', 'product_list', $brick, array(
+    "p" => array(
+        "scroll" => 'true',
+        "cfg" => $cfg
+    )
+));
 
 $brick->content = Brick::ReplaceVarByData($brick->content, array(
     "result" => $nbrick->content

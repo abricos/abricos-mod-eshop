@@ -7,18 +7,20 @@
  * @author Alexander Kuzmin <roosit@abricos.org>
  */
 $brick = Brick::$builder->brick;
-$p = & $brick->param->param;
-$v = & $brick->param->var;
+$p = &$brick->param->param;
+$v = &$brick->param->var;
 
 $man = EShopModule::$instance->GetManager()->cManager;
 
 $imgWidth = bkint($p['imgw']);
 $imgHeight = bkint($p['imgh']);
 
-Abricos::GetModule('filemanager')->EnableThumbSize(array(array(
-    "w" => $imgWidth,
-    "h" => $imgHeight
-)));
+Abricos::GetModule('filemanager')->EnableThumbSize(array(
+    array(
+        "w" => $imgWidth,
+        "h" => $imgHeight
+    )
+));
 
 $cfg = new CatalogElementListConfig();
 $cfg->limit = 500;
@@ -84,7 +86,7 @@ for ($i = 0; $i < $elList->Count(); $i++) {
 $brick->content = Brick::ReplaceVarByData($brick->content, array(
     "display" => $p['display'],
     "result" => Brick::ReplaceVarByData($v['table'], array(
-            "rows" => $lst.$lstz
-        ))
+        "rows" => $lst.$lstz
+    ))
 ));
 ?>

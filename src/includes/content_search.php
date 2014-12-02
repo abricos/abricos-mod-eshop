@@ -13,8 +13,8 @@ $pFField = Abricos::CleanGPC('g', 'eff', TYPE_STR);
 $pFValue = Abricos::CleanGPC('g', 'ef', TYPE_STR);
 
 $brick->param->var['query'] = $pQuery;
-$p = & $brick->param->param;
-$v = & $brick->param->var;
+$p = &$brick->param->param;
+$v = &$brick->param->var;
 
 $cManager = EShopModule::$instance->GetManager()->cManager;
 
@@ -42,18 +42,22 @@ if (count($catids) == 0 && count($elids) == 0) {
     return;
 }
 
-$brickCatList = Brick::$builder->LoadBrickS("eshop", "catalog_list", null, array('p' => array(
-    "catids" => implode(",", $catids)
-)));
+$brickCatList = Brick::$builder->LoadBrickS("eshop", "catalog_list", null, array(
+    'p' => array(
+        "catids" => implode(",", $catids)
+    )
+));
 
 $lst .= $brickCatList->content;
 
 $elListCfg = new CatalogElementListConfig();
 $elListCfg->elids = $elids;
 
-$brickElList = Brick::$builder->LoadBrickS("eshop", "product_list", null, array('p' => array(
-    "cfg" => $elListCfg
-)));
+$brickElList = Brick::$builder->LoadBrickS("eshop", "product_list", null, array(
+    'p' => array(
+        "cfg" => $elListCfg
+    )
+));
 $lst .= $brickElList->content;
 
 $brick->param->var['result'] = $lst;

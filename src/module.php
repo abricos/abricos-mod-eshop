@@ -108,7 +108,10 @@ class EShopModule extends Ab_Module {
         } else {
             $fname = "products-eshop";
         }
-        return array($fname, "products");
+        return array(
+            $fname,
+            "products"
+        );
     }
 
     /**
@@ -127,9 +130,10 @@ class EShopModule extends Ab_Module {
 
     /**
      * Этот модуль добавляет элементы меню в Bos
+     *
      * @return bool
      */
-    public function Bos_IsMenu(){
+    public function Bos_IsMenu() {
         return true;
     }
 

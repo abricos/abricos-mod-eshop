@@ -8,8 +8,8 @@
 
 $brick = Brick::$builder->brick;
 $db = Abricos::$db;
-$p = & $brick->param->param;
-$v = & $brick->param->var;
+$p = &$brick->param->param;
+$v = &$brick->param->var;
 
 $man = EShopManager::$instance->cManager;
 
@@ -65,8 +65,8 @@ $brickPList = Brick::$builder->LoadBrickS("eshop", "offline_product_list", null,
 $brick->content = Brick::ReplaceVarByData($brick->content, array(
     "cattitle" => $cattitle,
     "result" => Brick::ReplaceVarByData($v['table'], array(
-            "rows" => $lst
-        )),
+        "rows" => $lst
+    )),
     "productlist" => $brickPList->content
 ));
 

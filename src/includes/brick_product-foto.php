@@ -9,8 +9,8 @@
 // product-foto - кирпич подключаемый из скрипта кирпича product
 
 $brick = Brick::$builder->brick;
-$p = & $brick->param->param;
-$v = & $brick->param->var;
+$p = &$brick->param->param;
+$v = &$brick->param->var;
 
 $el = $p['element'];
 if (empty($el)) {
@@ -19,12 +19,21 @@ if (empty($el)) {
 }
 
 $a = explode("x", $p['fotosize']);
-$fotoSize = array("w" => intval($a[0]), "h" => intval($a[1]));
+$fotoSize = array(
+    "w" => intval($a[0]),
+    "h" => intval($a[1])
+);
 
 $a = explode("x", $p['fotosmsize']);
-$fotoSmallSize = array("w" => intval($a[0]), "h" => intval($a[1]));
+$fotoSmallSize = array(
+    "w" => intval($a[0]),
+    "h" => intval($a[1])
+);
 
-Abricos::GetModule('filemanager')->EnableThumbSize(array($fotoSize, $fotoSmallSize));
+Abricos::GetModule('filemanager')->EnableThumbSize(array(
+        $fotoSize,
+        $fotoSmallSize
+    ));
 
 if (false) {
     $el = new CatalogElement();

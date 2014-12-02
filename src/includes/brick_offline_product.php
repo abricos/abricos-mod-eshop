@@ -7,8 +7,8 @@
  */
 
 $brick = Brick::$builder->brick;
-$p = & $brick->param->param;
-$v = & $brick->param->var;
+$p = &$brick->param->param;
+$v = &$brick->param->var;
 
 $man = EShopModule::$instance->GetManager()->cManager;
 $productId = $p['productid'];
@@ -59,8 +59,8 @@ if (empty($el->foto)) {
 
 $brick->content = Brick::ReplaceVarByData($brick->content, array(
     "options" => Brick::ReplaceVarByData($brick->param->var["options"], array(
-            "overoptions" => $brick->param->var["options".$el->elTypeId],
-        )),
+        "overoptions" => $brick->param->var["options".$el->elTypeId],
+    )),
     "image" => $image,
     "imagelist" => $imgSmList,
     "otherphoto" => $otherphoto,

@@ -54,8 +54,8 @@ $vIncludeBrick = isset($vOvr['includebrick']) ? $vOvr['includebrick'] : $v['incl
 $pIncludeBrick = isset($p['includebrick']) ? $p['includebrick'] : '';
 $brick->content = !$ovrBrick->isError && !empty($ovrBrick->content) ? $ovrBrick->content : $brick->content;
 
-if (is_array($phOvr)){
-    foreach($phOvr as $key => $value){
+if (is_array($phOvr)) {
+    foreach ($phOvr as $key => $value) {
         $ph[$key] = $value;
     }
 }
