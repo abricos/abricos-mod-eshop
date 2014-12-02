@@ -62,7 +62,7 @@ class EShopElementBrickParser {
                 );
 
                 if ($option->type == Catalog::TP_TABLE) {
-                    $tblval = $option->values[$value];
+                    $tblval = isset($option->values[$value]) ? $option->values[$value] : "";
                     if (!empty($tblval)) {
                         $reti['value'] = $tblval['tl'];
                     }
@@ -208,7 +208,7 @@ class EShopElementBrickParser {
         );
 
         $cat = $catList->Get($el->catid);
-        if (!empty($cat)) {
+        if (!empty($cat) && $cat->id > 0) {
             $cat["cattitle"] = $cat->title;
             $cat["catdesc"] = $cat->detail->descript;
         }
