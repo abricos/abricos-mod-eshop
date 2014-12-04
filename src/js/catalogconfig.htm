@@ -1,14 +1,16 @@
 <!--{widget}-->
-<div id="{i#id}" class="aw-eshop">
+<div id="{i#id}" class="aw-eshop aw-catalog">
 	<div id="{i#loading}" class="loading">
 		<img src="/images/loading.gif" /> Идет загрузка данных <br /> Пожалуйста, подождите...
 	</div>
 	<div id="{i#view}" style="display: none" >
-		<ul class="nav nav-tabs">
-			<li class="active"><a href="#{i#typemanager}">Типы элементов каталога</a></li>
-		</ul>            
-		<div class="tab-content">
-			<div id="{i#typemanager}" class="tab-pane"></div>
-		</div>
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#{i#typemanager}">Типы элементов каталога</a></li>
+            <li><a href="#{i#currency}">Справочник валют</a></li>
+        </ul>
+        <div class="tab-content">
+            <div id="{i#typemanager}" class="tab-pane"></div>
+            <div id="{i#currency}" class="tab-pane"></div>
+        </div>
 	</div>
 </div>

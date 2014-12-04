@@ -7,7 +7,7 @@ var Component = new Brick.Component();
 Component.requires = {
     yui: ['aui-tabview'],
     mod: [
-        {name: 'catalog', files: ['typemanager.js']},
+        {name: 'catalog', files: ['typemanager.js','currencylist.js']},
         {name: '{C#MODNAME}', files: ['lib-manager.js']}
     ]
 };
@@ -28,15 +28,15 @@ Component.entryPoint = function(NS){
             this.wsMenuItem = 'config'; // использует wspace.js
             this.manager = null;
             this.cfg = cfg;
-            this.viewWidget = null;
         },
         destroy: function(){
-            if (!L.isNull(this.viewWidget)){
-                this.viewWidget.destroy();
+            if (!this.typeWidget){
+                this.typeWidget.destroy();
+                this.currencyWidget.destroy();
             }
             CatalogConfigWidget.superclass.destroy.call(this);
         },
-        onLoad: function(cfg){
+        onLoad: function(){
             var __self = this;
             NS.initManager(function(man){
                 __self._onLoadManager(man);
@@ -48,7 +48,8 @@ Component.entryPoint = function(NS){
             this.elShow('view');
 
             new Y.TabView({srcNode: this.gel('view')}).render();
-            this.viewWidget = new NSCat.TypeManagerWidget(this.gel('typemanager'), man);
+            this.typeWidget = new NSCat.TypeManagerWidget(this.gel('typemanager'), man);
+            this.currencyWidget = new NSCat.CurrencyListWidget(this.gel('currency'), man);
         }
     });
     NS.CatalogConfigWidget = CatalogConfigWidget;
