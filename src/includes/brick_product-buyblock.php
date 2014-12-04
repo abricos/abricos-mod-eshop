@@ -12,7 +12,9 @@ $v = &$brick->param->var;
 
 $el = $p['element'];
 
-$replace = array("buybutton" => "");
+$replace = array(
+    "buybutton" => ""
+);
 
 $modCart = Abricos::GetModule('eshopcart');
 

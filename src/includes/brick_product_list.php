@@ -181,7 +181,8 @@ $result = Brick::ReplaceVarByData($tplTable, array(
 $brick->content = Brick::ReplaceVarByData($brick->content, array(
     "display" => $p['display'],
     "result" => $result,
-    "brickid" => $brick->id
+    "brickid" => $brick->id,
+    "currency" => $man->CurrencyDefault()->postfix
 ));
 
 if (!empty($modCart)) {

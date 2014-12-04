@@ -204,7 +204,8 @@ class EShopElementBrickParser {
             "link" => $el->URI(),
             "elementid" => $el->id,
             "title" => $el->title,
-            "name" => $el->name
+            "name" => $el->name,
+            "currency" => $cMan->CurrencyDefault()->postfix
         );
 
         $cat = $catList->Get($el->catid);
