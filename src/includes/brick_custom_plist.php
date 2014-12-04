@@ -17,13 +17,13 @@ $optionsBase = $man->ElementTypeList()->Get(0)->options;
 
 $cfg = new CatalogElementListConfig();
 
-if ($p['onlyhit'] == 'true') {
+if (isset($p['onlyhit']) && $p['onlyhit'] == 'true') {
     $cfg->where->AddByOption($optionsBase->GetByName("hit"), ">0");
 }
-if ($p['onlynew'] == 'true') {
+if (isset($p['onlynew']) && $p['onlynew'] == 'true') {
     $cfg->where->AddByOption($optionsBase->GetByName("new"), ">0");
 }
-if ($p['onlyaction'] == 'true') {
+if (isset($p['onlyaction']) && $p['onlyaction'] == 'true') {
     $cfg->where->AddByOption($optionsBase->GetByName("akc"), ">0");
 }
 
