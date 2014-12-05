@@ -175,7 +175,7 @@ class EShopCatalogManager extends CatalogModuleManager {
             }
             $mItem = $mList->FindByPath($arr, true);
             if (!empty($mItem)) {
-                $cat = $mItem->cat;
+                $cat = isset($mItem->cat) ? $mItem->cat : 0;
             }
         }
         if (!empty($cat)) {

@@ -48,7 +48,7 @@ $brickCatList = Brick::$builder->LoadBrickS("eshop", "catalog_list", null, array
     )
 ));
 
-$lst .= $brickCatList->content;
+$lst = $brickCatList->content;
 
 $elListCfg = new CatalogElementListConfig();
 $elListCfg->elids = $elids;
