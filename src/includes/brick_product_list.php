@@ -39,7 +39,10 @@ if ($p['forcontent'] == 'true') {
     $cfg->limit = EShopConfig::$instance->productPageCount;
 
     $adr = Abricos::$adress;
-    $page = $adr->dir[count($adr->dir) - 1];
+    $page = 0;
+    if ($adr->level > 0) {
+        $page = $adr->dir[count($adr->dir) - 1];
+    }
 
     if (preg_match("/^page[0-9]+/", $page)) {
         $page = intval(substr($page, 4));
@@ -147,11 +150,10 @@ for ($i = 0; $i < $elList->Count(); $i++) {
     }
 
     if (isset($el->ext['price']) && doubleval($el->ext['price']) > 0) {
-        $replace['price'] =
-            Brick::ReplaceVarByData($tplPriceBuy, array(
-                "price" => number_format($el->ext['price'], 2, ',', ' '),
-                "price_int" => number_format($el->ext['price'], 0, ',', ' ')
-            ));
+        $replace['price'] = Brick::ReplaceVarByData($tplPriceBuy, array(
+            "price" => number_format($el->ext['price'], 2, ',', ' '),
+            "price_int" => number_format($el->ext['price'], 0, ',', ' ')
+        ));
 
         $replace['extdiv1'] = $tplExtDivBuy1;
         $replace['extdiv2'] = $tplExtDivBuy2;
