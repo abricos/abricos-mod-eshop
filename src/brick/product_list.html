@@ -53,6 +53,14 @@
 [bkvar=extdivorder2][/bkvar]
 [bkvar=extdivorder3][/bkvar]
 
+[bkvar=extdivprice1][/bkvar]
+[bkvar=extdivprice2][/bkvar]
+[bkvar=extdivprice3][/bkvar]
+
+[bkvar=extdinoprice1][/bkvar]
+[bkvar=extdivoprice2][/bkvar]
+[bkvar=extdivoprice3][/bkvar]
+
 [bkvar=row]
     <div class="{v#classcolumn}">
 
@@ -67,17 +75,20 @@
                 </a>
                 <div class="caption">
 
-                    {v#extdiv1}
+                    {v#extdivquantity1}
+                    {v#extdivprice1}
 
                     <div class="title">
                         <a title="{v#title}" href="{v#link}"><span itemprop="name">{v#title}</span></a>
                     </div>
 
-                    {v#extdiv2}
+                    {v#extdivquantity2}
+                    {v#extdivprice2}
 
                     {v#price}
 
-                    {v#extdiv3}
+                    {v#extdivquantity3}
+                    {v#extdivprice3}
 
                     {v#buybutton}
 

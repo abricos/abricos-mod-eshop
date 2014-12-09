@@ -94,17 +94,20 @@ for ($i = 0; $i < $elList->Count(); $i++) {
     $pOvr = &$ovrBrick->param->param;
     $vOvr = &$ovrBrick->param->var;
 
-    // Templates
-    $tplClassColumn = isset($pOvr['classcolumn']) ? $pOvr['classcolumn'] : $p['classcolumn'];
-    $tplPriceBuy = isset($vOvr['pricebuy']) ? $vOvr['pricebuy'] : $v['pricebuy'];
-    $tplExtDivBuy1 = isset($vOvr['extdivbuy1']) ? $vOvr['extdivbuy1'] : $v['extdivbuy1'];
-    $tplExtDivBuy2 = isset($vOvr['extdivbuy2']) ? $vOvr['extdivbuy2'] : $v['extdivbuy2'];
-    $tplExtDivBuy3 = isset($vOvr['extdivbuy3']) ? $vOvr['extdivbuy3'] : $v['extdivbuy3'];
+    $replace = array();
 
-    $tplPriceOrder = isset($vOvr['priceorder']) ? $vOvr['priceorder'] : $v['priceorder'];
-    $tplExtDivOrder1 = isset($vOvr['extdivorder1']) ? $vOvr['extdivorder1'] : $v['extdivorder1'];
-    $tplExtDivOrder2 = isset($vOvr['extdivorder2']) ? $vOvr['extdivorder2'] : $v['extdivorder2'];
-    $tplExtDivOrder3 = isset($vOvr['extdivorder3']) ? $vOvr['extdivorder3'] : $v['extdivorder3'];
+    for ($ii = 1; $ii <= 3; $ii++) {
+        if (isset($el->ext['sklad']) && intval($el->ext['sklad']) > 0) {
+            $replace['extdivquantity'.$ii] = isset($vOvr['extdivbuy'.$ii]) ? $vOvr['extdivbuy'.$ii] : $v['extdivbuy'.$ii];
+        } else {
+            $replace['extdivquantity'.$ii] = isset($vOvr['extdivorder'.$ii]) ? $vOvr['extdivorder'.$ii] : $v['extdivorder'.$ii];
+        }
+        if (isset($el->ext['price']) && doubleval($el->ext['price']) > 0) {
+            $replace['extdivprice'.$ii] = isset($vOvr['extdivprice'.$ii]) ? $vOvr['extdivprice'.$ii] : $v['extdivprice'.$ii];
+        } else {
+            $replace['extdivprice'.$ii] = isset($vOvr['extdivnoprice'.$ii]) ? $vOvr['extdivnoprice'.$ii] : $v['extdivnoprice'.$ii];
+        }
+    }
 
     $pTitle = addslashes(htmlspecialchars($el->title));
 
@@ -129,16 +132,14 @@ for ($i = 0; $i < $elList->Count(); $i++) {
         "h" => $imgHeight
     ));
 
-    $replace = array(
-        "classcolumn" => $tplClassColumn,
-        "imgw" => $imgWidth,
-        "imgh" => $imgHeight,
-        "special" => $pr_special,
-        "buybutton" => "",
-        "image" => $image,
-        "title" => $pTitle,
-        "link" => $el->URI()
-    );
+    $replace["classcolumn"] = isset($pOvr['classcolumn']) ? $pOvr['classcolumn'] : $p['classcolumn'];;
+    $replace["imgw"] = $imgWidth;
+    $replace["imgh"] = $imgHeight;
+    $replace["special"] = $pr_special;
+    $replace["buybutton"] = "";
+    $replace["image"] = $image;
+    $replace["title"] = $pTitle;
+    $replace["link"] = $el->URI();
 
     if (!empty($modCart)) {
         $cartBrick = Brick::$builder->LoadBrickS('eshopcart', 'buybutton', null, array(
@@ -150,20 +151,15 @@ for ($i = 0; $i < $elList->Count(); $i++) {
     }
 
     if (isset($el->ext['price']) && doubleval($el->ext['price']) > 0) {
+        $tplPriceBuy = isset($vOvr['pricebuy']) ? $vOvr['pricebuy'] : $v['pricebuy'];
+
         $replace['price'] = Brick::ReplaceVarByData($tplPriceBuy, array(
             "price" => number_format($el->ext['price'], 2, ',', ' '),
             "price_int" => number_format($el->ext['price'], 0, ',', ' ')
         ));
 
-        $replace['extdiv1'] = $tplExtDivBuy1;
-        $replace['extdiv2'] = $tplExtDivBuy2;
-        $replace['extdiv3'] = $tplExtDivBuy3;
     } else {
-        $replace['price'] = $tplPriceOrder;
-
-        $replace['extdiv1'] = $tplExtDivOrder1;
-        $replace['extdiv2'] = $tplExtDivOrder2;
-        $replace['extdiv3'] = $tplExtDivOrder3;
+        $replace['price'] = isset($vOvr['priceorder']) ? $vOvr['priceorder'] : $v['priceorder'];;
     }
 
     $replace["productid"] = $el->id;
