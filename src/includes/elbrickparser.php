@@ -49,8 +49,7 @@ class EShopElementBrickBuilder {
 
         $elType = $man->ElementTypeList()->Get($this->element->elTypeId);
 
-        $elTypeBrick =
-            Brick::$builder->LoadBrickS("eshop", $brick->name."-tp-".$elType->name);
+        $elTypeBrick = Brick::$builder->LoadBrickS("eshop", $brick->name."-tp-".$elType->name);
 
         if (!empty($elTypeBrick) && !$elTypeBrick->isError) {
             $p = &$brick->param->param;
@@ -315,29 +314,43 @@ class EShopElementBrickParser {
                 continue;
             }
 
-            $replace['option-'.$sOption] = "";
-            $value = $this->GetOptionValue($sOption);
+            $tplCount = isset($oOption->count) ? intval($oOption->count) : 1;
 
-            if (empty($value) || empty($v['option-'.$sOption]) || $value == '0.00' // временно (для отключения опций с плавающей точкой)
-            ) {
-                continue;
-            }
+            for ($i = 1; $i <= $tplCount; $i++) {
 
-            $optData = $optionsData[$sOption];
+                $tplPostfix = $tplCount === 1 ? "" : "-".$i;
 
-            $tplContainer = "option-".$sOption."-container";
+                $replace['option-'.$sOption.$tplPostfix] = "";
+                $value = $this->GetOptionValue($sOption);
 
-            $tplOption = Brick::ReplaceVarByData($v['option-'.$sOption], array(
-                "fldvalue" => $optData['value'],
-                "fldtitle" => $optData['title']
-            ));;
+                if (empty($value) || $value == '0.00' // временно (для отключения опций с плавающей точкой)
+                ) {
+                    $tplOptionName = 'option-'.$sOption.'-empty'.$tplPostfix;
+                } else {
+                    $tplOptionName = 'option-'.$sOption.$tplPostfix;
+                }
 
-            if (isset($v[$tplContainer])){
-                $replace['option-'.$sOption] = Brick::ReplaceVarByData($v[$tplContainer], array(
-                    "result" => $tplOption
-                ));
-            }else{
-                $replace['option-'.$sOption] = $tplOption;
+                if (!isset($v[$tplOptionName])) {
+                    continue;
+                }
+
+                $optData = $optionsData[$sOption];
+
+                $tplOption = Brick::ReplaceVarByData($v[$tplOptionName], array(
+                    // TODO: remove
+                    "fldvalue" => $optData['value'],
+                    "fldtitle" => $optData['title']
+                ));;
+
+                $tplContainer = "option-".$sOption."-container".$tplPostfix;
+
+                if (isset($v[$tplContainer])) {
+                    $replace['option-'.$sOption.$tplPostfix] = Brick::ReplaceVarByData($v[$tplContainer], array(
+                        "result" => $tplOption
+                    ));
+                } else {
+                    $replace['option-'.$sOption.$tplPostfix] = $tplOption;
+                }
             }
         }
 
