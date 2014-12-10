@@ -106,14 +106,21 @@ class EShopManager extends Ab_ModuleManager {
         return null;
     }
 
+    /**
+     * @param $el
+     * @param $brick
+     * @return EShopElementBrickBuilder
+     */
+    public function GetElementBrickBuilder($el, $brick) {
+        require_once 'elbrickparser.php';
+
+        return new EShopElementBrickBuilder($el, $brick);
+
+    }
+
+    /*
     private $_cacheElBrickParser;
 
-    /**
-     * Получить парсер кирпичей элемента
-     *
-     * @param EShopElement $el
-     * @return EShopElementBrickParser
-     */
     public function GetElementBrickParser($el) {
         require_once 'elbrickparser.php';
         if (!array($this->_cacheElBrickParser)) {
@@ -128,6 +135,7 @@ class EShopManager extends Ab_ModuleManager {
         $this->_cacheElBrickParser[$el->id] = $parser;
         return $parser;
     }
+/**/
 
     private function BuildOfflineCatalog(OfflineDir $dir, $catid) {
         $offMan = OfflineManager::$instance;

@@ -135,6 +135,8 @@ class EShopElementBrickBuilder {
 
         $brick = $this->brick;
 
+        $this->parser->Parse($brick);
+
         $replace = $this->parser->GetReplaceData();
         $replace['brickid'] = $brick->id;
         $brick->content = Brick::ReplaceVarByData($brick->content, $replace);
@@ -301,9 +303,14 @@ class EShopElementBrickParser {
 
         $v['options'] = isset($v['options']) ? $v['options'] : '';
 
-        $aOptions = explode(",", $v['options']);
-        foreach ($aOptions as $sOption) {
-            $sOption = trim($sOption);
+        $aOptions = json_decode($v['options']);
+
+        foreach ($aOptions as $oOption) {
+            if (!is_object($oOption)) {
+                continue;
+            }
+
+            $sOption = isset($oOption->name) ? $oOption->name : "";
             if (empty($sOption)) {
                 continue;
             }
@@ -318,10 +325,20 @@ class EShopElementBrickParser {
 
             $optData = $optionsData[$sOption];
 
-            $replace['option-'.$sOption] = Brick::ReplaceVarByData($v['option-'.$sOption], array(
+            $tplContainer = "option-".$sOption."-container";
+
+            $tplOption = Brick::ReplaceVarByData($v['option-'.$sOption], array(
                 "fldvalue" => $optData['value'],
                 "fldtitle" => $optData['title']
-            ));
+            ));;
+
+            if (isset($v[$tplContainer])){
+                $replace['option-'.$sOption] = Brick::ReplaceVarByData($v[$tplContainer], array(
+                    "result" => $tplOption
+                ));
+            }else{
+                $replace['option-'.$sOption] = $tplOption;
+            }
         }
 
         return $replace;
