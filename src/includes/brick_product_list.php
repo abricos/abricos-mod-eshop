@@ -76,8 +76,7 @@ for ($i = 0; $i < $elTypeList->Count(); $i++) {
     $elType = $elTypeList->GetByIndex($i);
     $elTypeName = $elType->name;
 
-    $sOverrideBrick = "product_list-".$elTypeName;
-    $overrideBricks[$elType->id] = Brick::$builder->LoadBrickS("eshop", $sOverrideBrick);
+    $overrideBricks[$elType->id] = Brick::$builder->LoadBrickS("eshop", $brick->name."-".$elTypeName);
 }
 
 $tplRow = $v['row'];

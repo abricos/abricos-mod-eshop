@@ -34,61 +34,91 @@
     </div>
 [/bkvar]
 
-[bkvar=pricebuy]
-    <div class="price">
-        <span><span class="price-value">{v#price}</span> {v#currency}</span>
+[bkvar=options]
+[
+    {name: "price"},
+    {
+        name: "sklad",
+        count: 2
+    },
+    {name: "new"},
+    {name: "akc"},
+    {name: "hit"}
+]
+[/bkvar]
+
+[bkvar=option-price-container]
+    <div class="price"><span>{v#result}</div>
+[/bkvar]
+
+[bkvar=option-price]
+    <span class="price-value">{v#fld_price}</span> {v#currency}
+[/bkvar]
+
+[bkvar=option-price-empty]Цену уточняйте[/bkvar]
+
+[bkvar=option-sklad-container-1]
+    <div class="quantity">
+        {v#result}
     </div>
 [/bkvar]
-[bkvar=priceorder]
-    <div class="price">
-        <span>Цену уточняйте</span>
+
+[bkvar=option-sklad-1] <span>В наличие</span> [/bkvar]
+
+[bkvar=option-sklad-empty-1] <span>Под заказ</span> [/bkvar]
+
+[bkvar=option-sklad-empty-2][/bkvar]
+
+[bkvar=option-new]
+    <div class="special">
+        <a title="{v#title}" href="{v#link}">
+            <img src="/modules/eshop/images/pr_new.png"
+                alt="{#brick.product_list.4}" title="{#brick.product_list.4}" />
+        </a>
     </div>
 [/bkvar]
 
-[bkvar=extdivbuy1][/bkvar]
-[bkvar=extdivbuy2][/bkvar]
-[bkvar=extdivbuy3][/bkvar]
+[bkvar=option-akc]
+    <div class="special">
+        <a title="{v#title}" href="{v#link}">
+            <img src="/modules/eshop/images/pr_akc.png"
+                alt="{#brick.product_list.5}" title="{#brick.product_list.5}" />
+        </a>
+    </div>
+[/bkvar]
 
-[bkvar=extdivorder1][/bkvar]
-[bkvar=extdivorder2][/bkvar]
-[bkvar=extdivorder3][/bkvar]
-
-[bkvar=extdivprice1][/bkvar]
-[bkvar=extdivprice2][/bkvar]
-[bkvar=extdivprice3][/bkvar]
-
-[bkvar=extdinoprice1][/bkvar]
-[bkvar=extdivoprice2][/bkvar]
-[bkvar=extdivoprice3][/bkvar]
+[bkvar=option-hit]
+    <div class="special">
+        <a title="{v#title}" href="{v#link}">
+            <img src="/modules/eshop/images/pr_hit.png"
+                alt="{#brick.product_list.6}" title="{#brick.product_list.6}" />
+        </a>
+    </div>
+[/bkvar]
 
 [bkvar=row]
     <div class="{v#classcolumn}">
 
         <div class="product_item" itemscope itemtype="http://schema.org/ItemPage">
 
-            <div class="thumbnail">
+            <div class="thumbnail {v#option-sklad-2}">
 
-                {v#special}
+                {v#option-new}
+                {v#option-akc}
+                {v#option-hit}
 
                 <a href="{v#link}" title="{v#title}" class="tmbfoto">
                     {v#image}
                 </a>
                 <div class="caption">
 
-                    {v#extdivquantity1}
-                    {v#extdivprice1}
-
                     <div class="title">
                         <a title="{v#title}" href="{v#link}"><span itemprop="name">{v#title}</span></a>
                     </div>
 
-                    {v#extdivquantity2}
-                    {v#extdivprice2}
+                    {v#option-price}
 
-                    {v#price}
-
-                    {v#extdivquantity3}
-                    {v#extdivprice3}
+                    {v#option-sklad-1}
 
                     {v#buybutton}
 
@@ -105,24 +135,6 @@
 
 [bkvar=imgempty]
     <img src="/modules/eshop/images/empty.gif" alt="{v#title}" />
-[/bkvar]
-
-[bkvar=special]
-    <div class="special">
-        <a title="{v#title}" href="{v#link}">{v#pr_spec}</a>
-    </div>
-[/bkvar]
-
-[bkvar=pr_new]
-    <img src="/modules/eshop/images/pr_new.png" class="pr_new" alt="{#brick.product_list.4}" title="{#brick.product_list.4}" />
-[/bkvar]
-
-[bkvar=pr_akc]
-    <img src="/modules/eshop/images/pr_akc.png" class="pr_akc" alt="{#brick.product_list.5}" title="{#brick.product_list.5}" />
-[/bkvar]
-
-[bkvar=pr_hit]
-    <img src="/modules/eshop/images/pr_hit.png" class="pr_hit" alt="{#brick.product_list.6}" title="{#brick.product_list.6}" />
 [/bkvar]
 
 [*]-->
