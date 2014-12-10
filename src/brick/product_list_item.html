@@ -1,0 +1,104 @@
+<!--[*]
+[script]brick/product_list_item.php[/script]
+
+[p=imgw]200[/p]
+[p=imgh]200[/p]
+
+[bkvar=options]
+[
+    {name: "price"},
+    {
+        name: "sklad",
+        count: 2
+    },
+    {name: "new"},
+    {name: "akc"},
+    {name: "hit"}
+]
+[/bkvar]
+
+[bkvar=option-price-container]
+    <div class="price"><span>{v#result}</div>
+[/bkvar]
+
+[bkvar=option-price]
+    <span class="price-value">{v#fld_price}</span> {v#currency}
+[/bkvar]
+
+[bkvar=option-price-empty]Цену уточняйте[/bkvar]
+
+[bkvar=option-sklad-container-1]
+    <div class="quantity">
+        {v#result}
+    </div>
+[/bkvar]
+
+[bkvar=option-sklad-1] <span>В наличие</span> [/bkvar]
+
+[bkvar=option-sklad-empty-1] <span>Под заказ</span> [/bkvar]
+
+[bkvar=option-sklad-empty-2][/bkvar]
+
+[bkvar=option-new]
+    <div class="special">
+        <a title="{v#title}" href="{v#link}">
+            <img src="/modules/eshop/images/pr_new.png"
+                alt="{#brick.product_list.4}" title="{#brick.product_list.4}" />
+        </a>
+    </div>
+[/bkvar]
+
+[bkvar=option-akc]
+    <div class="special">
+        <a title="{v#title}" href="{v#link}">
+            <img src="/modules/eshop/images/pr_akc.png"
+                alt="{#brick.product_list.5}" title="{#brick.product_list.5}" />
+        </a>
+    </div>
+[/bkvar]
+
+[bkvar=option-hit]
+    <div class="special">
+        <a title="{v#title}" href="{v#link}">
+            <img src="/modules/eshop/images/pr_hit.png"
+                alt="{#brick.product_list.6}" title="{#brick.product_list.6}" />
+        </a>
+    </div>
+[/bkvar]
+
+[bkvar=img]
+    <img src="{v#src}" alt="{v#title}" itemprop="image" />
+[/bkvar]
+
+[bkvar=imgempty]
+    <img src="/modules/eshop/images/empty.gif" alt="{v#title}" />
+[/bkvar]
+
+[*]-->
+<div class="product_item" itemscope itemtype="http://schema.org/ItemPage">
+
+    <div class="thumbnail {v#option-sklad-2}">
+
+        {v#option-new}
+        {v#option-akc}
+        {v#option-hit}
+
+        <a href="{v#link}" title="{v#title}" class="tmbfoto">
+            {v#image}
+        </a>
+        <div class="caption">
+
+            <div class="title">
+                <a title="{v#title}" href="{v#link}"><span itemprop="name">{v#title}</span></a>
+            </div>
+
+            {v#option-price}
+
+            {v#option-sklad-1}
+
+            {v#buybutton}
+
+        </div>
+
+    </div>
+</div>

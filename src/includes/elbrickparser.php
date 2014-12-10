@@ -6,6 +6,142 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
  * @author Alexander Kuzmin <roosit@abricos.org>
  */
+class EShopElementBrickBuilder {
+
+    /**
+     * @var CatalogElement
+     */
+    public $element;
+
+    /**
+     * @var Ab_CoreBrick
+     */
+    public $brick;
+
+    /**
+     * @var Catalog
+     */
+    public $catalog;
+
+    /**
+     * @var EShopElementBrickParser
+     */
+    public $parser;
+
+    public function __construct(CatalogElement $el, Ab_CoreBrick $brick, $isTypeBrick = false) {
+        $this->element = $el;
+        $this->brick = $brick;
+
+        $man = EShopModule::$instance->GetManager()->cManager;
+        $this->catalog = $man->Catalog($el->catid);
+
+        $this->parser = new EShopElementBrickParser($el);
+
+        if (!$isTypeBrick) {
+            $this->OverrideByElementType();
+        }
+    }
+
+    private function OverrideByElementType() {
+        $brick = $this->brick;
+
+        $man = EShopModule::$instance->GetManager()->cManager;
+
+        $elType = $man->ElementTypeList()->Get($this->element->elTypeId);
+
+        $elTypeBrick =
+            Brick::$builder->LoadBrickS("eshop", $brick->name."-tp-".$elType->name);
+
+        if (!empty($elTypeBrick) && !$elTypeBrick->isError) {
+            $p = &$brick->param->param;
+            $pOvr = &$elTypeBrick->param->param;
+            foreach ($p as $name => $value) {
+                if (isset($pOvr[$name])) {
+                    $p[$name] = $pOvr[$name];
+                }
+            }
+
+            $v = &$brick->param->var;
+            $vOvr = &$elTypeBrick->param->var;
+            foreach ($v as $name => $value) {
+                if (isset($vOvr[$name])) {
+                    $v[$name] = $vOvr[$name];
+                }
+            }
+
+            $ph = &$brick->param->phrase;
+            $phOvr = &$elTypeBrick->param->phrase;
+
+            foreach ($phOvr as $name => $value) {
+                $ph[$name] = $phOvr[$name];
+            }
+
+            $contentOvr = trim($elTypeBrick->content);
+            if (!empty($contentOvr)) {
+                $brick->content = $contentOvr;
+            }
+        }
+    }
+
+    private function LoadIncludeBricks() {
+        $el = $this->element;
+        $cat = $this->catalog;
+
+        $brick = $this->brick;
+        $v = &$brick->param->var;
+
+        $sIncBricks = isset($v['includebrick']) ? $v['includebrick'] : "";
+        $aIncBricks = explode(",", $sIncBricks);
+
+        $replace = array();
+
+        foreach ($aIncBricks as $sIncBrick) {
+            $sIncBrick = trim($sIncBrick);
+            if (empty($sIncBrick)) {
+                continue;
+            }
+
+            $incBrickParams = array(
+                "element" => $el,
+                "cat" => $cat
+            );
+
+            // если есть параметры
+            $aIncBrickParam = explode("|", $sIncBrick);
+            if (count($aIncBrickParam) > 1) {
+                $sIncBrick = $aIncBrickParam[0];
+                for ($i = 1; $i < count($aIncBrickParam); $i++) {
+                    $sPrm = $aIncBrickParam[$i];
+                    $aPrm = explode("=", $sPrm);
+                    if (count($aPrm) == 2) {
+                        $incBrickParams[$aPrm[0]] = $aPrm[1];
+                    }
+                }
+            }
+
+            $incBrick = Brick::$builder->LoadBrickS("eshop", $sIncBrick, null, array("p" => $incBrickParams));
+            if (!empty($incBrick) && !$incBrick->isError) {
+                $this->parser->Parse($incBrick);
+
+                $replace["brick_".$sIncBrick] = $incBrick->content;
+            }
+        }
+
+        $brick->content = Brick::ReplaceVarByData($brick->content, $replace);
+    }
+
+    public function Build() {
+        $this->LoadIncludeBricks();
+
+        $brick = $this->brick;
+
+        $replace = $this->parser->GetReplaceData();
+        $replace['brickid'] = $brick->id;
+        $brick->content = Brick::ReplaceVarByData($brick->content, $replace);
+    }
+
+}
+
 class EShopElementBrickParser {
 
     /**
@@ -16,7 +152,6 @@ class EShopElementBrickParser {
     public function __construct(CatalogElement $el) {
         $this->element = $el;
     }
-
 
     public function Parse(Ab_CoreBrick $brick) {
 
