@@ -313,6 +313,11 @@ class EShopElementBrickParser {
         }
 
         foreach ($aOptions as $oOption) {
+            if (is_string($oOption)){
+                $obj = new stdClass();
+                $obj->name = $oOption;
+                $oOption = $obj;
+            }
             if (!is_object($oOption)) {
                 continue;
             }
