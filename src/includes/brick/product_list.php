@@ -57,8 +57,8 @@ if (empty($elList)) {
     return;
 }
 
-$tplRow = $v['row'];
-$tplTable = $v['table'];
+$tplItem = $v['item'];
+$tplList = $v['list'];
 
 $lst = "";
 $lstz = "";
@@ -73,23 +73,27 @@ for ($i = 0; $i < $elList->Count(); $i++) {
         )
     ));
 
+    $contentItem = Brick::ReplaceVarByData($tplItem, array(
+        "result" => $elBrick->content
+    ));
 
     if (isset($el->ext['price']) && doubleval($el->ext['price']) > 0) {
-        $lst .= $elBrick->content;
+        $lst .= $contentItem;
     } else {
-        $lstz .= $elBrick->content;
+        $lstz .= $contentItem;
     }
 
 }
 
-$result = Brick::ReplaceVarByData($tplTable, array(
-    "rows" => $lst.$lstz
+$result = Brick::ReplaceVarByData($tplList, array(
+    "result" => $lst.$lstz
 ));
 
 $brick->content = Brick::ReplaceVarByData($brick->content, array(
     "result" => $result,
     "brickid" => $brick->id,
-    "currency" => $man->CurrencyDefault()->postfix
+    "currency" => $man->CurrencyDefault()->postfix,
+    "classcolumn" => isset($p['classcolumn']) ? $p['classcolumn'] : ""
 ));
 
 ?>

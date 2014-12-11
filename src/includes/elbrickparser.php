@@ -304,6 +304,14 @@ class EShopElementBrickParser {
 
         $aOptions = json_decode($v['options']);
 
+        if (is_object($aOptions)){
+            $aOptions = array($aOptions);
+        }
+
+        if (!is_array($aOptions)){
+            return $replace;
+        }
+
         foreach ($aOptions as $oOption) {
             if (!is_object($oOption)) {
                 continue;

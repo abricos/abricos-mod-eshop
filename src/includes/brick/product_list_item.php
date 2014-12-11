@@ -61,25 +61,6 @@ if (!empty($modCart)) {
     $replace["buybutton"] = $cartBrick->content;
 }
 
-/*
-if (isset($el->ext['price']) && doubleval($el->ext['price']) > 0) {
-    $tplPriceBuy = isset($vOvr['pricebuy']) ? $vOvr['pricebuy'] : $v['pricebuy'];
-
-    $replace['price'] = Brick::ReplaceVarByData($tplPriceBuy, array(
-        "price" => number_format($el->ext['price'], 2, ',', ' '),
-        "price_int" => number_format($el->ext['price'], 0, ',', ' ')
-    ));
-
-} else {
-    $replace['price'] = isset($vOvr['priceorder']) ? $vOvr['priceorder'] : $v['priceorder'];;
-}
-
-$replace["productid"] = $el->id;
-$replace["brickid"] = $brick->id;
-$replace["currency"] = $man->CurrencyDefault()->postfix;
-
-/**/
-
 $brick->content = Brick::ReplaceVarByData($brick->content, $replace);
 
 ?>
