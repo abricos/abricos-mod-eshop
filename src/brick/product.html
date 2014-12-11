@@ -5,12 +5,16 @@
 [v=includebrick]product-foto,product-buyblock,product-specific[/v]
 [p=includebrick][/v]
 
+[bkvar=options] ["sklad"] [/bkvar]
+
+[bkvar=option-sklad-empty] quantity-empty [/bkvar]
+
 [*]-->
 <div class="mod-eshop">
     <div class="product_view" itemscope itemtype="http://schema.org/Product">
         <h3 class="fn" itemprop="name">{v#title}</h3>
 
-        <div class="row">
+        <div class="row {v#option-sklad}">
 
             <div class="col-md-5">
                 {v#brick_product-foto}

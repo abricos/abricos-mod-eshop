@@ -4,7 +4,7 @@
 [p=element][/p]
 
 [v=options]
-    ["art","art","brand","country","price"]
+    ["art","art","brand","country","price","sklad"]
 [/v]
 
 [v=option-art]
@@ -16,12 +16,30 @@
 [v=option-country]
 	<dt>{v#fldtl_country}</dt><dd>{v#fld_country}</dd>
 [/v]
+
+[bkvar=option-price-container]
+    <dt>Цена</dt>
+    <dd class="price">{v#result}</dd>
+[/bkvar]
+
 [v=option-price]
-    <dt>{#brick.product.6}</dt>
-    <dd class="price">
-        <b><span class="num">{v#fld_price}</span> <span span="cur">{v#currency}<span></b>
-    </dd>
+    <b><span class="num">{v#fld_price}</span> <span span="cur">{v#currency}<span></b>
 [/v]
+
+[v=option-price-empty] Цену уточняйте [/v]
+
+[bkvar=option-sklad-container]
+    <dt>Наличие</dt>
+    <dd class="price">{v#result}</dd>
+[/bkvar]
+
+[bkvar=option-sklad]
+    <span>есть</span>
+[/bkvar]
+
+[bkvar=option-sklad-empty]
+    <span>под заказ</span>
+[/bkvar]
 
 [*]-->
 <div class="product_buyblock">
@@ -30,9 +48,10 @@
         {v#option-brand}
         {v#option-country}
         {v#option-price}
+        {v#option-sklad}
     </dl>
 
-	<div class="add2cart">
+	<div class="text-center">
 		{v#buybutton}
 	</div>
 </div>
