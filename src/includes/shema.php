@@ -34,7 +34,7 @@ if ($updateManager->isInstall()) {
     EShopOptionAppend('desc', 'Описание товара', Catalog::TP_TEXT);
     EShopOptionAppend('art', 'Артикул', Catalog::TP_STRING, 32);
     EShopOptionAppend('sklad', 'Количество на складе', Catalog::TP_NUMBER, 5);
-    EShopOptionAppend('price', 'Цена розничная', Catalog::TP_DOUBLE, '10,2');
+    EShopOptionAppend('price', 'Цена розничная', Catalog::TP_CURRENCY, '10,2');
     EShopOptionAppend('brand', 'Бренд', Catalog::TP_TABLE);
     EShopOptionAppend('country', 'Страна-производитель', Catalog::TP_TABLE);
     EShopOptionAppend('new', 'Новинка', Catalog::TP_BOOLEAN);
