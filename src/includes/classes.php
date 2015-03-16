@@ -225,11 +225,11 @@ class EShopCatalogManager extends CatalogModuleManager {
             $ordOpt->zeroDesc = true;
         }
 
-        $cfg->extFields->Add($optionsBase->GetByName("price"));
+        // $cfg->extFields->Add($optionsBase->GetByName("price"));
         $cfg->extFields->Add($optionsBase->GetByName("akc"));
         $cfg->extFields->Add($optionsBase->GetByName("new"));
         $cfg->extFields->Add($optionsBase->GetByName("hit"));
-        $cfg->extFields->Add($optionsBase->GetByName("sklad"));
+        // $cfg->extFields->Add($optionsBase->GetByName("sklad"));
 
         return $this->ElementList($cfg);
     }

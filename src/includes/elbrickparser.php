@@ -28,7 +28,7 @@ class EShopElementBrickBuilder {
      */
     public $parser;
 
-    public function __construct(CatalogElement $el, Ab_CoreBrick $brick, $isTypeBrick = false) {
+    public function __construct(CatalogElement $el, Ab_CoreBrick $brick, $isTypeBrick = false){
         $this->element = $el;
         $this->brick = $brick;
 
@@ -37,12 +37,12 @@ class EShopElementBrickBuilder {
 
         $this->parser = new EShopElementBrickParser($el);
 
-        if (!$isTypeBrick) {
+        if (!$isTypeBrick){
             $this->OverrideByElementType();
         }
     }
 
-    private function OverrideByElementType() {
+    private function OverrideByElementType(){
         $brick = $this->brick;
 
         $man = EShopModule::$instance->GetManager()->cManager;
@@ -51,19 +51,19 @@ class EShopElementBrickBuilder {
 
         $elTypeBrick = Brick::$builder->LoadBrickS("eshop", $brick->name."-tp-".$elType->name);
 
-        if (!empty($elTypeBrick) && !$elTypeBrick->isError) {
+        if (!empty($elTypeBrick) && !$elTypeBrick->isError){
             $p = &$brick->param->param;
             $pOvr = &$elTypeBrick->param->param;
-            foreach ($p as $name => $value) {
-                if (isset($pOvr[$name])) {
+            foreach ($p as $name => $value){
+                if (isset($pOvr[$name])){
                     $p[$name] = $pOvr[$name];
                 }
             }
 
             $v = &$brick->param->var;
             $vOvr = &$elTypeBrick->param->var;
-            foreach ($v as $name => $value) {
-                if (isset($vOvr[$name])) {
+            foreach ($v as $name => $value){
+                if (isset($vOvr[$name])){
                     $v[$name] = $vOvr[$name];
                 }
             }
@@ -71,18 +71,18 @@ class EShopElementBrickBuilder {
             $ph = &$brick->param->phrase;
             $phOvr = &$elTypeBrick->param->phrase;
 
-            foreach ($phOvr as $name => $value) {
+            foreach ($phOvr as $name => $value){
                 $ph[$name] = $phOvr[$name];
             }
 
             $contentOvr = trim($elTypeBrick->content);
-            if (!empty($contentOvr)) {
+            if (!empty($contentOvr)){
                 $brick->content = $contentOvr;
             }
         }
     }
 
-    private function LoadIncludeBricks() {
+    private function LoadIncludeBricks(){
         $el = $this->element;
         $cat = $this->catalog;
 
@@ -94,9 +94,9 @@ class EShopElementBrickBuilder {
 
         $replace = array();
 
-        foreach ($aIncBricks as $sIncBrick) {
+        foreach ($aIncBricks as $sIncBrick){
             $sIncBrick = trim($sIncBrick);
-            if (empty($sIncBrick)) {
+            if (empty($sIncBrick)){
                 continue;
             }
 
@@ -107,19 +107,19 @@ class EShopElementBrickBuilder {
 
             // если есть параметры
             $aIncBrickParam = explode("|", $sIncBrick);
-            if (count($aIncBrickParam) > 1) {
+            if (count($aIncBrickParam) > 1){
                 $sIncBrick = $aIncBrickParam[0];
-                for ($i = 1; $i < count($aIncBrickParam); $i++) {
+                for ($i = 1; $i < count($aIncBrickParam); $i++){
                     $sPrm = $aIncBrickParam[$i];
                     $aPrm = explode("=", $sPrm);
-                    if (count($aPrm) == 2) {
+                    if (count($aPrm) == 2){
                         $incBrickParams[$aPrm[0]] = $aPrm[1];
                     }
                 }
             }
 
             $incBrick = Brick::$builder->LoadBrickS("eshop", $sIncBrick, null, array("p" => $incBrickParams));
-            if (!empty($incBrick) && !$incBrick->isError) {
+            if (!empty($incBrick) && !$incBrick->isError){
                 $this->parser->Parse($incBrick);
 
                 $replace["brick_".$sIncBrick] = $incBrick->content;
@@ -129,7 +129,7 @@ class EShopElementBrickBuilder {
         $brick->content = Brick::ReplaceVarByData($brick->content, $replace);
     }
 
-    public function Build() {
+    public function Build(){
         $this->LoadIncludeBricks();
 
         $brick = $this->brick;
@@ -150,11 +150,11 @@ class EShopElementBrickParser {
      */
     public $element;
 
-    public function __construct(CatalogElement $el) {
+    public function __construct(CatalogElement $el){
         $this->element = $el;
     }
 
-    public function Parse(Ab_CoreBrick $brick) {
+    public function Parse(Ab_CoreBrick $brick){
 
         $replace = $this->ParseOptions($brick);
         $brick->content = Brick::ReplaceVarByData($brick->content, $replace);
@@ -165,8 +165,8 @@ class EShopElementBrickParser {
 
     private $_cacheOptionsData = null;
 
-    public function GetOptionsData() {
-        if (!empty($this->_cacheOptionsData)) {
+    public function GetOptionsData(){
+        if (!empty($this->_cacheOptionsData)){
             return $this->_cacheOptionsData;
         }
 
@@ -176,16 +176,16 @@ class EShopElementBrickParser {
         $elTypeList = $cMan->ElementTypeList();
 
         $ret = array();
-        for ($i = 0; $i <= 2; $i++) {
-            if ($i == 0) {
+        for ($i = 0; $i <= 2; $i++){
+            if ($i == 0){
                 $elType = $elTypeList->Get(0);
-            } else if ($el->elTypeId > 0) {
+            } else if ($el->elTypeId > 0){
                 $elType = $elTypeList->Get($el->elTypeId);
             } else {
                 continue;
             }
 
-            for ($ii = 0; $ii < $elType->options->Count(); $ii++) {
+            for ($ii = 0; $ii < $elType->options->Count(); $ii++){
                 $option = $elType->options->GetByIndex($ii);
 
                 $value = $this->GetOptionValue($option->name);
@@ -197,12 +197,23 @@ class EShopElementBrickParser {
                     "value_int" => ""
                 );
 
-                if ($option->type == Catalog::TP_TABLE) {
+                if ($option->type == Catalog::TP_TABLE){
                     $tblval = isset($option->values[$value]) ? $option->values[$value] : "";
-                    if (!empty($tblval)) {
+                    if (!empty($tblval)){
                         $reti['value'] = $tblval['tl'];
                     }
-                } else if ($option->type == Catalog::TP_DOUBLE || $option->type == Catalog::TP_CURRENCY) {
+                } else if ($option->type == Catalog::TP_CURRENCY){
+                    $currencyDefault = $cMan->CurrencyDefault();
+                    if ($value > 0 && $option->currencyid > 0 && $currencyDefault->id != $option->currencyid){
+                        $currency = $cMan->CurrencyList()->Get($option->currencyid);
+                        if (!empty($currency) && $currency->rateVal > 0){
+                            $value = $value / $currency->rateVal;
+                        }
+                    }
+                    $reti['value_int'] = number_format($value, 0, ',', ' ');
+                    $reti['value'] = number_format($value, 2, ',', ' ');
+
+                } else if ($option->type == Catalog::TP_DOUBLE){
                     $reti['value_int'] = number_format($value, 0, ',', ' ');
 
                     $reti['value'] = number_format($value, 2, ',', ' ');
@@ -220,19 +231,19 @@ class EShopElementBrickParser {
      *
      * @param string $sOption имя опции
      */
-    public function GetOptionValue($sOption) {
+    public function GetOptionValue($sOption){
         $elOptBase = $this->element->detail->optionsBase; // значение базовых опций
         $elOptPers = $this->element->detail->optionsPers; // значения персональных опций
 
-        if (!empty($elOptBase[$sOption])) {
+        if (!empty($elOptBase[$sOption])){
             return $elOptBase[$sOption];
-        } else if (!empty($elOptPers[$sOption])) {
+        } else if (!empty($elOptPers[$sOption])){
             return $elOptPers[$sOption];
         }
         return "";
     }
 
-    public function ParseOptionGroups(Ab_CoreBrick $brick) {
+    public function ParseOptionGroups(Ab_CoreBrick $brick){
         $v = &$brick->param->var;
         $el = $this->element;
         $replace = array();
@@ -245,40 +256,40 @@ class EShopElementBrickParser {
         $v['optiongroups'] = isset($v['optiongroups']) ? $v['optiongroups'] : '';
         $aOptionGroups = explode(",", $v['optiongroups']);
 
-        foreach ($aOptionGroups as $sOptGroup) {
+        foreach ($aOptionGroups as $sOptGroup){
             $sOptGroup = trim($sOptGroup);
             $tpOptGroup = isset($v['optiongroup-'.$sOptGroup]) ? $v['optiongroup-'.$sOptGroup] : '';
             $tpOptGRow = isset($v['optiongrouprow-'.$sOptGroup]) ? $v['optiongrouprow-'.$sOptGroup] : '';
-            if (empty($sOptGroup) || empty($tpOptGroup) || empty($tpOptGRow)) {
+            if (empty($sOptGroup) || empty($tpOptGroup) || empty($tpOptGRow)){
                 continue;
             }
 
             $replace['optiongroup-'.$sOptGroup] = "";
 
             $optionGroup = $optionGroupList->GetByName($sOptGroup);
-            if (empty($optionGroup)) {
+            if (empty($optionGroup)){
                 continue;
             }
 
             $lst = "";
-            for ($i = 0; $i < 2; $i++) {
-                if ($i == 0) {
+            for ($i = 0; $i < 2; $i++){
+                if ($i == 0){
                     $elType = $elTypeList->Get(0);
-                } else if ($el->elTypeId > 0) {
+                } else if ($el->elTypeId > 0){
                     $elType = $elTypeList->Get($el->elTypeId);
                 } else {
                     continue;
                 }
 
-                for ($ii = 0; $ii < $elType->options->Count(); $ii++) {
+                for ($ii = 0; $ii < $elType->options->Count(); $ii++){
                     $option = $elType->options->GetByIndex($ii);
 
-                    if ($option->groupid != $optionGroup->id) {
+                    if ($option->groupid != $optionGroup->id){
                         continue;
                     }
 
                     $value = $this->GetOptionValue($option->name);
-                    if (empty($value)) {
+                    if (empty($value)){
                         continue;
                     }
 
@@ -294,7 +305,7 @@ class EShopElementBrickParser {
         return $replace;
     }
 
-    public function ParseOptions(Ab_CoreBrick $brick) {
+    public function ParseOptions(Ab_CoreBrick $brick){
         $v = &$brick->param->var;
         $replace = array();
 
@@ -312,24 +323,24 @@ class EShopElementBrickParser {
             return $replace;
         }
 
-        foreach ($aOptions as $oOption) {
+        foreach ($aOptions as $oOption){
             if (is_string($oOption)){
                 $obj = new stdClass();
                 $obj->name = $oOption;
                 $oOption = $obj;
             }
-            if (!is_object($oOption)) {
+            if (!is_object($oOption)){
                 continue;
             }
 
             $sOption = isset($oOption->name) ? $oOption->name : "";
-            if (empty($sOption)) {
+            if (empty($sOption)){
                 continue;
             }
 
             $tplCount = isset($oOption->count) ? intval($oOption->count) : 1;
 
-            for ($i = 1; $i <= $tplCount; $i++) {
+            for ($i = 1; $i <= $tplCount; $i++){
 
                 $tplPostfix = $tplCount === 1 ? "" : "-".$i;
 
@@ -337,13 +348,13 @@ class EShopElementBrickParser {
                 $value = $this->GetOptionValue($sOption);
 
                 if (empty($value) || $value == '0.00' // временно (для отключения опций с плавающей точкой)
-                ) {
+                ){
                     $tplOptionName = 'option-'.$sOption.'-empty'.$tplPostfix;
                 } else {
                     $tplOptionName = 'option-'.$sOption.$tplPostfix;
                 }
 
-                if (!isset($v[$tplOptionName])) {
+                if (!isset($v[$tplOptionName])){
                     continue;
                 }
 
@@ -357,7 +368,7 @@ class EShopElementBrickParser {
 
                 $tplContainer = "option-".$sOption."-container".$tplPostfix;
 
-                if (isset($v[$tplContainer])) {
+                if (isset($v[$tplContainer])){
                     $replace['option-'.$sOption.$tplPostfix] = Brick::ReplaceVarByData($v[$tplContainer], array(
                         "result" => $tplOption
                     ));
@@ -370,7 +381,7 @@ class EShopElementBrickParser {
         return $replace;
     }
 
-    public function GetReplaceData() {
+    public function GetReplaceData(){
 
         $el = $this->element;
 
@@ -387,18 +398,18 @@ class EShopElementBrickParser {
         );
 
         $cat = $catList->Get($el->catid);
-        if (!empty($cat) && $cat->id > 0) {
+        if (!empty($cat) && $cat->id > 0){
             $cat["cattitle"] = $cat->title;
             $cat["catdesc"] = $cat->detail->descript;
         }
 
         $optionsData = $this->GetOptionsData();
 
-        foreach ($optionsData as $optName => $optData) {
+        foreach ($optionsData as $optName => $optData){
             $option = $optData['option'];
             $replace["fldtl_".$optName] = $option->title;
             $replace["fld_".$optName] = $optData['value'];
-            if (!empty($optData['value_int'])) {
+            if (!empty($optData['value_int'])){
                 $replace["fld_".$optName."_int"] = $optData['value_int'];
             }
         }
