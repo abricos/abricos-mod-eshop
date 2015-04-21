@@ -13,7 +13,7 @@ $p = &$brick->param->param;
 $v = &$brick->param->var;
 
 $el = $p['element'];
-if (empty($el)) {
+if (empty($el)){
     $brick->content = "";
     return;
 }
@@ -31,11 +31,11 @@ $fotoSmallSize = array(
 );
 
 Abricos::GetModule('filemanager')->EnableThumbSize(array(
-        $fotoSize,
-        $fotoSmallSize
-    ));
+    $fotoSize,
+    $fotoSmallSize
+));
 
-if (false) {
+if (false){
     $el = new CatalogElement();
 }
 
@@ -43,13 +43,13 @@ $fotoList = $el->detail->fotoList;
 
 $pTitle = addslashes(htmlspecialchars($el->title));
 $pTitleSeo = "";
-if (EShopConfig::$instance->seo) {
+if (EShopConfig::$instance->seo){
     $pTitleSeo = translateruen($el->title);
 
-    for ($i = 0; $i < $fotoList->Count(); $i++) {
+    for ($i = 0; $i < $fotoList->Count(); $i++){
         $foto = $fotoList->GetByIndex($i);
         $fnm = $pTitleSeo;
-        if ($i > 0) {
+        if ($i > 0){
             $fnm .= "-".$i;
         }
         $foto->name = $fnm.".".$foto->extension;
@@ -57,7 +57,7 @@ if (EShopConfig::$instance->seo) {
 }
 
 $lstFotoSmall = $otherphoto = "";
-if ($fotoList->Count() == 0) {
+if ($fotoList->Count() == 0){
     $tpFoto = $v["fotoempty"];
 } else {
     $foto = $fotoList->GetByIndex(0);
@@ -67,13 +67,20 @@ if ($fotoList->Count() == 0) {
         "srcf" => $foto->Link()
     ));
 
-    for ($i = 0; $i < $fotoList->Count(); $i++) {
-        $foto = $fotoList->GetByIndex($i);
+    $lstFotoSmall = "";
 
-        $lstFotoSmall .= Brick::ReplaceVarByData($v["fotosmall"], array(
-            "src" => $foto->Link($fotoSmallSize['w'], $fotoSmallSize['h']),
-            "srcf" => $foto->Link(),
-            "fid" => $foto->filehash
+    if ($fotoList->Count() > 1){
+        for ($i = 0; $i < $fotoList->Count(); $i++){
+            $foto = $fotoList->GetByIndex($i);
+
+            $lstFotoSmall .= Brick::ReplaceVarByData($v["fotosmall"], array(
+                "src" => $foto->Link($fotoSmallSize['w'], $fotoSmallSize['h']),
+                "srcf" => $foto->Link(),
+                "fid" => $foto->filehash
+            ));
+        }
+        $lstFotoSmall = Brick::ReplaceVarByData($v['fotoSmallList'], array(
+            "list" => $lstFotoSmall
         ));
     }
 }

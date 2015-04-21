@@ -27,6 +27,14 @@
 	</div>
 [/v]
 
+[v=fotoSmallList]
+    <div id="{v#brickid}-gallery" class="small_foto">
+        <div class="row">
+            {v#list}
+        </div>
+    </div>
+[/v]
+
 [js]/vendor/elevatezoom/jquery.elevateZoom-2.2.3.min.js[/js]
 
 [*]-->
@@ -36,12 +44,7 @@
             {v#foto}
         </div>
     </div>
-
-    <div id="{v#brickid}-gallery" class="small_foto">
-        <div class="row">
-            {v#fotolist}
-        </div>
-    </div>
+    {v#fotolist}
 </div>
 <script>
     $(document).ready(function () {
