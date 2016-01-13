@@ -12,11 +12,14 @@ $brick = Brick::$builder->brick;
 $p = &$brick->param->param;
 $v = &$brick->param->var;
 
+/** @var CatalogElement $el */
 $el = $p['element'];
 if (empty($el)){
     $brick->content = "";
     return;
 }
+
+$p['alwaysList'] = isset($p['alwaysList']) ? $p['alwaysList'] : false;
 
 $a = explode("x", $p['fotosize']);
 $fotoSize = array(
@@ -34,10 +37,6 @@ Abricos::GetModule('filemanager')->EnableThumbSize(array(
     $fotoSize,
     $fotoSmallSize
 ));
-
-if (false){
-    $el = new CatalogElement();
-}
 
 $fotoList = $el->detail->fotoList;
 
@@ -69,7 +68,7 @@ if ($fotoList->Count() == 0){
 
     $lstFotoSmall = "";
 
-    if ($fotoList->Count() > 1){
+    if (!empty($p['alwaysList']) ||  $fotoList->Count() > 1){
         for ($i = 0; $i < $fotoList->Count(); $i++){
             $foto = $fotoList->GetByIndex($i);
 
@@ -87,9 +86,7 @@ if ($fotoList->Count() == 0){
 
 $brick->content = Brick::ReplaceVarByData($brick->content, array(
     "foto" => $tpFoto,
-    "fotolist" => $lstFotoSmall
-));
-$brick->content = Brick::ReplaceVarByData($brick->content, array(
+    "fotolist" => $lstFotoSmall,
     "w" => $fotoSize['w'],
     "h" => $fotoSize['h'],
     "smw" => $fotoSmallSize['w'],
