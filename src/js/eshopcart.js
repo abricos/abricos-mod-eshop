@@ -11,67 +11,48 @@ Component.requires = {
 };
 Component.entryPoint = function(NS){
 
-    var L = YAHOO.lang,
-        buildTemplate = this.buildTemplate;
+    var Y = Brick.YUI,
+        COMPONENT = this,
+        SYS = Brick.mod.sys;
 
-    var CartBillingWidget = function(container){
-        CartBillingWidget.superclass.constructor.call(this, container, {
-            'buildTemplate': buildTemplate, 'tnames': 'billing'
-        });
-    };
-    YAHOO.extend(CartBillingWidget, Brick.mod.widget.Widget, {
-        init: function(){
-            this.wsMenuItem = 'cartbilling'; // использует wspace.js
-            this.viewWidget = null;
+    NS.CartBillingWidget = Y.Base.create('cartBillingWidget', SYS.AppWidget, [], {
+        onInitAppWidget: function(err, appInstance, options){
+            this.set('waiting', true);
+            Brick.use('eshopcart', 'billing', function(){
+                this.set('waiting', false);
+                this.viewWidget = new Brick.mod.eshopcart.BillingWidget(this.template.gel('view'));
+            }, this);
         },
-        destroy: function(){
-            if (L.isValue(this.viewWidget)){
+        destructor: function(){
+            if (this.viewWidget){
                 this.viewWidget.destroy();
             }
-            CartBillingWidget.superclass.destroy.call(this);
-        },
-        onLoad: function(){
-            var __self = this;
-            Brick.ff('eshopcart', 'billing', function(){
-                __self._onLoadWidget();
-            });
-        },
-        _onLoadWidget: function(){
-            this.elHide('loading');
-            this.viewWidget = new Brick.mod.eshopcart.BillingWidget(this.gel('view'));
+        }
+    }, {
+        ATTRS: {
+            component: {value: COMPONENT},
+            templateBlockName: {value: 'billing'}
         }
     });
-    NS.CartBillingWidget = CartBillingWidget;
 
-
-    var CartConfigWidget = function(container){
-        CartConfigWidget.superclass.constructor.call(this, container, {
-            'buildTemplate': buildTemplate, 'tnames': 'config'
-        });
-    };
-    YAHOO.extend(CartConfigWidget, Brick.mod.widget.Widget, {
-        init: function(){
-            this.wsMenuItem = 'cartconfig'; // использует wspace.js
-            this.viewWidget = null;
+    NS.CartConfigWidget = Y.Base.create('cartBillingWidget', SYS.AppWidget, [], {
+        onInitAppWidget: function(err, appInstance, options){
+            this.set('waiting', true);
+            Brick.use('eshopcart', 'config', function(){
+                this.set('waiting', false);
+                this.viewWidget = new Brick.mod.eshopcart.ConfigWidget(this.template.gel('view'));
+            }, this);
         },
-        destroy: function(){
-            if (L.isValue(this.viewWidget)){
+        destructor: function(){
+            if (this.viewWidget){
                 this.viewWidget.destroy();
             }
-            CartConfigWidget.superclass.destroy.call(this);
-        },
-        onLoad: function(){
-            var __self = this;
-            Brick.ff('eshopcart', 'config', function(){
-                __self._onLoadWidget();
-            });
-        },
-        _onLoadWidget: function(){
-            this.elHide('loading');
-            this.viewWidget = new Brick.mod.eshopcart.ConfigWidget(this.gel('view'));
+        }
+    }, {
+        ATTRS: {
+            component: {value: COMPONENT},
+            templateBlockName: {value: 'config'}
         }
     });
-    NS.CartConfigWidget = CartConfigWidget;
-
 
 };

@@ -7,51 +7,46 @@ var Component = new Brick.Component();
 Component.requires = {
     yui: ['aui-tabview'],
     mod: [
-        {name: 'catalog', files: ['typemanager.js','currencylist.js']},
+        {name: 'catalog', files: ['typemanager.js', 'currencylist.js']},
         {name: '{C#MODNAME}', files: ['lib-manager.js']}
     ]
 };
 Component.entryPoint = function(NS){
 
-    var L = YAHOO.lang,
-        buildTemplate = this.buildTemplate;
+    var Y = Brick.YUI,
+        COMPONENT = this,
+        SYS = Brick.mod.sys;
 
     var NSCat = Brick.mod.catalog;
 
-    var CatalogConfigWidget = function(container, cfg){
-        CatalogConfigWidget.superclass.constructor.call(this, container, {
-            'buildTemplate': buildTemplate, 'tnames': 'widget'
-        }, cfg);
-    };
-    YAHOO.extend(CatalogConfigWidget, Brick.mod.widget.Widget, {
-        init: function(cfg){
-            this.wsMenuItem = 'config'; // использует wspace.js
-            this.manager = null;
-            this.cfg = cfg;
-        },
-        destroy: function(){
-            if (!this.typeWidget){
-                this.typeWidget.destroy();
-                this.currencyWidget.destroy();
-            }
-            CatalogConfigWidget.superclass.destroy.call(this);
-        },
-        onLoad: function(){
+    NS.CatalogConfigWidget = Y.Base.create('catalogConfigWidget', SYS.AppWidget, [], {
+        onInitAppWidget: function(err, appInstance, options){
+            this.set('waiting', true);
+
             var __self = this;
             NS.initManager(function(man){
                 __self._onLoadManager(man);
             });
         },
+        destructor: function(){
+            if (this.typeWidget){
+                this.typeWidget.destroy();
+                this.currencyWidget.destroy();
+            }
+        },
         _onLoadManager: function(man){
-            this.manager = man;
-            this.elHide('loading');
-            this.elShow('view');
+            this.set('waiting', false);
 
-            new Y.TabView({srcNode: this.gel('view')}).render();
-            this.typeWidget = new NSCat.TypeManagerWidget(this.gel('typemanager'), man);
-            this.currencyWidget = new NSCat.CurrencyListWidget(this.gel('currency'), man);
+            var tp = this.template;
+
+            new Y.TabView({srcNode: tp.gel('view')}).render();
+            this.typeWidget = new NSCat.TypeManagerWidget(tp.gel('typemanager'), man);
+            this.currencyWidget = new NSCat.CurrencyListWidget(tp.gel('currency'), man);
+        }
+    }, {
+        ATTRS: {
+            component: {value: COMPONENT},
+            templateBlockName: {value: 'widget'}
         }
     });
-    NS.CatalogConfigWidget = CatalogConfigWidget;
-
 };

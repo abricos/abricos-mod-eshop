@@ -1,153 +1,60 @@
-/*!
- * Copyright 2008-2014 Alexander Kuzmin <roosit@abricos.org>
- * Licensed under the MIT license
- */
-
 var Component = new Brick.Component();
 Component.requires = {
     yui: ['base'],
     mod: [
-        {name: 'sys', files: ['application.js', 'widget.js']},
-        {name: 'widget', files: ['notice.js']}
+        {name: 'sys', files: ['application.js', 'widget.js']}
     ]
 };
 Component.entryPoint = function(NS){
 
-    var Y = Brick.YUI,
-
-        COMPONENT = this,
-
-        WAITING = 'waiting',
-        BOUNDING_BOX = 'boundingBox',
-
+    var COMPONENT = this,
         SYS = Brick.mod.sys;
 
-    NS.AppWidget = Y.Base.create('appWidget', Y.Widget, [
-        SYS.Language,
-        SYS.Template,
-        SYS.WidgetClick,
-        SYS.WidgetWaiting
-    ], {
-        initializer: function(){
-            this._appWidgetArguments = Y.Array(arguments);
-
-            Y.after(this._syncUIAppWidget, this, 'syncUI');
-        },
-        _syncUIAppWidget: function(){
-            if (!this.get('useExistingWidget')){
-                var args = this._appWidgetArguments,
-                    tData = {};
-
-                if (Y.Lang.isFunction(this.buildTData)){
-                    tData = this.buildTData.apply(this, args);
-                }
-
-                var bBox = this.get(BOUNDING_BOX),
-                    defTName = this.template.cfg.defTName;
-
-                bBox.setHTML(this.template.replace(defTName, tData));
-            }
-            this.set(WAITING, true);
-
-            var instance = this;
-            NS.initApp({
-                initCallback: function(err, appInstance){
-                    instance._initAppWidget(err, appInstance);
-                }
-            });
-        },
-        _initAppWidget: function(err, appInstance){
-            this.set('appInstance', appInstance);
-            this.set(WAITING, false);
-            var args = this._appWidgetArguments
-            this.onInitAppWidget.apply(this, [err, appInstance, {
-                arguments: args
-            }]);
-        },
-        onInitAppWidget: function(){
-        }
-    }, {
-        ATTRS: {
-            render: {
-                value: true
-            },
-            appInstance: {
-                values: null
-            },
-            useExistingWidget: {
-                value: false
-            }
-        }
+    NS.roles = new Brick.AppRoles('{C#MODNAME}', {
+        isAdmin: 50,
+        isModerator: 45,
+        isOperator: 40,
+        isWrite: 30,
+        isView: 10
     });
 
-
-    var AppBase = function(){
-    };
-    AppBase.ATTRS = {
-        initCallback: {
-            value: function(){
-            }
-        }
-    };
-    AppBase.prototype = {
+    SYS.Application.build(COMPONENT, {}, {
         initializer: function(){
-            this.get('initCallback')(null, this);
+            NS.roles.load(function(){
+                this.initCallbackFire();
+            }, this);
         },
-        onAJAXError: function(err){
-            Brick.mod.widget.notice.show(err.msg);
-        },
-        _treatAJAXResult: function(data){
-            data = data || {};
-            var ret = {};
-
-            return ret;
-        },
-        _defaultAJAXCallback: function(err, res, details){
-            var tRes = this._treatAJAXResult(res.data);
-
-            details.callback.apply(details.context, [err, tRes]);
-        }
-    };
-    NS.AppBase = AppBase;
-
-    NS.App = Y.Base.create('userApp', Y.Base, [
-        SYS.AJAX,
-        SYS.Language,
-        NS.AppBase
-    ], {
-        initializer: function(){
-            NS.appInstance = this;
-        }
-    }, {
+    }, [], {
+        REQS: {},
         ATTRS: {
-            component: {
-                value: COMPONENT
+            isLoadAppStructure: {value: false},
+        },
+        URLS: {
+            ws: "#app={C#MODNAMEURI}/wspace/ws/",
+            catalogman: {
+                view: function(){
+                    return this.getURL('ws') + 'manager/ManagerWidget/'
+                }
             },
-            initCallback: {
-                value: null
+            catalogman: function(catid){
+                var link = this.getURL('ws') + 'catalog/CatalogManagerWidget/';
+                if (catid && catid > 0){
+                    link += catid + '/';
+                }
+                return link;
             },
-            moduleName: {
-                value: '{C#MODNAME}'
-            }
+            billing: function(){
+                return this.getURL('ws') + 'billing/BillingWidget/';
+            },
+            catalogconfig: function(){
+                return this.getURL('ws') + 'catalogconfig/CatalogConfigWidget/';
+            },
+            cartbilling: function(){
+                return this.getURL('ws') + 'eshopcart/CartBillingWidget/';
+            },
+            cartconfig: function(){
+                return this.getURL('ws') + 'eshopcart/CartConfigWidget/';
+            },
         }
     });
-
-    NS.appInstance = null;
-    NS.initApp = function(options){
-        if (Y.Lang.isFunction(options)){
-            options = {
-                initCallback: options
-            }
-        }
-        options = Y.merge({
-            initCallback: function(){
-            }
-        }, options || {});
-
-        if (NS.appInstance){
-            return options.initCallback(null, NS.appInstance);
-        }
-        new NS.App(options);
-    };
-
 };

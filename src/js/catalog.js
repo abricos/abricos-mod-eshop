@@ -1,8 +1,3 @@
-/*
- @package Abricos
- @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
- */
-
 var Component = new Brick.Component();
 Component.requires = {
     yahoo: ['resize'],
@@ -13,43 +8,37 @@ Component.requires = {
 };
 Component.entryPoint = function(NS){
 
-    var L = YAHOO.lang,
-        buildTemplate = this.buildTemplate;
+    var Y = Brick.YUI,
+        COMPONENT = this,
+        SYS = Brick.mod.sys;
 
     var NSCat = Brick.mod.catalog;
 
-    var CatalogManagerWidget = function(container, cfg){
-        CatalogManagerWidget.superclass.constructor.call(this, container, {
-            'buildTemplate': buildTemplate, 'tnames': 'widget'
-        }, cfg);
-    };
-    YAHOO.extend(CatalogManagerWidget, Brick.mod.widget.Widget, {
-        init: function(cfg){
-            this.wsMenuItem = 'catalog'; // использует wspace.js
-            this.manager = null;
-            this.cfg = cfg;
-            this.viewWidget = null;
-        },
-        destroy: function(){
-            if (!L.isNull(this.viewWidget)){
-                this.viewWidget.destroy();
-            }
-            CatalogManagerWidget.superclass.destroy.call(this);
-        },
-        onLoad: function(cfg){
+    NS.CatalogManagerWidget = Y.Base.create('catalogManagerWidget', SYS.AppWidget, [], {
+        onInitAppWidget: function(err, appInstance, options){
+            this.set('waiting', true);
             var __self = this;
             NS.initManager(function(man){
                 __self._onLoadManager(man);
             });
         },
+        destructor: function(){
+            if (this.viewWidget){
+                this.viewWidget.destroy();
+            }
+        },
         _onLoadManager: function(man){
-            this.manager = man;
-            this.elHide('loading');
-            this.viewWidget = new NSCat.CatalogManagerWidget(this.gel('view'), man, this.cfg);
+            this.set('waiting', false);
+            this.viewWidget = new NSCat.CatalogManagerWidget(this.template.gel('view'), man, this.cfg);
+        }
+    }, {
+        ATTRS: {
+            component: {value: COMPONENT},
+            templateBlockName: {value: 'widget'}
         }
     });
-    NS.CatalogManagerWidget = CatalogManagerWidget;
 
+    return; // TODO: remove old functions
 
     var CatalogEditorWidget = function(container, cfg){
         CatalogEditorWidget.superclass.constructor.call(this, container, cfg);

@@ -1,62 +1,49 @@
-<!--{panel}-->
-<div class='hd'>Интернет-магазин</div>
-<div class='bd aw-eshop'>
-    <div id="{i#widget}"></div>
-</div>
-
 <!--{widget}-->
-<div id="{i#id}" class="wspace">
-    <div id="{i#gmenu}">
+<div class="app-workspace aw-sitemap">
 
-        <div class="gheadermenu">
-            <div class="ghd-title">Интернет-магазин</div>
-
-            <a href="{v#urlhome}" class="logo">
-                <img src="/modules/eshop/images/logo-96x96.png"/>
-            </a>
-
-            <div class="topmenublock">
-                <div class="topmenu topmenul">
-                    <div class="mitem" id="{i#mcatalogman}">
-                        <a href="{v#urlcatalogman}" class="sel" title="">Продукция</a>
-                    </div>
-                    <div class="mitem" id="{i#mcartbilling}"><a href="{v#urlcartbilling}" title="">Заказы</a></div>
-                    <div class="mitem" id="{i#mcatalogconfig}">
-                        <a href="{v#urlcatalogconfig}" title="">Настройка каталога</a>
-                    </div>
-                    <div class="mitem" id="{i#mcartconfig}" style="display: none">
-                        <a href="{v#urlcartconfig}" title="">Настройка магазина</a>
-                    </div>
+    <div class="app-nav">
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" data-url="ws" href="{v#urlhome}">
+                        <img src="/modules/eshop/images/logo-96x96.png"
+                             width="20px" height="20px"/>
+                    </a>
+                    <a class="navbar-brand" data-url="ws" href="{v#urlhome}">
+                        Интернет-магазин
+                    </a>
                 </div>
-                <div class="clear"></div>
+
+                <ul class="nav navbar-nav">
+                    <li id="{i#mcatalogman}">
+                        <a data-url="catalogman" href="#" title="">Продукция</a>
+                    </li>
+                    <li id="{i#mcartbilling}">
+                        <a data-url="cartbilling" href="#" title="">Заказы</a>
+                    </li>
+                    <li id="{i#mcatalogconfig}">
+                        <a data-url="catalogconfig" href="#" title="">Настройка каталога</a>
+                    </li>
+                    <li id="{i#mcartconfig}" class="hide">
+                        <a data-url="cartconfig" href="#" title="">Настройка магазина</a>
+                    </li>
+                </ul>
+
+                <ul class="nav navbar-nav pull-right" data-wait="show">
+                    <li><a href="#" data-url="ws">
+                        <img src="/images/loading.gif"/></a></li>
+                </ul>
             </div>
-
-        </div>
+        </nav>
     </div>
 
-    <div class="gbmenu">
-        <br class="clear"/>
+    <div data-wait="show" class="text-center">
+        <img src="/images/loading.gif"/>
 
-        <div class="line"></div>
+        <p>Идет загрузка данных</p>
+
+        <p>Пожалуйста, подождите...</p>
     </div>
 
-    <div id="{i#loading}" class="ws-loading">
-        <img src="/images/loading.gif"/> Идет загрузка данных <br/>Пожалуйста, подождите...
-    </div>
-    <div id="{i#board}" class="board" style="display: none"></div>
-
-</div>
-
-<!--{page}-->
-<div id="{i#id}" class='wspage'></div>
-
-<!--{home}-->
-<div id="{i#id}" class='wspage'>Добро пожаловать</div>
-
-<!--{accessdenied}-->
-<div id="{i#id}" class='wspage'>
-    <div class="ws-loading">
-        Доступ запрещен <br/>
-        У вас недостаточно прав, или необходимо зарегистрироваться.
-    </div>
+    <div class="app-workspace-page" data-wait="hide"></div>
 </div>
