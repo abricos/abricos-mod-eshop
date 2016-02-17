@@ -17,7 +17,7 @@ Component.entryPoint = function(NS){
             var tp = this.template;
 
             if (Brick.componentExists('eshopcart', 'lib')){
-                tp.show('mcartconfig');
+                tp.show('mcartbilling,mcartconfig');
             }
         },
         onShowWorkspacePage: function(page, widget){
