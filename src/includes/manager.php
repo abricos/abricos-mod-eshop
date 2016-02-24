@@ -209,11 +209,11 @@ class EShopManager extends Ab_ModuleManager {
     }
 
     public function Bos_MenuData() {
-        $i18n = $this->module->GetI18n();
+        $i18n = $this->module->I18n();
         return array(
             array(
                 "name" => "eshop",
-                "title" => $i18n['bosmenu']['eshop'],
+                "title" => $i18n->Translate('bosmenu.eshop'),
                 "role" => EShopAction::ADMIN,
                 "icon" => "/modules/eshop/images/logo-48x48.png",
                 "url" => "eshop/wspace/ws",
@@ -222,6 +222,21 @@ class EShopManager extends Ab_ModuleManager {
         );
     }
 
+    public function Bos_SummaryData(){
+        if (!$this->IsAdminRole()){
+            return;
+        }
+
+        $i18n = $this->module->I18n();
+        return array(
+            array(
+                "module" => "eshop",
+                "component" => "summary",
+                "widget" => "SummaryWidget",
+                "title" => $i18n->Translate('bosmenu.eshop'),
+            )
+        );
+    }
 }
 
 ?>
