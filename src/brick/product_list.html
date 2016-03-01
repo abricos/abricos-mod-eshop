@@ -6,6 +6,8 @@
 [p=catPath][/p]
 [p=limit]24[/p]
 [p=notchildlist]true[/p]
+[p=itemGroupCount]0[/p]
+[p=firstMarker][/p]
 
 [p=cfg][/p]
 
@@ -19,7 +21,13 @@
 [/bkvar]
 
 [bkvar=item]
-    <div class="{v#classcolumn}">
+    <div class="{v#classcolumn} {v#firstMarker}">
+        {v#result}
+    </div>
+[/bkvar]
+
+[bkvar=itemGroup]
+    <div class="group">
         {v#result}
     </div>
 [/bkvar]

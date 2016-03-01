@@ -72,8 +72,10 @@ if (!isset($p['itemBrickName']) || empty($p['itemBrickName'])){
     $p['itemBrickName'] = 'product_list_item';
 }
 
-$lst = "";
-$lstz = "";
+$p['firstMarker'] = isset($p['firstMarker']) ? $p['firstMarker'] : '';
+
+$lst = array();
+$lstz = array();
 for ($i = 0; $i < $elList->Count(); $i++){
 
     // Override template by Element Type
@@ -86,19 +88,51 @@ for ($i = 0; $i < $elList->Count(); $i++){
     ));
 
     $contentItem = Brick::ReplaceVarByData($tplItem, array(
-        "result" => $elBrick->content
+        "result" => $elBrick->content,
+        "firstMarker" => $p['firstMarker']
     ));
 
     if (isset($el->ext['price']) && doubleval($el->ext['price']) > 0){
-        $lst .= $contentItem;
+        $lst[] = $contentItem;
     } else {
-        $lstz .= $contentItem;
+        $lstz[] = $contentItem;
+    }
+}
+
+$lst = $lst + $lstz;
+
+$itemGroupCount = isset($p['itemGroupCount']) ? intval($p['itemGroupCount']) : 0;
+$itemResult = "";
+
+if ($itemGroupCount > 0){
+    $groupCounter = 0;
+    $temp = "";
+    while (count($lst) > 0){
+
+        $temp .= array_shift($lst);
+
+        if ($groupCounter === $itemGroupCount - 1){
+            $itemResult .= Brick::ReplaceVarByData($v['itemGroup'], array(
+                "result" => $temp
+            ));
+            $temp = "";
+            $groupCounter = 0;
+        } else {
+            $groupCounter++;
+        }
     }
 
+    if ($temp !== ""){
+        $itemResult .= Brick::ReplaceVarByData($v['itemGroup'], array(
+            "result" => $temp
+        ));
+    }
+} else {
+    $itemResult = implode("", $lst);
 }
 
 $result = Brick::ReplaceVarByData($tplList, array(
-    "result" => $lst.$lstz
+    "result" => $itemResult
 ));
 
 $brick->content = Brick::ReplaceVarByData($brick->content, array(
