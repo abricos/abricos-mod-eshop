@@ -28,18 +28,18 @@ class EShopConfig {
      */
     public $seo = false;
 
-    public function __construct($cfg) {
+    public function __construct($cfg){
         EShopConfig::$instance = $this;
 
-        if (empty($cfg)) {
+        if (empty($cfg)){
             $cfg = array();
         }
 
-        if (isset($cfg['productpagecount'])) {
+        if (isset($cfg['productpagecount'])){
             $this->productPageCount = intval($cfg['productpagecount']);
         }
 
-        if (isset($cfg['seo'])) {
+        if (isset($cfg['seo'])){
             $this->seo = $cfg['seo'];
         }
     }
@@ -49,9 +49,9 @@ class EShopCatalog extends Catalog {
 
     private $_calcURI = null;
 
-    public function URI() {
-        if (is_null($this->_calcURI)) {
-            if (!empty($this->parent)) {
+    public function URI(){
+        if (is_null($this->_calcURI)){
+            if (!empty($this->parent)){
                 $this->_calcURI = $this->parent->URI().$this->name."/";
             } else {
                 $this->_calcURI = "/eshop/";
@@ -66,15 +66,15 @@ class EShopElement extends CatalogElement {
 
     private $_calcURI = null;
 
-    public function URI() {
-        if (is_null($this->_calcURI)) {
+    public function URI(){
+        if (is_null($this->_calcURI)){
             $this->_calcURI = "";
 
             // TODO: Необходимо оптимизировать
             $catList = EShopCatalogManager::$instance->CatalogList();
             $cat = $catList->Find($this->catid);
 
-            if (!empty($cat)) {
+            if (!empty($cat)){
                 $this->_calcURI = $cat->URI();
             }
 
@@ -85,7 +85,7 @@ class EShopElement extends CatalogElement {
 }
 
 class EShopElementList extends CatalogElementList {
-    public function ToAJAX() {
+    public function ToAJAX(){
         return parent::ToAJAX(EShopCatalogManager::$instance);
     }
 }
@@ -102,7 +102,7 @@ class EShopCatalogManager extends CatalogModuleManager {
      */
     public $manager;
 
-    public function __construct() {
+    public function __construct(){
         $this->manager = EShopManager::$instance;
 
         EShopCatalogManager::$instance = $this;
@@ -114,23 +114,23 @@ class EShopCatalogManager extends CatalogModuleManager {
         $this->CatalogElementListClass = 'EShopElementList';
     }
 
-    public function IsAdminRole() {
+    public function IsAdminRole(){
         return $this->manager->IsAdminRole();
     }
 
-    public function IsModeratorRole() {
+    public function IsModeratorRole(){
         return $this->manager->IsModeratorRole();
     }
 
-    public function IsOperatorRole() {
+    public function IsOperatorRole(){
         return $this->manager->IsOperatorRole();
     }
 
-    public function IsWriteRole() {
+    public function IsWriteRole(){
         return $this->manager->IsWriteRole();
     }
 
-    public function IsViewRole() {
+    public function IsViewRole(){
         return $this->manager->IsViewRole();
     }
 
@@ -141,12 +141,12 @@ class EShopCatalogManager extends CatalogModuleManager {
      *
      * @return EShopCatalog
      */
-    public function CatalogByAdress() {
-        if (!is_null($this->_cacheCatByAdress)) {
+    public function CatalogByAdress(){
+        if (!is_null($this->_cacheCatByAdress)){
             return $this->_cacheCatByAdress;
         }
         $dir = Abricos::$adress->dir;
-        if (Abricos::$adress->level <= 1 || substr($dir[1], 0, 4) == 'page') {
+        if (Abricos::$adress->level <= 1 || substr($dir[1], 0, 4) == 'page'){
             $this->_cacheCatByAdress = $this->Catalog(0);
             return $this->_cacheCatByAdress;
         }
@@ -154,11 +154,11 @@ class EShopCatalogManager extends CatalogModuleManager {
         $modSM = Abricos::GetModule("sitemap");
         $cat = null;
         $mItem = null;
-        if (!empty($modSM)) {
+        if (!empty($modSM)){
             $mList = SitemapModule::$instance->GetManager()->MenuList();
 
             $miEshop = $mList->FindByPath('eshop');
-            if (empty($miEshop)) {
+            if (empty($miEshop)){
                 require_once 'smclasses.php';
 
                 $miEshop = new EShopRootMenuItem($mList);
@@ -167,29 +167,50 @@ class EShopCatalogManager extends CatalogModuleManager {
             }
 
             $arr = array();
-            foreach ($dir as $d) {
-                if (substr($d, 0, 4) == 'page') {
+            foreach ($dir as $d){
+                if (substr($d, 0, 4) == 'page'){
                     continue;
                 }
                 array_push($arr, $d);
             }
             $mItem = $mList->FindByPath($arr, true);
-            if (!empty($mItem)) {
+            if (!empty($mItem)){
                 $cat = isset($mItem->cat) ? $mItem->cat : 0;
             }
         }
-        if (!empty($cat)) {
+        if (!empty($cat)){
             $cat = $this->Catalog($cat->id);
         }
 
         return ($this->_cacheCatByAdress = $cat);
     }
 
+    public function CatalogByPath($path = ''){
+        $a = explode('/', $path);
+
+        if (!isset($a[0]) || $a[0] !== 'eshop'){
+            return null;
+        }
+
+        $catList = $this->CatalogList();
+        $cat = $catList->Get(0);
+        array_shift($a);
+
+        while (count($a) > 0){
+            $name = array_shift($a);
+            $cat = $cat->childs->GetByName($name);
+            if (empty($cat)){
+                return null;
+            }
+        }
+        return $cat;
+    }
+
     /**
      * @param integer $productid
      * @return EShopElement
      */
-    public function Product($productid) {
+    public function Product($productid){
         $el = $this->Element($productid);
 
         $ext = array_merge(array(
@@ -213,15 +234,15 @@ class EShopCatalogManager extends CatalogModuleManager {
      * @param mixed $cfg
      * @return EShopElementList
      */
-    public function ProductList($cfg) {
-        if (empty($cfg)) {
+    public function ProductList($cfg){
+        if (empty($cfg)){
             $cfg = new CatalogElementListConfig();
         }
 
         $optionsBase = $this->ElementTypeList()->Get(0)->options;
 
         $ordOpt = $cfg->orders->AddByOption($optionsBase->GetByName("price"));
-        if (!empty($ordOpt)) {
+        if (!empty($ordOpt)){
             $ordOpt->zeroDesc = true;
         }
 
@@ -234,7 +255,7 @@ class EShopCatalogManager extends CatalogModuleManager {
         return $this->ElementList($cfg);
     }
 
-    public function ProductListToAJAX($cfg) {
+    public function ProductListToAJAX($cfg){
         $list = $this->ProductList($cfg);
 
         $ret = new stdClass();
