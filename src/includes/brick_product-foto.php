@@ -20,20 +20,26 @@ if (empty($el)){
 }
 
 $p['alwaysList'] = isset($p['alwaysList']) ? $p['alwaysList'] : false;
+$p['fotoCrop'] = isset($p['fotoCrop']) ? intval($p['fotoCrop']) : 1;
+$p['fotosmCrop'] = isset($p['fotosmCrop']) ? intval($p['fotosmCrop']) : 1;
 
 $a = explode("x", $p['fotosize']);
 $fotoSize = array(
     "w" => intval($a[0]),
-    "h" => intval($a[1])
+    "h" => intval($a[1]),
+    "cm" => $p['fotoCrop']
 );
 
 $a = explode("x", $p['fotosmsize']);
 $fotoSmallSize = array(
     "w" => intval($a[0]),
-    "h" => intval($a[1])
+    "h" => intval($a[1]),
+    "cm" => $p['fotosmCrop']
 );
 
-Abricos::GetModule('filemanager')->EnableThumbSize(array(
+/** @var FileManagerModule $modFM */
+$modFM = Abricos::GetModule('filemanager');
+$modFM->EnableThumbSize(array(
     $fotoSize,
     $fotoSmallSize
 ));
@@ -62,18 +68,18 @@ if ($fotoList->Count() == 0){
     $foto = $fotoList->GetByIndex(0);
 
     $tpFoto = Brick::ReplaceVarByData($v["foto"], array(
-        "src" => $foto->Link($fotoSize['w'], $fotoSize['h']),
+        "src" => $foto->Link($fotoSize['w'], $fotoSize['h'], $fotoSize['cm']),
         "srcf" => $foto->Link()
     ));
 
     $lstFotoSmall = "";
 
-    if (!empty($p['alwaysList']) ||  $fotoList->Count() > 1){
+    if (!empty($p['alwaysList']) || $fotoList->Count() > 1){
         for ($i = 0; $i < $fotoList->Count(); $i++){
             $foto = $fotoList->GetByIndex($i);
 
             $lstFotoSmall .= Brick::ReplaceVarByData($v["fotosmall"], array(
-                "src" => $foto->Link($fotoSmallSize['w'], $fotoSmallSize['h']),
+                "src" => $foto->Link($fotoSmallSize['w'], $fotoSmallSize['h'], $fotoSmallSize['cm']),
                 "srcf" => $foto->Link(),
                 "fid" => $foto->filehash
             ));
