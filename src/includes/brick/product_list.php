@@ -105,6 +105,8 @@ $itemGroupCount = isset($p['itemGroupCount']) ? intval($p['itemGroupCount']) : 0
 $itemResult = "";
 
 if ($itemGroupCount > 0){
+    $p['firstGroupMarker'] = isset($p['firstGroupMarker']) ? $p['firstGroupMarker'] : '';
+    $isFirstGroup = true;
     $groupCounter = 0;
     $temp = "";
     while (count($lst) > 0){
@@ -113,8 +115,10 @@ if ($itemGroupCount > 0){
 
         if ($groupCounter === $itemGroupCount - 1){
             $itemResult .= Brick::ReplaceVarByData($v['itemGroup'], array(
-                "result" => $temp
+                "result" => $temp,
+                "firstGroupMarker" => $isFirstGroup ? $p['firstGroupMarker'] : ""
             ));
+            $isFirstGroup = false;
             $temp = "";
             $groupCounter = 0;
         } else {
@@ -124,7 +128,8 @@ if ($itemGroupCount > 0){
 
     if ($temp !== ""){
         $itemResult .= Brick::ReplaceVarByData($v['itemGroup'], array(
-            "result" => $temp
+            "result" => $temp,
+            "firstGroupMarker" => $isFirstGroup ? $p['firstGroupMarker'] : ""
         ));
     }
 } else {

@@ -19,40 +19,43 @@ $el = $man->Product($el->id);
 
 $modCart = Abricos::GetModule('eshopcart');
 
+/** @var FileManagerModule $fmModule */
+$fmModule = Abricos::GetModule('filemanager');
+
 $imgWidth = bkint($p['imgw']);
 $imgHeight = bkint($p['imgh']);
+$imgCropMode = isset($p['imgCropMode']) ? bkint($p['imgCropMode']) : FileManager::THUMB_CROPMODE_CENTER;
 
-Abricos::GetModule('filemanager')->EnableThumbSize(array(
+$fmModule->EnableThumbSize(array(
     array(
         "w" => $imgWidth,
-        "h" => $imgHeight
+        "h" => $imgHeight,
+        "cm" => $imgCropMode
     )
 ));
-
 
 $builder = EShopModule::$instance->GetManager()->GetElementBrickBuilder($el, $brick);
 $builder->Build();
 
-$replace = array();
-
-if (empty($el->foto)) {
+if (empty($el->foto)){
     $image = $v["imgempty"];
 } else {
     $image = Brick::ReplaceVarByData($v["img"], array(
-        "src" => $el->FotoSrc($imgWidth, $imgHeight)
+        "src" => $el->FotoSrc($imgWidth, $imgHeight, $imgCropMode)
     ));
 }
-$image = Brick::ReplaceVarByData($image, array(
-    "w" => $imgWidth,
-    "h" => $imgHeight
-));
 
-$replace["imgw"] = $imgWidth;
-$replace["imgh"] = $imgHeight;
-$replace["buybutton"] = "";
-$replace["image"] = $image;
+$replace = array(
+    "imgw" => $imgWidth,
+    "imgh" => $imgHeight,
+    "buybutton" => "",
+    "image" => Brick::ReplaceVarByData($image, array(
+        "w" => $imgWidth,
+        "h" => $imgHeight
+    ))
+);
 
-if (!empty($modCart)) {
+if (!empty($modCart)){
     $cartBrick = Brick::$builder->LoadBrickS('eshopcart', 'buybutton', null, array(
         "p" => array(
             "product" => $el
