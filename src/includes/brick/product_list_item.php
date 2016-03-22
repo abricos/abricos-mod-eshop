@@ -24,7 +24,7 @@ $fmModule = Abricos::GetModule('filemanager');
 
 $imgWidth = bkint($p['imgw']);
 $imgHeight = bkint($p['imgh']);
-$imgCropMode = isset($p['imgCropMode']) ? bkint($p['imgCropMode']) : FileManager::THUMB_CROPMODE_CENTER;
+$imgCropMode = isset($p['imgCropMode']) ? bkint($p['imgCropMode']) : 1;
 
 $fmModule->EnableThumbSize(array(
     array(
