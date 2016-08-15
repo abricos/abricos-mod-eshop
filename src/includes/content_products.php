@@ -2,7 +2,8 @@
 /**
  * @package Abricos
  * @subpackage EShop
- * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
+ * @copyright 2012-2016 Alexander Kuzmin
+ * @license http://opensource.org/licenses/mit-license.php MIT License
  * @author Alexander Kuzmin <roosit@abricos.org>
  */
 
@@ -15,7 +16,7 @@ $cfg = &Abricos::$config['module']['eshop'];
 
 $cat = $man->CatalogByAdress();
 
-if (empty($cat)) {
+if (empty($cat)){
     $brick->content = "";
     return;
 }
@@ -24,12 +25,12 @@ $dtl = $cat->detail;
 $cat_desc = "";
 // Проверка на наличие описания категории. Если его нет, не выводим блок описания. 
 // <p></p> - вставляется автоматом при редактировании категории
-if (!empty($dtl->descript) && $dtl->descript != "<p></p>") {
+if (!empty($dtl->descript) && $dtl->descript != "<p></p>"){
     $cat_desc = Brick::ReplaceVar($v["description"], "descript", $dtl->descript);
 }
 
 $adminButton = "";
-if (EShopManager::$instance->IsAdminRole()) {
+if (EShopManager::$instance->IsAdminRole()){
     $adminButton = Brick::ReplaceVarByData($v['adminbutton'], array(
         "catid" => intval($cat->id)
     ));
@@ -43,14 +44,14 @@ $brick->content = Brick::ReplaceVarByData($brick->content, array(
 ));
 
 $elList = null;
-foreach ($brick->child as $child) {
-    if ($child->name == 'product_list') {
+foreach ($brick->child as $child){
+    if ($child->name == 'product_list'){
         $elList = $child->elementList;
     }
 }
 $listTotal = 0;
 $listPage = 1;
-if (!empty($elList)) {
+if (!empty($elList)){
     $listTotal = $elList->total;
     $listPage = $elList->cfg->page;
 }
@@ -67,12 +68,12 @@ Brick::$builder->LoadBrickS('sitemap', 'paginator', $brick, array(
 ));
 
 // Вывод ключевых слов
-if (!empty($dtl->metaKeys)) {
+if (!empty($dtl->metaKeys)){
     Brick::$builder->SetGlobalVar('meta_keys', $dtl->metaKeys);
 }
 
 // Вывод описания
-if (!empty($dtl->metaDescript)) {
+if (!empty($dtl->metaDescript)){
     Brick::$builder->SetGlobalVar('meta_desc', $dtl->metaDescript);
 }
 
@@ -81,12 +82,9 @@ $metaTitle = !empty($dtl->metaTitle) ? $dtl->metaTitle : $cat->title;
 
 $phrases = EShopModule::$instance->GetPhrases();
 
-if (empty($metaTitle)) {
+if (empty($metaTitle)){
     $metaTitle = $v["deftitle"];
     $metaTitle = $phrases->Get('catalog_list_meta_title', $metaTitle);
 }
 
 Brick::$builder->SetGlobalVar('meta_title', $metaTitle);
-
-
-?>

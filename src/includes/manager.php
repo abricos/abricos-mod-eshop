@@ -2,7 +2,8 @@
 /**
  * @package Abricos
  * @subpackage EShop
- * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
+ * @copyright 2012-2016 Alexander Kuzmin
+ * @license http://opensource.org/licenses/mit-license.php MIT License
  * @author Alexander Kuzmin <roosit@abricos.org>
  */
 
@@ -51,11 +52,11 @@ class EShopManager extends Ab_ModuleManager {
     /**
      * @return EShopCatalogManager
      */
-    public function GetCatalogManager() {
+    public function GetCatalogManager(){
         return $this->cManager;
     }
 
-    public function __construct(EShopModule $module) {
+    public function __construct(EShopModule $module){
         parent::__construct($module);
 
         EShopManager::$instance = $this;
@@ -64,42 +65,42 @@ class EShopManager extends Ab_ModuleManager {
         $this->cManager = new EShopCatalogManager();
     }
 
-    public function IsAdminRole() {
+    public function IsAdminRole(){
         return $this->IsRoleEnable(EShopAction::ADMIN);
     }
 
-    public function IsModeratorRole() {
-        if ($this->IsAdminRole()) {
+    public function IsModeratorRole(){
+        if ($this->IsAdminRole()){
             return true;
         }
         return $this->IsRoleEnable(EShopAction::MODERATOR);
     }
 
-    public function IsOperatorRole() {
-        if ($this->IsAdminRole()) {
+    public function IsOperatorRole(){
+        if ($this->IsAdminRole()){
             return true;
         }
         return $this->IsRoleEnable(EShopAction::OPERATOR);
     }
 
-    public function IsWriteRole() {
-        if ($this->IsAdminRole()) {
+    public function IsWriteRole(){
+        if ($this->IsAdminRole()){
             return true;
         }
         return $this->IsRoleEnable(EShopAction::WRITE);
     }
 
-    public function IsViewRole() {
-        if ($this->IsWriteRole()) {
+    public function IsViewRole(){
+        if ($this->IsWriteRole()){
             return true;
         }
         return $this->IsRoleEnable(EShopAction::VIEW);
     }
 
-    public function AJAX($d) {
+    public function AJAX($d){
 
         $ret = $this->cManager->AJAX($d);
-        if (!empty($ret)) {
+        if (!empty($ret)){
             return $ret;
         }
 
@@ -111,7 +112,7 @@ class EShopManager extends Ab_ModuleManager {
      * @param $brick
      * @return EShopElementBrickBuilder
      */
-    public function GetElementBrickBuilder($el, $brick) {
+    public function GetElementBrickBuilder($el, $brick){
         require_once 'elbrickparser.php';
 
         return new EShopElementBrickBuilder($el, $brick);
@@ -137,7 +138,7 @@ class EShopManager extends Ab_ModuleManager {
     }
 /**/
 
-    private function BuildOfflineCatalog(OfflineDir $dir, $catid) {
+    private function BuildOfflineCatalog(OfflineDir $dir, $catid){
         $offMan = OfflineManager::$instance;
 
         $brick = Brick::$builder->LoadBrickS("eshop", "offline_catalog_list", null, array(
@@ -152,7 +153,7 @@ class EShopManager extends Ab_ModuleManager {
         $catMain = $this->cManager->CatalogList()->Find($catid);
         $catList = $catMain->childs;
 
-        for ($i = 0; $i < $catList->Count(); $i++) {
+        for ($i = 0; $i < $catList->Count(); $i++){
             $cat = $catList->GetByIndex($i);
 
             $cdir = new OfflineDir($dir, $cat->name);
@@ -165,11 +166,11 @@ class EShopManager extends Ab_ModuleManager {
         array_push($cfg->catids, $catid);
 
         $elList = $this->cManager->ProductList($cfg);
-        if (empty($elList)) {
+        if (empty($elList)){
             return;
         }
 
-        for ($i = 0; $i < $elList->Count(); $i++) {
+        for ($i = 0; $i < $elList->Count(); $i++){
             $product = $elList->GetByIndex($i);
             $brick = Brick::$builder->LoadBrickS("eshop", "offline_product", null, array(
                 "p" => array(
@@ -184,7 +185,7 @@ class EShopManager extends Ab_ModuleManager {
     /**
      * Выгрузка оффлайн каталога товаров
      */
-    public function Offline_Build(OfflineDir $dir) {
+    public function Offline_Build(OfflineDir $dir){
         $this->BuildOfflineCatalog($dir, 0);
     }
 
@@ -193,14 +194,14 @@ class EShopManager extends Ab_ModuleManager {
      *
      * @param SMMenuItem $menuItem
      */
-    public function Sitemap_MenuBuild(SMMenuItem $mItem) {
+    public function Sitemap_MenuBuild(SMMenuItem $mItem){
         $catList = $this->cManager->CatalogList();
 
         require_once 'smclasses.php';
 
         $rootCat = $catList->GetByIndex(0);
         $count = $rootCat->childs->Count();
-        for ($i = 0; $i < $count; $i++) {
+        for ($i = 0; $i < $count; $i++){
             $catItem = $rootCat->childs->GetByIndex($i);
             $cmItem = new EShopMenuItem($mItem, $catItem);
             $cmItem->off = $catItem->menuDisable;
@@ -208,7 +209,7 @@ class EShopManager extends Ab_ModuleManager {
         }
     }
 
-    public function Bos_MenuData() {
+    public function Bos_MenuData(){
         $i18n = $this->module->I18n();
         return array(
             array(
@@ -238,5 +239,3 @@ class EShopManager extends Ab_ModuleManager {
         );
     }
 }
-
-?>

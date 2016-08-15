@@ -2,7 +2,8 @@
 /**
  * @package Abricos
  * @subpackage EShop
- * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
+ * @copyright 2012-2016 Alexander Kuzmin
+ * @license http://opensource.org/licenses/mit-license.php MIT License
  * @author Alexander Kuzmin <roosit@abricos.org>
  */
 
@@ -24,21 +25,21 @@ $arr = $cManager->Search($pQuery, $pFField, $pFValue);
 
 $redirectCat = 0;
 
-for ($i = 0; $i < count($arr); $i++) {
+for ($i = 0; $i < count($arr); $i++){
     $row = $arr[$i];
-    if ($row['tp'] == "c") {
+    if ($row['tp'] == "c"){
         array_push($catids, $row['id']);
 
         // переход на раздел, если он релевантный поиску
-        if ($row['tl'] == $pQuery) {
+        if ($row['tl'] == $pQuery){
             $redirectCat = $row['id'];
         }
-    } else if ($row['tp'] == "e") {
+    } else if ($row['tp'] == "e"){
         array_push($elids, $row['id']);
     }
 }
 
-if (count($catids) == 0 && count($elids) == 0) {
+if (count($catids) == 0 && count($elids) == 0){
     return;
 }
 
@@ -62,21 +63,18 @@ $lst .= $brickElList->content;
 
 $brick->param->var['result'] = $lst;
 
-if ($redirectCat > 0) {
+if ($redirectCat > 0){
     $cat = $cManager->CatalogList()->Find($redirectCat);
     $v['redirect'] = Brick::ReplaceVarByData($v['redirectt'], array(
         "url" => $cat->URI()
     ));
     header("Location: ".$cat->URI());
-} else if (count($elids) == 1) {
+} else if (count($elids) == 1){
     $el = $cManager->Element($elids[0]);
-    if (!empty($el)) {
+    if (!empty($el)){
         $v['redirect'] = Brick::ReplaceVarByData($v['redirectt'], array(
             "url" => $el->URI()
         ));
         header("Location: ".$el->URI());
     }
 }
-
-
-?>

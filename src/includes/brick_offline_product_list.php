@@ -1,11 +1,12 @@
 <?php
-
 /**
  * @package Abricos
  * @subpackage EShop
- * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
+ * @copyright 2012-2016 Alexander Kuzmin
+ * @license http://opensource.org/licenses/mit-license.php MIT License
  * @author Alexander Kuzmin <roosit@abricos.org>
  */
+
 $brick = Brick::$builder->brick;
 $p = &$brick->param->param;
 $v = &$brick->param->var;
@@ -31,14 +32,14 @@ array_push($cfg->catids, $cat->id);
 
 $elList = $man->ProductList($cfg);
 $brick->elementList = $elList;
-if (empty($elList)) {
+if (empty($elList)){
     $brick->content = "";
     return;
 }
 
 $lst = "";
 $lstz = "";
-for ($i = 0; $i < $elList->Count(); $i++) {
+for ($i = 0; $i < $elList->Count(); $i++){
     $el = $elList->GetByIndex($i);
 
     $pTitle = addslashes(htmlspecialchars($el->title));
@@ -48,11 +49,11 @@ for ($i = 0; $i < $elList->Count(); $i++) {
     $pr_spec .= !empty($el->ext['hit']) ? $v['pr_hit'] : "";
 
     $pr_special = "";
-    if (!empty($pr_spec)) {
+    if (!empty($pr_spec)){
         $pr_special = Brick::ReplaceVar($v["special"], "pr_spec", $pr_spec);
     }
 
-    if (empty($el->foto)) {
+    if (empty($el->foto)){
         $image = $v["imgempty"];
     } else {
         $imgSrc = OfflineManager::$instance->WriteImage($p['dir'], $el->foto, $imgWidth, $imgHeight);
@@ -76,7 +77,7 @@ for ($i = 0; $i < $elList->Count(); $i++) {
         "productid" => $el->id
     );
 
-    if ($el->ext['price'] > 0) {
+    if ($el->ext['price'] > 0){
         $lst .= Brick::ReplaceVarByData($v['row'], $replace);
     } else {
         $lstz .= Brick::ReplaceVarByData($v['row'], $replace);
@@ -89,4 +90,3 @@ $brick->content = Brick::ReplaceVarByData($brick->content, array(
         "rows" => $lst.$lstz
     ))
 ));
-?>

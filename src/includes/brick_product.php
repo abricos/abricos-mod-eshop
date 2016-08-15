@@ -1,11 +1,12 @@
 <?php
-
 /**
  * @package Abricos
  * @subpackage EShop
- * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
+ * @copyright 2012-2016 Alexander Kuzmin
+ * @license http://opensource.org/licenses/mit-license.php MIT License
  * @author Alexander Kuzmin <roosit@abricos.org>
  */
+
 /*
  * Кирпич product
  * 
@@ -37,17 +38,16 @@ $builder->Build();
 
 
 // Вывод заголовка страницы.
-if (!empty($el->detail->metaTitle) && $el->detail->metaTitle != "&nbsp;") {
+if (!empty($el->detail->metaTitle) && $el->detail->metaTitle != "&nbsp;"){
     Brick::$builder->SetGlobalVar('meta_title', $el->detail->metaTitle);
-} else if (!empty($el->title) && $el->title != "&nbsp;") {
+} else if (!empty($el->title) && $el->title != "&nbsp;"){
     Brick::$builder->SetGlobalVar('meta_title', $el->title);
 }
 // Вывод ключевых слов
-if (!empty($el->detail->metaKeys) && $el->detail->metaKeys != "&nbsp;") {
+if (!empty($el->detail->metaKeys) && $el->detail->metaKeys != "&nbsp;"){
     Brick::$builder->SetGlobalVar('meta_keys', $el->detail->metaKeys);
 }
 // Вывод описания
-if (!empty($el->detail->metaDesc) && $el->detail->metaDesc != "&nbsp;") {
+if (!empty($el->detail->metaDesc) && $el->detail->metaDesc != "&nbsp;"){
     Brick::$builder->SetGlobalVar('meta_desc', $el->detail->metaDesc);
 }
-?>

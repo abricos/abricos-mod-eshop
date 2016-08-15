@@ -2,7 +2,8 @@
 /**
  * @package Abricos
  * @subpackage EShop
- * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
+ * @copyright 2012-2016 Alexander Kuzmin
+ * @license http://opensource.org/licenses/mit-license.php MIT License
  * @author Alexander Kuzmin <roosit@abricos.org>
  */
 
@@ -24,13 +25,13 @@ $man = EShopModule::$instance->GetManager()->cManager;
 
 $catList = $man->CatalogList();
 
-if (!empty($p['catids'])) {
+if (!empty($p['catids'])){
     $catids = explode(",", $p['catids']);
     $cCatList = $man->CatalogListByIds($catids);
 } else {
     $cCat = $man->CatalogByAdress();
 
-    if (empty($cCat)) {
+    if (empty($cCat)){
         $brick->content = "";
         return;
     }
@@ -41,13 +42,13 @@ if (!empty($p['catids'])) {
 
 $count = $cCatList->Count();
 $lst = "";
-for ($i = 0; $i < $count; $i++) {
+for ($i = 0; $i < $count; $i++){
     $cat = $cCatList->GetByIndex($i);
-    if ($cat->listDisable) {
+    if ($cat->listDisable){
         continue;
     }
 
-    if (empty($cat->foto)) {
+    if (empty($cat->foto)){
         $image = $v["imgempty"];
     } else {
         $image = Brick::ReplaceVarByData($v["img"], array(
@@ -73,5 +74,3 @@ $brick->content = Brick::ReplaceVarByData($brick->content, array(
     )),
     "brickid" => $brick->id
 ));
-
-?>

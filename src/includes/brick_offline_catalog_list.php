@@ -2,7 +2,8 @@
 /**
  * @package Abricos
  * @subpackage EShop
- * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
+ * @copyright 2012-2016 Alexander Kuzmin
+ * @license http://opensource.org/licenses/mit-license.php MIT License
  * @author Alexander Kuzmin <roosit@abricos.org>
  */
 
@@ -20,12 +21,12 @@ $lst = "";
 $imgWidth = bkint($p['imgw']);
 $imgHeight = bkint($p['imgh']);
 
-for ($i = 0; $i < $catList->Count(); $i++) {
+for ($i = 0; $i < $catList->Count(); $i++){
     $cat = $catList->GetByIndex($i);
 
     $link = $cat->name."/index.html";
 
-    if (empty($cat->foto)) {
+    if (empty($cat->foto)){
         $image = $v["imgempty"];
     } else {
 
@@ -49,7 +50,7 @@ for ($i = 0; $i < $catList->Count(); $i++) {
 }
 
 $cattitle = "";
-if ($catMain->id > 0) {
+if ($catMain->id > 0){
     $cattitle = Brick::ReplaceVarByData($v['cattitle'], array(
         "title" => $catMain->title
     ));
@@ -69,5 +70,3 @@ $brick->content = Brick::ReplaceVarByData($brick->content, array(
     )),
     "productlist" => $brickPList->content
 ));
-
-?>

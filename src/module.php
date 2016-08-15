@@ -1,10 +1,9 @@
 <?php
 /**
- * Модуль "Интернет магазин"
- *
  * @package Abricos
  * @subpackage EShop
- * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
+ * @copyright 2012-2016 Alexander Kuzmin
+ * @license http://opensource.org/licenses/mit-license.php MIT License
  * @author Alexander Kuzmin <roosit@abricos.org>
  */
 
@@ -32,7 +31,7 @@ class EShopModule extends Ab_Module {
         "dbprefix" => 'eshp'
     );
 
-    public function EShopModule() {
+    public function EShopModule(){
         $this->version = "0.2.4";
         $this->name = "eshop";
         $this->takelink = "eshop";
@@ -46,8 +45,8 @@ class EShopModule extends Ab_Module {
      *
      * @return EShopManager
      */
-    public function GetManager() {
-        if (is_null($this->_manager)) {
+    public function GetManager(){
+        if (is_null($this->_manager)){
             require_once 'includes/manager.php';
             $this->_manager = new EShopManager($this);
         }
@@ -61,18 +60,18 @@ class EShopModule extends Ab_Module {
      *
      * @return CatalogManager
      */
-    private function GetCatalogManager() {
-        if (is_null($this->_catalogManager)) {
+    private function GetCatalogManager(){
+        if (is_null($this->_catalogManager)){
             $this->_catalogManager = Abricos::GetModule('catalog')->GetManager();
         }
         return $this->_catalogManager;
     }
 
-    public function GetContentName() {
+    public function GetContentName(){
         $adress = Abricos::$adress;
 
-        if ($adress->level >= 2) {
-            switch ($adress->dir[1]) {
+        if ($adress->level >= 2){
+            switch ($adress->dir[1]){
                 case 'cart':
                 case 'action':
                 case 'new':
@@ -84,7 +83,7 @@ class EShopModule extends Ab_Module {
 
         $lastitem = $adress->dir[count($adress->dir) - 1];
 
-        if (preg_match("/^product_[0-9]+/", $lastitem)) {
+        if (preg_match("/^product_[0-9]+/", $lastitem)){
 
             $arr = explode("_", $lastitem);
 
@@ -103,7 +102,7 @@ class EShopModule extends Ab_Module {
         // соответственно, если необходимо перегрузить только корень каталога продукции, то
         // необходимо создать файл products-eshop.html
         $newarr = $adress->dir;
-        if (!empty($newarr) && count($newarr) > 0) {
+        if (!empty($newarr) && count($newarr) > 0){
             $fname = "products-".implode("-", $newarr);
         } else {
             $fname = "products-eshop";
@@ -117,14 +116,14 @@ class EShopModule extends Ab_Module {
     /**
      * Этот модуль осуществляет оффлайн выгрузку
      */
-    public function Offline_IsBuild() {
+    public function Offline_IsBuild(){
         return true;
     }
 
     /**
      * Этот модуль добавляет пункты меню в главное меню
      */
-    public function Sitemap_IsMenuBuild() {
+    public function Sitemap_IsMenuBuild(){
         return true;
     }
 
@@ -133,7 +132,7 @@ class EShopModule extends Ab_Module {
      *
      * @return bool
      */
-    public function Bos_IsMenu() {
+    public function Bos_IsMenu(){
         return true;
     }
 
@@ -152,7 +151,7 @@ class EShopAction {
 
 class EShopPermission extends Ab_UserPermission {
 
-    public function EShopPermission(EShopModule $module) {
+    public function EShopPermission(EShopModule $module){
         $defRoles = array(
             new Ab_UserRole(EShopAction::VIEW, Ab_UserGroup::GUEST),
             new Ab_UserRole(EShopAction::VIEW, Ab_UserGroup::REGISTERED),
@@ -167,7 +166,7 @@ class EShopPermission extends Ab_UserPermission {
         parent::__construct($module, $defRoles);
     }
 
-    public function GetRoles() {
+    public function GetRoles(){
         return array(
             EShopAction::VIEW => $this->CheckAction(EShopAction::VIEW),
             EShopAction::WRITE => $this->CheckAction(EShopAction::WRITE),
@@ -179,7 +178,7 @@ class EShopPermission extends Ab_UserPermission {
 }
 
 $modCatalog = Abricos::GetModule('catalog');
-if (empty($modCatalog)) {
+if (empty($modCatalog)){
     return;
 }
 
@@ -189,5 +188,3 @@ $modEShop = new EShopModule();
 
 $modCatalog->Register($modEShop);
 Abricos::ModuleRegister($modEShop);
-
-?>
