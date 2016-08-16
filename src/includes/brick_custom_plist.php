@@ -53,4 +53,3 @@ $nbrick = Brick::$builder->LoadBrickS('eshop', 'product_list', $brick, array(
 if ($nbrick->elementList->Count() === 0) {
     $brick->content = "";
 }
-?>

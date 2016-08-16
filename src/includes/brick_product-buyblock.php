@@ -31,5 +31,3 @@ if (!empty($modCart)) {
 }
 
 $brick->content = Brick::ReplaceVarByData($brick->content, $replace);
-
-?>

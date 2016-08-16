@@ -31,7 +31,7 @@ class EShopModule extends Ab_Module {
         "dbprefix" => 'eshp'
     );
 
-    public function EShopModule(){
+    public function __construct(){
         $this->version = "0.2.4";
         $this->name = "eshop";
         $this->takelink = "eshop";
@@ -151,7 +151,7 @@ class EShopAction {
 
 class EShopPermission extends Ab_UserPermission {
 
-    public function EShopPermission(EShopModule $module){
+    public function __construct(EShopModule $module){
         $defRoles = array(
             new Ab_UserRole(EShopAction::VIEW, Ab_UserGroup::GUEST),
             new Ab_UserRole(EShopAction::VIEW, Ab_UserGroup::REGISTERED),

@@ -126,4 +126,3 @@ if ($updateManager->isUpdate('0.2.3.1') && !$updateManager->isInstall()) {
 		WHERE language=''
 	");
 }
-?>
