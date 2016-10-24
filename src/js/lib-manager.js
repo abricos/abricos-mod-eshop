@@ -9,16 +9,16 @@ Component.entryPoint = function(NS){
     var L = YAHOO.lang,
         R = NS.roles;
 
-    var SysNS = Brick.mod.sys,
+    var SYS = Brick.mod.sys,
         LNG = this.language,
-        NSCat = Brick.mod.catalog;
+        CAT = Brick.mod.catalog;
 
     this.buildTemplate({}, '');
 
     var CatalogItem = function(manager, d){
         CatalogItem.superclass.constructor.call(this, manager, d);
     };
-    YAHOO.extend(CatalogItem, NSCat.CatalogItem, {
+    YAHOO.extend(CatalogItem, CAT.CatalogItem, {
         update: function(d){
             this._urlCache = null;
             CatalogItem.superclass.update.call(this, d);
@@ -41,7 +41,7 @@ Component.entryPoint = function(NS){
     var Element = function(manager, d){
         Element.superclass.constructor.call(this, manager, d);
     };
-    YAHOO.extend(Element, NSCat.Element, {
+    YAHOO.extend(Element, CAT.Element, {
         update: function(d){
             this._urlCache = null;
             Element.superclass.update.call(this, d);
@@ -54,7 +54,7 @@ Component.entryPoint = function(NS){
             var cat = this.manager.catalogList.find(this.catid);
 
             this._urlCache = cat.url() + 'product_' + this.id;
-            ;
+
             return this._urlCache;
         }
     });
@@ -63,14 +63,11 @@ Component.entryPoint = function(NS){
     NS.manager = null;
 
     NS.initManager = function(callback){
-        R.load(function(){
-            NSCat.initManager('{C#MODNAME}', callback, {
-                'roles': R,
-                'CatalogItemClass': NS.CatalogItem,
-                'ElementClass': NS.Element,
-                'language': LNG
-            });
+        CAT.initManager('{C#MODNAME}', callback, {
+            'roles': R,
+            'CatalogItemClass': NS.CatalogItem,
+            'ElementClass': NS.Element,
+            'language': LNG
         });
     };
-
 };
