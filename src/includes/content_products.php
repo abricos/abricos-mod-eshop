@@ -39,7 +39,7 @@ if (EShopManager::$instance->IsAdminRole()){
 // Для главной страницы /eshop/
 $brick->content = Brick::ReplaceVarByData($brick->content, array(
     "adminbutton" => $adminButton,
-    "cattitle" => !empty($cat->title) ? $cat->title : $v["deftitle"],
+    "cattitle" => empty($cat->title) || $cat->id === 0 ? $v["deftitle"] : $cat->title,
     "catdesc" => $cat_desc
 ));
 
@@ -78,13 +78,12 @@ if (!empty($dtl->metaDescript)){
 }
 
 // Вывод заголовка страницы
-$metaTitle = !empty($dtl->metaTitle) ? $dtl->metaTitle : $cat->title;
+$metaTitle = $cat->id > 0 ? (!empty($dtl->metaTitle) ? $dtl->metaTitle : $cat->title) : '';
 
 $phrases = EShopModule::$instance->GetPhrases();
 
 if (empty($metaTitle)){
-    $metaTitle = $v["deftitle"];
-    $metaTitle = $phrases->Get('catalog_list_meta_title', $metaTitle);
+    $metaTitle = $phrases->Get('catalog_list_meta_title', $v["deftitle"]);
 }
 
 Brick::$builder->SetGlobalVar('meta_title', $metaTitle);
